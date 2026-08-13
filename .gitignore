@@ -1,0 +1,16 @@
+# 錄製 fixtures 的預設輸出路徑。
+#
+# notebook 的 §6 在 RECORD_FIXTURES=True 時會把 fixtures 寫到工作目錄，
+# 測試也會走同一條路徑。這些都可能是**假 client 產生的假資料** ——
+# 結構完全正確、看起來像真的，但數字是捏造的。
+#
+# 真正要用的那份，請確認是在有網路的環境對真實 API 錄製之後，
+# 明確放到 poc/data/demo_outputs.json（那個路徑有被追蹤）。
+/demo_outputs.json
+/poc/demo_outputs.json
+
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+.venv/
