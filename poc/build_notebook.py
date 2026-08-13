@@ -90,8 +90,20 @@ def module_source(name: str, *, strip_relative_imports: bool = True) -> str:
     return text.rstrip() + "\n"
 
 
+# notebook 與 run_eval.py 共用同一份資料的前 N 筆。
+#
+# 原本 notebook 用手寫的 12 筆、評測用另外 200 筆，結果台上要解釋
+# 「這張表是 12 筆、但結論來自 50 筆」—— 多一層說明就多一分不被信任。
+# 統一之後，台上那張表就是結論本身。
+#
+# 50 筆的理由：350 次 rubric 檢查、雜訊底線 0.29 個百分點，
+# 足以分辨 3 個百分點以上的差距；再往上加樣本，換到的判斷力有限。
+DEMO_N = 50
+
+
 def build() -> list[dict]:
-    products = json.loads((DATA / "products.json").read_text(encoding="utf-8"))
+    products = json.loads((DATA / "eval_products.json").read_text(encoding="utf-8"))
+    products["products"] = products["products"][:DEMO_N]
     banned = json.loads((DATA / "banned_terms.json").read_text(encoding="utf-8"))
     reviews = json.loads((DATA / "reviews.json").read_text(encoding="utf-8"))
 
@@ -295,7 +307,14 @@ print(f"  評審模型：{JUDGE_MODEL}  ← 刻意與生成模型不同，降低
     cells.append(md("""
 ## §1 商品資料
 
-12 筆模擬台灣電商 PIM 匯出的商品資料。刻意涵蓋三種法規類別：
+50 筆模擬台灣電商 PIM 匯出的商品資料 —— **這也是評測集本身**。
+前 12 筆是手寫的（規格較完整，等一下看文案時用它們），後面是組合生成的，
+用來補足統計需要的樣本量。
+
+50 筆 × 7 條 rubric = 350 次檢查，雜訊底線 0.29 個百分點 ——
+足以分辨 3 個百分點以上的差距。
+
+刻意涵蓋三種法規類別：
 
 - `food` — 保健食品／食品，受《食品安全衛生管理法》第 28 條規範
 - `cosmetic` — 美妝保養，受《化粧品衛生安全管理法》第 10 條規範
@@ -309,10 +328,15 @@ print(f"  評審模型：{JUDGE_MODEL}  ← 刻意與生成模型不同，降低
         "PRODUCTS = PRODUCTS_RAW['products']\n"
         "CHANNEL_LIMITS = PRODUCTS_RAW['_meta']['channel_limits']\n\n"
         "import pandas as pd\n"
+        "from collections import Counter\n"
+        "print(f'共 {len(PRODUCTS)} 筆　法規類別分佈：'\n"
+        "      + '　'.join(f'{k} {v}' for k, v in "
+        "sorted(Counter(p['regulated_category'] for p in PRODUCTS).items())))\n"
+        "print('（下表只顯示前 12 筆手寫商品，等一下的文案示範會用它們）')\n"
         "pd.DataFrame([{\n"
-        "    'SKU': p['sku'], '商品': p['name'][:22],\n"
+        "    'SKU': p['sku'], '商品': p['name'][:24],\n"
         "    '法規類別': p['regulated_category'], '售價': p['price'],\n"
-        "} for p in PRODUCTS])"
+        "} for p in PRODUCTS[:12]])"
     ))
 
     cells.append(md("""
@@ -575,13 +599,19 @@ print("\\n★ = critical，未通過就不該上架")
     cells.append(code("""
 by_key = {(r.sku, r.version): r for r in rule_results}
 
-# 先篩選再送審：規則層擋下的不必評，這一步就是在省錢。
-to_judge = [
-    (p, v) for p in PRODUCTS for v in PROMPT_VERSIONS
-    if should_judge(by_key[(p['sku'], v)])
-]
-skipped = len(PRODUCTS) * len(PROMPT_VERSIONS) - len(to_judge)
-print(f"送審 {len(to_judge)} 筆，規則層已擋下 {skipped} 筆（省下的就是錢）")
+# 評測時全部送審 —— 分母一致才能比較。
+to_judge = [(p, v) for p in PRODUCTS for v in PROMPT_VERSIONS]
+
+# 生產環境會怎麼做：規則層擋下的不送審。這裡只統計、不實際跳過，
+# 用來對照「同一個機制在不同目的下取捨相反」。
+would_skip = sum(
+    1 for p in PRODUCTS for v in PROMPT_VERSIONS
+    if not should_judge(by_key[(p['sku'], v)])
+)
+total = len(PRODUCTS) * len(PROMPT_VERSIONS)
+print(f"送審 {len(to_judge)}/{total} 筆 —— 評測全送，四個版本的分母才一致")
+print(f"生產環境會擋下其中 {would_skip} 筆，省 {would_skip/total*100:.0f}% 評審成本。")
+print("但評測時不值得：省下的是零頭，換掉的是「版本之間能不能比較」。")
 
 # 這是整份 notebook 最慢的一段：評審模型單次十幾秒。
 # 序列跑約 9 分鐘，並行後約 1 分鐘。
@@ -623,6 +653,8 @@ if worst:
 最後一欄由 v3 修好 —— **每一版的貢獻都能單獨看見**。
 """))
     cells.append(code("""
+print(render_paired(rubric_reports, list(PROMPT_VERSIONS)))
+print()
 print(significance_note(len(PRODUCTS), 7))
 
 combined = combined_table(

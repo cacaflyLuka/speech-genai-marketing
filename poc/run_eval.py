@@ -14,7 +14,7 @@
     [1] 生成      每個商品 × 4 版 → 4 份文案      flash
     [2] 規則層    4 份全部檢查                     本機，免費、毫秒級
     [3] rubric    每個商品產一次驗收清單           pro，v0~v3 共用同一份考卷
-    [4] 逐條檢查  只送規則層過關的（實測約 95%）   pro，這是最貴的一段
+    [4] 逐條檢查  **全部送審**（分母一致才能比）    pro，這是最貴的一段
 
 ## 速度
 
@@ -170,11 +170,16 @@ def main() -> int:
             )
         )
         by_key = {(r.sku, r.version): r for r in rule_results}
-        to_judge = [
-            (p, v) for p in products for v in versions if judge.should_judge(by_key[(p["sku"], v)])
-        ]
-        print(f"  送審 {len(to_judge)}／{len(products) * len(versions)} 筆"
-              f"（規則層擋下 {len(products) * len(versions) - len(to_judge)} 筆）")
+        # 評測一律全部送審，分母才會一致（見 judge.should_judge_for_eval 的說明）
+        to_judge = [(p, v) for p in products for v in versions]
+        would_skip = sum(
+            1 for p in products for v in versions
+            if not judge.should_judge(by_key[(p["sku"], v)])
+        )
+        total = len(products) * len(versions)
+        print(f"  送審 {len(to_judge)}／{total} 筆（評測全送，分母才一致）")
+        print(f"  參考：生產環境會擋下其中 {would_skip} 筆，省 {would_skip / total * 100:.0f}% 評審成本；"
+              f"評測時不值得為此犧牲可比性")
         rubric_reports = generation.run_parallel(
             lambda job: judge.check_against_rubrics(
                 client, outputs[(job[0]["sku"], job[1])],
@@ -198,6 +203,7 @@ def main() -> int:
         print("\n【評審層】")
         print(pd.DataFrame(summary).T.to_string())
         print("\n" + report.PARSER_CAVEAT)
+        print("\n" + report.render_paired(rubric_reports, versions))
         print("\n" + report.significance_note(len(products), 7))
 
         print("\n【最常沒過的判準】")

@@ -194,12 +194,22 @@ def _make_product(rng: random.Random, idx: int, reg: str) -> dict:
 
 def build(count: int = 200, seed: int = 20260821) -> dict:
     rng = random.Random(seed)
-    # 三類輪流產生，各佔約三分之一 —— 讓法規禁詞的差異在資料集裡有足夠代表性。
-    # 組合會撞名，所以持續產生直到湊滿指定數量（而不是產生 count 筆再去重，
-    # 那樣最後會少一截：實測 200 筆會只剩 176 筆）。
+
+    # 手寫的 12 筆放最前面。
+    #
+    # 它們的規格比組合生成的豐富（多欄位、真實的台灣電商品名），適合用在
+    # demo 裡「看一下 v0 跟 v3 的文案差在哪」那一段 —— 那需要人看得懂的商品。
+    # 後面接組合生成的，補足統計需要的樣本量。
+    #
+    # 這樣 demo 與評測用同一份資料，不會再出現「demo 說 12 筆、結論說 50 筆」
+    # 這種要額外解釋的分裂。
+    handwritten = json.loads(
+        (pathlib.Path(__file__).parent / "products.json").read_text(encoding="utf-8")
+    )["products"]
+
     cycle = ["food", "cosmetic", "general"]
-    seen: set[str] = set()
-    unique: list[dict] = []
+    seen: set[str] = {p["name"] for p in handwritten}
+    unique: list[dict] = list(handwritten)
     attempts = 0
     while len(unique) < count and attempts < count * 50:
         reg = cycle[len(unique) % 3]
@@ -218,8 +228,9 @@ def build(count: int = 200, seed: int = 20260821) -> dict:
 
     return {
         "_meta": {
-            "description": f"評測用商品資料集，由 build_eval_set.py 以 seed={seed} 組合產生。",
-            "note": "與 demo 用的 products.json 分開：這份是離線跑統計用，不進 notebook。",
+            "description": f"評測用商品資料集，前 {len(handwritten)} 筆為手寫，其餘由 seed={seed} 組合產生。",
+            "note": "notebook 與 run_eval.py 共用這一份 —— demo 與評測是同一組數字，不再分裂。",
+            "handwritten_count": len(handwritten),
             "count": len(unique),
             "seed": seed,
             "channel_limits": {

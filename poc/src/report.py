@@ -173,13 +173,88 @@ def noise_floor(n_items: int, n_checks_each: int = 1) -> float:
     return round(100.0 / total, 1)
 
 
+def paired_compare(reports, version_a: str, version_b: str, n_boot: int = 5000, seed: int = 42):
+    """比較兩個版本的 rubric 通過率，用**配對**比較 + bootstrap 信賴區間。
+
+    為什麼不能只看 noise_floor()：
+
+    那個函式算的是「翻轉一次檢查等於幾個百分點」，那是**解析度**，
+    不是**統計顯著性**。兩者常被混為一談。解析度 0.29pp 不代表
+    1.4pp 的差距就一定是真的 —— 還要看樣本之間的變異有多大。
+
+    這裡用的是正確的工具：因為 v0～v3 是在**同一批商品**上評的，
+    屬於配對設計。對每個商品算 (B 的通過率 − A 的通過率)，再對這組
+    差值做 bootstrap，得到平均差的 95% 信賴區間。
+
+    **若區間跨過 0，就不能宣稱誰比較好。**
+    """
+    import random as _random
+
+    by_sku_a = {r.sku: r.pass_rate for r in reports if r.version == version_a and not r.error}
+    by_sku_b = {r.sku: r.pass_rate for r in reports if r.version == version_b and not r.error}
+    common = sorted(set(by_sku_a) & set(by_sku_b))
+    if len(common) < 2:
+        return None
+
+    diffs = [by_sku_b[s] - by_sku_a[s] for s in common]
+    mean = sum(diffs) / len(diffs)
+
+    rng = _random.Random(seed)
+    boots = []
+    for _ in range(n_boot):
+        sample = [diffs[rng.randrange(len(diffs))] for _ in range(len(diffs))]
+        boots.append(sum(sample) / len(sample))
+    boots.sort()
+    lo, hi = boots[int(0.025 * n_boot)], boots[int(0.975 * n_boot)]
+
+    return {
+        "比較": f"{version_b} − {version_a}",
+        "配對商品數": len(common),
+        "平均差(pp)": round(mean, 2),
+        "95%CI": (round(lo, 2), round(hi, 2)),
+        "顯著": not (lo <= 0 <= hi),
+    }
+
+
+def render_paired(reports, versions: list[str]) -> str:
+    """把相鄰版本的配對比較整理成一段可直接唸的結論。"""
+    lines = ["版本之間的差距是真的還是雜訊？（配對比較 + bootstrap 95% CI）", ""]
+    for a, b in zip(versions, versions[1:], strict=False):
+        r = paired_compare(reports, a, b)
+        if not r:
+            continue
+        lo, hi = r["95%CI"]
+        verdict = "✓ 有差異" if r["顯著"] else "✗ 落在雜訊內，不能宣稱"
+        lines.append(
+            f"  {r['比較']:<10}{r['平均差(pp)']:>+7.2f} pp   "
+            f"95%CI [{lo:>+6.2f}, {hi:>+6.2f}]   {verdict}"
+        )
+    lines += [
+        "",
+        "  註：區間跨過 0 就代表在這個樣本量下分不出差別 —— 不是「一樣好」，",
+        "      是「還沒有證據說誰比較好」。要下更細的結論就要加大評測集。",
+    ]
+    return "\n".join(lines)
+
+
 def significance_note(n_items: int, n_checks_each: int = 1) -> str:
+    """樣本規模說明。
+
+    ⚠️ 這裡只講**解析度**，不講顯著性 —— 兩者常被混為一談，而混淆的代價
+    是把雜訊當成訊號。
+
+    解析度是「翻轉一次檢查等於幾個百分點」，那是這張表能表示的最小刻度。
+    顯著性是「這個差距有沒有超出樣本變異」，那要看配對比較的信賴區間
+    （見 render_paired）。實測 50 筆時，解析度是 0.29pp，但配對比較的
+    95% 區間寬達 ±5pp —— **差了一個數量級**。只看解析度會嚴重高估精度。
+    """
     floor = noise_floor(n_items, n_checks_each)
     return (
-        f"⚠ 樣本數 {n_items} 筆 × 每筆 {n_checks_each} 項 = {n_items * n_checks_each} 次檢查。\n"
-        f"  單次檢查翻轉 ≈ {floor} 個百分點。\n"
-        f"  **差距在 {floor * 2:.0f} 個百分點以內時，請當成雜訊，不要宣稱是改善。**\n"
-        f"  要做出可靠的小幅比較，需要更大的評測集（實務上 200 筆以上）。"
+        f"樣本規模：{n_items} 筆 × 每筆 {n_checks_each} 項 = {n_items * n_checks_each} 次檢查\n"
+        f"  表格解析度：單次檢查翻轉 ≈ {floor} 個百分點\n"
+        f"\n"
+        f"  ⚠ **解析度不等於顯著性。** 能表示到 {floor}pp，不代表 {floor}pp 的差距是真的。\n"
+        f"  要判斷差距是否成立，看上面的配對比較信賴區間 —— 那才是正確的工具。"
     )
 
 

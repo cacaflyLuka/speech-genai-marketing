@@ -1,7 +1,8 @@
 {
  "_meta": {
-  "description": "評測用商品資料集，由 build_eval_set.py 以 seed=20260821 組合產生。",
-  "note": "與 demo 用的 products.json 分開：這份是離線跑統計用，不進 notebook。",
+  "description": "評測用商品資料集，前 12 筆為手寫，其餘由 seed=20260821 組合產生。",
+  "note": "notebook 與 run_eval.py 共用這一份 —— demo 與評測是同一組數字，不再分裂。",
+  "handwritten_count": 12,
   "count": 200,
   "seed": 20260821,
   "channel_limits": {
@@ -13,7 +14,271 @@
  },
  "products": [
   {
-   "sku": "HB-E0001",
+   "sku": "HB-1001",
+   "name": "金盞花萃取葉黃素膠囊 60粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 眼部保養",
+   "regulated_category": "food",
+   "price": 890,
+   "specs": {
+    "淨含量": "60粒 / 盒",
+    "主成分": "游離型葉黃素 30mg、玉米黃素 6mg",
+    "劑型": "植物膠囊",
+    "產地": "台灣",
+    "建議食用": "每日1粒，隨餐食用"
+   },
+   "must_include_keywords": [
+    "葉黃素",
+    "60粒",
+    "30mg"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "HB-1002",
+   "name": "五益菌複方益生菌粉 30入",
+   "brand": "晨光研選",
+   "category": "保健食品 / 消化保健",
+   "regulated_category": "food",
+   "price": 1180,
+   "specs": {
+    "淨含量": "30包 / 盒，每包 2g",
+    "主成分": "五株專利益生菌，每包 100 億 CFU",
+    "劑型": "粉末隨身包",
+    "產地": "台灣",
+    "建議食用": "每日1包，空腹或睡前"
+   },
+   "must_include_keywords": [
+    "益生菌",
+    "30包",
+    "100億"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "HB-1003",
+   "name": "小分子魚膠原蛋白粉 蔓越莓風味 30入",
+   "brand": "晨光研選",
+   "category": "保健食品 / 美容保養",
+   "regulated_category": "food",
+   "price": 1580,
+   "specs": {
+    "淨含量": "30包 / 盒，每包 3g",
+    "主成分": "深海魚膠原蛋白胜肽 2500mg、維生素C 80mg",
+    "劑型": "粉末隨身包",
+    "產地": "台灣",
+    "建議食用": "每日1包，睡前溫水沖泡"
+   },
+   "must_include_keywords": [
+    "膠原蛋白",
+    "2500mg",
+    "蔓越莓"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-2001",
+   "name": "積雪草舒緩精華液 30ml",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 精華液",
+   "regulated_category": "cosmetic",
+   "price": 780,
+   "specs": {
+    "容量": "30ml",
+    "主成分": "積雪草萃取 5%、泛醇 2%、神經醯胺",
+    "質地": "水感精華",
+    "適用膚質": "所有膚質，敏弱肌適用",
+    "產地": "韓國"
+   },
+   "must_include_keywords": [
+    "積雪草",
+    "30ml",
+    "5%"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "CS-2002",
+   "name": "胺基酸氨基酸溫和洗面乳 120ml",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 清潔",
+   "regulated_category": "cosmetic",
+   "price": 420,
+   "specs": {
+    "容量": "120ml",
+    "主成分": "胺基酸界面活性劑、洋甘菊萃取",
+    "質地": "綿密泡沫",
+    "pH值": "弱酸性 pH5.5",
+    "產地": "台灣"
+   },
+   "must_include_keywords": [
+    "胺基酸",
+    "120ml",
+    "pH5.5"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "CS-2003",
+   "name": "多重玻尿酸保濕面膜 5片入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 350,
+   "specs": {
+    "容量": "5片 / 盒，每片 25ml 精華",
+    "主成分": "五重玻尿酸、海藻醣",
+    "膜布": "天絲蠶絲膜布",
+    "適用膚質": "乾燥、缺水肌",
+    "產地": "台灣"
+   },
+   "must_include_keywords": [
+    "玻尿酸",
+    "5片",
+    "天絲"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-3001",
+   "name": "無線降噪藍牙耳機 Pro 2",
+   "brand": "Volta",
+   "category": "3C / 音訊",
+   "regulated_category": "general",
+   "price": 3290,
+   "specs": {
+    "降噪深度": "最高 42dB 主動降噪",
+    "續航": "單次 8 小時，含充電盒 32 小時",
+    "連線": "藍牙 5.4，支援雙裝置切換",
+    "防水": "IPX4",
+    "重量": "單耳 4.8g"
+   },
+   "must_include_keywords": [
+    "降噪",
+    "32小時",
+    "藍牙5.4"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "EL-3002",
+   "name": "65W 氮化鎵三孔快充充電器",
+   "brand": "Volta",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 990,
+   "specs": {
+    "輸出": "65W 總輸出，USB-C×2 + USB-A×1",
+    "技術": "第三代氮化鎵 GaN",
+    "尺寸": "5.2 × 5.2 × 2.9 cm",
+    "重量": "112g",
+    "保護": "過壓、過流、過熱保護"
+   },
+   "must_include_keywords": [
+    "65W",
+    "氮化鎵",
+    "三孔"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "EL-3003",
+   "name": "手持無線吸塵器 Lite",
+   "brand": "Volta",
+   "category": "家電 / 清潔",
+   "regulated_category": "general",
+   "price": 4680,
+   "specs": {
+    "吸力": "18000Pa",
+    "續航": "標準模式 35 分鐘",
+    "集塵盒": "0.5L 可水洗",
+    "重量": "1.4kg",
+    "配件": "縫隙吸頭、床墊吸頭、軟絨滾筒"
+   },
+   "must_include_keywords": [
+    "18000Pa",
+    "35分鐘",
+    "1.4kg"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "FD-4001",
+   "name": "冷萃掛耳咖啡 淺焙水果調 10入",
+   "brand": "溯源焙所",
+   "category": "food / 咖啡",
+   "regulated_category": "food",
+   "price": 460,
+   "specs": {
+    "淨含量": "10包 / 盒，每包 12g",
+    "產區": "衣索比亞 耶加雪菲",
+    "烘焙度": "淺焙",
+    "風味": "柑橘、莓果、花香",
+    "保存": "室溫陰涼處，開封後盡快飲用"
+   },
+   "must_include_keywords": [
+    "耶加雪菲",
+    "10包",
+    "淺焙"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "25-45 歲精品咖啡愛好者"
+  },
+  {
+   "sku": "FD-4002",
+   "name": "低溫烘焙綜合堅果 無調味 350g",
+   "brand": "溯源焙所",
+   "category": "food / 零食",
+   "regulated_category": "food",
+   "price": 590,
+   "specs": {
+    "淨含量": "350g / 罐",
+    "內容": "腰果、核桃、杏仁、夏威夷豆",
+    "製程": "低溫烘焙，無油炸",
+    "調味": "完全無調味、無添加糖鹽",
+    "保存": "開封後冷藏，兩週內食用完畢"
+   },
+   "must_include_keywords": [
+    "綜合堅果",
+    "350g",
+    "無調味"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "FD-4003",
+   "name": "台灣紅烏龍茶包 三角立體茶包 20入",
+   "brand": "溯源焙所",
+   "category": "food / 茶葉",
+   "regulated_category": "food",
+   "price": 380,
+   "specs": {
+    "淨含量": "20包 / 盒，每包 3g",
+    "產區": "台東鹿野",
+    "發酵度": "重發酵",
+    "風味": "蜜香、熟果、尾韻回甘",
+    "沖泡": "95°C 熱水，浸泡 90 秒"
+   },
+   "must_include_keywords": [
+    "紅烏龍",
+    "鹿野",
+    "20包"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "30-55 歲台灣茶愛好者、送禮需求"
+  },
+  {
+   "sku": "HB-E0013",
    "name": "溯源焙所 魚膠原蛋白粉 3000mg 90粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 美容保養",
@@ -35,7 +300,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0002",
+   "sku": "CS-E0014",
    "name": "白日光 SUNDAY 純淨卸妝油 100ml 1入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 卸妝",
@@ -57,7 +322,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0003",
+   "sku": "EL-E0015",
    "name": "本木 BENMU 除濕機 16L",
    "brand": "本木 BENMU",
    "category": "家電 / 空氣",
@@ -77,7 +342,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0004",
+   "sku": "HB-E0016",
    "name": "晨光研選 緩釋B群錠 100mg 20粒",
    "brand": "晨光研選",
    "category": "保健食品 / 精神體力",
@@ -99,7 +364,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0005",
+   "sku": "CS-E0017",
    "name": "青研 CHINGYEN 保濕面膜 7片 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 面膜",
@@ -121,7 +386,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0006",
+   "sku": "EL-E0018",
    "name": "本木 BENMU 螢幕掛燈 95Ra",
    "brand": "本木 BENMU",
    "category": "3C / 週邊",
@@ -141,7 +406,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0007",
+   "sku": "HB-E0019",
    "name": "晨光研選 凍乾果乾 50g 20粒",
    "brand": "晨光研選",
    "category": "food / 零食",
@@ -163,7 +428,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0008",
+   "sku": "CS-E0020",
    "name": "青研 CHINGYEN 修護乳液 80ml 7入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 乳液",
@@ -185,7 +450,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0009",
+   "sku": "EL-E0021",
    "name": "Volta 鑄鐵平底鍋 20cm",
    "brand": "Volta",
    "category": "生活 / 廚具",
@@ -205,7 +470,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0010",
+   "sku": "HB-E0022",
    "name": "溯源焙所 低溫烘焙堅果 350g 20粒",
    "brand": "溯源焙所",
    "category": "food / 零食",
@@ -227,7 +492,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0011",
+   "sku": "CS-E0023",
    "name": "青研 CHINGYEN 保濕面膜 5片 3入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 面膜",
@@ -249,7 +514,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0012",
+   "sku": "EL-E0024",
    "name": "Volta 循環扇 8段",
    "brand": "Volta",
    "category": "家電 / 空調",
@@ -269,7 +534,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0013",
+   "sku": "HB-E0025",
    "name": "晨光研選 緩釋B群錠 75mg 20粒",
    "brand": "晨光研選",
    "category": "保健食品 / 精神體力",
@@ -291,7 +556,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0014",
+   "sku": "CS-E0026",
    "name": "白日光 SUNDAY 唇部修護膏 15g 3入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 唇部",
@@ -313,7 +578,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0015",
+   "sku": "EL-E0027",
    "name": "本木 BENMU 鑄鐵平底鍋 24cm",
    "brand": "本木 BENMU",
    "category": "生活 / 廚具",
@@ -333,7 +598,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0016",
+   "sku": "HB-E0028",
    "name": "溯源焙所 綜合維他命錠 25種 30粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 綜合補充",
@@ -355,7 +620,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0017",
+   "sku": "CS-E0029",
    "name": "白日光 SUNDAY 護手霜 5% 5入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 手部",
@@ -377,7 +642,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0018",
+   "sku": "EL-E0030",
    "name": "Volta 陶瓷刀具組 3件",
    "brand": "Volta",
    "category": "生活 / 廚具",
@@ -397,7 +662,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0019",
+   "sku": "HB-E0031",
    "name": "溯源焙所 深海魚油軟膠囊 800mg 20粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 循環保健",
@@ -419,7 +684,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0020",
+   "sku": "CS-E0032",
    "name": "青研 CHINGYEN 礦物防曬乳 50ml 3入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 防曬",
@@ -441,7 +706,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0021",
+   "sku": "EL-E0033",
    "name": "Volta USB-C 編織傳輸線 240W",
    "brand": "Volta",
    "category": "3C / 線材",
@@ -461,7 +726,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0022",
+   "sku": "HB-E0034",
    "name": "晨光研選 複方益生菌粉 100億CFU 60粒",
    "brand": "晨光研選",
    "category": "保健食品 / 消化保健",
@@ -483,7 +748,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0023",
+   "sku": "CS-E0035",
    "name": "白日光 SUNDAY 舒緩精華液 10% 1入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 精華液",
@@ -505,7 +770,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0024",
+   "sku": "EL-E0036",
    "name": "本木 BENMU 不鏽鋼保溫瓶 750ml",
    "brand": "本木 BENMU",
    "category": "生活 / 水壺",
@@ -525,7 +790,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0025",
+   "sku": "HB-E0037",
    "name": "溯源焙所 乳清蛋白粉 30g 20粒",
    "brand": "溯源焙所",
    "category": "food / 運動營養",
@@ -547,7 +812,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0026",
+   "sku": "CS-E0038",
    "name": "青研 CHINGYEN 礦物防曬乳 60ml 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 防曬",
@@ -569,7 +834,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0027",
+   "sku": "EL-E0039",
    "name": "Volta 不鏽鋼保溫瓶 350ml",
    "brand": "Volta",
    "category": "生活 / 水壺",
@@ -589,7 +854,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0028",
+   "sku": "HB-E0040",
    "name": "晨光研選 甘胺酸亞鐵錠 20mg 90粒",
    "brand": "晨光研選",
    "category": "保健食品 / 女性保健",
@@ -611,7 +876,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0029",
+   "sku": "CS-E0041",
    "name": "青研 CHINGYEN 唇部修護膏 8g 7入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 唇部",
@@ -633,7 +898,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0030",
+   "sku": "EL-E0042",
    "name": "本木 BENMU 空氣清淨機 15坪",
    "brand": "本木 BENMU",
    "category": "家電 / 空氣",
@@ -653,7 +918,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0031",
+   "sku": "HB-E0043",
    "name": "溯源焙所 乳清蛋白粉 30g 60粒",
    "brand": "溯源焙所",
    "category": "food / 運動營養",
@@ -675,7 +940,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0032",
+   "sku": "CS-E0044",
    "name": "青研 CHINGYEN 溫和洗面乳 150ml 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 清潔",
@@ -697,7 +962,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0033",
+   "sku": "EL-E0045",
    "name": "Volta 不鏽鋼保溫瓶 750ml",
    "brand": "Volta",
    "category": "生活 / 水壺",
@@ -717,7 +982,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0034",
+   "sku": "HB-E0046",
    "name": "晨光研選 即溶燕麥飲 25g 30粒",
    "brand": "晨光研選",
    "category": "food / 沖泡飲",
@@ -739,7 +1004,7 @@
    "target_audience": "注重原型食物的家庭與健身族群"
   },
   {
-   "sku": "CS-E0035",
+   "sku": "CS-E0047",
    "name": "白日光 SUNDAY 修護乳液 50ml 1入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 乳液",
@@ -761,7 +1026,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0036",
+   "sku": "EL-E0048",
    "name": "本木 BENMU 機械式鍵盤 104鍵",
    "brand": "本木 BENMU",
    "category": "3C / 週邊",
@@ -781,7 +1046,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0037",
+   "sku": "HB-E0049",
    "name": "晨光研選 複方益生菌粉 50億CFU 30粒",
    "brand": "晨光研選",
    "category": "保健食品 / 消化保健",
@@ -803,7 +1068,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0038",
+   "sku": "CS-E0050",
    "name": "青研 CHINGYEN 純淨卸妝油 100ml 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 卸妝",
@@ -825,7 +1090,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0039",
+   "sku": "EL-E0051",
    "name": "Volta 氮化鎵快充充電器 45W",
    "brand": "Volta",
    "category": "3C / 充電",
@@ -845,7 +1110,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0040",
+   "sku": "HB-E0052",
    "name": "晨光研選 低溫烘焙堅果 350g 90粒",
    "brand": "晨光研選",
    "category": "food / 零食",
@@ -867,7 +1132,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0041",
+   "sku": "CS-E0053",
    "name": "白日光 SUNDAY 溫和洗面乳 100ml 1入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 清潔",
@@ -889,7 +1154,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0042",
+   "sku": "EL-E0054",
    "name": "Volta 空氣清淨機 20坪",
    "brand": "Volta",
    "category": "家電 / 空氣",
@@ -909,7 +1174,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0043",
+   "sku": "HB-E0055",
    "name": "晨光研選 葉黃素膠囊 30mg 20粒",
    "brand": "晨光研選",
    "category": "保健食品 / 眼部保養",
@@ -931,7 +1196,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0044",
+   "sku": "CS-E0056",
    "name": "青研 CHINGYEN 唇部修護膏 15g 7入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 唇部",
@@ -953,7 +1218,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0045",
+   "sku": "EL-E0057",
    "name": "本木 BENMU 手持無線吸塵器 25000Pa",
    "brand": "本木 BENMU",
    "category": "家電 / 清潔",
@@ -973,7 +1238,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0046",
+   "sku": "HB-E0058",
    "name": "晨光研選 三角立體茶包 2g 20粒",
    "brand": "晨光研選",
    "category": "food / 茶葉",
@@ -995,7 +1260,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0047",
+   "sku": "CS-E0059",
    "name": "白日光 SUNDAY 保濕面膜 7片 7入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 面膜",
@@ -1017,7 +1282,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0048",
+   "sku": "EL-E0060",
    "name": "Volta 氮化鎵快充充電器 100W",
    "brand": "Volta",
    "category": "3C / 充電",
@@ -1037,7 +1302,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0049",
+   "sku": "HB-E0061",
    "name": "溯源焙所 薑黃萃取膠囊 100mg 90粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 日常保養",
@@ -1059,7 +1324,7 @@
    "target_audience": "注重原型食物的家庭與健身族群"
   },
   {
-   "sku": "CS-E0050",
+   "sku": "CS-E0062",
    "name": "青研 CHINGYEN 護手霜 5% 5入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 手部",
@@ -1081,7 +1346,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0051",
+   "sku": "EL-E0063",
    "name": "本木 BENMU 降噪藍牙耳機 42dB",
    "brand": "本木 BENMU",
    "category": "3C / 音訊",
@@ -1101,7 +1366,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0052",
+   "sku": "HB-E0064",
    "name": "晨光研選 綜合維他命錠 25種 90粒",
    "brand": "晨光研選",
    "category": "保健食品 / 綜合補充",
@@ -1123,7 +1388,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0053",
+   "sku": "CS-E0065",
    "name": "白日光 SUNDAY 舒緩精華液 2% 7入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 精華液",
@@ -1145,7 +1410,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0054",
+   "sku": "EL-E0066",
    "name": "本木 BENMU 鑄鐵平底鍋 20cm",
    "brand": "本木 BENMU",
    "category": "生活 / 廚具",
@@ -1165,7 +1430,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0055",
+   "sku": "HB-E0067",
    "name": "溯源焙所 深海魚油軟膠囊 500mg 90粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 循環保健",
@@ -1187,7 +1452,7 @@
    "target_audience": "注重原型食物的家庭與健身族群"
   },
   {
-   "sku": "CS-E0056",
+   "sku": "CS-E0068",
    "name": "白日光 SUNDAY 礦物防曬乳 30ml 7入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 防曬",
@@ -1209,7 +1474,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0057",
+   "sku": "EL-E0069",
    "name": "Volta 降噪藍牙耳機 50dB",
    "brand": "Volta",
    "category": "3C / 音訊",
@@ -1229,7 +1494,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0058",
+   "sku": "HB-E0070",
    "name": "溯源焙所 甘胺酸亞鐵錠 15mg 30粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 女性保健",
@@ -1251,7 +1516,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0059",
+   "sku": "CS-E0071",
    "name": "青研 CHINGYEN 保濕面膜 5片 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 面膜",
@@ -1273,7 +1538,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0060",
+   "sku": "EL-E0072",
    "name": "本木 BENMU 無線滑鼠 4000DPI",
    "brand": "本木 BENMU",
    "category": "3C / 週邊",
@@ -1293,7 +1558,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0061",
+   "sku": "HB-E0073",
    "name": "晨光研選 深海魚油軟膠囊 800mg 20粒",
    "brand": "晨光研選",
    "category": "保健食品 / 循環保健",
@@ -1315,7 +1580,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0062",
+   "sku": "CS-E0074",
    "name": "青研 CHINGYEN 純淨卸妝油 150ml 5入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 卸妝",
@@ -1337,7 +1602,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0063",
+   "sku": "EL-E0075",
    "name": "Volta 手持無線吸塵器 12000Pa",
    "brand": "Volta",
    "category": "家電 / 清潔",
@@ -1357,7 +1622,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0064",
+   "sku": "HB-E0076",
    "name": "晨光研選 魚膠原蛋白粉 2500mg 120粒",
    "brand": "晨光研選",
    "category": "保健食品 / 美容保養",
@@ -1379,7 +1644,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0065",
+   "sku": "CS-E0077",
    "name": "白日光 SUNDAY 舒緩精華液 5% 7入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 精華液",
@@ -1401,7 +1666,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0066",
+   "sku": "EL-E0078",
    "name": "Volta 空氣清淨機 8坪",
    "brand": "Volta",
    "category": "家電 / 空氣",
@@ -1421,7 +1686,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0067",
+   "sku": "HB-E0079",
    "name": "晨光研選 深海魚油軟膠囊 500mg 90粒",
    "brand": "晨光研選",
    "category": "保健食品 / 循環保健",
@@ -1443,7 +1708,7 @@
    "target_audience": "注重原型食物的家庭與健身族群"
   },
   {
-   "sku": "CS-E0068",
+   "sku": "CS-E0080",
    "name": "青研 CHINGYEN 溫和洗面乳 120ml 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 清潔",
@@ -1465,7 +1730,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0069",
+   "sku": "EL-E0081",
    "name": "Volta 機械式鍵盤 68鍵",
    "brand": "Volta",
    "category": "3C / 週邊",
@@ -1485,7 +1750,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0070",
+   "sku": "HB-E0082",
    "name": "溯源焙所 葉黃素膠囊 15mg 120粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 眼部保養",
@@ -1507,7 +1772,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0071",
+   "sku": "CS-E0083",
    "name": "青研 CHINGYEN 護手霜 3% 5入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 手部",
@@ -1529,7 +1794,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0072",
+   "sku": "EL-E0084",
    "name": "本木 BENMU 氮化鎵快充充電器 65W",
    "brand": "本木 BENMU",
    "category": "3C / 充電",
@@ -1549,7 +1814,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0073",
+   "sku": "HB-E0085",
    "name": "晨光研選 薑黃萃取膠囊 200mg 20粒",
    "brand": "晨光研選",
    "category": "保健食品 / 日常保養",
@@ -1571,7 +1836,7 @@
    "target_audience": "注重原型食物的家庭與健身族群"
   },
   {
-   "sku": "CS-E0074",
+   "sku": "CS-E0086",
    "name": "青研 CHINGYEN 舒緩精華液 2% 3入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 精華液",
@@ -1593,7 +1858,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0075",
+   "sku": "EL-E0087",
    "name": "本木 BENMU 降噪藍牙耳機 35dB",
    "brand": "本木 BENMU",
    "category": "3C / 音訊",
@@ -1613,7 +1878,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0076",
+   "sku": "HB-E0088",
    "name": "晨光研選 蔓越莓膠囊 400mg 120粒",
    "brand": "晨光研選",
    "category": "保健食品 / 女性保健",
@@ -1635,7 +1900,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0077",
+   "sku": "CS-E0089",
    "name": "青研 CHINGYEN 礦物防曬乳 50ml 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 防曬",
@@ -1657,7 +1922,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0078",
+   "sku": "EL-E0090",
    "name": "本木 BENMU 行動電源 20000mAh",
    "brand": "本木 BENMU",
    "category": "3C / 充電",
@@ -1677,7 +1942,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0079",
+   "sku": "HB-E0091",
    "name": "晨光研選 薑黃萃取膠囊 100mg 120粒",
    "brand": "晨光研選",
    "category": "保健食品 / 日常保養",
@@ -1699,7 +1964,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0080",
+   "sku": "CS-E0092",
    "name": "青研 CHINGYEN 頭皮精華 1% 5入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 頭皮",
@@ -1721,7 +1986,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0081",
+   "sku": "EL-E0093",
    "name": "Volta 鑄鐵平底鍋 28cm",
    "brand": "Volta",
    "category": "生活 / 廚具",
@@ -1741,7 +2006,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0082",
+   "sku": "HB-E0094",
    "name": "溯源焙所 乳鐵蛋白粉 300mg 20粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 日常保養",
@@ -1763,7 +2028,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0083",
+   "sku": "CS-E0095",
    "name": "青研 CHINGYEN 純淨卸妝油 100ml 3入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 卸妝",
@@ -1785,7 +2050,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0084",
+   "sku": "EL-E0096",
    "name": "Volta 行動電源 10000mAh",
    "brand": "Volta",
    "category": "3C / 充電",
@@ -1805,7 +2070,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0085",
+   "sku": "HB-E0097",
    "name": "晨光研選 深海魚油軟膠囊 500mg 60粒",
    "brand": "晨光研選",
    "category": "保健食品 / 循環保健",
@@ -1827,7 +2092,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0086",
+   "sku": "CS-E0098",
    "name": "青研 CHINGYEN 保濕面膜 7片 5入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 面膜",
@@ -1849,7 +2114,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0087",
+   "sku": "EL-E0099",
    "name": "Volta 循環扇 32段",
    "brand": "Volta",
    "category": "家電 / 空調",
@@ -1869,7 +2134,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0088",
+   "sku": "HB-E0100",
    "name": "溯源焙所 三角立體茶包 4g 120粒",
    "brand": "溯源焙所",
    "category": "food / 茶葉",
@@ -1891,7 +2156,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0089",
+   "sku": "CS-E0101",
    "name": "白日光 SUNDAY 溫和洗面乳 100ml 7入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 清潔",
@@ -1913,7 +2178,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0090",
+   "sku": "EL-E0102",
    "name": "本木 BENMU 不鏽鋼保溫瓶 500ml",
    "brand": "本木 BENMU",
    "category": "生活 / 水壺",
@@ -1933,7 +2198,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0091",
+   "sku": "HB-E0103",
    "name": "溯源焙所 綜合維他命錠 28種 20粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 綜合補充",
@@ -1955,7 +2220,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0092",
+   "sku": "CS-E0104",
    "name": "白日光 SUNDAY 舒緩精華液 2% 5入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 精華液",
@@ -1977,7 +2242,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0093",
+   "sku": "EL-E0105",
    "name": "本木 BENMU 無線滑鼠 16000DPI",
    "brand": "本木 BENMU",
    "category": "3C / 週邊",
@@ -1997,7 +2262,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0094",
+   "sku": "HB-E0106",
    "name": "溯源焙所 複方益生菌粉 300億CFU 90粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 消化保健",
@@ -2019,7 +2284,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0095",
+   "sku": "CS-E0107",
    "name": "青研 CHINGYEN 眼周精華 20ml 7入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 眼部",
@@ -2041,7 +2306,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0096",
+   "sku": "EL-E0108",
    "name": "Volta 不鏽鋼保溫瓶 500ml",
    "brand": "Volta",
    "category": "生活 / 水壺",
@@ -2061,7 +2326,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0097",
+   "sku": "HB-E0109",
    "name": "溯源焙所 深海魚油軟膠囊 1000mg 60粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 循環保健",
@@ -2083,7 +2348,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0098",
+   "sku": "CS-E0110",
    "name": "白日光 SUNDAY 化妝水 200ml 1入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 化妝水",
@@ -2105,7 +2370,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0099",
+   "sku": "EL-E0111",
    "name": "本木 BENMU 螢幕掛燈 97Ra",
    "brand": "本木 BENMU",
    "category": "3C / 週邊",
@@ -2125,7 +2390,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0100",
+   "sku": "HB-E0112",
    "name": "溯源焙所 薑黃萃取膠囊 200mg 30粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 日常保養",
@@ -2147,7 +2412,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0101",
+   "sku": "CS-E0113",
    "name": "青研 CHINGYEN 純淨卸妝油 150ml 3入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 卸妝",
@@ -2169,7 +2434,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0102",
+   "sku": "EL-E0114",
    "name": "本木 BENMU USB-C 編織傳輸線 100W",
    "brand": "本木 BENMU",
    "category": "3C / 線材",
@@ -2189,7 +2454,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0103",
+   "sku": "HB-E0115",
    "name": "溯源焙所 低溫烘焙堅果 500g 20粒",
    "brand": "溯源焙所",
    "category": "food / 零食",
@@ -2211,7 +2476,7 @@
    "target_audience": "注重原型食物的家庭與健身族群"
   },
   {
-   "sku": "CS-E0104",
+   "sku": "CS-E0116",
    "name": "青研 CHINGYEN 身體乳 300ml 3入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 身體",
@@ -2233,7 +2498,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0105",
+   "sku": "EL-E0117",
    "name": "Volta 氮化鎵快充充電器 65W",
    "brand": "Volta",
    "category": "3C / 充電",
@@ -2253,7 +2518,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0106",
+   "sku": "HB-E0118",
    "name": "晨光研選 乳清蛋白粉 30g 20粒",
    "brand": "晨光研選",
    "category": "food / 運動營養",
@@ -2275,7 +2540,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0107",
+   "sku": "CS-E0119",
    "name": "青研 CHINGYEN 純淨卸妝油 200ml 7入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 卸妝",
@@ -2297,7 +2562,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0108",
+   "sku": "EL-E0120",
    "name": "本木 BENMU 陶瓷刀具組 5件",
    "brand": "本木 BENMU",
    "category": "生活 / 廚具",
@@ -2317,7 +2582,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0109",
+   "sku": "HB-E0121",
    "name": "溯源焙所 乳鐵蛋白粉 300mg 120粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 日常保養",
@@ -2339,7 +2604,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0110",
+   "sku": "CS-E0122",
    "name": "白日光 SUNDAY 頭皮精華 3% 3入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 頭皮",
@@ -2361,7 +2626,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0111",
+   "sku": "EL-E0123",
    "name": "本木 BENMU 氮化鎵快充充電器 45W",
    "brand": "本木 BENMU",
    "category": "3C / 充電",
@@ -2381,7 +2646,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0112",
+   "sku": "HB-E0124",
    "name": "溯源焙所 甘胺酸亞鐵錠 15mg 60粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 女性保健",
@@ -2403,7 +2668,7 @@
    "target_audience": "注重原型食物的家庭與健身族群"
   },
   {
-   "sku": "CS-E0113",
+   "sku": "CS-E0125",
    "name": "白日光 SUNDAY 保濕面膜 10片 5入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 面膜",
@@ -2425,7 +2690,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0114",
+   "sku": "EL-E0126",
    "name": "Volta 空氣清淨機 15坪",
    "brand": "Volta",
    "category": "家電 / 空氣",
@@ -2445,7 +2710,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0115",
+   "sku": "HB-E0127",
    "name": "晨光研選 芝麻素膠囊 20mg 120粒",
    "brand": "晨光研選",
    "category": "保健食品 / 舒緩放鬆",
@@ -2467,7 +2732,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0116",
+   "sku": "CS-E0128",
    "name": "青研 CHINGYEN 溫和洗面乳 100ml 3入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 清潔",
@@ -2489,7 +2754,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0117",
+   "sku": "EL-E0129",
    "name": "本木 BENMU 不鏽鋼保溫瓶 350ml",
    "brand": "本木 BENMU",
    "category": "生活 / 水壺",
@@ -2509,7 +2774,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0118",
+   "sku": "HB-E0130",
    "name": "晨光研選 低溫烘焙堅果 500g 30粒",
    "brand": "晨光研選",
    "category": "food / 零食",
@@ -2531,7 +2796,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0119",
+   "sku": "CS-E0131",
    "name": "白日光 SUNDAY 護手霜 3% 5入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 手部",
@@ -2553,7 +2818,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0120",
+   "sku": "EL-E0132",
    "name": "Volta USB-C 編織傳輸線 100W",
    "brand": "Volta",
    "category": "3C / 線材",
@@ -2573,7 +2838,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0121",
+   "sku": "HB-E0133",
    "name": "溯源焙所 複方益生菌粉 100億CFU 90粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 消化保健",
@@ -2595,7 +2860,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0122",
+   "sku": "CS-E0134",
    "name": "白日光 SUNDAY 化妝水 250ml 5入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 化妝水",
@@ -2617,7 +2882,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0123",
+   "sku": "EL-E0135",
    "name": "Volta 除濕機 10L",
    "brand": "Volta",
    "category": "家電 / 空氣",
@@ -2637,7 +2902,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0124",
+   "sku": "HB-E0136",
    "name": "溯源焙所 複方益生菌粉 300億CFU 120粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 消化保健",
@@ -2659,7 +2924,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0125",
+   "sku": "CS-E0137",
    "name": "白日光 SUNDAY 化妝水 250ml 3入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 化妝水",
@@ -2681,7 +2946,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0126",
+   "sku": "EL-E0138",
    "name": "Volta 機械式鍵盤 104鍵",
    "brand": "Volta",
    "category": "3C / 週邊",
@@ -2701,7 +2966,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0127",
+   "sku": "HB-E0139",
    "name": "晨光研選 甘胺酸亞鐵錠 10mg 30粒",
    "brand": "晨光研選",
    "category": "保健食品 / 女性保健",
@@ -2723,7 +2988,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0128",
+   "sku": "CS-E0140",
    "name": "白日光 SUNDAY 頭皮精華 3% 7入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 頭皮",
@@ -2745,7 +3010,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0129",
+   "sku": "EL-E0141",
    "name": "本木 BENMU 鑄鐵平底鍋 28cm",
    "brand": "本木 BENMU",
    "category": "生活 / 廚具",
@@ -2765,7 +3030,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0130",
+   "sku": "HB-E0142",
    "name": "溯源焙所 葉黃素膠囊 15mg 90粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 眼部保養",
@@ -2787,7 +3052,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0131",
+   "sku": "CS-E0143",
    "name": "青研 CHINGYEN 身體乳 200ml 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 身體",
@@ -2809,7 +3074,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0132",
+   "sku": "EL-E0144",
    "name": "Volta 循環扇 12段",
    "brand": "Volta",
    "category": "家電 / 空調",
@@ -2829,7 +3094,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0133",
+   "sku": "HB-E0145",
    "name": "晨光研選 蔓越莓膠囊 500mg 20粒",
    "brand": "晨光研選",
    "category": "保健食品 / 女性保健",
@@ -2851,7 +3116,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0134",
+   "sku": "CS-E0146",
    "name": "白日光 SUNDAY 眼周精華 30ml 7入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 眼部",
@@ -2873,7 +3138,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0135",
+   "sku": "EL-E0147",
    "name": "本木 BENMU 手持無線吸塵器 18000Pa",
    "brand": "本木 BENMU",
    "category": "家電 / 清潔",
@@ -2893,7 +3158,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0136",
+   "sku": "HB-E0148",
    "name": "溯源焙所 低溫烘焙堅果 200g 90粒",
    "brand": "溯源焙所",
    "category": "food / 零食",
@@ -2915,7 +3180,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0137",
+   "sku": "CS-E0149",
    "name": "青研 CHINGYEN 唇部修護膏 10g 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 唇部",
@@ -2937,7 +3202,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0138",
+   "sku": "EL-E0150",
    "name": "本木 BENMU 陶瓷刀具組 3件",
    "brand": "本木 BENMU",
    "category": "生活 / 廚具",
@@ -2957,7 +3222,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0139",
+   "sku": "HB-E0151",
    "name": "溯源焙所 凍乾果乾 50g 30粒",
    "brand": "溯源焙所",
    "category": "food / 零食",
@@ -2979,7 +3244,7 @@
    "target_audience": "注重原型食物的家庭與健身族群"
   },
   {
-   "sku": "CS-E0140",
+   "sku": "CS-E0152",
    "name": "白日光 SUNDAY 純淨卸妝油 150ml 3入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 卸妝",
@@ -3001,7 +3266,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0141",
+   "sku": "EL-E0153",
    "name": "本木 BENMU 除濕機 6L",
    "brand": "本木 BENMU",
    "category": "家電 / 空氣",
@@ -3021,7 +3286,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0142",
+   "sku": "HB-E0154",
    "name": "晨光研選 掛耳咖啡 12g 60粒",
    "brand": "晨光研選",
    "category": "food / 咖啡",
@@ -3043,7 +3308,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0143",
+   "sku": "CS-E0155",
    "name": "白日光 SUNDAY 舒緩精華液 10% 5入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 精華液",
@@ -3065,7 +3330,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0144",
+   "sku": "EL-E0156",
    "name": "Volta 無線滑鼠 8000DPI",
    "brand": "Volta",
    "category": "3C / 週邊",
@@ -3085,7 +3350,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0145",
+   "sku": "HB-E0157",
    "name": "溯源焙所 葉黃素膠囊 45mg 120粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 眼部保養",
@@ -3107,7 +3372,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0146",
+   "sku": "CS-E0158",
    "name": "白日光 SUNDAY 化妝水 150ml 7入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 化妝水",
@@ -3129,7 +3394,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0147",
+   "sku": "EL-E0159",
    "name": "本木 BENMU USB-C 編織傳輸線 140W",
    "brand": "本木 BENMU",
    "category": "3C / 線材",
@@ -3149,7 +3414,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0148",
+   "sku": "HB-E0160",
    "name": "晨光研選 三角立體茶包 4g 120粒",
    "brand": "晨光研選",
    "category": "food / 茶葉",
@@ -3171,7 +3436,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0149",
+   "sku": "CS-E0161",
    "name": "青研 CHINGYEN 化妝水 150ml 5入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 化妝水",
@@ -3193,7 +3458,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0150",
+   "sku": "EL-E0162",
    "name": "Volta 降噪藍牙耳機 42dB",
    "brand": "Volta",
    "category": "3C / 音訊",
@@ -3213,7 +3478,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0151",
+   "sku": "HB-E0163",
    "name": "溯源焙所 甘胺酸亞鐵錠 10mg 120粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 女性保健",
@@ -3235,7 +3500,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0152",
+   "sku": "CS-E0164",
    "name": "青研 CHINGYEN 保濕面膜 5片 7入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 面膜",
@@ -3257,7 +3522,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0153",
+   "sku": "EL-E0165",
    "name": "本木 BENMU 行動電源 10000mAh",
    "brand": "本木 BENMU",
    "category": "3C / 充電",
@@ -3277,7 +3542,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0154",
+   "sku": "HB-E0166",
    "name": "溯源焙所 低溫烘焙堅果 200g 20粒",
    "brand": "溯源焙所",
    "category": "food / 零食",
@@ -3299,7 +3564,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0155",
+   "sku": "CS-E0167",
    "name": "白日光 SUNDAY 礦物防曬乳 30ml 5入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 防曬",
@@ -3321,7 +3586,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0156",
+   "sku": "EL-E0168",
    "name": "本木 BENMU 陶瓷刀具組 7件",
    "brand": "本木 BENMU",
    "category": "生活 / 廚具",
@@ -3341,7 +3606,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0157",
+   "sku": "HB-E0169",
    "name": "晨光研選 薑黃萃取膠囊 200mg 60粒",
    "brand": "晨光研選",
    "category": "保健食品 / 日常保養",
@@ -3363,7 +3628,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0158",
+   "sku": "CS-E0170",
    "name": "青研 CHINGYEN 礦物防曬乳 50ml 7入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 防曬",
@@ -3385,7 +3650,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0159",
+   "sku": "EL-E0171",
    "name": "Volta 螢幕掛燈 97Ra",
    "brand": "Volta",
    "category": "3C / 週邊",
@@ -3405,7 +3670,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0160",
+   "sku": "HB-E0172",
    "name": "晨光研選 複方益生菌粉 300億CFU 60粒",
    "brand": "晨光研選",
    "category": "保健食品 / 消化保健",
@@ -3427,7 +3692,7 @@
    "target_audience": "外食族、作息不規律的上班族"
   },
   {
-   "sku": "CS-E0161",
+   "sku": "CS-E0173",
    "name": "青研 CHINGYEN 頭皮精華 3% 7入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 頭皮",
@@ -3449,7 +3714,7 @@
    "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   },
   {
-   "sku": "EL-E0162",
+   "sku": "EL-E0174",
    "name": "Volta 除濕機 16L",
    "brand": "Volta",
    "category": "家電 / 空氣",
@@ -3469,7 +3734,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0163",
+   "sku": "HB-E0175",
    "name": "晨光研選 即溶燕麥飲 25g 60粒",
    "brand": "晨光研選",
    "category": "food / 沖泡飲",
@@ -3491,7 +3756,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0164",
+   "sku": "CS-E0176",
    "name": "青研 CHINGYEN 修護乳液 80ml 1入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 乳液",
@@ -3513,7 +3778,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0165",
+   "sku": "EL-E0177",
    "name": "Volta 鑄鐵平底鍋 24cm",
    "brand": "Volta",
    "category": "生活 / 廚具",
@@ -3533,7 +3798,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0166",
+   "sku": "HB-E0178",
    "name": "溯源焙所 芝麻素膠囊 10mg 90粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 舒緩放鬆",
@@ -3555,7 +3820,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0167",
+   "sku": "CS-E0179",
    "name": "白日光 SUNDAY 修護乳液 80ml 1入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 乳液",
@@ -3577,7 +3842,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0168",
+   "sku": "EL-E0180",
    "name": "本木 BENMU USB-C 編織傳輸線 240W",
    "brand": "本木 BENMU",
    "category": "3C / 線材",
@@ -3597,7 +3862,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0169",
+   "sku": "HB-E0181",
    "name": "溯源焙所 薑黃萃取膠囊 200mg 120粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 日常保養",
@@ -3619,7 +3884,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0170",
+   "sku": "CS-E0182",
    "name": "青研 CHINGYEN 唇部修護膏 8g 5入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 唇部",
@@ -3641,7 +3906,7 @@
    "target_audience": "18-30 歲學生與社群重度使用者"
   },
   {
-   "sku": "EL-E0171",
+   "sku": "EL-E0183",
    "name": "本木 BENMU 無線滑鼠 8000DPI",
    "brand": "本木 BENMU",
    "category": "3C / 週邊",
@@ -3661,7 +3926,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0172",
+   "sku": "HB-E0184",
    "name": "溯源焙所 魚膠原蛋白粉 3000mg 30粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 美容保養",
@@ -3683,7 +3948,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0173",
+   "sku": "CS-E0185",
    "name": "青研 CHINGYEN 修護乳液 80ml 3入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 乳液",
@@ -3705,7 +3970,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0174",
+   "sku": "EL-E0186",
    "name": "Volta USB-C 編織傳輸線 140W",
    "brand": "Volta",
    "category": "3C / 線材",
@@ -3725,7 +3990,7 @@
    "target_audience": "通勤族、遠距工作者"
   },
   {
-   "sku": "HB-E0175",
+   "sku": "HB-E0187",
    "name": "晨光研選 複方益生菌粉 300億CFU 120粒",
    "brand": "晨光研選",
    "category": "保健食品 / 消化保健",
@@ -3747,7 +4012,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0176",
+   "sku": "CS-E0188",
    "name": "青研 CHINGYEN 溫和洗面乳 150ml 5入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 清潔",
@@ -3769,7 +4034,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0177",
+   "sku": "EL-E0189",
    "name": "本木 BENMU 降噪藍牙耳機 50dB",
    "brand": "本木 BENMU",
    "category": "3C / 音訊",
@@ -3789,7 +4054,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0178",
+   "sku": "HB-E0190",
    "name": "晨光研選 乳鐵蛋白粉 300mg 30粒",
    "brand": "晨光研選",
    "category": "保健食品 / 日常保養",
@@ -3811,7 +4076,7 @@
    "target_audience": "30-50 歲注重外在保養的女性"
   },
   {
-   "sku": "CS-E0179",
+   "sku": "CS-E0191",
    "name": "白日光 SUNDAY 護手霜 10% 1入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 手部",
@@ -3833,7 +4098,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0180",
+   "sku": "EL-E0192",
    "name": "Volta 陶瓷刀具組 7件",
    "brand": "Volta",
    "category": "生活 / 廚具",
@@ -3853,7 +4118,7 @@
    "target_audience": "出差族、多裝置使用者"
   },
   {
-   "sku": "HB-E0181",
+   "sku": "HB-E0193",
    "name": "晨光研選 即溶燕麥飲 35g 60粒",
    "brand": "晨光研選",
    "category": "food / 沖泡飲",
@@ -3875,7 +4140,7 @@
    "target_audience": "25-45 歲長時間使用螢幕的上班族"
   },
   {
-   "sku": "CS-E0182",
+   "sku": "CS-E0194",
    "name": "青研 CHINGYEN 礦物防曬乳 60ml 7入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 防曬",
@@ -3897,7 +4162,7 @@
    "target_audience": "20-35 歲敏弱肌、成分黨消費者"
   },
   {
-   "sku": "EL-E0183",
+   "sku": "EL-E0195",
    "name": "Volta 手持無線吸塵器 18000Pa",
    "brand": "Volta",
    "category": "家電 / 清潔",
@@ -3917,7 +4182,7 @@
    "target_audience": "小坪數家庭、養寵物族群"
   },
   {
-   "sku": "HB-E0184",
+   "sku": "HB-E0196",
    "name": "晨光研選 綜合維他命錠 25種 20粒",
    "brand": "晨光研選",
    "category": "保健食品 / 綜合補充",
@@ -3939,7 +4204,7 @@
    "target_audience": "注重原型食物的家庭與健身族群"
   },
   {
-   "sku": "CS-E0185",
+   "sku": "CS-E0197",
    "name": "青研 CHINGYEN 頭皮精華 3% 3入",
    "brand": "青研 CHINGYEN",
    "category": "美妝保養 / 頭皮",
@@ -3961,7 +4226,7 @@
    "target_audience": "25-40 歲混合肌、重視質地的上班族"
   },
   {
-   "sku": "EL-E0186",
+   "sku": "EL-E0198",
    "name": "本木 BENMU 空氣清淨機 20坪",
    "brand": "本木 BENMU",
    "category": "家電 / 空氣",
@@ -3981,7 +4246,7 @@
    "target_audience": "重視 CP 值的首購族"
   },
   {
-   "sku": "HB-E0187",
+   "sku": "HB-E0199",
    "name": "溯源焙所 乳鐵蛋白粉 200mg 30粒",
    "brand": "溯源焙所",
    "category": "保健食品 / 日常保養",
@@ -4003,7 +4268,7 @@
    "target_audience": "40 歲以上開始注意日常保養的族群"
   },
   {
-   "sku": "CS-E0188",
+   "sku": "CS-E0200",
    "name": "白日光 SUNDAY 保濕面膜 5片 1入",
    "brand": "白日光 SUNDAY",
    "category": "美妝保養 / 面膜",
@@ -4023,262 +4288,6 @@
    ],
    "brand_tone": "明亮、生活感、口語但不輕浮",
    "target_audience": "18-30 歲學生與社群重度使用者"
-  },
-  {
-   "sku": "EL-E0189",
-   "name": "本木 BENMU 螢幕掛燈 90Ra",
-   "brand": "本木 BENMU",
-   "category": "3C / 週邊",
-   "regulated_category": "general",
-   "price": 290,
-   "specs": {
-    "主要規格": "顯色指數 90Ra",
-    "型態": "PC+ABS 複合",
-    "產地": "台灣",
-    "保固": "終身技術支援"
-   },
-   "must_include_keywords": [
-    "顯色",
-    "90Ra"
-   ],
-   "brand_tone": "樸實、耐用取向、強調材質與工法",
-   "target_audience": "重視 CP 值的首購族"
-  },
-  {
-   "sku": "HB-E0190",
-   "name": "晨光研選 薑黃萃取膠囊 200mg 120粒",
-   "brand": "晨光研選",
-   "category": "保健食品 / 日常保養",
-   "regulated_category": "food",
-   "price": 4680,
-   "specs": {
-    "主要規格": "薑黃素 200mg",
-    "型態": "軟膠囊",
-    "產地": "德國",
-    "包裝": "120粒 / 盒",
-    "建議食用": "每日1-2份"
-   },
-   "must_include_keywords": [
-    "薑黃素",
-    "200mg",
-    "120粒"
-   ],
-   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
-   "target_audience": "30-50 歲注重外在保養的女性"
-  },
-  {
-   "sku": "CS-E0191",
-   "name": "青研 CHINGYEN 保濕面膜 10片 1入",
-   "brand": "青研 CHINGYEN",
-   "category": "美妝保養 / 面膜",
-   "regulated_category": "cosmetic",
-   "price": 1580,
-   "specs": {
-    "主要規格": "多重玻尿酸 10片",
-    "型態": "油狀質地",
-    "產地": "德國",
-    "包裝": "1入 / 盒",
-    "適用膚質": "乾燥缺水肌"
-   },
-   "must_include_keywords": [
-    "多重玻尿酸",
-    "10片",
-    "1入"
-   ],
-   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
-   "target_audience": "25-40 歲混合肌、重視質地的上班族"
-  },
-  {
-   "sku": "EL-E0192",
-   "name": "Volta 無線滑鼠 16000DPI",
-   "brand": "Volta",
-   "category": "3C / 週邊",
-   "regulated_category": "general",
-   "price": 1180,
-   "specs": {
-    "主要規格": "DPI 16000DPI",
-    "型態": "PC+ABS 複合",
-    "產地": "台灣",
-    "保固": "兩年保固"
-   },
-   "must_include_keywords": [
-    "無線",
-    "16000DPI"
-   ],
-   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
-   "target_audience": "重視 CP 值的首購族"
-  },
-  {
-   "sku": "HB-E0193",
-   "name": "溯源焙所 薑黃萃取膠囊 100mg 120粒",
-   "brand": "溯源焙所",
-   "category": "保健食品 / 日常保養",
-   "regulated_category": "food",
-   "price": 3290,
-   "specs": {
-    "主要規格": "薑黃素 100mg",
-    "型態": "植物膠囊",
-    "產地": "日本",
-    "包裝": "120粒 / 盒",
-    "建議食用": "每日1-2份"
-   },
-   "must_include_keywords": [
-    "薑黃素",
-    "100mg",
-    "120粒"
-   ],
-   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
-   "target_audience": "外食族、作息不規律的上班族"
-  },
-  {
-   "sku": "CS-E0194",
-   "name": "青研 CHINGYEN 舒緩精華液 2% 7入",
-   "brand": "青研 CHINGYEN",
-   "category": "美妝保養 / 精華液",
-   "regulated_category": "cosmetic",
-   "price": 1580,
-   "specs": {
-    "主要規格": "積雪草萃取 2%",
-    "型態": "水感質地",
-    "產地": "美國",
-    "包裝": "7入 / 盒",
-    "適用膚質": "敏弱肌適用"
-   },
-   "must_include_keywords": [
-    "積雪草萃取",
-    "2%",
-    "7入"
-   ],
-   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
-   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
-  },
-  {
-   "sku": "EL-E0195",
-   "name": "Volta 無線滑鼠 4000DPI",
-   "brand": "Volta",
-   "category": "3C / 週邊",
-   "regulated_category": "general",
-   "price": 290,
-   "specs": {
-    "主要規格": "DPI 4000DPI",
-    "型態": "PC+ABS 複合",
-    "產地": "日本",
-    "保固": "兩年保固"
-   },
-   "must_include_keywords": [
-    "無線",
-    "4000DPI"
-   ],
-   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
-   "target_audience": "通勤族、遠距工作者"
-  },
-  {
-   "sku": "HB-E0196",
-   "name": "晨光研選 魚膠原蛋白粉 2500mg 60粒",
-   "brand": "晨光研選",
-   "category": "保健食品 / 美容保養",
-   "regulated_category": "food",
-   "price": 390,
-   "specs": {
-    "主要規格": "深海魚膠原蛋白胜肽 2500mg",
-    "型態": "錠劑",
-    "產地": "德國",
-    "包裝": "60粒 / 盒",
-    "建議食用": "每日1份，隨餐食用"
-   },
-   "must_include_keywords": [
-    "深海魚膠原蛋白胜肽",
-    "2500mg",
-    "60粒"
-   ],
-   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
-   "target_audience": "注重原型食物的家庭與健身族群"
-  },
-  {
-   "sku": "CS-E0197",
-   "name": "青研 CHINGYEN 礦物防曬乳 30ml 1入",
-   "brand": "青研 CHINGYEN",
-   "category": "美妝保養 / 防曬",
-   "regulated_category": "cosmetic",
-   "price": 390,
-   "specs": {
-    "主要規格": "氧化鋅 30ml",
-    "型態": "凝露質地",
-    "產地": "日本",
-    "包裝": "1入 / 盒",
-    "適用膚質": "乾燥缺水肌"
-   },
-   "must_include_keywords": [
-    "氧化鋅",
-    "30ml",
-    "1入"
-   ],
-   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
-   "target_audience": "25-40 歲混合肌、重視質地的上班族"
-  },
-  {
-   "sku": "EL-E0198",
-   "name": "Volta 行動電源 27000mAh",
-   "brand": "Volta",
-   "category": "3C / 充電",
-   "regulated_category": "general",
-   "price": 2290,
-   "specs": {
-    "主要規格": "電池容量 27000mAh",
-    "型態": "陽極處理",
-    "產地": "台灣",
-    "保固": "終身技術支援"
-   },
-   "must_include_keywords": [
-    "行動電源",
-    "27000mAh"
-   ],
-   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
-   "target_audience": "小坪數家庭、養寵物族群"
-  },
-  {
-   "sku": "HB-E0199",
-   "name": "溯源焙所 緩釋B群錠 100mg 90粒",
-   "brand": "溯源焙所",
-   "category": "保健食品 / 精神體力",
-   "regulated_category": "food",
-   "price": 2290,
-   "specs": {
-    "主要規格": "維生素B群複方 100mg",
-    "型態": "錠劑",
-    "產地": "台灣",
-    "包裝": "90粒 / 盒",
-    "建議食用": "每日1份，睡前食用"
-   },
-   "must_include_keywords": [
-    "維生素B群複方",
-    "100mg",
-    "90粒"
-   ],
-   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
-   "target_audience": "注重原型食物的家庭與健身族群"
-  },
-  {
-   "sku": "CS-E0200",
-   "name": "白日光 SUNDAY 護手霜 3% 7入",
-   "brand": "白日光 SUNDAY",
-   "category": "美妝保養 / 手部",
-   "regulated_category": "cosmetic",
-   "price": 3290,
-   "specs": {
-    "主要規格": "尿素 3%",
-    "型態": "凝露質地",
-    "產地": "日本",
-    "包裝": "7入 / 盒",
-    "適用膚質": "敏弱肌適用"
-   },
-   "must_include_keywords": [
-    "尿素",
-    "3%",
-    "7入"
-   ],
-   "brand_tone": "明亮、生活感、口語但不輕浮",
-   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
   }
  ]
 }

@@ -324,7 +324,11 @@ def run_notebook(
 def test_notebook_runs_end_to_end():
     ns = run_notebook()
     assert "rule_results" in ns, "沒有產生規則層結果"
-    assert len(ns["rule_results"]) == 48, f"應有 12 商品 × 4 版 = 48 筆，實際 {len(ns['rule_results'])}"
+    expected = len(ns["PRODUCTS"]) * len(ns["PROMPT_VERSIONS"])
+    assert len(ns["rule_results"]) == expected, (
+        f"應有 {len(ns['PRODUCTS'])} 商品 × {len(ns['PROMPT_VERSIONS'])} 版 = {expected} 筆，"
+        f"實際 {len(ns['rule_results'])}"
+    )
 
 
 def test_flattening_preserved_config_constants():
@@ -361,11 +365,35 @@ def test_schema_column_fixed_only_at_v3():
     assert table["v3"]["schema_valid"] == 100.0
 
 
-def test_judge_is_skipped_for_rule_failures():
-    """規則層擋下的不該送 judge —— 這是省錢邏輯，壞了不會報錯但會多花錢。"""
+def test_eval_judges_every_item_so_denominators_match():
+    """評測時必須全部送審，四個版本的分母才會一致。
+
+    生產環境會把規則層擋下的濾掉（省錢），但評測沿用那個過濾會出事：
+    被擋下的正是最爛的幾筆，於是 v0 的分母比 v1 小，平均分被倖存者偏差
+    灌水，反而看起來比 v1 高。實測 12 筆時就發生了（v0 78.5% > v1 74.0%）。
+
+    而過濾實際只省 7–10% 的評審成本（US$0.08）。用這個換掉「版本之間
+    能不能比較」是很差的交換。
+    """
     ns = run_notebook()
-    assert ns["skipped"] > 0, "應該有被規則層擋下、跳過評審的筆數"
-    assert len(ns["rubric_reports"]) < 48, "不該全部送審"
+    n_expected = len(ns["PRODUCTS"]) * len(ns["PROMPT_VERSIONS"])
+    assert len(ns["rubric_reports"]) == n_expected, (
+        f"評測應全部送審，預期 {n_expected} 筆，實際 {len(ns['rubric_reports'])}"
+    )
+
+    summary = ns["summarize_rubrics"](ns["rubric_reports"], total_items=len(ns["PRODUCTS"]))
+    denoms = {v: s["受評筆數"] for v, s in summary.items()}
+    assert len(set(denoms.values())) == 1, f"各版本受評筆數不一致：{denoms}"
+
+
+def test_production_filter_is_still_reported():
+    """生產環境的過濾邏輯要保留並顯示出來 —— 那是真實可用的省錢手段。
+
+    評測不採用它，但要讓人看到「同一個機制在不同目的下取捨相反」。
+    """
+    ns = run_notebook()
+    assert "would_skip" in ns, "應統計生產環境會擋下幾筆"
+    assert "生產環境會擋下" in ns["_printed"]
 
 
 def test_rubrics_generated_once_per_product_not_per_version():
@@ -374,9 +402,14 @@ def test_rubrics_generated_once_per_product_not_per_version():
     若每個版本各自生成，等於每個考生考不同的考卷，對比表就沒有意義。
     """
     ns = run_notebook()
-    assert len(ns["rubric_sets"]) == 12, f"應為 12 個商品各一組，實際 {len(ns['rubric_sets'])}"
+    n_products = len(ns["PRODUCTS"])
+    assert len(ns["rubric_sets"]) == n_products, (
+        f"應為 {n_products} 個商品各一組，實際 {len(ns['rubric_sets'])}"
+    )
     n_gen = ns["client"].models.call_log.count("rubric_gen")
-    assert n_gen == 12, f"rubric 生成應只呼叫 12 次（每商品一次），實際 {n_gen}"
+    assert n_gen == n_products, (
+        f"rubric 生成應只呼叫 {n_products} 次（每商品一次），實際 {n_gen}"
+    )
 
 
 def test_rubric_reports_are_binary_not_scored():
@@ -599,7 +632,8 @@ def test_replay_works_without_the_sdk_installed_at_all():
             overrides={"OFFLINE_MODE": True, "RECORD_FIXTURES": False, "FIXTURES": fixtures},
             install_fake=False,  # 關鍵：不塞假 SDK，否則 sys.modules 會蓋過攔截器
         )
-        assert len(ns["rule_results"]) == 48, "沒有 SDK 時未能跑完整份 notebook"
+        expected = len(ns["PRODUCTS"]) * len(ns["PROMPT_VERSIONS"])
+        assert len(ns["rule_results"]) == expected, "沒有 SDK 時未能跑完整份 notebook"
         assert ns["client"].models.hits > 0, "沒有命中任何錄製輸出"
         assert "離線重播（OFFLINE_MODE=True）不需要它" in ns["_printed"], (
             "缺 SDK 時應說明離線重播仍可繼續"
