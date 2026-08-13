@@ -21,15 +21,41 @@ METRIC_LABELS = {
     "banned_clean": "法規禁詞 0 命中",
 }
 
-# 每個指標是被哪一版的改動修好的 —— 用於標註歸因
-FIXED_BY = {
-    "title_length_ok": "v1",
-    "bullet_length_ok": "v1",
-    "seo_length_ok": "v1",
-    "spec_full": "v1",
-    "banned_clean": "v2",
-    "schema_valid": "v3",
-}
+# 「這個指標是被哪一版修好的」**必須從資料算出來，不可以硬寫。**
+#
+# 這裡原本是一份手寫的對照表（title→v1、banned→v2⋯⋯），寫的時候看起來
+# 理所當然。後來實跑 50 筆與 200 筆，六條裡有三條被資料推翻：
+#
+#     賣點長度   標成 v1，實際是 v3 修好的（+62pp）
+#     SEO描述    標成 v1，實際是 v3 修好的（+88pp）—— v1 完全沒動
+#     法規禁詞   標成 v2，實際 v1 就做掉大部分（+20pp），v2 只是收尾
+#
+# 一個硬寫的因果宣稱，就擺在真實數字旁邊，而且是錯的 —— 在一份講
+# 「怎麼知道它有沒有變好」的材料裡，這是最不該犯的錯。
+#
+# 所以改成：看哪一版帶來最大的單步改善，就歸因給那一版。
+# 資料換了，標註自動跟著換。
+
+
+def attribution(table: dict[str, dict[str, float]]) -> dict[str, str]:
+    """依實測資料判斷每個指標是被哪一版修好的。
+
+    作法很簡單：比較相鄰版本的差距，取單步改善最大的那一版。
+    改善幅度太小（<5pp）就標成「—」，不硬掰因果。
+    """
+    versions = sorted(table)
+    out: dict[str, str] = {}
+    for metric in METRIC_LABELS:
+        gains = [
+            (table[versions[i]][metric] - table[versions[i - 1]][metric], versions[i])
+            for i in range(1, len(versions))
+        ]
+        if not gains:
+            out[metric] = "—"
+            continue
+        best_gain, best_version = max(gains)
+        out[metric] = best_version if best_gain >= 5 else "—"
+    return out
 
 
 def _metric_values(r: RuleResult) -> dict[str, bool]:
@@ -68,6 +94,7 @@ def to_dataframe(results: list[RuleResult]):
     import pandas as pd
 
     table = build_table(results)
+    attr = attribution(table)
     ordered = [
         "title_length_ok",
         "bullet_length_ok",
@@ -78,7 +105,7 @@ def to_dataframe(results: list[RuleResult]):
     ]
     df = pd.DataFrame(
         {
-            METRIC_LABELS[m] + f"\n(v{FIXED_BY[m][1:]}修好)": [
+            METRIC_LABELS[m] + f"\n({attr[m]}修好)": [
                 table[v][m] for v in sorted(table)
             ]
             for m in ordered
@@ -93,6 +120,7 @@ def to_dataframe(results: list[RuleResult]):
 def render_text_table(results: list[RuleResult]) -> str:
     """純文字版對比表 —— 不依賴 pandas，離線也能看。"""
     table = build_table(results)
+    attr = attribution(table)
     ordered = [
         "title_length_ok",
         "bullet_length_ok",
@@ -110,14 +138,14 @@ def render_text_table(results: list[RuleResult]) -> str:
 
     width = 22 + 12 + 8 * len(versions)
     lines = [
-        pad_to("指標", 22) + pad_to("修好的版本", 12) + "".join(f"{v:>8}" for v in versions),
+        pad_to("指標", 22) + pad_to("實測歸因", 12) + "".join(f"{v:>8}" for v in versions),
         "─" * width,
     ]
 
     for m in ordered:
         lines.append(
             pad_to(METRIC_LABELS[m], 22)
-            + pad_to(FIXED_BY[m], 12)
+            + pad_to(attr[m] + ("※" if m in PARSER_DEPENDENT else ""), 12)
             + "".join(f"{table[v][m]:>7.0f}%" for v in versions)
         )
 
@@ -180,6 +208,7 @@ def combined_table(rule_results: list[RuleResult], rubric_summary: dict):
 
     table = build_table(rule_results)
     versions = sorted(table)
+    attr = attribution(table)  # 歸因一律由資料算出，欄名不硬寫版本
 
     # 某一版是否為結構化輸出：用該版 schema_valid 是否過半判定，
     # 不寫死版本名，這樣改了版本命名也不會壞。
@@ -188,19 +217,35 @@ def combined_table(rule_results: list[RuleResult], rubric_summary: dict):
     def parser_dependent(metric: str) -> list:
         return [table[v][metric] if structured[v] else float("nan") for v in versions]
 
+    def rubric_col(key: str) -> list:
+        return [rubric_summary.get(v, {}).get(key, float("nan")) for v in versions]
+
+    def rubric_attr(key: str) -> str:
+        """rubric 欄位的歸因同樣用實測算，不預設是哪一版。"""
+        vals = [rubric_summary.get(v, {}).get(key) for v in versions]
+        gains = [
+            (vals[i] - vals[i - 1], versions[i])
+            for i in range(1, len(versions))
+            if vals[i] is not None and vals[i - 1] is not None
+        ]
+        if not gains:
+            return "—"
+        best, ver = max(gains)
+        return ver if best >= 5 else "—"
+
     rows = {
-        "標題長度合規 (v1)": [table[v]["title_length_ok"] for v in versions],
-        "規格完整覆蓋 (v1)": [table[v]["spec_full"] for v in versions],
-        "法規禁詞 0 命中 (v1→v2)": [table[v]["banned_clean"] for v in versions],
+        f"標題長度合規 ({attr['title_length_ok']})": [
+            table[v]["title_length_ok"] for v in versions
+        ],
+        f"規格完整覆蓋 ({attr['spec_full']})": [table[v]["spec_full"] for v in versions],
+        f"法規禁詞 0 命中 ({attr['banned_clean']})": [
+            table[v]["banned_clean"] for v in versions
+        ],
         "賣點長度 ※": parser_dependent("bullet_length_ok"),
         "SEO描述長度 ※": parser_dependent("seo_length_ok"),
-        "rubric 通過率 (v2)": [
-            rubric_summary.get(v, {}).get("rubric通過率%", float("nan")) for v in versions
-        ],
-        "可直接上架 (v2)": [
-            rubric_summary.get(v, {}).get("可直接上架%", float("nan")) for v in versions
-        ],
-        "可機器讀取 (v3)": [table[v]["schema_valid"] for v in versions],
+        f"rubric 通過率 ({rubric_attr('rubric通過率%')})": rubric_col("rubric通過率%"),
+        f"可直接上架 ({rubric_attr('可直接上架%')})": rubric_col("可直接上架%"),
+        f"可機器讀取 ({attr['schema_valid']})": [table[v]["schema_valid"] for v in versions],
     }
     df = pd.DataFrame(rows, index=versions)
     df.index.name = "Prompt 版本"
