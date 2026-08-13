@@ -87,9 +87,7 @@ def extract_one(client, review: dict, product_name: str, ledger=None) -> ReviewI
     """把單則評論轉成結構化資料。"""
     import time
 
-    from google.genai import types
-
-    from .generation import Usage
+    from .generation import Usage, gen_config
 
     prompt = EXTRACT_PROMPT.format(
         product_name=product_name,
@@ -102,7 +100,7 @@ def extract_one(client, review: dict, product_name: str, ledger=None) -> ReviewI
         resp = client.models.generate_content(
             model=config.GEN_MODEL,
             contents=prompt,
-            config=types.GenerateContentConfig(
+            config=gen_config(
                 temperature=0.0,  # 抽取任務要可重現，不要創意
                 response_mime_type="application/json",
                 response_schema=REVIEW_SCHEMA,

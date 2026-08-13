@@ -243,13 +243,23 @@ def install_fake_genai() -> None:
 # --------------------------------------------------------------------------
 # 執行 notebook
 # --------------------------------------------------------------------------
-def run_notebook(verbose: bool = False, overrides: dict | None = None) -> dict:
+def run_notebook(
+    verbose: bool = False,
+    overrides: dict | None = None,
+    install_fake: bool = True,
+) -> dict:
     """執行 notebook 的所有 code cell。
 
     overrides 會在建立 client 的那一格「之前」注入，用來測試錄製／重播模式 ——
     這是演講當天真正會走的路徑，必須驗證過，不能只是假設它會動。
+
+    install_fake=False 時**不塞**假的 google.genai，用來驗證「這台機器根本
+    沒裝 SDK」的情境。注意：install_fake_genai() 是直接寫 sys.modules，
+    會蓋過 meta_path 攔截器 —— 想測「沒裝 SDK」就一定要把它關掉，
+    否則測試會假通過。
     """
-    install_fake_genai()
+    if install_fake:
+        install_fake_genai()
     nb = json.loads(NB.read_text(encoding="utf-8"))
     # 必須用 "__main__"：@dataclass 會查 sys.modules[cls.__module__]，
     # 用一個不存在的模組名會讓 dataclass 在建立時炸掉。Colab 本身也是 __main__。
@@ -506,6 +516,93 @@ def test_replay_never_touches_the_network():
         assert ns["client"].models.hits > 0, "重播模式沒有命中任何錄製輸出"
     finally:
         genai_mod.Client = original
+
+
+def test_replay_works_without_the_sdk_installed_at_all():
+    """重播必須在**完全沒有 google-genai** 的機器上也能跑完。
+
+    這是「把單一個 .ipynb 丟到沒有網路的 Colab」的真實情境：
+    要裝 SDK 就得有網路，一旦需要網路，「零網路重播」的前提就破功了。
+
+    做法：錄製之後把 google.genai 從 sys.modules 移除，並攔截後續的 import
+    讓它一律失敗，然後在這種環境下跑完整份 notebook。
+    """
+    rec = _record_run()
+    fixtures = rec["client"].dump()
+
+    class _BlockGenai:
+        """攔截 google.genai 的 import，模擬「這台機器沒裝 SDK」。"""
+
+        def find_module(self, fullname, path=None):  # 舊式介面，保險起見
+            return self if fullname.startswith("google.genai") else None
+
+        def find_spec(self, fullname, path=None, target=None):
+            if fullname.startswith("google.genai"):
+                raise ImportError(f"模擬環境未安裝 {fullname}")
+            return None
+
+        def load_module(self, fullname):
+            raise ImportError(f"模擬環境未安裝 {fullname}")
+
+    saved = {k: v for k, v in sys.modules.items() if k.startswith("google.genai")}
+    for k in saved:
+        del sys.modules[k]
+    blocker = _BlockGenai()
+    sys.meta_path.insert(0, blocker)
+    try:
+        # 確認攔截真的生效，否則這個測試會假通過
+        try:
+            import google.genai  # noqa: F401
+
+            raise AssertionError("攔截器沒有生效，google.genai 仍可匯入")
+        except ImportError:
+            pass
+
+        ns = run_notebook(
+            overrides={"OFFLINE_MODE": True, "RECORD_FIXTURES": False, "FIXTURES": fixtures},
+            install_fake=False,  # 關鍵：不塞假 SDK，否則 sys.modules 會蓋過攔截器
+        )
+        assert len(ns["rule_results"]) == 48, "沒有 SDK 時未能跑完整份 notebook"
+        assert ns["client"].models.hits > 0, "沒有命中任何錄製輸出"
+        assert "離線重播（OFFLINE_MODE=True）不需要它" in ns["_printed"], (
+            "缺 SDK 時應說明離線重播仍可繼續"
+        )
+    finally:
+        sys.meta_path.remove(blocker)
+        sys.modules.update(saved)
+
+
+def test_gen_config_refuses_to_degrade_when_online():
+    """連線模式下缺 SDK 必須直接炸，不能靜默降級成假 config 物件。
+
+    降級只在離線重播時才合理。若連線模式也默默降級，會變成「明明沒裝 SDK
+    卻看起來一切正常」，直到真的要呼叫 API 才失敗。
+    """
+    from poc.src import config as cfg
+    from poc.src import generation
+
+    saved = {k: v for k, v in sys.modules.items() if k.startswith("google.genai")}
+    for k in saved:
+        del sys.modules[k]
+    sys.modules["google.genai"] = None  # 讓 import 觸發 ImportError
+
+    old = cfg.OFFLINE_MODE
+    try:
+        cfg.OFFLINE_MODE = False
+        try:
+            generation.gen_config(temperature=0)
+        except ImportError:
+            pass
+        else:
+            raise AssertionError("連線模式缺 SDK 時應該拋 ImportError")
+
+        cfg.OFFLINE_MODE = True
+        obj = generation.gen_config(temperature=0, response_schema={"x": 1})
+        assert obj.response_schema == {"x": 1}, "離線降級物件缺少必要屬性"
+    finally:
+        cfg.OFFLINE_MODE = old
+        sys.modules.pop("google.genai", None)
+        sys.modules.update(saved)
 
 
 def test_replay_fails_loudly_when_prompt_changed():

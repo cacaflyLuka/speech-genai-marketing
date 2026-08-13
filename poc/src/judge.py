@@ -271,15 +271,13 @@ def _call_json(client, prompt: str, schema: dict, tag: str, ledger=None):
     """
     import time
 
-    from google.genai import types
-
-    from .generation import Usage
+    from .generation import Usage, gen_config
 
     started = time.time()
     resp = client.models.generate_content(
         model=config.JUDGE_MODEL,
         contents=prompt,
-        config=types.GenerateContentConfig(
+        config=gen_config(
             temperature=config.JUDGE_TEMPERATURE,
             response_mime_type="application/json",
             response_schema=schema,

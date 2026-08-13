@@ -9,8 +9,35 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
+from types import SimpleNamespace
 
 from . import config
+
+
+def gen_config(**kwargs):
+    """建立 generate_content 的 config 物件。
+
+    為什麼不直接用 `types.GenerateContentConfig`：
+
+    離線重播的使用情境是「把單一個 .ipynb 丟到一台沒有網路的機器」——
+    這種時候 google-genai 很可能根本沒安裝，而安裝它就需要網路，
+    整個「零網路」的前提就破功了。
+
+    但重播其實不需要真的 SDK 型別：`ReplayClient` 只會讀 `response_schema`
+    這一個屬性來判斷是不是結構化輸出。所以 SDK 不在時退回一個等效的
+    簡單物件即可。
+
+    只有 OFFLINE_MODE 才容許退回。連線模式下缺 SDK 是真的有問題，
+    要讓它直接炸出來，不能靜默降級。
+    """
+    try:
+        from google.genai import types
+
+        return types.GenerateContentConfig(**kwargs)
+    except ImportError:
+        if not config.OFFLINE_MODE:
+            raise
+        return SimpleNamespace(**kwargs)
 
 
 @dataclass
@@ -234,8 +261,6 @@ def generate(
     structured=True 時啟用 API 原生的 responseSchema —— 這是 v3 與 v2 的唯一差別。
     重點：不要用 prompt 硬凹 JSON 格式，要用 API 參數約束，模型才真的被限制在 schema 內。
     """
-    from google.genai import types
-
     from .prompts import COPY_SCHEMA
 
     model = model or config.GEN_MODEL
@@ -253,7 +278,7 @@ def generate(
             resp = client.models.generate_content(
                 model=model,
                 contents=prompt,
-                config=types.GenerateContentConfig(**cfg_kwargs),
+                config=gen_config(**cfg_kwargs),
             )
             meta = resp.usage_metadata
             return GenResult(

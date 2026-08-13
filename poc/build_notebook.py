@@ -157,16 +157,15 @@ def build() -> list[dict]:
 判斷該不該跑，不如讓它自己偵測。
 """))
     cells.append(code("""
-# 只在缺少時安裝。§3 的對比表用 df.style.background_gradient() 上色：
-# .style 需要 jinja2、background_gradient 需要 matplotlib，缺一就會 AttributeError。
 import sys
 
-REQUIRED = {
-    "google.genai": "google-genai",
-    "pandas": "pandas",
-    "jinja2": "jinja2",
-    "matplotlib": "matplotlib",
-}
+# 渲染用，任何模式都需要。§3 的對比表用 df.style.background_gradient() 上色：
+# .style 需要 jinja2、background_gradient 需要 matplotlib，缺一就會 AttributeError。
+CORE = {"pandas": "pandas", "jinja2": "jinja2", "matplotlib": "matplotlib"}
+
+# 只有要「真的呼叫 API」才需要。離線重播完全用不到它 ——
+# 這是刻意設計的：要裝它就得有網路，一旦需要網路，零網路重播的前提就破功了。
+LIVE = {"google.genai": "google-genai"}
 
 
 def _importable(mod: str) -> bool:
@@ -177,13 +176,25 @@ def _importable(mod: str) -> bool:
         return False
 
 
-_missing = [pkg for mod, pkg in REQUIRED.items() if not _importable(mod)]
+_missing = [pkg for mod, pkg in {**CORE, **LIVE}.items() if not _importable(mod)]
 
 if _missing:
-    print("缺少套件，安裝中：", " ".join(_missing))
+    print("缺少套件，嘗試安裝：", " ".join(_missing))
     import subprocess
-    subprocess.run([sys.executable, "-m", "pip", "install", "-q", *_missing], check=True)
-    print("✓ 安裝完成（若 import 仍失敗，重啟 runtime 再跑一次）")
+    try:
+        subprocess.run(
+            [sys.executable, "-m", "pip", "install", "-q", *_missing], check=True
+        )
+        print("✓ 安裝完成（若 import 仍失敗，重啟 runtime 再跑一次）")
+    except Exception as e:
+        # 安裝失敗不一定是問題：離線重播根本不需要 google-genai。
+        print(f"⚠ 安裝失敗：{e}")
+        if not _importable("google.genai"):
+            print("  google-genai 未安裝 —— 離線重播（OFFLINE_MODE=True）不需要它，可以繼續。")
+            print("  但若要真的呼叫 API，就必須在有網路的環境先裝好。")
+        _still = [p for m, p in CORE.items() if not _importable(m)]
+        if _still:
+            print(f"  ✗ 仍缺渲染必要套件 {_still} —— §3 的對比表會無法上色。")
 else:
     print("✓ 相依套件齊全，跳過安裝")
 
