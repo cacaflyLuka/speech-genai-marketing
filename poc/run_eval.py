@@ -33,17 +33,26 @@ from poc.src import config, generation, judge, prompts, report, rules  # noqa: E
 DATA = pathlib.Path(__file__).parent / "data"
 RESULTS = DATA / "eval_results.json"
 
-PRO_SEC, PRO_USD = 20.0, 0.005   # 實測 gemini-2.5-pro：15–26 秒、約 US$0.005/次
-FLASH_SEC, FLASH_USD = 3.0, 0.0008
+# 校準自實跑，不是理論值。
+#
+# 一開始用「單次延遲 ÷ 並行度」估算，200 筆算出 45 分鐘，但實跑 10 筆花了
+# 4.6 分鐘、外推是 92 分鐘 —— 差一倍。原因是併發下的實際延遲遠高於單獨
+# 呼叫時量到的，並行度不會線性放大吞吐。
+#
+# 所以這裡改用實測的「每商品耗時」直接外推，並註明校準來源。
+# 換模型或改 MAX_WORKERS 之後，這些數字要重新量。
+CALIB = {
+    # 校準點：2026-08-13，10 筆、MAX_WORKERS=8、gemini-flash-latest + gemini-2.5-pro
+    "judge": {"sec_per_product": 27.6, "usd_per_product": 0.0293},
+    "rules_only": {"sec_per_product": 3.5, "usd_per_product": 0.0052},
+}
 
 
 def estimate(n: int, with_judge: bool) -> tuple[float, float]:
     """回傳 (預估分鐘, 預估美金)。先讓人看到代價再決定要不要跑。"""
-    gen_calls = n * len(prompts.PROMPT_VERSIONS)
-    pro_calls = (n + int(gen_calls * 0.95)) if with_judge else 0
-    secs = (pro_calls * PRO_SEC + gen_calls * FLASH_SEC) / config.MAX_WORKERS
-    usd = pro_calls * PRO_USD + gen_calls * FLASH_USD
-    return secs / 60, usd
+    c = CALIB["judge" if with_judge else "rules_only"]
+    scale = 8 / max(config.MAX_WORKERS, 1)  # 校準點是 MAX_WORKERS=8
+    return n * c["sec_per_product"] * scale / 60, n * c["usd_per_product"]
 
 
 def main() -> int:

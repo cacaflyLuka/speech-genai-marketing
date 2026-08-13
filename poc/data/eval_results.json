@@ -1,36 +1,36 @@
 {
- "商品數": 200,
+ "商品數": 10,
  "版本": [
   "v0",
   "v1",
   "v2",
   "v3"
  ],
- "耗時秒": 709.1,
+ "耗時秒": 276.6,
  "規則層": {
   "v0": {
    "schema_valid": 0.0,
-   "title_length_ok": 58.0,
-   "bullet_length_ok": 1.0,
+   "title_length_ok": 70.0,
+   "bullet_length_ok": 10.0,
    "seo_length_ok": 0.0,
-   "spec_full": 92.5,
-   "banned_clean": 75.0,
+   "spec_full": 90.0,
+   "banned_clean": 90.0,
    "_全數通過": 0.0
   },
   "v1": {
    "schema_valid": 0.0,
-   "title_length_ok": 99.5,
-   "bullet_length_ok": 23.0,
+   "title_length_ok": 100.0,
+   "bullet_length_ok": 20.0,
    "seo_length_ok": 0.0,
    "spec_full": 100.0,
-   "banned_clean": 96.0,
+   "banned_clean": 90.0,
    "_全數通過": 0.0
   },
   "v2": {
    "schema_valid": 0.0,
-   "title_length_ok": 99.0,
-   "bullet_length_ok": 38.5,
-   "seo_length_ok": 3.0,
+   "title_length_ok": 100.0,
+   "bullet_length_ok": 50.0,
+   "seo_length_ok": 10.0,
    "spec_full": 100.0,
    "banned_clean": 100.0,
    "_全數通過": 0.0
@@ -38,15 +38,44 @@
   "v3": {
    "schema_valid": 100.0,
    "title_length_ok": 100.0,
-   "bullet_length_ok": 97.0,
-   "seo_length_ok": 99.0,
+   "bullet_length_ok": 100.0,
+   "seo_length_ok": 100.0,
    "spec_full": 100.0,
    "banned_clean": 100.0,
-   "_全數通過": 96.0
+   "_全數通過": 100.0
   }
  },
- "評審層": {},
- "成本USD": 1.0454,
+ "評審層": {
+  "v0": {
+   "rubric通過率%": 74.6,
+   "critical違反數": 3,
+   "可直接上架%": 40.0,
+   "受評筆數": 9,
+   "分母": 10
+  },
+  "v1": {
+   "rubric通過率%": 84.1,
+   "critical違反數": 1,
+   "可直接上架%": 70.0,
+   "受評筆數": 9,
+   "分母": 10
+  },
+  "v2": {
+   "rubric通過率%": 87.1,
+   "critical違反數": 2,
+   "可直接上架%": 80.0,
+   "受評筆數": 10,
+   "分母": 10
+  },
+  "v3": {
+   "rubric通過率%": 90.0,
+   "critical違反數": 1,
+   "可直接上架%": 80.0,
+   "受評筆數": 10,
+   "分母": 10
+  }
+ },
+ "成本USD": 0.2934,
  "設定": {
   "GEN_MODEL": "gemini-flash-latest",
   "JUDGE_MODEL": "gemini-2.5-pro",
