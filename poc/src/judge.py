@@ -276,38 +276,59 @@ class RubricReport:
 # --------------------------------------------------------------------------
 # 呼叫
 # --------------------------------------------------------------------------
-def _call_json(client, prompt: str, schema: dict, tag: str, ledger=None):
+def _call_json(client, prompt: str, schema: dict, tag: str, ledger=None, max_retries: int = 4):
     """走 structured output 呼叫評審模型並解析 JSON。
 
     評審本身也用 responseSchema —— 解析失敗會讓整張評測表出現空洞，
     比生成失敗更難察覺。
+
+    **必須重試。** 這一層在高並行下會撞到配額限制（429）。原本沒有重試，
+    失敗的那一筆會被上層 except 接住、變成一個帶 error 的空結果 ——
+    評測表上看不出來，只會發現受評筆數少了幾筆。那比直接報錯更危險。
+
+    429 的退避拉得比一般錯誤久：配額是時間窗限制，馬上重試只會再撞一次。
     """
+    import random
     import time
 
     from .generation import Usage, gen_config
 
-    started = time.time()
-    resp = client.models.generate_content(
-        model=config.JUDGE_MODEL,
-        contents=prompt,
-        config=gen_config(
-            temperature=config.JUDGE_TEMPERATURE,
-            response_mime_type="application/json",
-            response_schema=schema,
-        ),
-    )
-    meta = resp.usage_metadata
-    if ledger is not None:
-        ledger.record(
-            tag,
-            Usage(
+    last_err: Exception | None = None
+    for attempt in range(max_retries):
+        started = time.time()
+        try:
+            resp = client.models.generate_content(
                 model=config.JUDGE_MODEL,
-                input_tokens=getattr(meta, "prompt_token_count", 0) or 0,
-                output_tokens=getattr(meta, "candidates_token_count", 0) or 0,
-                latency_s=round(time.time() - started, 2),
-            ),
-        )
-    return json.loads(resp.text)
+                contents=prompt,
+                config=gen_config(
+                    temperature=config.JUDGE_TEMPERATURE,
+                    response_mime_type="application/json",
+                    response_schema=schema,
+                ),
+            )
+            meta = resp.usage_metadata
+            if ledger is not None:
+                ledger.record(
+                    tag,
+                    Usage(
+                        model=config.JUDGE_MODEL,
+                        input_tokens=getattr(meta, "prompt_token_count", 0) or 0,
+                        output_tokens=getattr(meta, "candidates_token_count", 0) or 0,
+                        latency_s=round(time.time() - started, 2),
+                    ),
+                )
+            return json.loads(resp.text)
+        except Exception as e:  # noqa: BLE001
+            last_err = e
+            if attempt == max_retries - 1:
+                break
+            text = str(e)
+            throttled = "429" in text or "RESOURCE_EXHAUSTED" in text or "quota" in text.lower()
+            base = 8.0 if throttled else 1.5
+            # 加抖動，避免所有執行緒在同一刻一起重試又一起撞牆
+            time.sleep(base * (2**attempt) + random.uniform(0, 1.5))
+
+    raise RuntimeError(f"評審呼叫失敗（重試 {max_retries} 次）：{last_err}")
 
 
 def _budget() -> dict:

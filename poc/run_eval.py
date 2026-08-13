@@ -9,11 +9,25 @@
 200 筆才有辦法做這種比較。這也是真實團隊的作法：demo 給人看流程，
 結論來自夠大的評測集。
 
+## 每一筆商品實際會做什麼
+
+    [1] 生成      每個商品 × 4 版 → 4 份文案      flash
+    [2] 規則層    4 份全部檢查                     本機，免費、毫秒級
+    [3] rubric    每個商品產一次驗收清單           pro，v0~v3 共用同一份考卷
+    [4] 逐條檢查  只送規則層過關的（實測約 95%）   pro，這是最貴的一段
+
+## 速度
+
+瓶頸完全在等 API 回應，不在 CPU，所以拉高並行度幾乎線性加速。
+實測（gemini-2.5-pro，零失敗）：8→10.3、16→26.1、32→46.5、64→80.7 次/分。
+
+50 筆含評審層：並行 8 要 24 分鐘，並行 64 只要 3 分鐘，成本一樣。
+
 ## 用法
 
-    uv run python poc/run_eval.py --limit 10     # 先小量試跑，確認流程沒問題
-    uv run python poc/run_eval.py                # 全量 200 筆（約 45 分鐘）
-    uv run python poc/run_eval.py --no-judge     # 只跑規則層（免費、幾秒鐘）
+    uv run python poc/run_eval.py --limit 10                # 小量試跑
+    uv run python poc/run_eval.py --limit 50 --workers 64   # 50 筆，最快
+    uv run python poc/run_eval.py --no-judge                # 只跑規則層（免費）
 
 結果會寫到 poc/data/eval_results.json，並印出摘要。
 """
@@ -33,26 +47,29 @@ from poc.src import config, generation, judge, prompts, report, rules  # noqa: E
 DATA = pathlib.Path(__file__).parent / "data"
 RESULTS = DATA / "eval_results.json"
 
-# 校準自實跑，不是理論值。
-#
-# 一開始用「單次延遲 ÷ 並行度」估算，200 筆算出 45 分鐘，但實跑 10 筆花了
-# 4.6 分鐘、外推是 92 分鐘 —— 差一倍。原因是併發下的實際延遲遠高於單獨
-# 呼叫時量到的，並行度不會線性放大吞吐。
-#
-# 所以這裡改用實測的「每商品耗時」直接外推，並註明校準來源。
-# 換模型或改 MAX_WORKERS 之後，這些數字要重新量。
-CALIB = {
-    # 校準點：2026-08-13，10 筆、MAX_WORKERS=8、gemini-flash-latest + gemini-2.5-pro
-    "judge": {"sec_per_product": 27.6, "usd_per_product": 0.0293},
-    "rules_only": {"sec_per_product": 3.5, "usd_per_product": 0.0052},
-}
+# 每個 worker 每分鐘能完成幾次呼叫。實測 8/16/32/64 並行都接近線性，
+# 因為瓶頸是等待回應而非 CPU（2026-08-13、cacafly-poc、零失敗）：
+#     pro    8→10.3  16→26.1  32→46.5  64→80.7 次/分
+#     flash  8→67.8 次/分（來自 200 筆規則層實跑）
+CALLS_PER_WORKER_MIN = {"pro": 1.4, "flash": 8.5}
+USD = {"pro": 0.005, "flash": 0.0008}
 
 
-def estimate(n: int, with_judge: bool) -> tuple[float, float]:
-    """回傳 (預估分鐘, 預估美金)。先讓人看到代價再決定要不要跑。"""
-    c = CALIB["judge" if with_judge else "rules_only"]
-    scale = 8 / max(config.MAX_WORKERS, 1)  # 校準點是 MAX_WORKERS=8
-    return n * c["sec_per_product"] * scale / 60, n * c["usd_per_product"]
+def estimate(n: int, with_judge: bool, workers: int | None = None) -> tuple[float, float]:
+    """回傳 (預估分鐘, 預估美金)。先讓人看到代價再決定要不要跑。
+
+    用「每 worker 吞吐 × 並行度」估算，而不是「單次延遲 ÷ 並行度」——
+    後者算出來的 200 筆是 45 分鐘，實跑卻要 92 分鐘，差一倍。
+    併發下的單次延遲遠高於單獨呼叫時量到的。
+    """
+    workers = workers or config.MAX_WORKERS
+    flash_calls = n * len(prompts.PROMPT_VERSIONS)
+    pro_calls = (n + int(flash_calls * 0.95)) if with_judge else 0
+
+    mins = flash_calls / (CALLS_PER_WORKER_MIN["flash"] * workers)
+    if pro_calls:
+        mins += pro_calls / (CALLS_PER_WORKER_MIN["pro"] * workers)
+    return mins, pro_calls * USD["pro"] + flash_calls * USD["flash"]
 
 
 def main() -> int:
@@ -60,7 +77,13 @@ def main() -> int:
     ap.add_argument("--limit", type=int, default=None, help="只跑前 N 筆（試跑用）")
     ap.add_argument("--no-judge", action="store_true", help="只跑規則層，不呼叫評審模型")
     ap.add_argument("--yes", action="store_true", help="跳過確認直接執行")
+    ap.add_argument(
+        "--workers", type=int, default=None,
+        help=f"並行度（預設 {config.MAX_WORKERS}）。實測到 64 都還沒撞配額，想更快就調高。",
+    )
     args = ap.parse_args()
+    if args.workers:
+        config.MAX_WORKERS = args.workers
 
     path = DATA / "eval_products.json"
     if not path.exists():
@@ -74,7 +97,7 @@ def main() -> int:
     banned = json.loads((DATA / "banned_terms.json").read_text(encoding="utf-8"))
 
     with_judge = not args.no_judge
-    mins, usd = estimate(len(products), with_judge)
+    mins, usd = estimate(len(products), with_judge, config.MAX_WORKERS)
     print("=" * 66)
     print(f"評測集 {len(products)} 筆　評審層 {'開啟' if with_judge else '關閉'}")
     print(f"預估耗時 {mins:.0f} 分鐘　預估成本 約 US${usd:.2f}（NT${usd * 32:.0f}）")
@@ -82,7 +105,14 @@ def main() -> int:
     print("=" * 66)
 
     if with_judge and not args.yes:
-        if input("確定要跑嗎？[y/N] ").strip().lower() != "y":
+        try:
+            answer = input("確定要跑嗎？[y/N] ").strip().lower()
+        except EOFError:
+            # 非互動環境（Colab 的 !python、CI、管線）讀不到 stdin。
+            # 這時不能當成「同意」—— 預設不花錢，要明確加 --yes。
+            print("\n偵測到非互動環境，已取消。要直接執行請加 --yes。")
+            return 0
+        if answer != "y":
             print("已取消。可加 --limit 10 先試跑，或 --no-judge 只跑規則層。")
             return 0
 
