@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>GCP 架構：今天 demo 用到的 vs 正式上線需要的</title>
+  <desc>零售生成式 AI 系統在 Google Cloud 上的架構，區分 POC 實際使用的服務與正式部署還需要的服務</desc>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A8A"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">這套系統用到哪些 GCP 服務？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">實線＝今天 demo 真的跑過　虛線＝正式上線才需要，今天沒做</text>
+
+  <!-- ===== 圖例 ===== -->
+  <g transform="translate(940,160)">
+    <rect x="0" y="0" width="264" height="72" rx="8" fill="#F5F5F5" stroke="#D8D8D8" stroke-width="1.5"/>
+    <rect x="14" y="16" width="20" height="14" rx="3" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+    <text x="44" y="28" font-size="15" fill="#4A4A4A">demo 實際使用</text>
+    <rect x="14" y="44" width="20" height="14" rx="3" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="44" y="56" font-size="15" fill="#4A4A4A">正式部署才需要</text>
+  </g>
+
+  <!-- ===== 第一排：資料來源 ===== -->
+  <text x="76" y="196" font-size="16" font-weight="700" fill="#8A8A8A">1　資料來源</text>
+  <rect x="76" y="210" width="200" height="70" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="176" y="240" font-size="17" font-weight="600" fill="#4A4A4A" text-anchor="middle">PIM / 商品主檔</text>
+  <text x="176" y="264" font-size="14" fill="#8A8A8A" text-anchor="middle">demo 用手寫 JSON 代替</text>
+
+  <rect x="296" y="210" width="200" height="70" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="396" y="240" font-size="17" font-weight="600" fill="#4A4A4A" text-anchor="middle">Cloud Storage</text>
+  <text x="396" y="264" font-size="14" fill="#8A8A8A" text-anchor="middle">商品圖、原始匯出檔</text>
+
+  <!-- ===== 第二排：核心處理 ===== -->
+  <text x="76" y="326" font-size="16" font-weight="700" fill="#8A8A8A">2　生成與評測（今天的主角）</text>
+
+  <rect x="76" y="340" width="240" height="118" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="196" y="372" font-size="19" font-weight="700" fill="#A85110" text-anchor="middle">Vertex AI</text>
+  <text x="196" y="398" font-size="15" fill="#4A4A4A" text-anchor="middle">Gemini 生成（flash）</text>
+  <text x="196" y="420" font-size="15" fill="#4A4A4A" text-anchor="middle">Gemini 評審（2.5-pro）</text>
+  <text x="196" y="444" font-size="14" fill="#C2510A" text-anchor="middle">structured output</text>
+
+  <rect x="336" y="340" width="200" height="118" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="436" y="372" font-size="19" font-weight="700" fill="#12507F" text-anchor="middle">規則層</text>
+  <text x="436" y="398" font-size="15" fill="#4A4A4A" text-anchor="middle">純 Python，不呼叫模型</text>
+  <text x="436" y="420" font-size="15" fill="#4A4A4A" text-anchor="middle">禁詞、長度、schema</text>
+  <text x="436" y="444" font-size="14" fill="#1B6FB8" text-anchor="middle">零成本 · 可進 CI</text>
+
+  <rect x="556" y="340" width="200" height="118" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="656" y="372" font-size="19" font-weight="700" fill="#A85110" text-anchor="middle">BigQuery</text>
+  <text x="656" y="398" font-size="15" fill="#4A4A4A" text-anchor="middle">評論洞察落地</text>
+  <text x="656" y="420" font-size="15" fill="#4A4A4A" text-anchor="middle">分區 + 叢集</text>
+  <text x="656" y="444" font-size="14" fill="#C2510A" text-anchor="middle">場景 B，需開 USE_BIGQUERY</text>
+
+  <rect x="776" y="340" width="200" height="118" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="876" y="372" font-size="19" font-weight="700" fill="#6A6A6A" text-anchor="middle">Cloud Run</text>
+  <text x="876" y="398" font-size="15" fill="#8A8A8A" text-anchor="middle">把 pipeline 包成服務</text>
+  <text x="876" y="420" font-size="15" fill="#8A8A8A" text-anchor="middle">供 PIM 後台呼叫</text>
+  <text x="876" y="444" font-size="14" fill="#B8B8B8" text-anchor="middle">今天用 notebook 代替</text>
+
+  <rect x="996" y="340" width="208" height="118" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="1100" y="372" font-size="19" font-weight="700" fill="#6A6A6A" text-anchor="middle">Batch Prediction</text>
+  <text x="1100" y="398" font-size="15" fill="#8A8A8A" text-anchor="middle">全站商品初次匯入</text>
+  <text x="1100" y="420" font-size="15" fill="#8A8A8A" text-anchor="middle">約 5 折</text>
+  <text x="1100" y="444" font-size="14" fill="#B8B8B8" text-anchor="middle">成本段有講，沒有跑</text>
+
+  <!-- 箭頭 -->
+  <line x1="316" y1="399" x2="332" y2="399" stroke="#8A8A8A" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="536" y1="399" x2="552" y2="399" stroke="#8A8A8A" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="176" y1="280" x2="176" y2="336" stroke="#8A8A8A" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+
+  <!-- ===== 第三排：維運 ===== -->
+  <text x="76" y="504" font-size="16" font-weight="700" fill="#8A8A8A">3　維運與治理（今天完全沒碰，但上線一定要）</text>
+
+  <g font-size="16" fill="#6A6A6A">
+    <rect x="76" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="164" y="544" font-weight="600" text-anchor="middle">Cloud Scheduler</text>
+    <text x="164" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">定期重跑評測</text>
+
+    <rect x="268" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="356" y="544" font-weight="600" text-anchor="middle">Secret Manager</text>
+    <text x="356" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">API 金鑰不進 repo</text>
+
+    <rect x="460" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="548" y="544" font-weight="600" text-anchor="middle">Cloud Logging</text>
+    <text x="548" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">留存每次生成紀錄</text>
+
+    <rect x="652" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="740" y="544" font-weight="600" text-anchor="middle">IAM / VPC-SC</text>
+    <text x="740" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">資料落地與權限</text>
+
+    <rect x="844" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="932" y="544" font-weight="600" text-anchor="middle">Cloud Monitoring</text>
+    <text x="932" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">品質與成本告警</text>
+
+    <rect x="1036" y="518" width="168" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="1120" y="544" font-weight="600" text-anchor="middle">Artifact Registry</text>
+    <text x="1120" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">容器版本管理</text>
+  </g>
+
+  <!-- ===== 底部誠實聲明 ===== -->
+  <rect x="76" y="606" width="1128" height="76" rx="10" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
+  <text x="104" y="638" font-size="19" fill="#8A4A0C"><tspan font-weight="700">誠實地說：今天的 demo 只真的用到 Vertex AI 與 BigQuery 兩個服務。</tspan><tspan> 其他都是虛線。</tspan></text>
+  <text x="104" y="666" font-size="19" fill="#A34408">但這是刻意的 —— <tspan font-weight="700">先把「怎麼知道它變好了」解決掉，再談怎麼部署。</tspan>順序反過來的專案，通常上線後才發現沒人能判斷好壞。</text>
+</svg>

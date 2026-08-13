@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>三層評測金字塔</title>
+  <desc>由便宜到貴的三層評測：規則層、LLM judge、人工抽樣，含各層成本、延遲與處理量</desc>
+
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B6FB8"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">三層評測：由便宜到貴</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">順序很重要 —— 多數團隊一上來就做 LLM judge，又貴又不穩，然後放棄</text>
+
+  <!-- ============ 金字塔 ============ -->
+  <!-- 頂：人工抽樣（最貴） -->
+  <path d="M 500 186 L 620 186 L 670 292 L 450 292 Z" fill="#F7D4BC" stroke="#C2510A" stroke-width="2.5"/>
+  <text x="560" y="234" font-size="23" font-weight="700" fill="#8A3A06" text-anchor="middle">人工抽樣</text>
+  <text x="560" y="266" font-size="16" fill="#A34408" text-anchor="middle">只看前兩層有分歧的</text>
+
+  <!-- 中：LLM judge -->
+  <path d="M 450 296 L 670 296 L 730 420 L 390 420 Z" fill="#FBE0C6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="560" y="348" font-size="23" font-weight="700" fill="#A85110" text-anchor="middle">LLM as judge</text>
+  <text x="560" y="380" font-size="16" fill="#C45E12" text-anchor="middle">語調、賣點覆蓋</text>
+  <text x="560" y="404" font-size="16" fill="#C45E12" text-anchor="middle">（規則層評不了的）</text>
+
+  <!-- 底：規則層（免費、基礎） -->
+  <path d="M 390 424 L 730 424 L 800 580 L 320 580 Z" fill="#DCEAF8" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="560" y="476" font-size="25" font-weight="700" fill="#12507F" text-anchor="middle">規則層</text>
+  <text x="560" y="510" font-size="17" fill="#1B6FB8" text-anchor="middle">長度、格式、必含規格</text>
+  <text x="560" y="538" font-size="17" font-weight="700" fill="#12507F" text-anchor="middle">法規禁詞</text>
+  <text x="560" y="564" font-size="15" fill="#2E8BD8" text-anchor="middle">確定性 · 可進 CI</text>
+
+  <!-- 「先建這一層」 -->
+  <text x="186" y="490" font-size="21" font-weight="700" fill="#1B6FB8" text-anchor="middle">先建</text>
+  <text x="186" y="520" font-size="21" font-weight="700" fill="#1B6FB8" text-anchor="middle">這一層</text>
+  <line x1="248" y1="512" x2="344" y2="512" stroke="#1B6FB8" stroke-width="3" marker-end="url(#a2)"/>
+
+  <!-- ============ 右側屬性表 ============ -->
+  <g>
+    <text x="880" y="196" font-size="16" font-weight="700" fill="#8A8A8A">成本</text>
+    <text x="1020" y="196" font-size="16" font-weight="700" fill="#8A8A8A">延遲</text>
+    <text x="1146" y="196" font-size="16" font-weight="700" fill="#8A8A8A">處理量</text>
+
+    <line x1="680" y1="240" x2="860" y2="240" stroke="#D8D8D8" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="880" y="247" font-size="19" font-weight="700" fill="#C2510A">最貴</text>
+    <text x="1020" y="247" font-size="19" fill="#4A4A4A">天</text>
+    <text x="1146" y="247" font-size="19" fill="#4A4A4A">~1%</text>
+
+    <line x1="712" y1="364" x2="860" y2="364" stroke="#D8D8D8" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="880" y="371" font-size="19" font-weight="700" fill="#EF7622">中</text>
+    <text x="1020" y="371" font-size="19" fill="#4A4A4A">秒</text>
+    <text x="1146" y="371" font-size="19" fill="#4A4A4A">~30%</text>
+
+    <line x1="782" y1="500" x2="860" y2="500" stroke="#D8D8D8" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="880" y="507" font-size="19" font-weight="700" fill="#1B6FB8">免費</text>
+    <text x="1020" y="507" font-size="19" fill="#4A4A4A">毫秒</text>
+    <text x="1146" y="507" font-size="19" fill="#4A4A4A">100%</text>
+  </g>
+
+  <!-- ============ 關鍵訊息（右下角 logo 區以上） ============ -->
+  <rect x="76" y="606" width="1128" height="76" rx="10" fill="#E9F2FB" stroke="#A9CDEE" stroke-width="2"/>
+  <text x="104" y="638" font-size="19" fill="#12507F"><tspan font-weight="700">規則層擋下的，就不必送 judge。</tspan><tspan> 對一份已經違反法規的文案做語意評分沒有意義，而 judge 用的模型通常比生成更貴。</tspan></text>
+  <text x="104" y="666" font-size="19" font-weight="700" fill="#A34408">評審呼叫本身就是一筆可觀的成本 —— 這是最常被漏算的一筆。實際佔比在 demo 現場印出來。</text>
+</svg>
