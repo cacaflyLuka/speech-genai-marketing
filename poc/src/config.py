@@ -41,6 +41,10 @@ CHEAP_MODEL = "gemini-2.5-flash-lite"  # 成本段示範「降級」用
 GEN_TEMPERATURE = 0.4  # 用低溫，降低失敗機率
 JUDGE_TEMPERATURE = 0.0
 
+# 並行度。評審模型單次要十幾秒，序列跑完整份要十幾分鐘；並行後剩兩三分鐘。
+# 若遇到 429（配額不足）就調小。
+MAX_WORKERS = 8
+
 # --- 價格（USD / 每百萬 token）---
 # ⚠️ 這些是佔位值。使用前請到官方頁面現查更新：
 #    https://cloud.google.com/vertex-ai/generative-ai/pricing

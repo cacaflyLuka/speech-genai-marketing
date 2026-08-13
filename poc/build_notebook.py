@@ -377,20 +377,29 @@ prompt 裡寫「請輸出 JSON」模型會照做九成的時間；用 `responseS
 """))
     cells.append(code("""
 ledger = UsageLedger()
-outputs = {}   # (sku, version) -> 文案原文
+
+# 12 商品 × 4 版 = 48 次呼叫，彼此獨立，所以並行跑。
+jobs = [(p, v) for p in PRODUCTS for v in PROMPT_VERSIONS]
+
+
+def _generate_one(job):
+    product, version = job
+    prompt = PROMPT_VERSIONS[version](
+        product,
+        banned_terms=get_banned_terms_for(product, BANNED_DATA),
+        tone_examples=TONE_EXAMPLES.get(product['brand']),
+    )
+    res = generate(client, prompt, structured=(version in STRUCTURED_VERSIONS))
+    ledger.record(f"gen:{version}", res.usage)
+    return (product['sku'], version), res
+
 
 t0 = time.time()
-for i, product in enumerate(PRODUCTS, 1):
-    terms = get_banned_terms_for(product, BANNED_DATA)
-    examples = TONE_EXAMPLES.get(product['brand'])
-    for version, builder in PROMPT_VERSIONS.items():
-        prompt = builder(product, banned_terms=terms, tone_examples=examples)
-        res = generate(client, prompt, structured=(version in STRUCTURED_VERSIONS))
-        ledger.record(f"gen:{version}", res.usage)
-        outputs[(product['sku'], version)] = res.text
-        if res.error:
-            print(f"  ⚠ {product['sku']} {version}: {res.error}")
-    print(f"[{i:>2}/{len(PRODUCTS)}] {product['sku']} 完成")
+outputs = {}   # (sku, version) -> 文案原文
+for key, res in run_parallel(_generate_one, jobs, label="生成"):
+    outputs[key] = res.text
+    if res.error:
+        print(f"  ⚠ {key}: {res.error}")
 
 print(f"\\n共 {len(outputs)} 筆，耗時 {time.time() - t0:.1f} 秒")
 """))
@@ -528,7 +537,15 @@ for name, info in JUDGE_BIASES.items():
 這一步和被評的文案無關，只看商品資料。
 """))
     cells.append(code("""
-rubric_sets = {p['sku']: generate_rubrics(client, p, ledger) for p in PRODUCTS}
+t0 = time.time()
+rubric_sets = dict(
+    run_parallel(
+        lambda p: (p['sku'], generate_rubrics(client, p, ledger)),
+        PRODUCTS,
+        label="產生 rubric",
+    )
+)
+print(f"  耗時 {time.time() - t0:.1f} 秒")
 
 demo = rubric_sets[PRODUCTS[0]['sku']]
 print(f"{PRODUCTS[0]['name']} 的驗收清單（{len(demo.rubrics)} 條）\\n")
@@ -545,22 +562,28 @@ print("\\n★ = critical，未通過就不該上架")
 對一份已經違反法規的文案做語意檢查沒有意義，而 judge 用的是比生成更貴的模型。
 """))
     cells.append(code("""
-rubric_reports = []
-skipped = 0
 by_key = {(r.sku, r.version): r for r in rule_results}
 
-for product in PRODUCTS:
-    for version in PROMPT_VERSIONS:
-        rr = by_key[(product['sku'], version)]
-        if not should_judge(rr):
-            skipped += 1
-            continue
-        rubric_reports.append(check_against_rubrics(
-            client, outputs[(product['sku'], version)],
-            rubric_sets[product['sku']], version, ledger
-        ))
+# 先篩選再送審：規則層擋下的不必評，這一步就是在省錢。
+to_judge = [
+    (p, v) for p in PRODUCTS for v in PROMPT_VERSIONS
+    if should_judge(by_key[(p['sku'], v)])
+]
+skipped = len(PRODUCTS) * len(PROMPT_VERSIONS) - len(to_judge)
+print(f"送審 {len(to_judge)} 筆，規則層已擋下 {skipped} 筆（省下的就是錢）")
 
-print(f"送審 {len(rubric_reports)} 筆，規則層已擋下 {skipped} 筆（省下的就是錢）\\n")
+# 這是整份 notebook 最慢的一段：評審模型單次十幾秒。
+# 序列跑約 9 分鐘，並行後約 1 分鐘。
+t0 = time.time()
+rubric_reports = run_parallel(
+    lambda job: check_against_rubrics(
+        client, outputs[(job[0]['sku'], job[1])],
+        rubric_sets[job[0]['sku']], job[1], ledger
+    ),
+    to_judge,
+    label="評審",
+)
+print(f"  耗時 {time.time() - t0:.1f} 秒\\n")
 pd.DataFrame(summarize_rubrics(rubric_reports)).T
 """))
 
@@ -640,8 +663,11 @@ combined.style.format("{:.1f}%", na_rep="—").background_gradient(
     cells.append(code(
         f"REVIEWS = {json.dumps(reviews, ensure_ascii=False, indent=1)}['reviews']\n\n"
         "name_by_sku = {p['sku']: p['name'] for p in PRODUCTS}\n"
-        "insights = [extract_one(client, r, name_by_sku.get(r['sku'], '未知商品'), ledger)\n"
-        "            for r in REVIEWS]\n\n"
+        "insights = run_parallel(\n"
+        "    lambda r: extract_one(client, r, name_by_sku.get(r['sku'], '未知商品'), ledger),\n"
+        "    REVIEWS,\n"
+        "    label='抽取評論',\n"
+        ")\n\n"
         "to_dataframe(insights)[['review_id','rating','sentiment','aspects',\n"
         "                        'is_about_product','urgency']]"
     ))

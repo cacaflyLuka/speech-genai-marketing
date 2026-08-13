@@ -152,7 +152,21 @@ make all
 
 **2-4** 在 Colab 開啟 `poc/retail_genai_poc_speaker.ipynb`，**Run all**。
 
-- 判斷模型 `gemini-2.5-pro` 每次約 15 秒，12 個商品完整跑完約數分鐘
+**預期耗時約 3–5 分鐘。** 所有 API 呼叫都用 `run_parallel()` 並行
+（`MAX_WORKERS = 8`），實測比序列快約 4 倍。
+
+| 階段 | 呼叫數 | 備註 |
+|---|---|---|
+| §2 生成 | 48 | `gemini-flash-latest`，每次數秒 |
+| §3 rubric 生成 | 12 | `gemini-2.5-pro`，**每次 15–26 秒** |
+| §3 逐條檢查 | 約 36 | 同上，整份最慢的一段 |
+| §4 評論抽取 | 15 | flash，很快 |
+
+> 若跑起來明顯更久，先確認 `MAX_WORKERS` 沒被調小。
+> 遇到 429（配額不足）就把它調降到 4 或 2。
+> 評審模型是主要瓶頸；換成更快的模型會犧牲 self-preference 的緩解效果，
+> 除非你確定生成與評審用的是不同模型，否則不建議動。
+
 - 跑完後執行 §6，會下載 `demo_outputs.json`
 
 **2-5** 把下載的檔案放到 `poc/data/`：

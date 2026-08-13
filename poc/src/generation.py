@@ -302,6 +302,41 @@ def generate(
     )
 
 
+def run_parallel(fn, items, *, workers: int | None = None, label: str = "處理中"):
+    """對每個項目呼叫 fn，並行執行，**保持原本的順序**。
+
+    為什麼需要這個：評審模型單次要十幾秒，整份 demo 序列跑完要十幾分鐘
+    （光是 rubric 逐條檢查那一段就約 9 分鐘）。這些呼叫彼此獨立，
+    並行之後整份只剩兩三分鐘。錄製 fixtures 時差別很有感。
+
+    刻意保持順序（用 index 回填而非 as_completed 的完成順序），
+    這樣結果與序列版本完全一致，重播時的 key 也不會受影響。
+
+    離線重播時每次呼叫都是查表、瞬間完成，並行與否沒差；但仍然走同一條
+    程式路徑，避免「錄製走 A、重播走 B」這種不一致。
+    """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    items = list(items)
+    if not items:
+        return []
+
+    workers = workers or config.MAX_WORKERS
+    results: list = [None] * len(items)
+    step = max(1, len(items) // 5)
+    done = 0
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = {pool.submit(fn, item): i for i, item in enumerate(items)}
+        for fut in as_completed(futures):
+            idx = futures[fut]
+            results[idx] = fut.result()
+            done += 1
+            if done % step == 0 or done == len(items):
+                print(f"  {label} {done}/{len(items)}")
+    return results
+
+
 def count_tokens(client, text: str, model: str | None = None) -> int:
     """實測中文的 token 數。
 
