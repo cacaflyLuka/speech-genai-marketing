@@ -584,7 +584,7 @@ rubric_reports = run_parallel(
     label="評審",
 )
 print(f"  耗時 {time.time() - t0:.1f} 秒\\n")
-pd.DataFrame(summarize_rubrics(rubric_reports)).T
+pd.DataFrame(summarize_rubrics(rubric_reports, total_items=len(PRODUCTS))).T
 """))
 
     cells.append(md("""
@@ -614,7 +614,10 @@ if worst:
     cells.append(code("""
 print(significance_note(len(PRODUCTS), 7))
 
-combined = combined_table(rule_results, summarize_rubrics(rubric_reports))
+combined = combined_table(
+    rule_results, summarize_rubrics(rubric_reports, total_items=len(PRODUCTS))
+)
+print(PARSER_CAVEAT)
 combined.style.format("{:.1f}%", na_rep="—").background_gradient(
     cmap="RdYlGn", vmin=0, vmax=100)
 """))

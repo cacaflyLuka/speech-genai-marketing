@@ -155,19 +155,45 @@ def significance_note(n_items: int, n_checks_each: int = 1) -> str:
     )
 
 
+# 這兩個指標**只在結構化輸出上可靠**。
+#
+# 自由文字要靠 parse_freeform() 猜出哪幾句是賣點、哪一段是 SEO 描述，
+# 而那個 parser 是脆弱的。實測 12 筆時它剛好都猜中，換到 200 筆就大量失效 ——
+# 於是 v0～v2 的「賣點長度合規」掉到個位數。
+#
+# 但那個數字測到的是 **parser 的成功率**，不是模型的合規率。
+# 把它當成 0% 呈現會誤導成「模型寫超長」，實際上是我們根本量不到。
+# 所以非結構化的版本一律標成「不可測」（NaN），不填 0。
+#
+# 這件事本身就是 structured output 最有力的論據：
+# 沒有 schema，連「有沒有做對」都無法誠實測量。
+PARSER_DEPENDENT = ("bullet_length_ok", "seo_length_ok")
+
+
 def combined_table(rule_results: list[RuleResult], rubric_summary: dict):
     """規則層 + rubric 層的合併對比表。
 
     每一版只負責修好一件事，這張表要能讓那件事一眼看出來。
+    依賴 parser 的指標在非結構化版本上以「—」呈現，不假裝量得到。
     """
     import pandas as pd
 
     table = build_table(rule_results)
     versions = sorted(table)
+
+    # 某一版是否為結構化輸出：用該版 schema_valid 是否過半判定，
+    # 不寫死版本名，這樣改了版本命名也不會壞。
+    structured = {v: table[v]["schema_valid"] >= 50 for v in versions}
+
+    def parser_dependent(metric: str) -> list:
+        return [table[v][metric] if structured[v] else float("nan") for v in versions]
+
     rows = {
         "標題長度合規 (v1)": [table[v]["title_length_ok"] for v in versions],
         "規格完整覆蓋 (v1)": [table[v]["spec_full"] for v in versions],
-        "法規禁詞 0 命中 (v1)": [table[v]["banned_clean"] for v in versions],
+        "法規禁詞 0 命中 (v1→v2)": [table[v]["banned_clean"] for v in versions],
+        "賣點長度 ※": parser_dependent("bullet_length_ok"),
+        "SEO描述長度 ※": parser_dependent("seo_length_ok"),
         "rubric 通過率 (v2)": [
             rubric_summary.get(v, {}).get("rubric通過率%", float("nan")) for v in versions
         ],
@@ -179,6 +205,15 @@ def combined_table(rule_results: list[RuleResult], rubric_summary: dict):
     df = pd.DataFrame(rows, index=versions)
     df.index.name = "Prompt 版本"
     return df
+
+
+PARSER_CAVEAT = """※ 這兩欄只在結構化輸出上可靠。
+
+自由文字要靠正則猜出哪幾句是賣點、哪一段是 SEO 描述，而那個 parser 很脆弱。
+非結構化的版本標成「—」，代表**量不到**，不是「不合格」。
+
+這正是 structured output 的核心價值：沒有 schema，
+連「有沒有做對」都無法誠實測量 —— 而測不到的東西就管不了。"""
 
 
 def violation_detail(results: list[RuleResult], version: str, limit: int = 5) -> str:

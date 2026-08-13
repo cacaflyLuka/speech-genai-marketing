@@ -1,0 +1,4284 @@
+{
+ "_meta": {
+  "description": "評測用商品資料集，由 build_eval_set.py 以 seed=20260821 組合產生。",
+  "note": "與 demo 用的 products.json 分開：這份是離線跑統計用，不進 notebook。",
+  "count": 200,
+  "seed": 20260821,
+  "channel_limits": {
+   "shopee_title_max": 60,
+   "momo_title_max": 50,
+   "seo_desc_max": 120,
+   "bullet_max": 30
+  }
+ },
+ "products": [
+  {
+   "sku": "HB-E0001",
+   "name": "溯源焙所 魚膠原蛋白粉 3000mg 90粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 美容保養",
+   "regulated_category": "food",
+   "price": 490,
+   "specs": {
+    "主要規格": "深海魚膠原蛋白胜肽 3000mg",
+    "型態": "獨立包裝",
+    "產地": "韓國",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "深海魚膠原蛋白胜肽",
+    "3000mg",
+    "90粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0002",
+   "name": "白日光 SUNDAY 純淨卸妝油 100ml 1入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 卸妝",
+   "regulated_category": "cosmetic",
+   "price": 390,
+   "specs": {
+    "主要規格": "植物油脂 100ml",
+    "型態": "油狀質地",
+    "產地": "韓國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "植物油脂",
+    "100ml",
+    "1入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0003",
+   "name": "本木 BENMU 除濕機 16L",
+   "brand": "本木 BENMU",
+   "category": "家電 / 空氣",
+   "regulated_category": "general",
+   "price": 490,
+   "specs": {
+    "主要規格": "每日除濕量 16L",
+    "型態": "陽極處理",
+    "產地": "美國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "除濕",
+    "16L"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0004",
+   "name": "晨光研選 緩釋B群錠 100mg 20粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 精神體力",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "維生素B群複方 100mg",
+    "型態": "錠劑",
+    "產地": "台灣",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "維生素B群複方",
+    "100mg",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0005",
+   "name": "青研 CHINGYEN 保濕面膜 7片 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 1580,
+   "specs": {
+    "主要規格": "多重玻尿酸 7片",
+    "型態": "水感質地",
+    "產地": "美國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "多重玻尿酸",
+    "7片",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0006",
+   "name": "本木 BENMU 螢幕掛燈 95Ra",
+   "brand": "本木 BENMU",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 890,
+   "specs": {
+    "主要規格": "顯色指數 95Ra",
+    "型態": "霧面鋁合金",
+    "產地": "台灣",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "顯色",
+    "95Ra"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0007",
+   "name": "晨光研選 凍乾果乾 50g 20粒",
+   "brand": "晨光研選",
+   "category": "food / 零食",
+   "regulated_category": "food",
+   "price": 1180,
+   "specs": {
+    "主要規格": "整顆凍乾水果 50g",
+    "型態": "軟膠囊",
+    "產地": "美國",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "整顆凍乾水果",
+    "50g",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0008",
+   "name": "青研 CHINGYEN 修護乳液 80ml 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 乳液",
+   "regulated_category": "cosmetic",
+   "price": 890,
+   "specs": {
+    "主要規格": "神經醯胺 80ml",
+    "型態": "水感質地",
+    "產地": "日本",
+    "包裝": "7入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "神經醯胺",
+    "80ml",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0009",
+   "name": "Volta 鑄鐵平底鍋 20cm",
+   "brand": "Volta",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 890,
+   "specs": {
+    "主要規格": "直徑 20cm",
+    "型態": "PC+ABS 複合",
+    "產地": "美國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "鑄鐵",
+    "20cm"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0010",
+   "name": "溯源焙所 低溫烘焙堅果 350g 20粒",
+   "brand": "溯源焙所",
+   "category": "food / 零食",
+   "regulated_category": "food",
+   "price": 2290,
+   "specs": {
+    "主要規格": "綜合堅果 350g",
+    "型態": "植物膠囊",
+    "產地": "台灣",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "綜合堅果",
+    "350g",
+    "20粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0011",
+   "name": "青研 CHINGYEN 保濕面膜 5片 3入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 390,
+   "specs": {
+    "主要規格": "多重玻尿酸 5片",
+    "型態": "凝露質地",
+    "產地": "德國",
+    "包裝": "3入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "多重玻尿酸",
+    "5片",
+    "3入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0012",
+   "name": "Volta 循環扇 8段",
+   "brand": "Volta",
+   "category": "家電 / 空調",
+   "regulated_category": "general",
+   "price": 490,
+   "specs": {
+    "主要規格": "風速段數 8段",
+    "型態": "食品級不鏽鋼",
+    "產地": "日本",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "風速",
+    "8段"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0013",
+   "name": "晨光研選 緩釋B群錠 75mg 20粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 精神體力",
+   "regulated_category": "food",
+   "price": 2290,
+   "specs": {
+    "主要規格": "維生素B群複方 75mg",
+    "型態": "獨立包裝",
+    "產地": "日本",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "維生素B群複方",
+    "75mg",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0014",
+   "name": "白日光 SUNDAY 唇部修護膏 15g 3入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 唇部",
+   "regulated_category": "cosmetic",
+   "price": 290,
+   "specs": {
+    "主要規格": "蜂蠟與植物油 15g",
+    "型態": "油狀質地",
+    "產地": "美國",
+    "包裝": "3入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "蜂蠟與植物油",
+    "15g",
+    "3入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0015",
+   "name": "本木 BENMU 鑄鐵平底鍋 24cm",
+   "brand": "本木 BENMU",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 890,
+   "specs": {
+    "主要規格": "直徑 24cm",
+    "型態": "陽極處理",
+    "產地": "台灣",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "鑄鐵",
+    "24cm"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0016",
+   "name": "溯源焙所 綜合維他命錠 25種 30粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 綜合補充",
+   "regulated_category": "food",
+   "price": 390,
+   "specs": {
+    "主要規格": "23種維生素礦物質 25種",
+    "型態": "軟膠囊",
+    "產地": "台灣",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "23種維生素礦物質",
+    "25種",
+    "30粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0017",
+   "name": "白日光 SUNDAY 護手霜 5% 5入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 手部",
+   "regulated_category": "cosmetic",
+   "price": 490,
+   "specs": {
+    "主要規格": "尿素 5%",
+    "型態": "乳霜質地",
+    "產地": "台灣",
+    "包裝": "5入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "尿素",
+    "5%",
+    "5入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0018",
+   "name": "Volta 陶瓷刀具組 3件",
+   "brand": "Volta",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 3290,
+   "specs": {
+    "主要規格": "件數 3件",
+    "型態": "食品級不鏽鋼",
+    "產地": "韓國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "陶瓷",
+    "3件"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0019",
+   "name": "溯源焙所 深海魚油軟膠囊 800mg 20粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 循環保健",
+   "regulated_category": "food",
+   "price": 390,
+   "specs": {
+    "主要規格": "Omega-3 800mg",
+    "型態": "獨立包裝",
+    "產地": "韓國",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "Omega-3",
+    "800mg",
+    "20粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0020",
+   "name": "青研 CHINGYEN 礦物防曬乳 50ml 3入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 防曬",
+   "regulated_category": "cosmetic",
+   "price": 390,
+   "specs": {
+    "主要規格": "氧化鋅 50ml",
+    "型態": "油狀質地",
+    "產地": "韓國",
+    "包裝": "3入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "氧化鋅",
+    "50ml",
+    "3入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0021",
+   "name": "Volta USB-C 編織傳輸線 240W",
+   "brand": "Volta",
+   "category": "3C / 線材",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "過電瓦數 240W",
+    "型態": "食品級不鏽鋼",
+    "產地": "日本",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "USB-C",
+    "240W"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0022",
+   "name": "晨光研選 複方益生菌粉 100億CFU 60粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 消化保健",
+   "regulated_category": "food",
+   "price": 490,
+   "specs": {
+    "主要規格": "專利益生菌 100億CFU",
+    "型態": "植物膠囊",
+    "產地": "台灣",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "專利益生菌",
+    "100億CFU",
+    "60粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0023",
+   "name": "白日光 SUNDAY 舒緩精華液 10% 1入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 精華液",
+   "regulated_category": "cosmetic",
+   "price": 290,
+   "specs": {
+    "主要規格": "積雪草萃取 10%",
+    "型態": "凝露質地",
+    "產地": "美國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "積雪草萃取",
+    "10%",
+    "1入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0024",
+   "name": "本木 BENMU 不鏽鋼保溫瓶 750ml",
+   "brand": "本木 BENMU",
+   "category": "生活 / 水壺",
+   "regulated_category": "general",
+   "price": 690,
+   "specs": {
+    "主要規格": "容量 750ml",
+    "型態": "食品級不鏽鋼",
+    "產地": "德國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "保溫",
+    "750ml"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0025",
+   "name": "溯源焙所 乳清蛋白粉 30g 20粒",
+   "brand": "溯源焙所",
+   "category": "food / 運動營養",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "分離乳清蛋白 30g",
+    "型態": "粉末隨身包",
+    "產地": "韓國",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "分離乳清蛋白",
+    "30g",
+    "20粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0026",
+   "name": "青研 CHINGYEN 礦物防曬乳 60ml 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 防曬",
+   "regulated_category": "cosmetic",
+   "price": 890,
+   "specs": {
+    "主要規格": "氧化鋅 60ml",
+    "型態": "油狀質地",
+    "產地": "德國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "氧化鋅",
+    "60ml",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0027",
+   "name": "Volta 不鏽鋼保溫瓶 350ml",
+   "brand": "Volta",
+   "category": "生活 / 水壺",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "容量 350ml",
+    "型態": "PC+ABS 複合",
+    "產地": "台灣",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "保溫",
+    "350ml"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0028",
+   "name": "晨光研選 甘胺酸亞鐵錠 20mg 90粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 女性保健",
+   "regulated_category": "food",
+   "price": 1580,
+   "specs": {
+    "主要規格": "甘胺酸亞鐵 20mg",
+    "型態": "軟膠囊",
+    "產地": "日本",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "甘胺酸亞鐵",
+    "20mg",
+    "90粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0029",
+   "name": "青研 CHINGYEN 唇部修護膏 8g 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 唇部",
+   "regulated_category": "cosmetic",
+   "price": 1180,
+   "specs": {
+    "主要規格": "蜂蠟與植物油 8g",
+    "型態": "水感質地",
+    "產地": "日本",
+    "包裝": "7入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "蜂蠟與植物油",
+    "8g",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0030",
+   "name": "本木 BENMU 空氣清淨機 15坪",
+   "brand": "本木 BENMU",
+   "category": "家電 / 空氣",
+   "regulated_category": "general",
+   "price": 890,
+   "specs": {
+    "主要規格": "適用坪數 15坪",
+    "型態": "食品級不鏽鋼",
+    "產地": "日本",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "坪數",
+    "15坪"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0031",
+   "name": "溯源焙所 乳清蛋白粉 30g 60粒",
+   "brand": "溯源焙所",
+   "category": "food / 運動營養",
+   "regulated_category": "food",
+   "price": 390,
+   "specs": {
+    "主要規格": "分離乳清蛋白 30g",
+    "型態": "粉末隨身包",
+    "產地": "德國",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "分離乳清蛋白",
+    "30g",
+    "60粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0032",
+   "name": "青研 CHINGYEN 溫和洗面乳 150ml 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 清潔",
+   "regulated_category": "cosmetic",
+   "price": 2290,
+   "specs": {
+    "主要規格": "胺基酸界面活性劑 150ml",
+    "型態": "凝露質地",
+    "產地": "台灣",
+    "包裝": "1入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "胺基酸界面活性劑",
+    "150ml",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0033",
+   "name": "Volta 不鏽鋼保溫瓶 750ml",
+   "brand": "Volta",
+   "category": "生活 / 水壺",
+   "regulated_category": "general",
+   "price": 490,
+   "specs": {
+    "主要規格": "容量 750ml",
+    "型態": "PC+ABS 複合",
+    "產地": "台灣",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "保溫",
+    "750ml"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0034",
+   "name": "晨光研選 即溶燕麥飲 25g 30粒",
+   "brand": "晨光研選",
+   "category": "food / 沖泡飲",
+   "regulated_category": "food",
+   "price": 490,
+   "specs": {
+    "主要規格": "全穀燕麥 25g",
+    "型態": "獨立包裝",
+    "產地": "德國",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "全穀燕麥",
+    "25g",
+    "30粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0035",
+   "name": "白日光 SUNDAY 修護乳液 50ml 1入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 乳液",
+   "regulated_category": "cosmetic",
+   "price": 890,
+   "specs": {
+    "主要規格": "神經醯胺 50ml",
+    "型態": "乳霜質地",
+    "產地": "美國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "神經醯胺",
+    "50ml",
+    "1入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0036",
+   "name": "本木 BENMU 機械式鍵盤 104鍵",
+   "brand": "本木 BENMU",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 3290,
+   "specs": {
+    "主要規格": "按鍵數 104鍵",
+    "型態": "霧面鋁合金",
+    "產地": "美國",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "機械式",
+    "104鍵"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0037",
+   "name": "晨光研選 複方益生菌粉 50億CFU 30粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 消化保健",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "專利益生菌 50億CFU",
+    "型態": "錠劑",
+    "產地": "日本",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "專利益生菌",
+    "50億CFU",
+    "30粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0038",
+   "name": "青研 CHINGYEN 純淨卸妝油 100ml 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 卸妝",
+   "regulated_category": "cosmetic",
+   "price": 390,
+   "specs": {
+    "主要規格": "植物油脂 100ml",
+    "型態": "乳霜質地",
+    "產地": "台灣",
+    "包裝": "1入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "植物油脂",
+    "100ml",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0039",
+   "name": "Volta 氮化鎵快充充電器 45W",
+   "brand": "Volta",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 3290,
+   "specs": {
+    "主要規格": "總輸出 45W",
+    "型態": "陽極處理",
+    "產地": "日本",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "氮化鎵",
+    "45W"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0040",
+   "name": "晨光研選 低溫烘焙堅果 350g 90粒",
+   "brand": "晨光研選",
+   "category": "food / 零食",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "綜合堅果 350g",
+    "型態": "錠劑",
+    "產地": "德國",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "綜合堅果",
+    "350g",
+    "90粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0041",
+   "name": "白日光 SUNDAY 溫和洗面乳 100ml 1入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 清潔",
+   "regulated_category": "cosmetic",
+   "price": 690,
+   "specs": {
+    "主要規格": "胺基酸界面活性劑 100ml",
+    "型態": "油狀質地",
+    "產地": "德國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "胺基酸界面活性劑",
+    "100ml",
+    "1入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0042",
+   "name": "Volta 空氣清淨機 20坪",
+   "brand": "Volta",
+   "category": "家電 / 空氣",
+   "regulated_category": "general",
+   "price": 2290,
+   "specs": {
+    "主要規格": "適用坪數 20坪",
+    "型態": "PC+ABS 複合",
+    "產地": "台灣",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "坪數",
+    "20坪"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0043",
+   "name": "晨光研選 葉黃素膠囊 30mg 20粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 眼部保養",
+   "regulated_category": "food",
+   "price": 2290,
+   "specs": {
+    "主要規格": "游離型葉黃素 30mg",
+    "型態": "錠劑",
+    "產地": "德國",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "游離型葉黃素",
+    "30mg",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0044",
+   "name": "青研 CHINGYEN 唇部修護膏 15g 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 唇部",
+   "regulated_category": "cosmetic",
+   "price": 2290,
+   "specs": {
+    "主要規格": "蜂蠟與植物油 15g",
+    "型態": "水感質地",
+    "產地": "美國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "蜂蠟與植物油",
+    "15g",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0045",
+   "name": "本木 BENMU 手持無線吸塵器 25000Pa",
+   "brand": "本木 BENMU",
+   "category": "家電 / 清潔",
+   "regulated_category": "general",
+   "price": 890,
+   "specs": {
+    "主要規格": "吸力 25000Pa",
+    "型態": "PC+ABS 複合",
+    "產地": "韓國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "吸力",
+    "25000Pa"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0046",
+   "name": "晨光研選 三角立體茶包 2g 20粒",
+   "brand": "晨光研選",
+   "category": "food / 茶葉",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "台灣高山茶 2g",
+    "型態": "軟膠囊",
+    "產地": "台灣",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "台灣高山茶",
+    "2g",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0047",
+   "name": "白日光 SUNDAY 保濕面膜 7片 7入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 4680,
+   "specs": {
+    "主要規格": "多重玻尿酸 7片",
+    "型態": "水感質地",
+    "產地": "美國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "多重玻尿酸",
+    "7片",
+    "7入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0048",
+   "name": "Volta 氮化鎵快充充電器 100W",
+   "brand": "Volta",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 390,
+   "specs": {
+    "主要規格": "總輸出 100W",
+    "型態": "霧面鋁合金",
+    "產地": "韓國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "氮化鎵",
+    "100W"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0049",
+   "name": "溯源焙所 薑黃萃取膠囊 100mg 90粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "薑黃素 100mg",
+    "型態": "粉末隨身包",
+    "產地": "日本",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "薑黃素",
+    "100mg",
+    "90粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0050",
+   "name": "青研 CHINGYEN 護手霜 5% 5入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 手部",
+   "regulated_category": "cosmetic",
+   "price": 890,
+   "specs": {
+    "主要規格": "尿素 5%",
+    "型態": "乳霜質地",
+    "產地": "美國",
+    "包裝": "5入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "尿素",
+    "5%",
+    "5入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0051",
+   "name": "本木 BENMU 降噪藍牙耳機 42dB",
+   "brand": "本木 BENMU",
+   "category": "3C / 音訊",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "主動降噪深度 42dB",
+    "型態": "食品級不鏽鋼",
+    "產地": "美國",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "降噪",
+    "42dB"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0052",
+   "name": "晨光研選 綜合維他命錠 25種 90粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 綜合補充",
+   "regulated_category": "food",
+   "price": 490,
+   "specs": {
+    "主要規格": "23種維生素礦物質 25種",
+    "型態": "軟膠囊",
+    "產地": "美國",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "23種維生素礦物質",
+    "25種",
+    "90粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0053",
+   "name": "白日光 SUNDAY 舒緩精華液 2% 7入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 精華液",
+   "regulated_category": "cosmetic",
+   "price": 1580,
+   "specs": {
+    "主要規格": "積雪草萃取 2%",
+    "型態": "乳霜質地",
+    "產地": "台灣",
+    "包裝": "7入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "積雪草萃取",
+    "2%",
+    "7入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0054",
+   "name": "本木 BENMU 鑄鐵平底鍋 20cm",
+   "brand": "本木 BENMU",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 390,
+   "specs": {
+    "主要規格": "直徑 20cm",
+    "型態": "霧面鋁合金",
+    "產地": "美國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "鑄鐵",
+    "20cm"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0055",
+   "name": "溯源焙所 深海魚油軟膠囊 500mg 90粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 循環保健",
+   "regulated_category": "food",
+   "price": 2290,
+   "specs": {
+    "主要規格": "Omega-3 500mg",
+    "型態": "錠劑",
+    "產地": "台灣",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "Omega-3",
+    "500mg",
+    "90粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0056",
+   "name": "白日光 SUNDAY 礦物防曬乳 30ml 7入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 防曬",
+   "regulated_category": "cosmetic",
+   "price": 4680,
+   "specs": {
+    "主要規格": "氧化鋅 30ml",
+    "型態": "水感質地",
+    "產地": "德國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "氧化鋅",
+    "30ml",
+    "7入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0057",
+   "name": "Volta 降噪藍牙耳機 50dB",
+   "brand": "Volta",
+   "category": "3C / 音訊",
+   "regulated_category": "general",
+   "price": 2290,
+   "specs": {
+    "主要規格": "主動降噪深度 50dB",
+    "型態": "霧面鋁合金",
+    "產地": "美國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "降噪",
+    "50dB"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0058",
+   "name": "溯源焙所 甘胺酸亞鐵錠 15mg 30粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 女性保健",
+   "regulated_category": "food",
+   "price": 1180,
+   "specs": {
+    "主要規格": "甘胺酸亞鐵 15mg",
+    "型態": "獨立包裝",
+    "產地": "韓國",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "甘胺酸亞鐵",
+    "15mg",
+    "30粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0059",
+   "name": "青研 CHINGYEN 保濕面膜 5片 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 3290,
+   "specs": {
+    "主要規格": "多重玻尿酸 5片",
+    "型態": "油狀質地",
+    "產地": "台灣",
+    "包裝": "1入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "多重玻尿酸",
+    "5片",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0060",
+   "name": "本木 BENMU 無線滑鼠 4000DPI",
+   "brand": "本木 BENMU",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 4680,
+   "specs": {
+    "主要規格": "DPI 4000DPI",
+    "型態": "PC+ABS 複合",
+    "產地": "美國",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "無線",
+    "4000DPI"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0061",
+   "name": "晨光研選 深海魚油軟膠囊 800mg 20粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 循環保健",
+   "regulated_category": "food",
+   "price": 1580,
+   "specs": {
+    "主要規格": "Omega-3 800mg",
+    "型態": "獨立包裝",
+    "產地": "日本",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "Omega-3",
+    "800mg",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0062",
+   "name": "青研 CHINGYEN 純淨卸妝油 150ml 5入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 卸妝",
+   "regulated_category": "cosmetic",
+   "price": 1180,
+   "specs": {
+    "主要規格": "植物油脂 150ml",
+    "型態": "油狀質地",
+    "產地": "台灣",
+    "包裝": "5入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "植物油脂",
+    "150ml",
+    "5入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0063",
+   "name": "Volta 手持無線吸塵器 12000Pa",
+   "brand": "Volta",
+   "category": "家電 / 清潔",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "吸力 12000Pa",
+    "型態": "霧面鋁合金",
+    "產地": "韓國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "吸力",
+    "12000Pa"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0064",
+   "name": "晨光研選 魚膠原蛋白粉 2500mg 120粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 美容保養",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "深海魚膠原蛋白胜肽 2500mg",
+    "型態": "錠劑",
+    "產地": "台灣",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "深海魚膠原蛋白胜肽",
+    "2500mg",
+    "120粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0065",
+   "name": "白日光 SUNDAY 舒緩精華液 5% 7入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 精華液",
+   "regulated_category": "cosmetic",
+   "price": 490,
+   "specs": {
+    "主要規格": "積雪草萃取 5%",
+    "型態": "凝露質地",
+    "產地": "台灣",
+    "包裝": "7入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "積雪草萃取",
+    "5%",
+    "7入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0066",
+   "name": "Volta 空氣清淨機 8坪",
+   "brand": "Volta",
+   "category": "家電 / 空氣",
+   "regulated_category": "general",
+   "price": 390,
+   "specs": {
+    "主要規格": "適用坪數 8坪",
+    "型態": "PC+ABS 複合",
+    "產地": "日本",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "坪數",
+    "8坪"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0067",
+   "name": "晨光研選 深海魚油軟膠囊 500mg 90粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 循環保健",
+   "regulated_category": "food",
+   "price": 1580,
+   "specs": {
+    "主要規格": "Omega-3 500mg",
+    "型態": "錠劑",
+    "產地": "日本",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "Omega-3",
+    "500mg",
+    "90粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0068",
+   "name": "青研 CHINGYEN 溫和洗面乳 120ml 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 清潔",
+   "regulated_category": "cosmetic",
+   "price": 290,
+   "specs": {
+    "主要規格": "胺基酸界面活性劑 120ml",
+    "型態": "乳霜質地",
+    "產地": "台灣",
+    "包裝": "1入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "胺基酸界面活性劑",
+    "120ml",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0069",
+   "name": "Volta 機械式鍵盤 68鍵",
+   "brand": "Volta",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 1180,
+   "specs": {
+    "主要規格": "按鍵數 68鍵",
+    "型態": "陽極處理",
+    "產地": "德國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "機械式",
+    "68鍵"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0070",
+   "name": "溯源焙所 葉黃素膠囊 15mg 120粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 眼部保養",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "游離型葉黃素 15mg",
+    "型態": "粉末隨身包",
+    "產地": "日本",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "游離型葉黃素",
+    "15mg",
+    "120粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0071",
+   "name": "青研 CHINGYEN 護手霜 3% 5入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 手部",
+   "regulated_category": "cosmetic",
+   "price": 490,
+   "specs": {
+    "主要規格": "尿素 3%",
+    "型態": "水感質地",
+    "產地": "日本",
+    "包裝": "5入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "尿素",
+    "3%",
+    "5入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0072",
+   "name": "本木 BENMU 氮化鎵快充充電器 65W",
+   "brand": "本木 BENMU",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 690,
+   "specs": {
+    "主要規格": "總輸出 65W",
+    "型態": "PC+ABS 複合",
+    "產地": "韓國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "氮化鎵",
+    "65W"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0073",
+   "name": "晨光研選 薑黃萃取膠囊 200mg 20粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 1580,
+   "specs": {
+    "主要規格": "薑黃素 200mg",
+    "型態": "軟膠囊",
+    "產地": "日本",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "薑黃素",
+    "200mg",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0074",
+   "name": "青研 CHINGYEN 舒緩精華液 2% 3入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 精華液",
+   "regulated_category": "cosmetic",
+   "price": 4680,
+   "specs": {
+    "主要規格": "積雪草萃取 2%",
+    "型態": "水感質地",
+    "產地": "美國",
+    "包裝": "3入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "積雪草萃取",
+    "2%",
+    "3入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0075",
+   "name": "本木 BENMU 降噪藍牙耳機 35dB",
+   "brand": "本木 BENMU",
+   "category": "3C / 音訊",
+   "regulated_category": "general",
+   "price": 3290,
+   "specs": {
+    "主要規格": "主動降噪深度 35dB",
+    "型態": "霧面鋁合金",
+    "產地": "韓國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "降噪",
+    "35dB"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0076",
+   "name": "晨光研選 蔓越莓膠囊 400mg 120粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 女性保健",
+   "regulated_category": "food",
+   "price": 2290,
+   "specs": {
+    "主要規格": "蔓越莓萃取 400mg",
+    "型態": "獨立包裝",
+    "產地": "德國",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "蔓越莓萃取",
+    "400mg",
+    "120粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0077",
+   "name": "青研 CHINGYEN 礦物防曬乳 50ml 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 防曬",
+   "regulated_category": "cosmetic",
+   "price": 1180,
+   "specs": {
+    "主要規格": "氧化鋅 50ml",
+    "型態": "水感質地",
+    "產地": "日本",
+    "包裝": "1入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "氧化鋅",
+    "50ml",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0078",
+   "name": "本木 BENMU 行動電源 20000mAh",
+   "brand": "本木 BENMU",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 2290,
+   "specs": {
+    "主要規格": "電池容量 20000mAh",
+    "型態": "PC+ABS 複合",
+    "產地": "美國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "行動電源",
+    "20000mAh"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0079",
+   "name": "晨光研選 薑黃萃取膠囊 100mg 120粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 890,
+   "specs": {
+    "主要規格": "薑黃素 100mg",
+    "型態": "粉末隨身包",
+    "產地": "韓國",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "薑黃素",
+    "100mg",
+    "120粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0080",
+   "name": "青研 CHINGYEN 頭皮精華 1% 5入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 頭皮",
+   "regulated_category": "cosmetic",
+   "price": 890,
+   "specs": {
+    "主要規格": "水楊酸 1%",
+    "型態": "油狀質地",
+    "產地": "美國",
+    "包裝": "5入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "水楊酸",
+    "1%",
+    "5入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0081",
+   "name": "Volta 鑄鐵平底鍋 28cm",
+   "brand": "Volta",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 2290,
+   "specs": {
+    "主要規格": "直徑 28cm",
+    "型態": "霧面鋁合金",
+    "產地": "台灣",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "鑄鐵",
+    "28cm"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0082",
+   "name": "溯源焙所 乳鐵蛋白粉 300mg 20粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "乳鐵蛋白 300mg",
+    "型態": "軟膠囊",
+    "產地": "美國",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "乳鐵蛋白",
+    "300mg",
+    "20粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0083",
+   "name": "青研 CHINGYEN 純淨卸妝油 100ml 3入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 卸妝",
+   "regulated_category": "cosmetic",
+   "price": 4680,
+   "specs": {
+    "主要規格": "植物油脂 100ml",
+    "型態": "乳霜質地",
+    "產地": "台灣",
+    "包裝": "3入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "植物油脂",
+    "100ml",
+    "3入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0084",
+   "name": "Volta 行動電源 10000mAh",
+   "brand": "Volta",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 3290,
+   "specs": {
+    "主要規格": "電池容量 10000mAh",
+    "型態": "霧面鋁合金",
+    "產地": "德國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "行動電源",
+    "10000mAh"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0085",
+   "name": "晨光研選 深海魚油軟膠囊 500mg 60粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 循環保健",
+   "regulated_category": "food",
+   "price": 890,
+   "specs": {
+    "主要規格": "Omega-3 500mg",
+    "型態": "獨立包裝",
+    "產地": "日本",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "Omega-3",
+    "500mg",
+    "60粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0086",
+   "name": "青研 CHINGYEN 保濕面膜 7片 5入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 490,
+   "specs": {
+    "主要規格": "多重玻尿酸 7片",
+    "型態": "凝露質地",
+    "產地": "韓國",
+    "包裝": "5入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "多重玻尿酸",
+    "7片",
+    "5入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0087",
+   "name": "Volta 循環扇 32段",
+   "brand": "Volta",
+   "category": "家電 / 空調",
+   "regulated_category": "general",
+   "price": 890,
+   "specs": {
+    "主要規格": "風速段數 32段",
+    "型態": "陽極處理",
+    "產地": "美國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "風速",
+    "32段"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0088",
+   "name": "溯源焙所 三角立體茶包 4g 120粒",
+   "brand": "溯源焙所",
+   "category": "food / 茶葉",
+   "regulated_category": "food",
+   "price": 890,
+   "specs": {
+    "主要規格": "台灣高山茶 4g",
+    "型態": "軟膠囊",
+    "產地": "日本",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "台灣高山茶",
+    "4g",
+    "120粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0089",
+   "name": "白日光 SUNDAY 溫和洗面乳 100ml 7入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 清潔",
+   "regulated_category": "cosmetic",
+   "price": 290,
+   "specs": {
+    "主要規格": "胺基酸界面活性劑 100ml",
+    "型態": "凝露質地",
+    "產地": "德國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "胺基酸界面活性劑",
+    "100ml",
+    "7入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0090",
+   "name": "本木 BENMU 不鏽鋼保溫瓶 500ml",
+   "brand": "本木 BENMU",
+   "category": "生活 / 水壺",
+   "regulated_category": "general",
+   "price": 1580,
+   "specs": {
+    "主要規格": "容量 500ml",
+    "型態": "PC+ABS 複合",
+    "產地": "韓國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "保溫",
+    "500ml"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0091",
+   "name": "溯源焙所 綜合維他命錠 28種 20粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 綜合補充",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "23種維生素礦物質 28種",
+    "型態": "獨立包裝",
+    "產地": "韓國",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "23種維生素礦物質",
+    "28種",
+    "20粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0092",
+   "name": "白日光 SUNDAY 舒緩精華液 2% 5入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 精華液",
+   "regulated_category": "cosmetic",
+   "price": 1180,
+   "specs": {
+    "主要規格": "積雪草萃取 2%",
+    "型態": "油狀質地",
+    "產地": "韓國",
+    "包裝": "5入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "積雪草萃取",
+    "2%",
+    "5入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0093",
+   "name": "本木 BENMU 無線滑鼠 16000DPI",
+   "brand": "本木 BENMU",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 4680,
+   "specs": {
+    "主要規格": "DPI 16000DPI",
+    "型態": "PC+ABS 複合",
+    "產地": "美國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "無線",
+    "16000DPI"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0094",
+   "name": "溯源焙所 複方益生菌粉 300億CFU 90粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 消化保健",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "專利益生菌 300億CFU",
+    "型態": "錠劑",
+    "產地": "台灣",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "專利益生菌",
+    "300億CFU",
+    "90粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0095",
+   "name": "青研 CHINGYEN 眼周精華 20ml 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 眼部",
+   "regulated_category": "cosmetic",
+   "price": 690,
+   "specs": {
+    "主要規格": "咖啡因複方 20ml",
+    "型態": "乳霜質地",
+    "產地": "韓國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "咖啡因複方",
+    "20ml",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0096",
+   "name": "Volta 不鏽鋼保溫瓶 500ml",
+   "brand": "Volta",
+   "category": "生活 / 水壺",
+   "regulated_category": "general",
+   "price": 490,
+   "specs": {
+    "主要規格": "容量 500ml",
+    "型態": "食品級不鏽鋼",
+    "產地": "日本",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "保溫",
+    "500ml"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0097",
+   "name": "溯源焙所 深海魚油軟膠囊 1000mg 60粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 循環保健",
+   "regulated_category": "food",
+   "price": 690,
+   "specs": {
+    "主要規格": "Omega-3 1000mg",
+    "型態": "獨立包裝",
+    "產地": "韓國",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "Omega-3",
+    "1000mg",
+    "60粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0098",
+   "name": "白日光 SUNDAY 化妝水 200ml 1入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 化妝水",
+   "regulated_category": "cosmetic",
+   "price": 4680,
+   "specs": {
+    "主要規格": "泛醇 200ml",
+    "型態": "凝露質地",
+    "產地": "美國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "泛醇",
+    "200ml",
+    "1入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0099",
+   "name": "本木 BENMU 螢幕掛燈 97Ra",
+   "brand": "本木 BENMU",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "顯色指數 97Ra",
+    "型態": "霧面鋁合金",
+    "產地": "台灣",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "顯色",
+    "97Ra"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0100",
+   "name": "溯源焙所 薑黃萃取膠囊 200mg 30粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 1180,
+   "specs": {
+    "主要規格": "薑黃素 200mg",
+    "型態": "獨立包裝",
+    "產地": "日本",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "薑黃素",
+    "200mg",
+    "30粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0101",
+   "name": "青研 CHINGYEN 純淨卸妝油 150ml 3入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 卸妝",
+   "regulated_category": "cosmetic",
+   "price": 690,
+   "specs": {
+    "主要規格": "植物油脂 150ml",
+    "型態": "水感質地",
+    "產地": "德國",
+    "包裝": "3入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "植物油脂",
+    "150ml",
+    "3入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0102",
+   "name": "本木 BENMU USB-C 編織傳輸線 100W",
+   "brand": "本木 BENMU",
+   "category": "3C / 線材",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "過電瓦數 100W",
+    "型態": "PC+ABS 複合",
+    "產地": "韓國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "USB-C",
+    "100W"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0103",
+   "name": "溯源焙所 低溫烘焙堅果 500g 20粒",
+   "brand": "溯源焙所",
+   "category": "food / 零食",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "綜合堅果 500g",
+    "型態": "粉末隨身包",
+    "產地": "日本",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "綜合堅果",
+    "500g",
+    "20粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0104",
+   "name": "青研 CHINGYEN 身體乳 300ml 3入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 身體",
+   "regulated_category": "cosmetic",
+   "price": 390,
+   "specs": {
+    "主要規格": "乳油木果脂 300ml",
+    "型態": "油狀質地",
+    "產地": "美國",
+    "包裝": "3入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "乳油木果脂",
+    "300ml",
+    "3入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0105",
+   "name": "Volta 氮化鎵快充充電器 65W",
+   "brand": "Volta",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 4680,
+   "specs": {
+    "主要規格": "總輸出 65W",
+    "型態": "霧面鋁合金",
+    "產地": "台灣",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "氮化鎵",
+    "65W"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0106",
+   "name": "晨光研選 乳清蛋白粉 30g 20粒",
+   "brand": "晨光研選",
+   "category": "food / 運動營養",
+   "regulated_category": "food",
+   "price": 3290,
+   "specs": {
+    "主要規格": "分離乳清蛋白 30g",
+    "型態": "粉末隨身包",
+    "產地": "台灣",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "分離乳清蛋白",
+    "30g",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0107",
+   "name": "青研 CHINGYEN 純淨卸妝油 200ml 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 卸妝",
+   "regulated_category": "cosmetic",
+   "price": 3290,
+   "specs": {
+    "主要規格": "植物油脂 200ml",
+    "型態": "油狀質地",
+    "產地": "韓國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "植物油脂",
+    "200ml",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0108",
+   "name": "本木 BENMU 陶瓷刀具組 5件",
+   "brand": "本木 BENMU",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 490,
+   "specs": {
+    "主要規格": "件數 5件",
+    "型態": "食品級不鏽鋼",
+    "產地": "台灣",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "陶瓷",
+    "5件"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0109",
+   "name": "溯源焙所 乳鐵蛋白粉 300mg 120粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 1180,
+   "specs": {
+    "主要規格": "乳鐵蛋白 300mg",
+    "型態": "獨立包裝",
+    "產地": "美國",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "乳鐵蛋白",
+    "300mg",
+    "120粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0110",
+   "name": "白日光 SUNDAY 頭皮精華 3% 3入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 頭皮",
+   "regulated_category": "cosmetic",
+   "price": 2290,
+   "specs": {
+    "主要規格": "水楊酸 3%",
+    "型態": "油狀質地",
+    "產地": "台灣",
+    "包裝": "3入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "水楊酸",
+    "3%",
+    "3入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0111",
+   "name": "本木 BENMU 氮化鎵快充充電器 45W",
+   "brand": "本木 BENMU",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 390,
+   "specs": {
+    "主要規格": "總輸出 45W",
+    "型態": "霧面鋁合金",
+    "產地": "美國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "氮化鎵",
+    "45W"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0112",
+   "name": "溯源焙所 甘胺酸亞鐵錠 15mg 60粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 女性保健",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "甘胺酸亞鐵 15mg",
+    "型態": "錠劑",
+    "產地": "德國",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "甘胺酸亞鐵",
+    "15mg",
+    "60粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0113",
+   "name": "白日光 SUNDAY 保濕面膜 10片 5入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 890,
+   "specs": {
+    "主要規格": "多重玻尿酸 10片",
+    "型態": "乳霜質地",
+    "產地": "台灣",
+    "包裝": "5入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "多重玻尿酸",
+    "10片",
+    "5入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0114",
+   "name": "Volta 空氣清淨機 15坪",
+   "brand": "Volta",
+   "category": "家電 / 空氣",
+   "regulated_category": "general",
+   "price": 890,
+   "specs": {
+    "主要規格": "適用坪數 15坪",
+    "型態": "霧面鋁合金",
+    "產地": "美國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "坪數",
+    "15坪"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0115",
+   "name": "晨光研選 芝麻素膠囊 20mg 120粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 舒緩放鬆",
+   "regulated_category": "food",
+   "price": 1580,
+   "specs": {
+    "主要規格": "芝麻素 20mg",
+    "型態": "錠劑",
+    "產地": "日本",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "芝麻素",
+    "20mg",
+    "120粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0116",
+   "name": "青研 CHINGYEN 溫和洗面乳 100ml 3入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 清潔",
+   "regulated_category": "cosmetic",
+   "price": 690,
+   "specs": {
+    "主要規格": "胺基酸界面活性劑 100ml",
+    "型態": "油狀質地",
+    "產地": "日本",
+    "包裝": "3入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "胺基酸界面活性劑",
+    "100ml",
+    "3入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0117",
+   "name": "本木 BENMU 不鏽鋼保溫瓶 350ml",
+   "brand": "本木 BENMU",
+   "category": "生活 / 水壺",
+   "regulated_category": "general",
+   "price": 1580,
+   "specs": {
+    "主要規格": "容量 350ml",
+    "型態": "食品級不鏽鋼",
+    "產地": "德國",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "保溫",
+    "350ml"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0118",
+   "name": "晨光研選 低溫烘焙堅果 500g 30粒",
+   "brand": "晨光研選",
+   "category": "food / 零食",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "綜合堅果 500g",
+    "型態": "植物膠囊",
+    "產地": "台灣",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "綜合堅果",
+    "500g",
+    "30粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0119",
+   "name": "白日光 SUNDAY 護手霜 3% 5入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 手部",
+   "regulated_category": "cosmetic",
+   "price": 690,
+   "specs": {
+    "主要規格": "尿素 3%",
+    "型態": "水感質地",
+    "產地": "德國",
+    "包裝": "5入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "尿素",
+    "3%",
+    "5入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0120",
+   "name": "Volta USB-C 編織傳輸線 100W",
+   "brand": "Volta",
+   "category": "3C / 線材",
+   "regulated_category": "general",
+   "price": 390,
+   "specs": {
+    "主要規格": "過電瓦數 100W",
+    "型態": "陽極處理",
+    "產地": "日本",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "USB-C",
+    "100W"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0121",
+   "name": "溯源焙所 複方益生菌粉 100億CFU 90粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 消化保健",
+   "regulated_category": "food",
+   "price": 1580,
+   "specs": {
+    "主要規格": "專利益生菌 100億CFU",
+    "型態": "植物膠囊",
+    "產地": "德國",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "專利益生菌",
+    "100億CFU",
+    "90粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0122",
+   "name": "白日光 SUNDAY 化妝水 250ml 5入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 化妝水",
+   "regulated_category": "cosmetic",
+   "price": 490,
+   "specs": {
+    "主要規格": "泛醇 250ml",
+    "型態": "水感質地",
+    "產地": "韓國",
+    "包裝": "5入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "泛醇",
+    "250ml",
+    "5入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0123",
+   "name": "Volta 除濕機 10L",
+   "brand": "Volta",
+   "category": "家電 / 空氣",
+   "regulated_category": "general",
+   "price": 1180,
+   "specs": {
+    "主要規格": "每日除濕量 10L",
+    "型態": "霧面鋁合金",
+    "產地": "韓國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "除濕",
+    "10L"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0124",
+   "name": "溯源焙所 複方益生菌粉 300億CFU 120粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 消化保健",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "專利益生菌 300億CFU",
+    "型態": "錠劑",
+    "產地": "日本",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "專利益生菌",
+    "300億CFU",
+    "120粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0125",
+   "name": "白日光 SUNDAY 化妝水 250ml 3入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 化妝水",
+   "regulated_category": "cosmetic",
+   "price": 490,
+   "specs": {
+    "主要規格": "泛醇 250ml",
+    "型態": "乳霜質地",
+    "產地": "韓國",
+    "包裝": "3入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "泛醇",
+    "250ml",
+    "3入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0126",
+   "name": "Volta 機械式鍵盤 104鍵",
+   "brand": "Volta",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 4680,
+   "specs": {
+    "主要規格": "按鍵數 104鍵",
+    "型態": "陽極處理",
+    "產地": "台灣",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "機械式",
+    "104鍵"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0127",
+   "name": "晨光研選 甘胺酸亞鐵錠 10mg 30粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 女性保健",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "甘胺酸亞鐵 10mg",
+    "型態": "植物膠囊",
+    "產地": "德國",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "甘胺酸亞鐵",
+    "10mg",
+    "30粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0128",
+   "name": "白日光 SUNDAY 頭皮精華 3% 7入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 頭皮",
+   "regulated_category": "cosmetic",
+   "price": 3290,
+   "specs": {
+    "主要規格": "水楊酸 3%",
+    "型態": "油狀質地",
+    "產地": "台灣",
+    "包裝": "7入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "水楊酸",
+    "3%",
+    "7入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0129",
+   "name": "本木 BENMU 鑄鐵平底鍋 28cm",
+   "brand": "本木 BENMU",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 490,
+   "specs": {
+    "主要規格": "直徑 28cm",
+    "型態": "霧面鋁合金",
+    "產地": "韓國",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "鑄鐵",
+    "28cm"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0130",
+   "name": "溯源焙所 葉黃素膠囊 15mg 90粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 眼部保養",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "游離型葉黃素 15mg",
+    "型態": "軟膠囊",
+    "產地": "韓國",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "游離型葉黃素",
+    "15mg",
+    "90粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0131",
+   "name": "青研 CHINGYEN 身體乳 200ml 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 身體",
+   "regulated_category": "cosmetic",
+   "price": 690,
+   "specs": {
+    "主要規格": "乳油木果脂 200ml",
+    "型態": "水感質地",
+    "產地": "德國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "乳油木果脂",
+    "200ml",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0132",
+   "name": "Volta 循環扇 12段",
+   "brand": "Volta",
+   "category": "家電 / 空調",
+   "regulated_category": "general",
+   "price": 3290,
+   "specs": {
+    "主要規格": "風速段數 12段",
+    "型態": "食品級不鏽鋼",
+    "產地": "日本",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "風速",
+    "12段"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0133",
+   "name": "晨光研選 蔓越莓膠囊 500mg 20粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 女性保健",
+   "regulated_category": "food",
+   "price": 1580,
+   "specs": {
+    "主要規格": "蔓越莓萃取 500mg",
+    "型態": "軟膠囊",
+    "產地": "台灣",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "蔓越莓萃取",
+    "500mg",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0134",
+   "name": "白日光 SUNDAY 眼周精華 30ml 7入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 眼部",
+   "regulated_category": "cosmetic",
+   "price": 2290,
+   "specs": {
+    "主要規格": "咖啡因複方 30ml",
+    "型態": "油狀質地",
+    "產地": "韓國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "咖啡因複方",
+    "30ml",
+    "7入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0135",
+   "name": "本木 BENMU 手持無線吸塵器 18000Pa",
+   "brand": "本木 BENMU",
+   "category": "家電 / 清潔",
+   "regulated_category": "general",
+   "price": 1580,
+   "specs": {
+    "主要規格": "吸力 18000Pa",
+    "型態": "霧面鋁合金",
+    "產地": "韓國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "吸力",
+    "18000Pa"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0136",
+   "name": "溯源焙所 低溫烘焙堅果 200g 90粒",
+   "brand": "溯源焙所",
+   "category": "food / 零食",
+   "regulated_category": "food",
+   "price": 890,
+   "specs": {
+    "主要規格": "綜合堅果 200g",
+    "型態": "獨立包裝",
+    "產地": "美國",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "綜合堅果",
+    "200g",
+    "90粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0137",
+   "name": "青研 CHINGYEN 唇部修護膏 10g 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 唇部",
+   "regulated_category": "cosmetic",
+   "price": 890,
+   "specs": {
+    "主要規格": "蜂蠟與植物油 10g",
+    "型態": "水感質地",
+    "產地": "韓國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "蜂蠟與植物油",
+    "10g",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0138",
+   "name": "本木 BENMU 陶瓷刀具組 3件",
+   "brand": "本木 BENMU",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 2290,
+   "specs": {
+    "主要規格": "件數 3件",
+    "型態": "食品級不鏽鋼",
+    "產地": "台灣",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "陶瓷",
+    "3件"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0139",
+   "name": "溯源焙所 凍乾果乾 50g 30粒",
+   "brand": "溯源焙所",
+   "category": "food / 零食",
+   "regulated_category": "food",
+   "price": 1180,
+   "specs": {
+    "主要規格": "整顆凍乾水果 50g",
+    "型態": "植物膠囊",
+    "產地": "美國",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "整顆凍乾水果",
+    "50g",
+    "30粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0140",
+   "name": "白日光 SUNDAY 純淨卸妝油 150ml 3入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 卸妝",
+   "regulated_category": "cosmetic",
+   "price": 3290,
+   "specs": {
+    "主要規格": "植物油脂 150ml",
+    "型態": "乳霜質地",
+    "產地": "台灣",
+    "包裝": "3入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "植物油脂",
+    "150ml",
+    "3入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0141",
+   "name": "本木 BENMU 除濕機 6L",
+   "brand": "本木 BENMU",
+   "category": "家電 / 空氣",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "每日除濕量 6L",
+    "型態": "食品級不鏽鋼",
+    "產地": "日本",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "除濕",
+    "6L"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0142",
+   "name": "晨光研選 掛耳咖啡 12g 60粒",
+   "brand": "晨光研選",
+   "category": "food / 咖啡",
+   "regulated_category": "food",
+   "price": 1580,
+   "specs": {
+    "主要規格": "單一產區豆 12g",
+    "型態": "獨立包裝",
+    "產地": "美國",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "單一產區豆",
+    "12g",
+    "60粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0143",
+   "name": "白日光 SUNDAY 舒緩精華液 10% 5入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 精華液",
+   "regulated_category": "cosmetic",
+   "price": 390,
+   "specs": {
+    "主要規格": "積雪草萃取 10%",
+    "型態": "乳霜質地",
+    "產地": "韓國",
+    "包裝": "5入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "積雪草萃取",
+    "10%",
+    "5入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0144",
+   "name": "Volta 無線滑鼠 8000DPI",
+   "brand": "Volta",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 390,
+   "specs": {
+    "主要規格": "DPI 8000DPI",
+    "型態": "食品級不鏽鋼",
+    "產地": "日本",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "無線",
+    "8000DPI"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0145",
+   "name": "溯源焙所 葉黃素膠囊 45mg 120粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 眼部保養",
+   "regulated_category": "food",
+   "price": 1180,
+   "specs": {
+    "主要規格": "游離型葉黃素 45mg",
+    "型態": "獨立包裝",
+    "產地": "韓國",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "游離型葉黃素",
+    "45mg",
+    "120粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0146",
+   "name": "白日光 SUNDAY 化妝水 150ml 7入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 化妝水",
+   "regulated_category": "cosmetic",
+   "price": 1180,
+   "specs": {
+    "主要規格": "泛醇 150ml",
+    "型態": "水感質地",
+    "產地": "德國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "泛醇",
+    "150ml",
+    "7入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0147",
+   "name": "本木 BENMU USB-C 編織傳輸線 140W",
+   "brand": "本木 BENMU",
+   "category": "3C / 線材",
+   "regulated_category": "general",
+   "price": 1580,
+   "specs": {
+    "主要規格": "過電瓦數 140W",
+    "型態": "PC+ABS 複合",
+    "產地": "台灣",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "USB-C",
+    "140W"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0148",
+   "name": "晨光研選 三角立體茶包 4g 120粒",
+   "brand": "晨光研選",
+   "category": "food / 茶葉",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "台灣高山茶 4g",
+    "型態": "粉末隨身包",
+    "產地": "台灣",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "台灣高山茶",
+    "4g",
+    "120粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0149",
+   "name": "青研 CHINGYEN 化妝水 150ml 5入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 化妝水",
+   "regulated_category": "cosmetic",
+   "price": 290,
+   "specs": {
+    "主要規格": "泛醇 150ml",
+    "型態": "水感質地",
+    "產地": "台灣",
+    "包裝": "5入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "泛醇",
+    "150ml",
+    "5入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0150",
+   "name": "Volta 降噪藍牙耳機 42dB",
+   "brand": "Volta",
+   "category": "3C / 音訊",
+   "regulated_category": "general",
+   "price": 4680,
+   "specs": {
+    "主要規格": "主動降噪深度 42dB",
+    "型態": "霧面鋁合金",
+    "產地": "德國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "降噪",
+    "42dB"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0151",
+   "name": "溯源焙所 甘胺酸亞鐵錠 10mg 120粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 女性保健",
+   "regulated_category": "food",
+   "price": 3290,
+   "specs": {
+    "主要規格": "甘胺酸亞鐵 10mg",
+    "型態": "粉末隨身包",
+    "產地": "台灣",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "甘胺酸亞鐵",
+    "10mg",
+    "120粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0152",
+   "name": "青研 CHINGYEN 保濕面膜 5片 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 490,
+   "specs": {
+    "主要規格": "多重玻尿酸 5片",
+    "型態": "乳霜質地",
+    "產地": "日本",
+    "包裝": "7入 / 盒",
+    "適用膚質": "所有膚質"
+   },
+   "must_include_keywords": [
+    "多重玻尿酸",
+    "5片",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0153",
+   "name": "本木 BENMU 行動電源 10000mAh",
+   "brand": "本木 BENMU",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "電池容量 10000mAh",
+    "型態": "食品級不鏽鋼",
+    "產地": "台灣",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "行動電源",
+    "10000mAh"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0154",
+   "name": "溯源焙所 低溫烘焙堅果 200g 20粒",
+   "brand": "溯源焙所",
+   "category": "food / 零食",
+   "regulated_category": "food",
+   "price": 490,
+   "specs": {
+    "主要規格": "綜合堅果 200g",
+    "型態": "錠劑",
+    "產地": "德國",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "綜合堅果",
+    "200g",
+    "20粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0155",
+   "name": "白日光 SUNDAY 礦物防曬乳 30ml 5入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 防曬",
+   "regulated_category": "cosmetic",
+   "price": 390,
+   "specs": {
+    "主要規格": "氧化鋅 30ml",
+    "型態": "油狀質地",
+    "產地": "日本",
+    "包裝": "5入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "氧化鋅",
+    "30ml",
+    "5入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0156",
+   "name": "本木 BENMU 陶瓷刀具組 7件",
+   "brand": "本木 BENMU",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 890,
+   "specs": {
+    "主要規格": "件數 7件",
+    "型態": "霧面鋁合金",
+    "產地": "日本",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "陶瓷",
+    "7件"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0157",
+   "name": "晨光研選 薑黃萃取膠囊 200mg 60粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 490,
+   "specs": {
+    "主要規格": "薑黃素 200mg",
+    "型態": "植物膠囊",
+    "產地": "美國",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "薑黃素",
+    "200mg",
+    "60粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0158",
+   "name": "青研 CHINGYEN 礦物防曬乳 50ml 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 防曬",
+   "regulated_category": "cosmetic",
+   "price": 3290,
+   "specs": {
+    "主要規格": "氧化鋅 50ml",
+    "型態": "凝露質地",
+    "產地": "韓國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "氧化鋅",
+    "50ml",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0159",
+   "name": "Volta 螢幕掛燈 97Ra",
+   "brand": "Volta",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 690,
+   "specs": {
+    "主要規格": "顯色指數 97Ra",
+    "型態": "食品級不鏽鋼",
+    "產地": "韓國",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "顯色",
+    "97Ra"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0160",
+   "name": "晨光研選 複方益生菌粉 300億CFU 60粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 消化保健",
+   "regulated_category": "food",
+   "price": 3290,
+   "specs": {
+    "主要規格": "專利益生菌 300億CFU",
+    "型態": "錠劑",
+    "產地": "德國",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "專利益生菌",
+    "300億CFU",
+    "60粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0161",
+   "name": "青研 CHINGYEN 頭皮精華 3% 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 頭皮",
+   "regulated_category": "cosmetic",
+   "price": 4680,
+   "specs": {
+    "主要規格": "水楊酸 3%",
+    "型態": "乳霜質地",
+    "產地": "日本",
+    "包裝": "7入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "水楊酸",
+    "3%",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  },
+  {
+   "sku": "EL-E0162",
+   "name": "Volta 除濕機 16L",
+   "brand": "Volta",
+   "category": "家電 / 空氣",
+   "regulated_category": "general",
+   "price": 690,
+   "specs": {
+    "主要規格": "每日除濕量 16L",
+    "型態": "陽極處理",
+    "產地": "日本",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "除濕",
+    "16L"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0163",
+   "name": "晨光研選 即溶燕麥飲 25g 60粒",
+   "brand": "晨光研選",
+   "category": "food / 沖泡飲",
+   "regulated_category": "food",
+   "price": 3290,
+   "specs": {
+    "主要規格": "全穀燕麥 25g",
+    "型態": "植物膠囊",
+    "產地": "美國",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "全穀燕麥",
+    "25g",
+    "60粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0164",
+   "name": "青研 CHINGYEN 修護乳液 80ml 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 乳液",
+   "regulated_category": "cosmetic",
+   "price": 3290,
+   "specs": {
+    "主要規格": "神經醯胺 80ml",
+    "型態": "油狀質地",
+    "產地": "台灣",
+    "包裝": "1入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "神經醯胺",
+    "80ml",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0165",
+   "name": "Volta 鑄鐵平底鍋 24cm",
+   "brand": "Volta",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 4680,
+   "specs": {
+    "主要規格": "直徑 24cm",
+    "型態": "PC+ABS 複合",
+    "產地": "韓國",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "鑄鐵",
+    "24cm"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0166",
+   "name": "溯源焙所 芝麻素膠囊 10mg 90粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 舒緩放鬆",
+   "regulated_category": "food",
+   "price": 390,
+   "specs": {
+    "主要規格": "芝麻素 10mg",
+    "型態": "軟膠囊",
+    "產地": "日本",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "芝麻素",
+    "10mg",
+    "90粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0167",
+   "name": "白日光 SUNDAY 修護乳液 80ml 1入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 乳液",
+   "regulated_category": "cosmetic",
+   "price": 3290,
+   "specs": {
+    "主要規格": "神經醯胺 80ml",
+    "型態": "乳霜質地",
+    "產地": "台灣",
+    "包裝": "1入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "神經醯胺",
+    "80ml",
+    "1入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0168",
+   "name": "本木 BENMU USB-C 編織傳輸線 240W",
+   "brand": "本木 BENMU",
+   "category": "3C / 線材",
+   "regulated_category": "general",
+   "price": 4680,
+   "specs": {
+    "主要規格": "過電瓦數 240W",
+    "型態": "陽極處理",
+    "產地": "日本",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "USB-C",
+    "240W"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0169",
+   "name": "溯源焙所 薑黃萃取膠囊 200mg 120粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "薑黃素 200mg",
+    "型態": "獨立包裝",
+    "產地": "韓國",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "薑黃素",
+    "200mg",
+    "120粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0170",
+   "name": "青研 CHINGYEN 唇部修護膏 8g 5入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 唇部",
+   "regulated_category": "cosmetic",
+   "price": 4680,
+   "specs": {
+    "主要規格": "蜂蠟與植物油 8g",
+    "型態": "凝露質地",
+    "產地": "韓國",
+    "包裝": "5入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "蜂蠟與植物油",
+    "8g",
+    "5入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0171",
+   "name": "本木 BENMU 無線滑鼠 8000DPI",
+   "brand": "本木 BENMU",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 890,
+   "specs": {
+    "主要規格": "DPI 8000DPI",
+    "型態": "陽極處理",
+    "產地": "美國",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "無線",
+    "8000DPI"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0172",
+   "name": "溯源焙所 魚膠原蛋白粉 3000mg 30粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 美容保養",
+   "regulated_category": "food",
+   "price": 2290,
+   "specs": {
+    "主要規格": "深海魚膠原蛋白胜肽 3000mg",
+    "型態": "軟膠囊",
+    "產地": "台灣",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "深海魚膠原蛋白胜肽",
+    "3000mg",
+    "30粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0173",
+   "name": "青研 CHINGYEN 修護乳液 80ml 3入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 乳液",
+   "regulated_category": "cosmetic",
+   "price": 3290,
+   "specs": {
+    "主要規格": "神經醯胺 80ml",
+    "型態": "凝露質地",
+    "產地": "德國",
+    "包裝": "3入 / 盒",
+    "適用膚質": "油性與混合肌"
+   },
+   "must_include_keywords": [
+    "神經醯胺",
+    "80ml",
+    "3入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0174",
+   "name": "Volta USB-C 編織傳輸線 140W",
+   "brand": "Volta",
+   "category": "3C / 線材",
+   "regulated_category": "general",
+   "price": 3290,
+   "specs": {
+    "主要規格": "過電瓦數 140W",
+    "型態": "霧面鋁合金",
+    "產地": "日本",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "USB-C",
+    "140W"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0175",
+   "name": "晨光研選 複方益生菌粉 300億CFU 120粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 消化保健",
+   "regulated_category": "food",
+   "price": 1180,
+   "specs": {
+    "主要規格": "專利益生菌 300億CFU",
+    "型態": "錠劑",
+    "產地": "日本",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "專利益生菌",
+    "300億CFU",
+    "120粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0176",
+   "name": "青研 CHINGYEN 溫和洗面乳 150ml 5入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 清潔",
+   "regulated_category": "cosmetic",
+   "price": 390,
+   "specs": {
+    "主要規格": "胺基酸界面活性劑 150ml",
+    "型態": "油狀質地",
+    "產地": "日本",
+    "包裝": "5入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "胺基酸界面活性劑",
+    "150ml",
+    "5入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0177",
+   "name": "本木 BENMU 降噪藍牙耳機 50dB",
+   "brand": "本木 BENMU",
+   "category": "3C / 音訊",
+   "regulated_category": "general",
+   "price": 490,
+   "specs": {
+    "主要規格": "主動降噪深度 50dB",
+    "型態": "食品級不鏽鋼",
+    "產地": "台灣",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "降噪",
+    "50dB"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0178",
+   "name": "晨光研選 乳鐵蛋白粉 300mg 30粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 2290,
+   "specs": {
+    "主要規格": "乳鐵蛋白 300mg",
+    "型態": "軟膠囊",
+    "產地": "台灣",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "乳鐵蛋白",
+    "300mg",
+    "30粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0179",
+   "name": "白日光 SUNDAY 護手霜 10% 1入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 手部",
+   "regulated_category": "cosmetic",
+   "price": 890,
+   "specs": {
+    "主要規格": "尿素 10%",
+    "型態": "凝露質地",
+    "產地": "台灣",
+    "包裝": "1入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "尿素",
+    "10%",
+    "1入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0180",
+   "name": "Volta 陶瓷刀具組 7件",
+   "brand": "Volta",
+   "category": "生活 / 廚具",
+   "regulated_category": "general",
+   "price": 390,
+   "specs": {
+    "主要規格": "件數 7件",
+    "型態": "食品級不鏽鋼",
+    "產地": "日本",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "陶瓷",
+    "7件"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "出差族、多裝置使用者"
+  },
+  {
+   "sku": "HB-E0181",
+   "name": "晨光研選 即溶燕麥飲 35g 60粒",
+   "brand": "晨光研選",
+   "category": "food / 沖泡飲",
+   "regulated_category": "food",
+   "price": 2290,
+   "specs": {
+    "主要規格": "全穀燕麥 35g",
+    "型態": "錠劑",
+    "產地": "日本",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "全穀燕麥",
+    "35g",
+    "60粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "25-45 歲長時間使用螢幕的上班族"
+  },
+  {
+   "sku": "CS-E0182",
+   "name": "青研 CHINGYEN 礦物防曬乳 60ml 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 防曬",
+   "regulated_category": "cosmetic",
+   "price": 490,
+   "specs": {
+    "主要規格": "氧化鋅 60ml",
+    "型態": "水感質地",
+    "產地": "美國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "氧化鋅",
+    "60ml",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0183",
+   "name": "Volta 手持無線吸塵器 18000Pa",
+   "brand": "Volta",
+   "category": "家電 / 清潔",
+   "regulated_category": "general",
+   "price": 690,
+   "specs": {
+    "主要規格": "吸力 18000Pa",
+    "型態": "食品級不鏽鋼",
+    "產地": "德國",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "吸力",
+    "18000Pa"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0184",
+   "name": "晨光研選 綜合維他命錠 25種 20粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 綜合補充",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "23種維生素礦物質 25種",
+    "型態": "軟膠囊",
+    "產地": "日本",
+    "包裝": "20粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "23種維生素礦物質",
+    "25種",
+    "20粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0185",
+   "name": "青研 CHINGYEN 頭皮精華 3% 3入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 頭皮",
+   "regulated_category": "cosmetic",
+   "price": 1580,
+   "specs": {
+    "主要規格": "水楊酸 3%",
+    "型態": "水感質地",
+    "產地": "德國",
+    "包裝": "3入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "水楊酸",
+    "3%",
+    "3入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0186",
+   "name": "本木 BENMU 空氣清淨機 20坪",
+   "brand": "本木 BENMU",
+   "category": "家電 / 空氣",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "適用坪數 20坪",
+    "型態": "陽極處理",
+    "產地": "美國",
+    "保固": "原廠一年保固"
+   },
+   "must_include_keywords": [
+    "坪數",
+    "20坪"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0187",
+   "name": "溯源焙所 乳鐵蛋白粉 200mg 30粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 290,
+   "specs": {
+    "主要規格": "乳鐵蛋白 200mg",
+    "型態": "軟膠囊",
+    "產地": "日本",
+    "包裝": "30粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "乳鐵蛋白",
+    "200mg",
+    "30粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "40 歲以上開始注意日常保養的族群"
+  },
+  {
+   "sku": "CS-E0188",
+   "name": "白日光 SUNDAY 保濕面膜 5片 1入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 290,
+   "specs": {
+    "主要規格": "多重玻尿酸 5片",
+    "型態": "凝露質地",
+    "產地": "德國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "多重玻尿酸",
+    "5片",
+    "1入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "18-30 歲學生與社群重度使用者"
+  },
+  {
+   "sku": "EL-E0189",
+   "name": "本木 BENMU 螢幕掛燈 90Ra",
+   "brand": "本木 BENMU",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "顯色指數 90Ra",
+    "型態": "PC+ABS 複合",
+    "產地": "台灣",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "顯色",
+    "90Ra"
+   ],
+   "brand_tone": "樸實、耐用取向、強調材質與工法",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0190",
+   "name": "晨光研選 薑黃萃取膠囊 200mg 120粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 4680,
+   "specs": {
+    "主要規格": "薑黃素 200mg",
+    "型態": "軟膠囊",
+    "產地": "德國",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "薑黃素",
+    "200mg",
+    "120粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "30-50 歲注重外在保養的女性"
+  },
+  {
+   "sku": "CS-E0191",
+   "name": "青研 CHINGYEN 保濕面膜 10片 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 面膜",
+   "regulated_category": "cosmetic",
+   "price": 1580,
+   "specs": {
+    "主要規格": "多重玻尿酸 10片",
+    "型態": "油狀質地",
+    "產地": "德國",
+    "包裝": "1入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "多重玻尿酸",
+    "10片",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0192",
+   "name": "Volta 無線滑鼠 16000DPI",
+   "brand": "Volta",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 1180,
+   "specs": {
+    "主要規格": "DPI 16000DPI",
+    "型態": "PC+ABS 複合",
+    "產地": "台灣",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "無線",
+    "16000DPI"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "重視 CP 值的首購族"
+  },
+  {
+   "sku": "HB-E0193",
+   "name": "溯源焙所 薑黃萃取膠囊 100mg 120粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 日常保養",
+   "regulated_category": "food",
+   "price": 3290,
+   "specs": {
+    "主要規格": "薑黃素 100mg",
+    "型態": "植物膠囊",
+    "產地": "日本",
+    "包裝": "120粒 / 盒",
+    "建議食用": "每日1-2份"
+   },
+   "must_include_keywords": [
+    "薑黃素",
+    "100mg",
+    "120粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "外食族、作息不規律的上班族"
+  },
+  {
+   "sku": "CS-E0194",
+   "name": "青研 CHINGYEN 舒緩精華液 2% 7入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 精華液",
+   "regulated_category": "cosmetic",
+   "price": 1580,
+   "specs": {
+    "主要規格": "積雪草萃取 2%",
+    "型態": "水感質地",
+    "產地": "美國",
+    "包裝": "7入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "積雪草萃取",
+    "2%",
+    "7入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+  },
+  {
+   "sku": "EL-E0195",
+   "name": "Volta 無線滑鼠 4000DPI",
+   "brand": "Volta",
+   "category": "3C / 週邊",
+   "regulated_category": "general",
+   "price": 290,
+   "specs": {
+    "主要規格": "DPI 4000DPI",
+    "型態": "PC+ABS 複合",
+    "產地": "日本",
+    "保固": "兩年保固"
+   },
+   "must_include_keywords": [
+    "無線",
+    "4000DPI"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "通勤族、遠距工作者"
+  },
+  {
+   "sku": "HB-E0196",
+   "name": "晨光研選 魚膠原蛋白粉 2500mg 60粒",
+   "brand": "晨光研選",
+   "category": "保健食品 / 美容保養",
+   "regulated_category": "food",
+   "price": 390,
+   "specs": {
+    "主要規格": "深海魚膠原蛋白胜肽 2500mg",
+    "型態": "錠劑",
+    "產地": "德國",
+    "包裝": "60粒 / 盒",
+    "建議食用": "每日1份，隨餐食用"
+   },
+   "must_include_keywords": [
+    "深海魚膠原蛋白胜肽",
+    "2500mg",
+    "60粒"
+   ],
+   "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0197",
+   "name": "青研 CHINGYEN 礦物防曬乳 30ml 1入",
+   "brand": "青研 CHINGYEN",
+   "category": "美妝保養 / 防曬",
+   "regulated_category": "cosmetic",
+   "price": 390,
+   "specs": {
+    "主要規格": "氧化鋅 30ml",
+    "型態": "凝露質地",
+    "產地": "日本",
+    "包裝": "1入 / 盒",
+    "適用膚質": "乾燥缺水肌"
+   },
+   "must_include_keywords": [
+    "氧化鋅",
+    "30ml",
+    "1入"
+   ],
+   "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+   "target_audience": "25-40 歲混合肌、重視質地的上班族"
+  },
+  {
+   "sku": "EL-E0198",
+   "name": "Volta 行動電源 27000mAh",
+   "brand": "Volta",
+   "category": "3C / 充電",
+   "regulated_category": "general",
+   "price": 2290,
+   "specs": {
+    "主要規格": "電池容量 27000mAh",
+    "型態": "陽極處理",
+    "產地": "台灣",
+    "保固": "終身技術支援"
+   },
+   "must_include_keywords": [
+    "行動電源",
+    "27000mAh"
+   ],
+   "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+   "target_audience": "小坪數家庭、養寵物族群"
+  },
+  {
+   "sku": "HB-E0199",
+   "name": "溯源焙所 緩釋B群錠 100mg 90粒",
+   "brand": "溯源焙所",
+   "category": "保健食品 / 精神體力",
+   "regulated_category": "food",
+   "price": 2290,
+   "specs": {
+    "主要規格": "維生素B群複方 100mg",
+    "型態": "錠劑",
+    "產地": "台灣",
+    "包裝": "90粒 / 盒",
+    "建議食用": "每日1份，睡前食用"
+   },
+   "must_include_keywords": [
+    "維生素B群複方",
+    "100mg",
+    "90粒"
+   ],
+   "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+   "target_audience": "注重原型食物的家庭與健身族群"
+  },
+  {
+   "sku": "CS-E0200",
+   "name": "白日光 SUNDAY 護手霜 3% 7入",
+   "brand": "白日光 SUNDAY",
+   "category": "美妝保養 / 手部",
+   "regulated_category": "cosmetic",
+   "price": 3290,
+   "specs": {
+    "主要規格": "尿素 3%",
+    "型態": "凝露質地",
+    "產地": "日本",
+    "包裝": "7入 / 盒",
+    "適用膚質": "敏弱肌適用"
+   },
+   "must_include_keywords": [
+    "尿素",
+    "3%",
+    "7入"
+   ],
+   "brand_tone": "明亮、生活感、口語但不輕浮",
+   "target_audience": "30-45 歲重視保濕與溫和配方的族群"
+  }
+ ]
+}

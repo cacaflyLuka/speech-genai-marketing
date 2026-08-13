@@ -163,7 +163,20 @@ RUBRIC_GEN_PROMPT = """你是資深電商文案主管，要為一個商品訂出
   ✓ 「文案是否避免使用驚嘆號？」（可以直接看出來）
 - 判準要**具體指向這個商品**，不要寫成通用的空話。
 
-【不要納入的範圍】
+【⚠️ 不可與規則層衝突】
+以下規格關鍵字是**硬性要求**，文案一定會出現它們：
+
+  {must_include}
+
+**絕對不可以寫出「避免使用某某專有名詞」這類會懲罰上述關鍵字的判準。**
+
+這是真實踩過的坑：規則層要求文案必須寫出「游離型葉黃素 30mg」，
+rubric 卻出了一條「是否避免使用『游離型』這種需要解釋的專有名詞」——
+兩層互相打架，文案怎麼寫都會被扣分，整張評測表就失去意義。
+
+你可以要求「把專有名詞轉成好懂的說法」，但不可以要求「不要出現它」。
+
+【其他不要納入的範圍】
 以下已由程式規則自動檢查，**不要**寫成判準：字數是否超標、JSON 格式是否合法、
 法規禁詞、必含關鍵字是否存在。你只負責語意層面。
 
@@ -331,6 +344,9 @@ def generate_rubrics(client, product: dict, ledger=None) -> RubricSet:
         brand_tone=product["brand_tone"],
         audience=product["target_audience"],
         specs=specs,
+        # 讓 rubric 生成知道哪些字是規則層的硬性要求，否則會出現
+        # 「避免使用這個專有名詞」這種與規則層打架的判準。
+        must_include="、".join(product["must_include_keywords"]),
         **_budget(),
     )
     try:
@@ -404,8 +420,27 @@ def should_judge(rule_result) -> bool:
     return rule_result.banned_clean and rule_result.spec_coverage > 0.5
 
 
-def summarize_rubrics(reports: list[RubricReport]) -> dict[str, dict[str, float]]:
-    """彙整成 {版本: 指標}，供對比表使用。"""
+def summarize_rubrics(
+    reports: list[RubricReport], total_items: int | None = None
+) -> dict[str, dict[str, float]]:
+    """彙整成 {版本: 指標}，供對比表使用。
+
+    `total_items` 是**每個版本應有的商品總數**（例如 12）。給了它，
+    「可直接上架%」就會用固定分母計算，把規則層擋下、沒送評分的那些
+    一律算成不可上架。
+
+    為什麼一定要這樣做 —— 這是實測踩到的坑：
+
+    規則層擋下的都是最爛的那幾筆，它們不會進 rubric 評分。結果 v0 只有
+    10 筆受評、v1～v3 各 12 筆，v0 的平均分被「倖存者偏差」灌水成
+    74.3%，看起來比實際好。**兩個版本用不同分母，就不能直接比。**
+
+    處理方式：
+    - 「可直接上架%」用固定分母。被規則層擋下的本來就不能上架，
+      算成不通過完全合理，這樣跨版本才可比，也是真正該拿來做決策的數字。
+    - 「rubric通過率%」維持只在受評項目上平均（否則無法區分「沒評」與
+      「評了但沒過」），但一定要一起看「受評筆數」。分母不同時不要直接比。
+    """
     by_version: dict[str, list[RubricReport]] = {}
     for r in reports:
         if r.error:
@@ -416,11 +451,13 @@ def summarize_rubrics(reports: list[RubricReport]) -> dict[str, dict[str, float]
     for version, rows in sorted(by_version.items()):
         if not rows:
             continue
+        denom = total_items or len(rows)
         out[version] = {
             "rubric通過率%": round(sum(r.pass_rate for r in rows) / len(rows), 1),
             "critical違反數": sum(r.critical_failures for r in rows),
-            "可直接上架%": round(100 * sum(r.would_publish for r in rows) / len(rows), 1),
+            "可直接上架%": round(100 * sum(r.would_publish for r in rows) / denom, 1),
             "受評筆數": len(rows),
+            "分母": denom,
         }
     return out
 
