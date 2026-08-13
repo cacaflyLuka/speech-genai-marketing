@@ -202,6 +202,16 @@ class RecordingClient:
     """包住真實 client，一邊正常呼叫一邊把結果錄下來。"""
 
     def __init__(self, real_client):
+        # ⚠️ 一定要保留 real_client 本身的參照，不能只留 .models。
+        #
+        # 只留 .models 的話，genai.Client 物件在 make_client() 回傳後就沒有人
+        # 參照，會被 GC 回收並關閉底層連線；之後每一次呼叫都會拿到
+        # 「Cannot send a request, as the client has been closed.」，
+        # 而且是**每一次都失敗、token 全為 0**，看起來像 API 壞掉。
+        #
+        # 這個 bug 只在真實 client 上會發生（測試用的假 client 沒有連線可關），
+        # 所以單元測試抓不到 —— 實際錄製 50 筆時整批炸掉才發現。
+        self._real_client = real_client
         self.models = _RecordingModels(real_client.models)
 
     def dump(self) -> dict:

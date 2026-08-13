@@ -1,36 +1,36 @@
 {
- "商品數": 10,
+ "商品數": 50,
  "版本": [
   "v0",
   "v1",
   "v2",
   "v3"
  ],
- "耗時秒": 276.6,
+ "耗時秒": 190.0,
  "規則層": {
   "v0": {
    "schema_valid": 0.0,
-   "title_length_ok": 70.0,
-   "bullet_length_ok": 10.0,
+   "title_length_ok": 68.0,
+   "bullet_length_ok": 0.0,
    "seo_length_ok": 0.0,
-   "spec_full": 90.0,
-   "banned_clean": 90.0,
+   "spec_full": 92.0,
+   "banned_clean": 76.0,
    "_全數通過": 0.0
   },
   "v1": {
    "schema_valid": 0.0,
    "title_length_ok": 100.0,
-   "bullet_length_ok": 20.0,
+   "bullet_length_ok": 16.0,
    "seo_length_ok": 0.0,
    "spec_full": 100.0,
-   "banned_clean": 90.0,
+   "banned_clean": 96.0,
    "_全數通過": 0.0
   },
   "v2": {
    "schema_valid": 0.0,
    "title_length_ok": 100.0,
-   "bullet_length_ok": 50.0,
-   "seo_length_ok": 10.0,
+   "bullet_length_ok": 34.0,
+   "seo_length_ok": 8.0,
    "spec_full": 100.0,
    "banned_clean": 100.0,
    "_全數通過": 0.0
@@ -38,47 +38,47 @@
   "v3": {
    "schema_valid": 100.0,
    "title_length_ok": 100.0,
-   "bullet_length_ok": 100.0,
-   "seo_length_ok": 100.0,
+   "bullet_length_ok": 96.0,
+   "seo_length_ok": 96.0,
    "spec_full": 100.0,
    "banned_clean": 100.0,
-   "_全數通過": 100.0
+   "_全數通過": 92.0
   }
  },
  "評審層": {
   "v0": {
-   "rubric通過率%": 74.6,
-   "critical違反數": 3,
-   "可直接上架%": 40.0,
-   "受評筆數": 9,
-   "分母": 10
+   "rubric通過率%": 68.4,
+   "critical違反數": 27,
+   "可直接上架%": 14.0,
+   "受評筆數": 38,
+   "分母": 50
   },
   "v1": {
-   "rubric通過率%": 84.1,
-   "critical違反數": 1,
-   "可直接上架%": 70.0,
-   "受評筆數": 9,
-   "分母": 10
+   "rubric通過率%": 79.1,
+   "critical違反數": 19,
+   "可直接上架%": 42.0,
+   "受評筆數": 48,
+   "分母": 50
   },
   "v2": {
-   "rubric通過率%": 87.1,
-   "critical違反數": 2,
-   "可直接上架%": 80.0,
-   "受評筆數": 10,
-   "分母": 10
+   "rubric通過率%": 86.3,
+   "critical違反數": 11,
+   "可直接上架%": 72.0,
+   "受評筆數": 50,
+   "分母": 50
   },
   "v3": {
-   "rubric通過率%": 90.0,
-   "critical違反數": 1,
-   "可直接上架%": 80.0,
-   "受評筆數": 10,
-   "分母": 10
+   "rubric通過率%": 86.6,
+   "critical違反數": 12,
+   "可直接上架%": 68.0,
+   "受評筆數": 50,
+   "分母": 50
   }
  },
- "成本USD": 0.2934,
+ "成本USD": 1.424,
  "設定": {
   "GEN_MODEL": "gemini-flash-latest",
   "JUDGE_MODEL": "gemini-2.5-pro",
-  "MAX_WORKERS": 8
+  "MAX_WORKERS": 64
  }
 }

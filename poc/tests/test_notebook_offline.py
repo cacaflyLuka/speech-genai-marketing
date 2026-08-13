@@ -290,8 +290,20 @@ def run_notebook(
     code_cells = [c for c in nb["cells"] if c["cell_type"] == "code"]
     for idx, cell in enumerate(code_cells):
         src = "".join(cell["source"])
-        if overrides and "client = make_client(" in src:
-            ns.update(overrides)
+        if "client = make_client(" in src:
+            # 一定要先重置這兩個旗標再套用測試的 overrides。
+            #
+            # 錄好 fixtures 之後，notebook 會在內嵌 fixtures 的那一格把
+            # OFFLINE_MODE 設成 True（那是刻意的，見 build_notebook.py）。
+            # 若不重置，預設的 run_notebook() 就會改成重播「真實錄製資料」，
+            # 測試等於在斷言模型的實際輸出 —— 那會隨每次錄製而變動。
+            #
+            # 這些測試要驗的是管線本身（攤平轉換、cell 順序、階梯邏輯、
+            # 錄製↔重播一致性），所以固定走可預期的假 client。
+            ns["OFFLINE_MODE"] = False
+            ns["RECORD_FIXTURES"] = False
+            if overrides:
+                ns.update(overrides)
         try:
             exec(compile(src, f"<cell {idx}>", "exec"), ns)
         except Exception as e:
@@ -420,6 +432,31 @@ def test_insights_extracted_and_validated():
     ns = run_notebook()
     assert len(ns["insights"]) == 15, f"應有 15 則評論，實際 {len(ns['insights'])}"
     assert ns["check"]["通過率"] >= 0
+
+
+def test_notebook_defaults_to_offline_when_fixtures_are_embedded():
+    """有內嵌 fixtures 時，notebook 必須預設 OFFLINE_MODE = True。
+
+    fixtures 存在的唯一目的就是離線重播。原本要靠人記得在上場前翻旗標，
+    而那正是最容易忘的一步 —— 忘了就會在沒網路的會場當場打 API。
+    與其寫進檢查清單，不如讓它預設就對。
+
+    這個預設只作用在 notebook；src/config.py 維持 False，
+    所以 run_eval.py 等本機腳本仍走一般連線模式。
+    """
+    nb = json.loads(NB.read_text(encoding="utf-8"))
+    cells = ["".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code"]
+    fixture_cell = next((s for s in cells if "FIXTURES = {" in s), None)
+    assert fixture_cell, "找不到內嵌 fixtures 的 cell"
+
+    has_real_fixtures = '"calls": {}' not in fixture_cell and "'calls': {}" not in fixture_cell
+    if not has_real_fixtures:
+        return  # 尚未錄製，不強制
+
+    assert "OFFLINE_MODE = True" in fixture_cell, (
+        "已內嵌 fixtures 但 notebook 沒有預設離線模式 —— "
+        "上場忘記翻旗標就會在沒網路的會場打 API"
+    )
 
 
 def test_dependency_cell_skips_install_when_deps_present():
@@ -619,6 +656,41 @@ def test_replay_fails_loudly_when_prompt_changed():
         assert "重新錄製" in str(e), f"錯誤訊息應指引重新錄製，實際：{e}"
     else:
         raise AssertionError("找不到 fixture 時應該拋錯，而不是回傳空結果")
+
+
+def test_recording_client_keeps_the_wrapped_client_alive():
+    """RecordingClient 必須保留真實 client 的參照，不能只留 .models。
+
+    只留 .models 的話，genai.Client 在 make_client() 回傳後就沒人參照，
+    會被 GC 回收並關閉底層連線 —— 之後每一次呼叫都拿到
+    「Cannot send a request, as the client has been closed.」，
+    整批錄製會全部失敗且 token 全為 0。
+
+    這個 bug 用假 client 測不出來（假的沒有連線可關），是實際錄製 50 筆
+    整批炸掉才發現的。所以這裡改成結構性檢查：確認包裝後的物件仍持有
+    對原 client 的參照，而且 GC 之後還活著。
+    """
+    import gc
+    import weakref
+
+    from poc.src.generation import RecordingClient
+
+    class FakeModels:
+        def generate_content(self, **kw):
+            return None
+
+    class FakeReal:
+        def __init__(self):
+            self.models = FakeModels()
+
+    real = FakeReal()
+    ref = weakref.ref(real)
+    rec = RecordingClient(real)
+    del real
+    gc.collect()
+
+    assert ref() is not None, "RecordingClient 沒有保留真實 client，會被 GC 回收"
+    assert any(v is ref() for v in vars(rec).values()), "找不到對真實 client 的參照"
 
 
 def test_offline_and_record_are_mutually_exclusive():

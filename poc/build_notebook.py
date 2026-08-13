@@ -242,10 +242,21 @@ if not _importable("google.cloud.bigquery"):
     if fixtures_path.exists():
         fixtures = json.loads(fixtures_path.read_text(encoding="utf-8"))
         n_calls = len(fixtures.get("calls", {}))
+        # 有 fixtures 就預設走離線重播。
+        #
+        # 理由：fixtures 存在的唯一目的就是離線重播，沒有別的用途。
+        # 原本要靠人記得在上場前把旗標翻成 True，而那正是最容易忘的一步 ——
+        # 忘了就會在沒網路的會場當場打 API。與其寫進檢查清單，不如讓它預設就對。
+        #
+        # 這個覆寫只作用在 notebook；src/config.py 的預設值維持 False，
+        # 所以 run_eval.py 等本機腳本仍然走一般連線模式。
         cells.append(code(
-            f"# 已錄製 {n_calls} 筆真實輸出。OFFLINE_MODE=True 時由此重播，不連網。\n"
+            f"# 已錄製 {n_calls} 筆真實輸出，直接內嵌在這一格。\n"
+            f"# 只要有這份資料，這個 notebook 單獨一個檔案就能零網路跑完。\n"
+            f"OFFLINE_MODE = True   # ← 有 fixtures 就預設離線；要真的打 API 改成 False\n"
             f"FIXTURES = {json.dumps(fixtures, ensure_ascii=False)}\n"
-            f"print(f'已載入 {{len(FIXTURES[\"calls\"]):,}} 筆錄製輸出')"
+            f"print(f'已載入 {{len(FIXTURES[\"calls\"]):,}} 筆錄製輸出'"
+            f" + ('　模式：離線重播' if OFFLINE_MODE else '　模式：連線'))"
         ))
     else:
         cells.append(code(

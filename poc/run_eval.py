@@ -81,9 +81,15 @@ def main() -> int:
         "--workers", type=int, default=None,
         help=f"並行度（預設 {config.MAX_WORKERS}）。實測到 64 都還沒撞配額，想更快就調高。",
     )
+    ap.add_argument(
+        "--record", action="store_true",
+        help="把這次的真實輸出錄下來，之後可零網路重播（存到 data/eval_fixtures.json）",
+    )
     args = ap.parse_args()
     if args.workers:
         config.MAX_WORKERS = args.workers
+    if args.record:
+        config.RECORD_FIXTURES = True
 
     path = DATA / "eval_products.json"
     if not path.exists():
@@ -222,6 +228,17 @@ def main() -> int:
         encoding="utf-8",
     )
     print(f"\n✓ 結果已寫入 {RESULTS.relative_to(RESULTS.parents[2])}")
+
+    if args.record:
+        fixtures = client.dump()
+        out = DATA / "eval_fixtures.json"
+        out.write_text(json.dumps(fixtures, ensure_ascii=False), encoding="utf-8")
+        print(
+            f"✓ 已錄製 {len(fixtures['calls']):,} 筆呼叫 → {out.relative_to(out.parents[2])}"
+            f"（{out.stat().st_size / 1024 / 1024:.1f} MB）"
+        )
+        print("  之後可用 OFFLINE_MODE 零網路重播這次的評測。")
+
     return 0
 
 
