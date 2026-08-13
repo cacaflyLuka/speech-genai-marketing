@@ -140,14 +140,56 @@ def build() -> list[dict]:
 程式碼跟評測都是當場執行的，只有呼叫模型那一步是查表。」
 """))
 
-    cells.append(md("## §0 環境設定"))
+    cells.append(md("""
+## §0 環境設定
+
+### 相依套件
+
+這一格**只在缺少套件時才安裝**，不是無條件 `pip install`。
+
+| 環境 | 行為 |
+|---|---|
+| Colab | 預裝了 pandas / jinja2 / matplotlib，會補裝 `google-genai` |
+| 本機 uv 環境 | 全部已在 `.venv`，直接跳過 |
+
+會做這個判斷是因為：在 uv 管理的環境裡無條件 `pip install`，套件會裝進
+`.venv` 卻不在 `uv.lock` 裡，環境就跟鎖定檔對不上了。與其寫註解叫人自己
+判斷該不該跑，不如讓它自己偵測。
+"""))
     cells.append(code("""
-# Colab 已預裝 pandas / jinja2 / matplotlib，通常只需要 google-genai。
-# 在乾淨環境（本機、其他 notebook 服務）請解除註解安裝完整清單：
-#   §3 的對比表用 df.style.background_gradient() 上色，
-#   .style 需要 jinja2、background_gradient 需要 matplotlib，缺一就會 AttributeError。
-# %pip install -q google-genai pandas jinja2 matplotlib
-# %pip install -q "google-cloud-bigquery[pandas]"   # 只有要跑 §4 的 BigQuery 才需要
+# 只在缺少時安裝。§3 的對比表用 df.style.background_gradient() 上色：
+# .style 需要 jinja2、background_gradient 需要 matplotlib，缺一就會 AttributeError。
+import sys
+
+REQUIRED = {
+    "google.genai": "google-genai",
+    "pandas": "pandas",
+    "jinja2": "jinja2",
+    "matplotlib": "matplotlib",
+}
+
+
+def _importable(mod: str) -> bool:
+    try:
+        __import__(mod)
+        return True
+    except ImportError:
+        return False
+
+
+_missing = [pkg for mod, pkg in REQUIRED.items() if not _importable(mod)]
+
+if _missing:
+    print("缺少套件，安裝中：", " ".join(_missing))
+    import subprocess
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", *_missing], check=True)
+    print("✓ 安裝完成（若 import 仍失敗，重啟 runtime 再跑一次）")
+else:
+    print("✓ 相依套件齊全，跳過安裝")
+
+# BigQuery 只有 §4 要用；[pandas] extra 才會帶入 to_dataframe() 需要的 pyarrow
+if not _importable("google.cloud.bigquery"):
+    print('  （§4 若要實際寫入 BigQuery：pip install "google-cloud-bigquery[pandas]"）')
 """))
 
     cells.append(md("""

@@ -265,21 +265,33 @@ def run_notebook(verbose: bool = False, overrides: dict | None = None) -> dict:
 
     ns["print"] = capture
 
+    # §0 的相依偵測格會實際執行（它本來就該是安全的：偵測到齊全就跳過安裝）。
+    # 但測試絕不容許真的去 pip install —— 那會污染 uv 管理的 .venv。
+    # 所以把 subprocess.run 換成會炸的版本：只要那一格試圖安裝，測試就失敗。
+    import subprocess
+
+    original_run = subprocess.run
+
+    def _no_install(*args, **kwargs):
+        raise AssertionError(f"notebook 在測試環境嘗試安裝套件：{args[:1]}")
+
+    subprocess.run = _no_install
+
     code_cells = [c for c in nb["cells"] if c["cell_type"] == "code"]
     for idx, cell in enumerate(code_cells):
         src = "".join(cell["source"])
-        if src.strip().startswith("#") and "pip install" in src:
-            continue
         if overrides and "client = make_client(" in src:
             ns.update(overrides)
         try:
             exec(compile(src, f"<cell {idx}>", "exec"), ns)
         except Exception as e:
+            subprocess.run = original_run
             raise AssertionError(
                 f"cell {idx} 執行失敗：{type(e).__name__}: {e}\n"
                 f"--- cell 內容（前 400 字）---\n{src[:400]}"
             ) from e
 
+    subprocess.run = original_run
     ns["_printed"] = "\n".join(printed)
     return ns
 
@@ -398,6 +410,19 @@ def test_insights_extracted_and_validated():
     ns = run_notebook()
     assert len(ns["insights"]) == 15, f"應有 15 則評論，實際 {len(ns['insights'])}"
     assert ns["check"]["通過率"] >= 0
+
+
+def test_dependency_cell_skips_install_when_deps_present():
+    """相依偵測格在套件齊全時必須跳過安裝，不能無條件 pip install。
+
+    這件事在 uv 環境很重要：無條件安裝會把套件裝進 .venv 卻不在 uv.lock 裡，
+    環境就跟鎖定檔對不上。run_notebook 已把 subprocess.run 換成會炸的版本，
+    所以這個測試能跑完，就代表那一格沒有嘗試安裝。
+    """
+    ns = run_notebook()
+    assert "相依套件齊全，跳過安裝" in ns["_printed"], (
+        "偵測邏輯沒有正確判斷套件已存在"
+    )
 
 
 def test_no_price_check_reminder_left_unresolved():
