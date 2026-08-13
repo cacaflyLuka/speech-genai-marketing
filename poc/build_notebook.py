@@ -142,8 +142,12 @@ def build() -> list[dict]:
 
     cells.append(md("## §0 環境設定"))
     cells.append(code("""
-# Colab 執行時解除註解安裝套件
-# !pip install -q google-genai pandas
+# Colab 已預裝 pandas / jinja2 / matplotlib，通常只需要 google-genai。
+# 在乾淨環境（本機、其他 notebook 服務）請解除註解安裝完整清單：
+#   §3 的對比表用 df.style.background_gradient() 上色，
+#   .style 需要 jinja2、background_gradient 需要 matplotlib，缺一就會 AttributeError。
+# %pip install -q google-genai pandas jinja2 matplotlib
+# %pip install -q "google-cloud-bigquery[pandas]"   # 只有要跑 §4 的 BigQuery 才需要
 """))
 
     cells.append(md("""

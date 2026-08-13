@@ -231,7 +231,7 @@ def get_banned_terms_for(product: dict, banned_data: dict) -> list[str]:
     """
     category = product["regulated_category"]
     terms: list[str] = []
-    for key, group in banned_data.items():
+    for group in banned_data.values():
         if not isinstance(group, dict) or "terms" not in group:
             continue
         if category in group.get("applies_to", []):

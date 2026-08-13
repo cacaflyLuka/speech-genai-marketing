@@ -38,7 +38,7 @@ GEN_MODEL = "gemini-flash-latest"   # 生成用：吞吐量大、要便宜
 JUDGE_MODEL = "gemini-2.5-pro"      # 評審用：刻意與生成模型不同，降低 self-preference bias
 CHEAP_MODEL = "gemini-2.5-flash-lite"  # 成本段示範「降級」用
 
-GEN_TEMPERATURE = 0.4  # 現場 demo 用低溫，降低翻車機率
+GEN_TEMPERATURE = 0.4  # 用低溫，降低失敗機率
 JUDGE_TEMPERATURE = 0.0
 
 # --- 價格（USD / 每百萬 token）---

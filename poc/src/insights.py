@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict, dataclass
+from datetime import UTC
 
 from . import config
 
@@ -192,8 +193,8 @@ def to_dataframe(insights: list[ReviewInsight]):
 # --------------------------------------------------------------------------
 # BigQuery —— 把「AI 當 ETL」這件事真的做完
 # --------------------------------------------------------------------------
-BQ_SCHEMA_SQL = f"""
-CREATE TABLE IF NOT EXISTS `{{project}}.{{dataset}}.{{table}}` (
+BQ_SCHEMA_SQL = """
+CREATE TABLE IF NOT EXISTS `{project}.{dataset}.{table}` (
   review_id             STRING  NOT NULL,
   sku                   STRING  NOT NULL,
   rating                INT64,
@@ -232,7 +233,7 @@ def load_to_bigquery(insights: list[ReviewInsight], verbose: bool = True):
     schema 的設計重點在 `is_about_product`：把「商品不好」與「服務不好」
     分開儲存。混在一起統計，採購會以為商品品質有問題，實際上是物流慢。
     """
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     from google.cloud import bigquery
 
@@ -250,7 +251,7 @@ def load_to_bigquery(insights: list[ReviewInsight], verbose: bool = True):
         )
     ).result()
 
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
     rows = [
         {
             "review_id": r.review_id,
@@ -275,7 +276,7 @@ def load_to_bigquery(insights: list[ReviewInsight], verbose: bool = True):
 
     if verbose:
         print(f"✓ 已寫入 {len(rows)} 列 → {table_ref}")
-        print(f"  分區：DATE(ingested_at)　叢集：sku, sentiment")
+        print("  分區：DATE(ingested_at)　叢集：sku, sentiment")
     return table_ref
 
 

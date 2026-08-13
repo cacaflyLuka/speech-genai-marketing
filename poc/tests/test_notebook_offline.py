@@ -361,7 +361,7 @@ def test_rubric_pass_rate_improves_with_version():
     summary = ns["summarize_rubrics"](ns["rubric_reports"])
     versions = [v for v in ["v0", "v1", "v2", "v3"] if v in summary]
     rates = [summary[v]["rubric通過率%"] for v in versions]
-    assert rates == sorted(rates), f"rubric 通過率不是遞增：{dict(zip(versions, rates))}"
+    assert rates == sorted(rates), f"rubric 通過率不是遞增：{dict(zip(versions, rates, strict=True))}"
 
 
 def test_critical_failures_block_publish():

@@ -1,0 +1,69 @@
+[project]
+name = "retail-genai-talk"
+version = "0.1.0"
+description = "零售場景生成式 AI 的 Prompt 演進與三層評測 POC（2026-08-21 演講用）"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    # Gemini 呼叫（Vertex AI 與 AI Studio 共用同一個 SDK）
+    "google-genai>=1.48",
+    # check_env.py 直接用 google.auth.default() 驗證 ADC
+    "google-auth>=2.35",
+    # 評測表、評論洞察的 DataFrame
+    "pandas>=2.2",
+    # 場景 B 的 BigQuery 落地。[pandas] extra 會帶入 to_dataframe() 需要的
+    # pyarrow 與 db-dtypes —— 少了它們 query(...).to_dataframe() 會在執行時才炸。
+    "google-cloud-bigquery[pandas]>=3.38",
+    # §3 的對比表用 df.style.background_gradient() 上色，那是整份 demo 的重點畫面。
+    # .style 需要 jinja2，background_gradient 需要 matplotlib。
+    # Colab 兩者都預裝，所以在 Colab 不會發現漏了；乾淨環境會直接 AttributeError。
+    # 這兩個是必要相依，不是選用。
+    "jinja2>=3.1",
+    "matplotlib>=3.9",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.8",
+]
+
+# --------------------------------------------------------------------------
+# 這個 repo 不是要發佈的套件，是一份工作環境。
+# package = false 讓 uv 只管理虛擬環境與相依，不嘗試 build wheel。
+# 測試與腳本都自己處理 sys.path（見各檔開頭），不需要安裝成套件。
+# --------------------------------------------------------------------------
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["poc/tests"]
+pythonpath = ["."]
+# 測試檔同時支援 `python poc/tests/test_x.py` 直接執行與 pytest 收集，
+# 所以不要求 test_ 前綴以外的慣例。
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+# notebook 是 build_notebook.py 產生的成品，內容是把多個模組攤平到單一命名空間。
+# 那必然會出現 late-future-import、redefinition 這類「錯誤」，但它們是攤平的
+# 必然結果，不是要修的東西。要改就去改 src/，notebook 會跟著重新產生。
+extend-exclude = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = [
+    # 中文字串在等寬終端的顯示寬度與字元數不同，E501 會誤判大量說明文字。
+    # 排版以實際輸出為準，不靠 linter。
+    "E501",
+    # demo 程式碼刻意用寬鬆的例外處理，讓現場單一失敗不會中斷整份 notebook。
+    "B904",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# 測試裡的假 client 與 notebook 執行器需要動態塞 sys.modules，
+# 以及在函式中間 import，這在測試情境是合理的。
+"poc/tests/*" = ["E402", "F401"]
+"poc/check_env.py" = ["E402"]

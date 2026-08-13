@@ -9,7 +9,13 @@
 ## 目錄
 
 ```
+pyproject.toml           相依、pytest 與 ruff 設定（uv 管理）
+uv.lock                  鎖定版本，確保換機器裝出同一套環境
+.python-version          Python 3.12
+Makefile                 常用指令捷徑（make help）
+
 talk/
+  abstract.md                主辦方提交用：短主題 + 條列式大綱
   script.md                  大綱 + 逐頁講稿 + demo 腳本 + QA + 上場前檢查清單
   assets/
     tool-map.svg             承：GCP 三層工具地圖
@@ -36,20 +42,31 @@ poc/
     report.py              對比表 + 統計顯著性提醒
     insights.py            場景 B：評論洞察 + BigQuery
     costs.py               成本外推與降本槓桿
-  tests/                   33 項，全部離線、不花錢
+  tests/                   42 項，全部離線、不呼叫 API、不花錢
 ```
 
 ---
 
 ## 操作流程
 
+> Python 環境由 [uv](https://docs.astral.sh/uv/) 管理。所有指令都用 `uv run`，
+> 不需要手動建立或啟用虛擬環境。常用指令另有 `make` 捷徑（`make help` 看清單）。
+
 ### 0　初次設定（一次就好）
 
-安裝相依套件：
+安裝 uv（若尚未安裝）：
 
 ```bash
-pip3 install -q google-genai google-cloud-bigquery pandas
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
+建立環境並安裝相依（含 dev 工具）：
+
+```bash
+uv sync
+```
+
+會依 `pyproject.toml` 與 `uv.lock` 建出 `.venv`，Python 版本由 `.python-version` 決定。
 
 登入並指定專案：
 
@@ -70,10 +87,10 @@ gcloud services enable aiplatform.googleapis.com bigquery.googleapis.com --proje
 驗證環境（**最重要的一步**）：
 
 ```bash
-python3 poc/check_env.py
+uv run python poc/check_env.py
 ```
 
-會逐項檢查認證、模型可用性、structured output、價格常數、重播狀態。
+（或 `make check`）會逐項檢查認證、模型可用性、structured output、價格常數、重播狀態。
 **換專案、換 region、換模型之後都要重跑。**
 
 > ⚠️ `LOCATION` 必須是 `"global"`。`asia-east1` 上沒有任何 Gemini publisher
@@ -83,17 +100,25 @@ python3 poc/check_env.py
 
 ### 1　日常開發循環
 
-改任何程式碼都走這三步，**不要手改 notebook**：
+改任何程式碼都走這兩步，**不要手改 notebook**：
 
 ```bash
-python3 poc/build_notebook.py
+make all
 ```
 
+等同於：
+
 ```bash
-python3 poc/tests/test_rules.py && python3 poc/tests/test_insights.py && python3 poc/tests/test_notebook_offline.py
+uv run python poc/build_notebook.py && uv run pytest
 ```
 
 42 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
+
+送出前順手跑靜態檢查：
+
+```bash
+make lint
+```
 
 | 你改了什麼 | 會影響什麼 |
 |---|---|
@@ -122,7 +147,7 @@ RECORD_FIXTURES = True
 **2-3** 重新產生 notebook 並確認測試通過：
 
 ```bash
-python3 poc/build_notebook.py && python3 poc/tests/test_notebook_offline.py
+make all
 ```
 
 **2-4** 在 Colab 開啟 `poc/retail_genai_poc_speaker.ipynb`，**Run all**。
@@ -146,7 +171,7 @@ RECORD_FIXTURES = False
 **2-7** 重新產生 notebook（fixtures 會被內嵌進去）：
 
 ```bash
-python3 poc/build_notebook.py
+make build
 ```
 
 **2-8** **拔網路驗證** —— 關掉 wifi，在 Colab 重新 Run all。
