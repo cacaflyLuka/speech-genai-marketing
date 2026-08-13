@@ -150,18 +150,33 @@ def check_bigquery() -> None:
         report(FAIL, "BigQuery 不可用", str(e)[:60])
 
 
+# 假 client 產生的內容才會出現的字串（見 tests/test_notebook_offline.py）。
+# 假 fixtures 的結構完全正確、看起來就像真的錄製結果，只有內容能分辨。
+_MOCK_MARKERS = ("模擬判準", "模擬依據", "模擬缺漏", "優選 ")
+
+
 def check_replay_readiness() -> None:
     print("\n[6] 離線重播準備狀態")
+    import json
     import pathlib
 
     f = pathlib.Path(__file__).parent / "data" / config.FIXTURES_FILE
     if config.OFFLINE_MODE and config.RECORD_FIXTURES:
         report(FAIL, "兩個旗標同時為 True", "OFFLINE_MODE 與 RECORD_FIXTURES 只能開一個")
-    if f.exists():
-        import json
 
-        n = len(json.loads(f.read_text(encoding="utf-8")).get("calls", {}))
-        report(OK, f"已錄製 fixtures（{n} 筆）", str(f.relative_to(f.parents[2])))
+    if f.exists():
+        data = json.loads(f.read_text(encoding="utf-8"))
+        calls = data.get("calls", {})
+        blob = "".join(row.get("text", "") for row in calls.values())
+        hits = [m for m in _MOCK_MARKERS if m in blob]
+        if hits:
+            report(
+                FAIL,
+                "fixtures 是假資料！",
+                f"含測試標記 {hits[:2]} → 請用真實 API 重新錄製",
+            )
+        else:
+            report(OK, f"已錄製 fixtures（{len(calls)} 筆）", "未偵測到假資料標記")
     else:
         report(WARN, "尚未錄製 fixtures", "OFFLINE_MODE 目前不可用")
     report(

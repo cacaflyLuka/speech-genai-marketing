@@ -41,23 +41,169 @@ poc/
 
 ---
 
-## 快速開始
+## 操作流程
+
+### 0　初次設定（一次就好）
+
+安裝相依套件：
+
+```bash
+pip3 install -q google-genai google-cloud-bigquery pandas
+```
+
+登入並指定專案：
+
+```bash
+gcloud auth login && gcloud auth application-default login
+```
+
+```bash
+gcloud config set project cacafly-poc
+```
+
+啟用需要的 API：
+
+```bash
+gcloud services enable aiplatform.googleapis.com bigquery.googleapis.com --project=cacafly-poc
+```
+
+驗證環境（**最重要的一步**）：
 
 ```bash
 python3 poc/check_env.py
 ```
 
-確認 config 裡的模型、region、權限真的可用。**換專案或換模型後一定要重跑。**
+會逐項檢查認證、模型可用性、structured output、價格常數、重播狀態。
+**換專案、換 region、換模型之後都要重跑。**
+
+> ⚠️ `LOCATION` 必須是 `"global"`。`asia-east1` 上沒有任何 Gemini publisher
+> model，所有呼叫都會 404。這正是 `check_env.py` 存在的原因。
+
+---
+
+### 1　日常開發循環
+
+改任何程式碼都走這三步，**不要手改 notebook**：
+
+```bash
+python3 poc/build_notebook.py
+```
 
 ```bash
 python3 poc/tests/test_rules.py && python3 poc/tests/test_insights.py && python3 poc/tests/test_notebook_offline.py
 ```
 
-三組測試都不需要 GCP 認證、不花錢。改完 `src/` 後重新產生 notebook：
+42 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
+
+| 你改了什麼 | 會影響什麼 |
+|---|---|
+| `src/prompts.py` | **錄好的 fixtures 全部失效**，必須重錄（見 §2）|
+| `src/judge.py` 的 prompt | 同上 |
+| `src/rules.py`、`report.py` | 只影響評測邏輯，fixtures 仍可用 |
+| `src/config.py` 的模型名 | fixtures 失效（key 含模型名）|
+| `src/config.py` 的價格 | 只影響金額計算，fixtures 仍可用 |
+
+---
+
+### 2　錄製 fixtures（演講前一天，需要穩定網路）
+
+會場 wifi 不可靠，所以演講當天走離線重播。這一步是保命步驟，**不能跳過**。
+
+**2-1** 先更新價格。到 [官方 pricing 頁](https://cloud.google.com/vertex-ai/generative-ai/pricing)
+現查，改 `poc/src/config.py` 的 `PRICING`，並把 `PRICE_LAST_CHECKED` 改成當天日期。
+
+**2-2** 打開錄製模式。編輯 `poc/src/config.py`：
+
+```python
+OFFLINE_MODE = False
+RECORD_FIXTURES = True
+```
+
+**2-3** 重新產生 notebook 並確認測試通過：
+
+```bash
+python3 poc/build_notebook.py && python3 poc/tests/test_notebook_offline.py
+```
+
+**2-4** 在 Colab 開啟 `poc/retail_genai_poc_speaker.ipynb`，**Run all**。
+
+- 判斷模型 `gemini-2.5-pro` 每次約 15 秒，12 個商品完整跑完約數分鐘
+- 跑完後執行 §6，會下載 `demo_outputs.json`
+
+**2-5** 把下載的檔案放到 `poc/data/`：
+
+```bash
+mv ~/Downloads/demo_outputs.json poc/data/demo_outputs.json
+```
+
+**2-6** 切換成重播模式。編輯 `poc/src/config.py`：
+
+```python
+OFFLINE_MODE = True
+RECORD_FIXTURES = False
+```
+
+**2-7** 重新產生 notebook（fixtures 會被內嵌進去）：
 
 ```bash
 python3 poc/build_notebook.py
 ```
+
+**2-8** **拔網路驗證** —— 關掉 wifi，在 Colab 重新 Run all。
+§6 應印出「本次共命中 N 筆錄製輸出，全程未連網」。
+
+**2-9** 記下 §5 印出的「評審佔總成本 __%」。講稿 S18 要唸這個真實數字，
+投影片上刻意沒寫死。
+
+> ⚠️ **`demo_outputs.json` 一定要是對真實 API 錄製的。**
+> 測試用的假 client 也會產生結構完全正確的同名檔案，數字卻是捏造的。
+>
+> `check_env.py` 會自動偵測 —— 假資料含有 `模擬判準`、`模擬依據` 這類
+> 只有假 client 才會產生的字串，偵測到會直接報 `fixtures 是假資料！`。
+> `.gitignore` 也擋掉了根目錄與 `poc/` 下的同名檔，只有
+> `poc/data/demo_outputs.json` 會被追蹤。錄製完務必再跑一次 `check_env.py`。
+
+---
+
+### 3　演講當天
+
+- [ ] 開的是 **`retail_genai_poc_speaker.ipynb`（講者版）**，不是聽眾版
+- [ ] `config.py` 是 `OFFLINE_MODE = True`（**最容易忘的一項**）
+- [ ] 開場前先 Run all 一次，讓所有輸出都在畫面上
+- [ ] Colab 字級調大（`Cmd/Ctrl` + `+`），確認投影後對比表看得清楚
+- [ ] 關閉通知與其他分頁
+- [ ] 預錄影片存在本機（筆電當機時的最後備援）
+
+因為是離線重播，demo 時要重跑哪一格就重跑，秒回，不用等網路。
+
+會後把 **`retail_genai_poc.ipynb`（聽眾版）** 發給聽眾。
+
+---
+
+### 4　選用：BigQuery（場景 B）
+
+預設關閉。要真的把評論洞察寫進 BigQuery：
+
+```python
+USE_BIGQUERY = True   # poc/src/config.py
+```
+
+需要 `bigquery.dataEditor` 權限。**離線重播不涵蓋 BigQuery 呼叫**，
+所以現場若無網路請保持關閉 —— notebook 仍會展示 schema 與 SQL。
+
+---
+
+### 5　疑難排解
+
+| 症狀 | 原因與處理 |
+|---|---|
+| 呼叫全部 404 | `LOCATION` 不是 `global`。跑 `check_env.py` 確認 |
+| `Reauthentication failed` | 重跑 `gcloud auth application-default login` |
+| 重播時 `KeyError: 離線重播找不到對應輸出` | prompt 或模型在錄製後被改過。回到 §2 重錄 |
+| `OFFLINE_MODE=True 但沒有可用的 fixtures` | `poc/data/demo_outputs.json` 不存在。回到 §2 |
+| 成本顯示為 0 | 該模型不在 `config.PRICING` 裡。`check_env.py` 會抓到 |
+| 測試在 repo 留下 `demo_outputs.json` | 已修掉；若仍發生，該檔是假資料，直接刪除 |
+| 對比表沒有呈現階梯 | **不要美化數字**。代表 prompt 演進設計有問題，回頭改 prompt |
 
 ---
 
@@ -151,14 +297,10 @@ rubric 生成時必須知道**通路字數預算**，否則會產生「說明為
 
 ## 上場前必做
 
-完整清單見 `talk/script.md` 附錄 B。最關鍵的五項：
+完整步驟見上方「操作流程」的 §2 錄製 fixtures 與 §3 演講當天；
+演講本身的檢查清單見 `talk/script.md` 附錄 B。
 
-1. `python3 poc/check_env.py` 全綠
-2. 更新 `config.PRICING`，把 `PRICE_LAST_CHECKED` 改成當天日期
-3. 錄製：`RECORD_FIXTURES=True` 跑一次 → 下載 `demo_outputs.json`
-   → 放進 `poc/data/` → 重新 build
-4. **拔網路驗證**：`OFFLINE_MODE=True`，關掉 wifi 後 Run all
-5. 確認當天用的是**講者版** notebook，且 `OFFLINE_MODE = True`
+一句話版本：**更新價格 → 錄製 → 拔網路驗證 → 當天開講者版且 `OFFLINE_MODE = True`。**
 
 ---
 
