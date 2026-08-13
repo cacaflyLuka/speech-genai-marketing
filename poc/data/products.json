@@ -1,0 +1,230 @@
+{
+  "_meta": {
+    "description": "示範用假商品資料，模擬台灣電商 PIM 匯出格式。所有品牌、SKU、價格均為虛構，請勿對應真實商品。",
+    "note": "regulated_category 決定套用哪一組法規禁詞：food=食安法, cosmetic=化粧品衛管法, general=無特殊限制",
+    "channel_limits": {
+      "shopee_title_max": 60,
+      "momo_title_max": 50,
+      "seo_desc_max": 120,
+      "bullet_max": 30
+    }
+  },
+  "products": [
+    {
+      "sku": "HB-1001",
+      "name": "金盞花萃取葉黃素膠囊 60粒",
+      "brand": "晨光研選",
+      "category": "保健食品 / 眼部保養",
+      "regulated_category": "food",
+      "price": 890,
+      "specs": {
+        "淨含量": "60粒 / 盒",
+        "主成分": "游離型葉黃素 30mg、玉米黃素 6mg",
+        "劑型": "植物膠囊",
+        "產地": "台灣",
+        "建議食用": "每日1粒，隨餐食用"
+      },
+      "must_include_keywords": ["葉黃素", "60粒", "30mg"],
+      "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+      "target_audience": "25-45 歲長時間使用螢幕的上班族"
+    },
+    {
+      "sku": "HB-1002",
+      "name": "五益菌複方益生菌粉 30入",
+      "brand": "晨光研選",
+      "category": "保健食品 / 消化保健",
+      "regulated_category": "food",
+      "price": 1180,
+      "specs": {
+        "淨含量": "30包 / 盒，每包 2g",
+        "主成分": "五株專利益生菌，每包 100 億 CFU",
+        "劑型": "粉末隨身包",
+        "產地": "台灣",
+        "建議食用": "每日1包，空腹或睡前"
+      },
+      "must_include_keywords": ["益生菌", "30包", "100億"],
+      "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+      "target_audience": "外食族、作息不規律的上班族"
+    },
+    {
+      "sku": "HB-1003",
+      "name": "小分子魚膠原蛋白粉 蔓越莓風味 30入",
+      "brand": "晨光研選",
+      "category": "保健食品 / 美容保養",
+      "regulated_category": "food",
+      "price": 1580,
+      "specs": {
+        "淨含量": "30包 / 盒，每包 3g",
+        "主成分": "深海魚膠原蛋白胜肽 2500mg、維生素C 80mg",
+        "劑型": "粉末隨身包",
+        "產地": "台灣",
+        "建議食用": "每日1包，睡前溫水沖泡"
+      },
+      "must_include_keywords": ["膠原蛋白", "2500mg", "蔓越莓"],
+      "brand_tone": "溫和、專業、不誇大，訴求日常持續補充",
+      "target_audience": "30-50 歲注重外在保養的女性"
+    },
+    {
+      "sku": "CS-2001",
+      "name": "積雪草舒緩精華液 30ml",
+      "brand": "青研 CHINGYEN",
+      "category": "美妝保養 / 精華液",
+      "regulated_category": "cosmetic",
+      "price": 780,
+      "specs": {
+        "容量": "30ml",
+        "主成分": "積雪草萃取 5%、泛醇 2%、神經醯胺",
+        "質地": "水感精華",
+        "適用膚質": "所有膚質，敏弱肌適用",
+        "產地": "韓國"
+      },
+      "must_include_keywords": ["積雪草", "30ml", "5%"],
+      "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+      "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+    },
+    {
+      "sku": "CS-2002",
+      "name": "胺基酸氨基酸溫和洗面乳 120ml",
+      "brand": "青研 CHINGYEN",
+      "category": "美妝保養 / 清潔",
+      "regulated_category": "cosmetic",
+      "price": 420,
+      "specs": {
+        "容量": "120ml",
+        "主成分": "胺基酸界面活性劑、洋甘菊萃取",
+        "質地": "綿密泡沫",
+        "pH值": "弱酸性 pH5.5",
+        "產地": "台灣"
+      },
+      "must_include_keywords": ["胺基酸", "120ml", "pH5.5"],
+      "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+      "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+    },
+    {
+      "sku": "CS-2003",
+      "name": "多重玻尿酸保濕面膜 5片入",
+      "brand": "青研 CHINGYEN",
+      "category": "美妝保養 / 面膜",
+      "regulated_category": "cosmetic",
+      "price": 350,
+      "specs": {
+        "容量": "5片 / 盒，每片 25ml 精華",
+        "主成分": "五重玻尿酸、海藻醣",
+        "膜布": "天絲蠶絲膜布",
+        "適用膚質": "乾燥、缺水肌",
+        "產地": "台灣"
+      },
+      "must_include_keywords": ["玻尿酸", "5片", "天絲"],
+      "brand_tone": "清爽、成分透明、理性溫柔，重視敏弱肌友善",
+      "target_audience": "20-35 歲敏弱肌、成分黨消費者"
+    },
+    {
+      "sku": "EL-3001",
+      "name": "無線降噪藍牙耳機 Pro 2",
+      "brand": "Volta",
+      "category": "3C / 音訊",
+      "regulated_category": "general",
+      "price": 3290,
+      "specs": {
+        "降噪深度": "最高 42dB 主動降噪",
+        "續航": "單次 8 小時，含充電盒 32 小時",
+        "連線": "藍牙 5.4，支援雙裝置切換",
+        "防水": "IPX4",
+        "重量": "單耳 4.8g"
+      },
+      "must_include_keywords": ["降噪", "32小時", "藍牙5.4"],
+      "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+      "target_audience": "通勤族、遠距工作者"
+    },
+    {
+      "sku": "EL-3002",
+      "name": "65W 氮化鎵三孔快充充電器",
+      "brand": "Volta",
+      "category": "3C / 充電",
+      "regulated_category": "general",
+      "price": 990,
+      "specs": {
+        "輸出": "65W 總輸出，USB-C×2 + USB-A×1",
+        "技術": "第三代氮化鎵 GaN",
+        "尺寸": "5.2 × 5.2 × 2.9 cm",
+        "重量": "112g",
+        "保護": "過壓、過流、過熱保護"
+      },
+      "must_include_keywords": ["65W", "氮化鎵", "三孔"],
+      "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+      "target_audience": "出差族、多裝置使用者"
+    },
+    {
+      "sku": "EL-3003",
+      "name": "手持無線吸塵器 Lite",
+      "brand": "Volta",
+      "category": "家電 / 清潔",
+      "regulated_category": "general",
+      "price": 4680,
+      "specs": {
+        "吸力": "18000Pa",
+        "續航": "標準模式 35 分鐘",
+        "集塵盒": "0.5L 可水洗",
+        "重量": "1.4kg",
+        "配件": "縫隙吸頭、床墊吸頭、軟絨滾筒"
+      },
+      "must_include_keywords": ["18000Pa", "35分鐘", "1.4kg"],
+      "brand_tone": "直接、規格導向、略帶科技感，不用形容詞堆砌",
+      "target_audience": "小坪數家庭、養寵物族群"
+    },
+    {
+      "sku": "FD-4001",
+      "name": "冷萃掛耳咖啡 淺焙水果調 10入",
+      "brand": "溯源焙所",
+      "category": "food / 咖啡",
+      "regulated_category": "food",
+      "price": 460,
+      "specs": {
+        "淨含量": "10包 / 盒，每包 12g",
+        "產區": "衣索比亞 耶加雪菲",
+        "烘焙度": "淺焙",
+        "風味": "柑橘、莓果、花香",
+        "保存": "室溫陰涼處，開封後盡快飲用"
+      },
+      "must_include_keywords": ["耶加雪菲", "10包", "淺焙"],
+      "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+      "target_audience": "25-45 歲精品咖啡愛好者"
+    },
+    {
+      "sku": "FD-4002",
+      "name": "低溫烘焙綜合堅果 無調味 350g",
+      "brand": "溯源焙所",
+      "category": "food / 零食",
+      "regulated_category": "food",
+      "price": 590,
+      "specs": {
+        "淨含量": "350g / 罐",
+        "內容": "腰果、核桃、杏仁、夏威夷豆",
+        "製程": "低溫烘焙，無油炸",
+        "調味": "完全無調味、無添加糖鹽",
+        "保存": "開封後冷藏，兩週內食用完畢"
+      },
+      "must_include_keywords": ["綜合堅果", "350g", "無調味"],
+      "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+      "target_audience": "注重原型食物的家庭與健身族群"
+    },
+    {
+      "sku": "FD-4003",
+      "name": "台灣紅烏龍茶包 三角立體茶包 20入",
+      "brand": "溯源焙所",
+      "category": "food / 茶葉",
+      "regulated_category": "food",
+      "price": 380,
+      "specs": {
+        "淨含量": "20包 / 盒，每包 3g",
+        "產區": "台東鹿野",
+        "發酵度": "重發酵",
+        "風味": "蜜香、熟果、尾韻回甘",
+        "沖泡": "95°C 熱水，浸泡 90 秒"
+      },
+      "must_include_keywords": ["紅烏龍", "鹿野", "20包"],
+      "brand_tone": "職人感、重視產區與風味描述，不誇大功效",
+      "target_audience": "30-55 歲台灣茶愛好者、送禮需求"
+    }
+  ]
+}
