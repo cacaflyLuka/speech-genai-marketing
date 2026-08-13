@@ -42,7 +42,7 @@ poc/
     report.py              對比表 + 統計顯著性提醒
     insights.py            場景 B：評論洞察 + BigQuery
     costs.py               成本外推與降本槓桿
-  tests/                   42 項，全部離線、不呼叫 API、不花錢
+  tests/                   45 項，全部離線、不呼叫 API、不花錢
 ```
 
 ---
@@ -112,7 +112,7 @@ make all
 uv run python poc/build_notebook.py && uv run pytest
 ```
 
-42 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
+45 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
 
 送出前順手跑靜態檢查：
 
