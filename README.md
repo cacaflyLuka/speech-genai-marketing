@@ -45,7 +45,7 @@ poc/
     report.py              對比表 + 統計顯著性提醒
     insights.py            場景 B：評論洞察 + BigQuery
     costs.py               成本外推與降本槓桿
-  tests/                   45 項，全部離線、不呼叫 API、不花錢
+  tests/                   48 項，全部離線、不呼叫 API、不花錢
 ```
 
 ---
@@ -115,7 +115,7 @@ make all
 uv run python poc/build_notebook.py && uv run pytest
 ```
 
-45 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
+48 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
 
 送出前順手跑靜態檢查：
 
@@ -155,18 +155,21 @@ make all
 
 **2-4** 在 Colab 開啟 `poc/retail_genai_poc_speaker.ipynb`，**Run all**。
 
-**預期耗時約 3–5 分鐘。** 所有 API 呼叫都用 `run_parallel()` 並行
-（`MAX_WORKERS = 8`），實測比序列快約 4 倍。
+**實測耗時 3.6 分鐘、成本 US$1.50**（50 筆商品、`MAX_WORKERS=64`）。
+所有 API 呼叫都用 `run_parallel()` 並行。
 
 | 階段 | 呼叫數 | 備註 |
 |---|---|---|
-| §2 生成 | 48 | `gemini-flash-latest`，每次數秒 |
-| §3 rubric 生成 | 12 | `gemini-2.5-pro`，**每次 15–26 秒** |
-| §3 逐條檢查 | 約 36 | 同上，整份最慢的一段 |
+| §2 生成 | 200 | `gemini-flash-latest`，50 商品 × 4 版 |
+| §3 rubric 生成 | 50 | `gemini-2.5-pro`，每商品一份考卷 |
+| §3 逐條檢查 | 200 | 同上，**全部送審**，分母才一致 |
 | §4 評論抽取 | 15 | flash，很快 |
 
-> 若跑起來明顯更久，先確認 `MAX_WORKERS` 沒被調小。
-> 遇到 429（配額不足）就把它調降到 4 或 2。
+並行度實測（`gemini-2.5-pro`，零失敗）：8→10.3、16→26.1、32→46.5、64→80.7 次/分。
+預設 `MAX_WORKERS = 32`，想更快就調到 64。
+
+> 遇到 429（配額不足）就把它調小 —— 生成與評審都有指數退避重試，
+> 會自動降速而不是整批失敗。
 > 評審模型是主要瓶頸；換成更快的模型會犧牲 self-preference 的緩解效果，
 > 除非你確定生成與評審用的是不同模型，否則不建議動。
 
