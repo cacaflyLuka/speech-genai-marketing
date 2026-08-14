@@ -23,7 +23,7 @@ POC 是一條零售商品文案 pipeline：Gemini 生成 → 三層評測（規�
 **1　不要手改 notebook。**
 `poc/*.ipynb` 是 `build_notebook.py` 從 `poc/src/` + `poc/data/` 產生的**產物**。
 手改一定會跟測過的程式碼分岔，而分岔會在台上才被發現。
-改完 src 一律 `make all`（＝重新產生 notebook + 跑 64 項離線測試）。
+改完 src 一律 `make all`（＝重新產生 notebook + 跑 65 項離線測試）。
 
 **2　不要美化數字。**
 所有百分比、成本、信賴區間都必須來自實際跑出來的 `poc/data/eval_results.json`

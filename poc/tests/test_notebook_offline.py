@@ -823,6 +823,42 @@ def test_cost_donut_slices_add_up_to_the_ledger_total():
         )
 
 
+def test_notebook_on_disk_matches_the_current_source():
+    """commit 進來的 .ipynb 必須就是現在的 `src/` 產生出來的。
+
+    這條是鐵律一（不要手改 notebook）的另一半：**產物也不能落後於原始碼**。
+    落後的後果跟手改一模一樣 —— 台上跑的是舊版，而所有測試都在測新版，
+    所以測試全綠也保護不了你。實際發生過：改完儀表板的版面、測試全過、
+    但 commit 進去的 notebook 還是舊版面，直到在 Colab 跑出來才看見。
+
+    忘了跑 `make build` 就會在這裡紅掉。修法：`uv run python poc/build_notebook.py`。
+    """
+    from poc import build_notebook as bn
+
+    def norm(text: str) -> str:
+        # 專案 ID 這類值是建構時依環境注入的，會隨誰在跑而不同 —— 不比對這幾行
+        for const, _ in bn.CONFIG_PARAMS.values():
+            text = re.sub(rf"^{const} = .*$", f"{const} = <注入>", text, flags=re.MULTILINE)
+        return text
+
+    built = [norm("".join(c["source"])) for c in bn.build() if c["cell_type"] == "code"]
+    on_disk = [
+        norm("".join(c["source"]))
+        for c in json.loads(NB.read_text(encoding="utf-8"))["cells"]
+        if c["cell_type"] == "code"
+    ]
+
+    assert len(built) == len(on_disk), (
+        f"notebook 的 code cell 數量對不上（原始碼 {len(built)}、檔案 {len(on_disk)}）。"
+        f"\n請重跑：uv run python poc/build_notebook.py"
+    )
+    for i, (a, b) in enumerate(zip(built, on_disk, strict=True)):
+        assert a == b, (
+            f"第 {i} 個 code cell 跟現在的 src/ 對不上 —— notebook 是舊的。"
+            f"\n請重跑：uv run python poc/build_notebook.py"
+        )
+
+
 def test_dashboard_labels_fall_back_to_english_without_a_cjk_font():
     """沒有中文字型時要整頁改用英文，不是印出一堆豆腐方塊。"""
     ns = run_notebook()

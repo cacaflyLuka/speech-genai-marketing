@@ -49,7 +49,7 @@ poc/
     insights.py            場景 B：評論洞察 + BigQuery
     costs.py               成本外推與降本槓桿
     dashboard.py           §6 總覽儀表板（matplotlib，不重算任何數字）
-  tests/                   64 項，全部離線、不呼叫 API、不花錢
+  tests/                   65 項，全部離線、不呼叫 API、不花錢
 ```
 
 ---
@@ -176,7 +176,7 @@ make all
 uv run python poc/build_notebook.py && uv run pytest
 ```
 
-64 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
+65 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
 
 送出前順手跑靜態檢查：
 
