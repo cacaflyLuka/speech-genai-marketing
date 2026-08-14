@@ -325,8 +325,11 @@ uv run python talk/build_slides.py --list   # 只印出播放順序
 `talk/assets/` 裡那六張**手繪示意圖**（工具地圖、金字塔、架構圖⋯⋯）維持手繪，
 只被排進播放清單。
 
-> `studio.svg` 是**留白版**：GEAP Studio 的介面截圖沒辦法用程式產生，
-> 所以那頁產生的是排好標註的空框，把截圖貼進去即可。
+> 第 6 頁（`studio.svg`）貼的是 GEAP 主控台的實際截圖
+> `talk/assets/geap-overview.png` —— 那是**手動放進來的素材**，不是產生的。
+> 截圖以 base64 內嵌進 SVG，所以 `slides.html` 仍然是離線可用的單一檔案。
+> 要換圖就換那個 PNG，標註位置寫在 `build_slides.py` 對應的
+> `layout_screenshot(...)` 呼叫裡，用的是**截圖自己的像素座標**（不必換算縮放）。
 
 ---
 

@@ -115,12 +115,15 @@ GEAP Studio  →  API 串接  →  Prompt 設計  →  評測流程
 
 ## S6　探索期 → GEAP Studio（6:00, 2 分鐘）
 
-**投影片**：Studio 介面截圖，圈出模型選單、temperature、比較模式。
+**投影片**：GEAP 主控台實際截圖，圈出三處 —— ① 左側的 Studio、
+② 畫面上那句 "Vertex AI is now Agent Platform"、③ Authenticate 卡片的兩種驗證。
 
-> ⚠️ **第一次講到 GEAP 時，先用一句話交代改名**，不然台下會以為你在講另一個產品：
+> ⚠️ **第一次講到 GEAP 時，先用一句話交代改名**，不然台下會以為你在講另一個產品。
+> 這頁的截圖裡就有官方說法，**直接指著螢幕上那句話講**，比你自己說有說服力：
 >
 > 「先說一下名字。Vertex AI 在今年四月的 Cloud Next 改名叫
 > **Gemini Enterprise Agent Platform，簡稱 GEAP**，五月底遷移完成。
+> 你看畫面上這句 —— Vertex AI is now Agent Platform，是主控台自己寫的。
 > 主控台已經搜不到 Vertex AI 了，會直接轉到 Agent Platform。
 > **但 API 端點跟 SDK 參數完全沒動** —— 你的程式碼一行都不用改，
 > 等一下 demo 裡你會看到 `vertexai=True` 還在。改的是名字，不是介面。」
@@ -135,6 +138,11 @@ GEAP Studio  →  API 串接  →  Prompt 設計  →  評測流程
 > 這一層你自己花半小時就知道。」
 
 > **→ 對工程師：在 Studio 調好的 prompt 可以直接匯出成程式碼**，不用重寫。
+
+> **→ 鋪下一頁**（指截圖裡的 Authenticate 卡片）：
+> 「順便看一下這張卡，它已經幫我們把下一段的答案寫出來了 ——
+> ADC 標的是 Recommended，API key 標的是 for local testing and rapid prototyping。
+> 這兩個選項的差別，就是下一頁要講的事。」
 
 ---
 

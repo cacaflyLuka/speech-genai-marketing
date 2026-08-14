@@ -143,6 +143,11 @@ README 與講稿在統計上是刻意保守的，改述時不要放寬：
 - **6 張手繪示意圖**（`tool-map` / `eval-pyramid` / `results` / `significance` /
   `cost-model` / `gcp-architecture`）維持手寫 SVG，只被排進播放清單。
 
+第 6 頁貼的是 GEAP 主控台截圖 `talk/assets/geap-overview.png`（手動放進來的素材）。
+截圖**以 base64 內嵌**，不要改成外部連結 —— 理由同下面的離線原則。
+標註座標用的是**截圖自己的像素座標**，換圖時直接在新圖上量即可，縮放由
+`layout_screenshot()` 換算。
+
 `talk/slides.html` 是產物：單一自足檔案、SVG 全部內嵌、不引用任何外部資源，
 所以離線可用（`F` 全螢幕、`O` 總覽、方向鍵換頁）。
 **不要為了方便改成從外部載入 SVG 或 CDN**，那會讓會場沒網路時開天窗。

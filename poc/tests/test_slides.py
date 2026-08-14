@@ -93,7 +93,11 @@ def test_player_is_self_contained_and_complete():
     for _name, title, _svg in DECK:
         assert title in html, f"總覽頁少了「{title}」"
 
-    external = re.findall(r'(?:src|href)="(?!#)([^"]+)"', html)
+    # `data:` 是內嵌（截圖就是這樣放的），不算外部；`#` 是頁內錨點。
+    external = [
+        url for url in re.findall(r'(?:src|href)="([^"]+)"', html)
+        if not url.startswith(("#", "data:"))
+    ]
     assert not external, f"播放器引用了外部資源，離線就會開天窗：{external}"
 
 

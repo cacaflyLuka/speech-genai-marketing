@@ -26,10 +26,12 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import html
 import json
 import pathlib
 import re
+import struct
 import xml.sax.saxutils as sx
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -39,6 +41,10 @@ OUT_HTML = ROOT / "slides.html"
 # 投影片上的禁詞與替代寫法直接讀 POC 的資料檔，不在這裡另外抄一份。
 # 抄一份的下場是：資料改了、投影片沒改，然後台上講的跟 demo 跑出來的不一樣。
 BANNED_TERMS_FILE = ROOT.parent / "poc" / "data" / "banned_terms.json"
+
+# 手動放進來的介面截圖（不是產生的）。要換圖就換這個檔，標註座標寫在對應的
+# layout_screenshot 呼叫裡，用的是截圖自己的像素座標。
+SCREENSHOT_GEAP = ASSETS / "geap-overview.png"
 
 # --------------------------------------------------------------------------
 # 版面常數 —— 所有投影片共用，只改這裡
@@ -75,6 +81,19 @@ GENERATED_MARK = "由 talk/build_slides.py 產生，不要手改"
 # --------------------------------------------------------------------------
 def esc(s: str) -> str:
     return sx.escape(str(s))
+
+
+def embed_png(path: pathlib.Path) -> tuple[str, int, int]:
+    """讀 PNG，回傳 (data URI, 寬, 高)。
+
+    尺寸直接從 IHDR 標頭讀（第 16–24 個位元組），不引入影像函式庫 ——
+    這支檔案要能在任何只裝了標準庫的環境跑起來。
+    """
+    raw = path.read_bytes()
+    if raw[:8] != b"\x89PNG\r\n\x1a\n":
+        raise ValueError(f"{path.name} 不是 PNG")
+    w, h = struct.unpack(">II", raw[16:24])
+    return "data:image/png;base64," + base64.b64encode(raw).decode(), w, h
 
 
 def text(x, y, s, *, size=20, color=INK, weight=None, anchor=None, font=None,
@@ -412,34 +431,54 @@ def layout_fix_pairs(*, title, subtitle="", pairs, note=None):
     return body
 
 
-def layout_placeholder(*, title, subtitle="", instruction, callouts):
-    """需要貼實際截圖的頁面。
+def layout_screenshot(*, title, subtitle="", image, top=186, callouts=()):
+    """整頁寬的介面截圖，加上圈選標註。
 
-    畫面截圖沒辦法用程式產生，所以這裡產生的是**帶好標註的空框**：
-    把截圖貼進框裡，圈選位置與說明文字都已經排好。
+    截圖**用 base64 內嵌**，不是外部檔案連結 —— 播放器要能離線雙擊開啟，
+    引用外部圖檔就等於賭會場網路（理由同 notebook 的離線重播）。
+
+    callouts 的座標寫的是**截圖本身的像素座標**，不是投影片座標。
+    這樣標註位置可以直接從截圖上量，換一張圖只要重量一次，
+    不必回頭換算縮放比例 —— 縮放由這裡算。
     """
+    data, iw, ih = embed_png(image)
+    box_w = W - M * 2
+    scale = box_w / iw
+    box_h = ih * scale
+
     body = header(title, subtitle)
-    box_x, box_y = M, BODY_TOP + 6
-    box_w, box_h = 760, BOTTOM - box_y - 10
     body += [
-        rect(box_x, box_y, box_w, box_h, fill=PAPER, stroke=FAINT, sw=2, dash="8 6"),
-        text(box_x + box_w / 2, box_y + box_h / 2 - 6, instruction, size=22,
-             color=MUTED, anchor="middle"),
-        text(box_x + box_w / 2, box_y + box_h / 2 + 28,
-             "（把截圖貼進這個框，右邊的標註已經排好）", size=17,
-             color=FAINT, anchor="middle"),
+        f'<image href="{data}" x="{M}" y="{top}" '
+        f'width="{box_w}" height="{box_h:.1f}" preserveAspectRatio="none"/>',
+        rect(M, top, box_w, round(box_h, 1), fill="none", stroke=FAINT, sw=1.5, r=6),
     ]
-    x = box_x + box_w + 40
-    y = box_y + 60
-    for i, (label, detail) in enumerate(callouts):
+
+    legend_y = top + box_h + 46
+    if callouts and legend_y + 30 > BOTTOM:
+        raise ValueError(
+            f"「{title}」的截圖太高，標註列放不下：圖到 {top + box_h:.0f}px，"
+            f"標註要到 {legend_y + 30:.0f}px，下界是 {BOTTOM}px。"
+        )
+
+    col_w = box_w / max(len(callouts), 1)
+    for i, (px, py, label, detail) in enumerate(callouts):
+        n = str(i + 1)
+        # 圖上的圈選：座標由截圖像素換算，圈本身不隨圖縮放變形
+        cx, cy = M + px * scale, top + py * scale
         body += [
-            f'<circle cx="{x + 16}" cy="{y - 8}" r="16" fill="{ORANGE}"/>',
-            text(x + 16, y - 1, str(i + 1), size=17, color="#ffffff",
-                 weight=700, anchor="middle"),
-            text(x + 46, y - 1, label, size=21, weight=700, color=INK),
-            text(x + 46, y + 28, detail, size=17, color=MUTED),
+            f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="15" fill="{ORANGE}" '
+            f'stroke="#ffffff" stroke-width="2.5"/>',
+            text(cx, cy + 6, n, size=17, color="#ffffff", weight=700, anchor="middle"),
         ]
-        y += 96
+        # 下方的圖例：同一個編號，把圈選講清楚
+        lx = M + i * col_w
+        body += [
+            f'<circle cx="{lx + 14}" cy="{legend_y - 7}" r="14" fill="{ORANGE}"/>',
+            text(lx + 14, legend_y - 1, n, size=16, color="#ffffff",
+                 weight=700, anchor="middle"),
+            text(lx + 40, legend_y - 1, label, size=21, weight=700, color=INK),
+            text(lx + 40, legend_y + 27, detail, size=17, color=MUTED),
+        ]
     return body
 
 
@@ -513,26 +552,29 @@ def build_slides() -> list[tuple[str, str, str]]:
             title="今天的四段",
             subtitle="一條因果鏈，不是四個平行主題",
             items=[
-                ("GEAP Studio", "探索：這件事到底做不做得成", "5 分鐘"),
-                ("API 串接", "整合：能不能貼進現有系統", "8 分鐘"),
-                ("Prompt 設計", "規格化：把要求寫成可檢查的條件", "4 分鐘"),
-                ("評測流程", "驗收：怎麼證明它變好了", "12 分鐘"),
+                ("GEAP Studio", "探索：這件事到底做不做得成"),
+                ("API 串接", "整合：能不能貼進現有系統"),
+                ("Prompt 設計", "規格化：把要求寫成可檢查的條件"),
+                ("評測流程", "驗收：怎麼證明它變好了"),
             ],
         ))
 
     # ---------------------------------------------------------------- 承
     existing("tool-map.svg", "GCP 三層工具地圖")
 
-    gen("studio.svg", "探索期：GEAP Studio",
-        "GEAP Studio 的介面重點：模型選單、temperature、比較模式。",
-        layout_placeholder(
+    gen("studio.svg", "探索期：GEAP 主控台",
+        "GEAP 主控台實際截圖：左側四塊、改名說明、兩種驗證方式。",
+        layout_screenshot(
             title="探索期：瀏覽器打開就能用",
-            subtitle="GEAP Studio（原 Vertex AI Studio）　不寫程式碼，先確認這件事做不做得成",
-            instruction="GEAP Studio 介面截圖",
+            subtitle="GEAP（原 Vertex AI）主控台　不寫一行程式，先確認這件事做不做得成",
+            image=SCREENSHOT_GEAP,
             callouts=[
-                ("模型選單", "先比 flash 與 pro，不要一開始就選最貴的"),
-                ("temperature", "生成調低一點，評審一律 0"),
-                ("比較模式", "同一個 prompt 並排看不同模型的輸出"),
+                (115, 156, "Studio 就在左邊",
+                 "貼上 prompt 就能比模型，不用先寫程式"),
+                (1090, 190, "改名的官方說法",
+                 "Vertex AI is now Agent Platform"),
+                (790, 383, "兩種驗證、兩種用途",
+                 "ADC 給系統，API key 只給本機試水溫"),
             ],
         ))
 
