@@ -45,7 +45,8 @@ poc/
     report.py              對比表 + 統計顯著性提醒
     insights.py            場景 B：評論洞察 + BigQuery
     costs.py               成本外推與降本槓桿
-  tests/                   48 項，全部離線、不呼叫 API、不花錢
+    dashboard.py           §6 總覽儀表板（matplotlib，不重算任何數字）
+  tests/                   54 項，全部離線、不呼叫 API、不花錢
 ```
 
 ---
@@ -153,7 +154,7 @@ make all
 uv run python poc/build_notebook.py && uv run pytest
 ```
 
-48 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
+54 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
 
 送出前順手跑靜態檢查：
 
@@ -211,7 +212,7 @@ make all
 > 評審模型是主要瓶頸；換成更快的模型會犧牲 self-preference 的緩解效果，
 > 除非你確定生成與評審用的是不同模型，否則不建議動。
 
-- 跑完後執行 §6，會下載 `demo_outputs.json`
+- 跑完後執行 §7，會下載 `demo_outputs.json`
 
 **2-5** 把下載的檔案放到 `poc/data/`：
 
@@ -233,7 +234,7 @@ make build
 ```
 
 **2-8** **拔網路驗證** —— 關掉 wifi，在 Colab 重新 Run all。
-§6 應印出「本次共命中 N 筆錄製輸出，全程未連網」。
+§7 應印出「本次共命中 N 筆錄製輸出，全程未連網」。
 
 > 💡 **產生出來的 notebook 是自足的單一檔案。**
 > fixtures 會被內嵌成 cell 裡的 Python dict，所以**只要上傳這一個 .ipynb 到
@@ -270,6 +271,24 @@ make build
 因為是離線重播，demo 時要重跑哪一格就重跑，秒回，不用等網路。
 
 會後把 **`retail_genai_poc.ipynb`（聽眾版）** 發給聽眾。
+
+---
+
+### 3-1　§6 總覽儀表板
+
+notebook 最後一節把前面的結果畫成一頁 BI 報告：四個看板數字、規則層小倍數圖、
+評審層對比、**配對比較的信賴區間**、成本組成，以及場景 B 的負評歸屬。
+跑完會存成 `evaluation_overview.png`（工作目錄，已列入 `.gitignore`），
+可以直接貼進報告或簡報。
+
+**這一節不產生任何新數字**，全部來自前面已經算過的物件。若它和上面的表格
+對不上，那是 bug —— `test_dashboard_numbers_match_the_tables` 就是在守這件事。
+
+> ⚠️ **Colab 預設環境沒有中文字型**，圖表標籤會自動改用英文（數值不受影響），
+> 不會出現豆腐方塊。要中文標籤，在**有網路時**先執行
+> `!apt-get install -y fonts-noto-cjk` 再重啟 runtime ——
+> 但這需要連網，與「零網路重播」的前提衝突，**演講當天不要做這件事**。
+> 本機（macOS）有系統中文字型，所以在本機重跑會是中文。
 
 ---
 

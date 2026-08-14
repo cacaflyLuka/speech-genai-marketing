@@ -14,3 +14,7 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 .venv/
+
+# §6 儀表板存到工作目錄的 PNG。每次跑都會重新產生，不需要追蹤。
+/evaluation_overview.png
+/poc/evaluation_overview.png

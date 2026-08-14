@@ -287,6 +287,16 @@ def run_notebook(
 
     subprocess.run = _no_install
 
+    # notebook 會把東西寫進工作目錄（fixtures、儀表板 PNG）。在 Colab 那是
+    # /content，很合理；在測試裡那會是 repo 根目錄，就變成每跑一次測試就
+    # 髒一次。所以整段執行都關在暫存目錄裡，寫什麼都不會落到 repo。
+    import os
+    import tempfile
+
+    original_cwd = os.getcwd()
+    tmpdir = tempfile.mkdtemp(prefix="nb-run-")
+    os.chdir(tmpdir)
+
     code_cells = [c for c in nb["cells"] if c["cell_type"] == "code"]
     for idx, cell in enumerate(code_cells):
         src = "".join(cell["source"])
@@ -308,12 +318,21 @@ def run_notebook(
             exec(compile(src, f"<cell {idx}>", "exec"), ns)
         except Exception as e:
             subprocess.run = original_run
+            os.chdir(original_cwd)
             raise AssertionError(
                 f"cell {idx} 執行失敗：{type(e).__name__}: {e}\n"
                 f"--- cell 內容（前 400 字）---\n{src[:400]}"
             ) from e
 
     subprocess.run = original_run
+    os.chdir(original_cwd)
+
+    # 儀表板那一格會開 matplotlib figure。Colab 跑一次就結束，但測試會跑幾十次，
+    # pyplot 一直留著不放會噴 max_open_warning。
+    import matplotlib.pyplot as plt
+
+    plt.close("all")
+
     ns["_printed"] = "\n".join(printed)
     return ns
 
@@ -742,6 +761,59 @@ def test_offline_and_record_are_mutually_exclusive():
         raise AssertionError("兩個旗標同時為 True 時應該拋錯")
     finally:
         cfg.OFFLINE_MODE, cfg.RECORD_FIXTURES = old
+
+
+# --------------------------------------------------------------------------
+# §6 總覽儀表板
+# --------------------------------------------------------------------------
+def _figure_texts(fig) -> list[str]:
+    """圖上所有看得到的文字。用來驗證圖表畫的就是表格算出來的數字。"""
+    out = [t.get_text() for t in fig.texts]
+    for ax in fig.axes:
+        out.append(ax.get_title())
+        out += [t.get_text() for t in ax.texts]
+        out += [t.get_text() for t in ax.get_xticklabels() + ax.get_yticklabels()]
+    return out
+
+
+def test_dashboard_numbers_match_the_tables():
+    """儀表板不可以自己算數字。
+
+    這一頁的全部價值就在於「和上面的表格是同一組數字」。一旦它開始自己
+    重算，台上就會出現兩個互相矛盾的版本，而那是最難當場解釋的狀況。
+    """
+    ns = run_notebook()
+    assert "fig" in ns, "notebook 沒有產生儀表板"
+    texts = _figure_texts(ns["fig"])
+
+    summary = ns["summarize_rubrics"](ns["rubric_reports"], total_items=len(ns["PRODUCTS"]))
+    versions = sorted(ns["build_table"](ns["rule_results"]))
+    first, last = versions[0], versions[-1]
+
+    expected = (
+        f"{summary[first]['可直接上架%']:.0f}% → {summary[last]['可直接上架%']:.0f}%"
+    )
+    assert expected in texts, f"「可直接上架」看板數字與表格不符，圖上找不到 {expected}"
+
+    ledger = ns["ledger"]
+    total = ledger.total_cost_usd("gen") + ledger.total_cost_usd("judge")
+    share = ledger.total_cost_usd("judge") / total * 100
+    assert f"{share:.0f}%" in texts, "「評審佔總成本」看板數字與 ledger 不符"
+
+
+def test_dashboard_labels_fall_back_to_english_without_a_cjk_font():
+    """沒有中文字型時要整頁改用英文，不是印出一堆豆腐方塊。"""
+    ns = run_notebook()
+    assert ns["make_label"](None)("中文", "English") == "English"
+    assert ns["make_label"]("PingFang TC")("中文", "English") == "中文"
+
+
+def test_dashboard_does_not_write_into_the_repo():
+    """儀表板那一格會存 PNG。存到工作目錄沒問題，落進 repo 就是問題。"""
+    stray = ROOT / "evaluation_overview.png"
+    existed = stray.exists()
+    run_notebook()
+    assert existed or not stray.exists(), "測試在 repo 留下 evaluation_overview.png"
 
 
 # --------------------------------------------------------------------------
