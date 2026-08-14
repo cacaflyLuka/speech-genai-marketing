@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>四個版本，四件事</title>
+  <desc>v0 → v3 的統整：每一版新增了什麼、各自在解什麼問題。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">四個版本，四件事</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">回頭看一次 v0 → v3：差別不在文筆，在你把什麼要求寫成了條件</text>
+  <text x="76" y="216" font-size="19" fill="#8A8A8A" font-weight="700">版本</text>
+  <text x="211.35999999999999" y="216" font-size="19" fill="#8A8A8A" font-weight="700">prompt 多了什麼</text>
+  <text x="730.24" y="216" font-size="19" fill="#8A8A8A" font-weight="700">這一版在解什麼問題</text>
+  <line x1="76" y1="232" x2="1204" y2="232" stroke="#1A1A1A" stroke-width="2"/>
+  <text x="76" y="272" font-size="26" fill="#1A1A1A" font-weight="700">v0</text>
+  <text x="211.35999999999999" y="272" font-size="21" fill="#4A4A4A">一句話：幫這個商品寫文案</text>
+  <text x="730.24" y="272" font-size="21" fill="#4A4A4A">沒有 —— 這是基準線</text>
+  <line x1="76" y1="318" x2="1204" y2="318" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="350" font-size="26" fill="#1A1A1A" font-weight="700">v1</text>
+  <text x="211.35999999999999" y="350" font-size="21" fill="#4A4A4A">角色、受眾、字數上限、必含規格</text>
+  <text x="730.24" y="350" font-size="21" fill="#4A4A4A">產出對不上通路的格式要求</text>
+  <line x1="76" y1="396" x2="1204" y2="396" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="428" font-size="26" fill="#1A1A1A" font-weight="700">v2</text>
+  <text x="211.35999999999999" y="428" font-size="21" fill="#4A4A4A">法規禁詞清單、品牌語調 few-shot</text>
+  <text x="730.24" y="428" font-size="21" fill="#4A4A4A">會踩罰則、語氣不像自家品牌</text>
+  <line x1="76" y1="474" x2="1204" y2="474" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="506" font-size="26" fill="#1A1A1A" font-weight="700">v3</text>
+  <text x="211.35999999999999" y="506" font-size="21" fill="#4A4A4A">responseSchema</text>
+  <text x="730.24" y="506" font-size="21" fill="#4A4A4A">輸出是散文，接不進系統</text>
+  <text x="76" y="642" font-size="19" fill="#8A8A8A">每一版只加一件事 —— 這是刻意的：只有一個改動，改善才歸得了因。</text>
+</svg>

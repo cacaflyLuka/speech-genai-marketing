@@ -293,7 +293,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
   <rect width="1280" height="720" fill="#ffffff"/>
   <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v1　加通路約束</text>
-  <text x="76" y="136" font-size="20" fill="#8A8A8A">只加一件事：把「規格」寫進去</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">把通路的格式要求寫進去：受眾、字數上限、必含規格</text>
   <rect x="76.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#1B6FB8" stroke-width="2.5"/>
   <rect x="76.0" y="217.08" width="548.0" height="44" rx="10" fill="#E9F2FB" stroke="none" stroke-width="2"/>
   <text x="96.0" y="247.08" font-size="20" fill="#12507F" font-weight="700">v1 新增（藍色部分）</text>
@@ -322,7 +322,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="676.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">合理 —— v1 加的是字數與規格，</text>
   <text x="676.0" y="487.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">不是語氣指引。</text>
   <line x1="76" y1="571.08" x2="1204" y2="571.08" stroke="#D8D8D8" stroke-width="1.5"/>
-  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">每一版只加一件事，表格上每一欄的改善才能歸因到單一改動。</text>
+  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">字數與規格是能自動檢查的條件 —— 這一版的改善，規則層就量得到。</text>
 </svg></section><section class="slide" data-name="prompt-v2.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>v2：加法規與語調</title>
   <desc>v2 加入法規禁詞清單與品牌語調 few-shot。</desc>
@@ -394,6 +394,33 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="676.0" y="471.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">那一成的失敗會消失。</text>
   <line x1="76" y1="555.24" x2="1204" y2="555.24" stroke="#D8D8D8" stroke-width="1.5"/>
   <text x="76" y="591.24" font-size="21" fill="#8A8A8A">可機器讀取：0% → 100%。這不需要統計檢定。</text>
+</svg></section><section class="slide" data-name="prompt-recap.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>四個版本，四件事</title>
+  <desc>v0 → v3 的統整：每一版新增了什麼、各自在解什麼問題。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">四個版本，四件事</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">回頭看一次 v0 → v3：差別不在文筆，在你把什麼要求寫成了條件</text>
+  <text x="76" y="216" font-size="19" fill="#8A8A8A" font-weight="700">版本</text>
+  <text x="211.35999999999999" y="216" font-size="19" fill="#8A8A8A" font-weight="700">prompt 多了什麼</text>
+  <text x="730.24" y="216" font-size="19" fill="#8A8A8A" font-weight="700">這一版在解什麼問題</text>
+  <line x1="76" y1="232" x2="1204" y2="232" stroke="#1A1A1A" stroke-width="2"/>
+  <text x="76" y="272" font-size="26" fill="#1A1A1A" font-weight="700">v0</text>
+  <text x="211.35999999999999" y="272" font-size="21" fill="#4A4A4A">一句話：幫這個商品寫文案</text>
+  <text x="730.24" y="272" font-size="21" fill="#4A4A4A">沒有 —— 這是基準線</text>
+  <line x1="76" y1="318" x2="1204" y2="318" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="350" font-size="26" fill="#1A1A1A" font-weight="700">v1</text>
+  <text x="211.35999999999999" y="350" font-size="21" fill="#4A4A4A">角色、受眾、字數上限、必含規格</text>
+  <text x="730.24" y="350" font-size="21" fill="#4A4A4A">產出對不上通路的格式要求</text>
+  <line x1="76" y1="396" x2="1204" y2="396" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="428" font-size="26" fill="#1A1A1A" font-weight="700">v2</text>
+  <text x="211.35999999999999" y="428" font-size="21" fill="#4A4A4A">法規禁詞清單、品牌語調 few-shot</text>
+  <text x="730.24" y="428" font-size="21" fill="#4A4A4A">會踩罰則、語氣不像自家品牌</text>
+  <line x1="76" y1="474" x2="1204" y2="474" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="506" font-size="26" fill="#1A1A1A" font-weight="700">v3</text>
+  <text x="211.35999999999999" y="506" font-size="21" fill="#4A4A4A">responseSchema</text>
+  <text x="730.24" y="506" font-size="21" fill="#4A4A4A">輸出是散文，接不進系統</text>
+  <text x="76" y="642" font-size="19" fill="#8A8A8A">每一版只加一件事 —— 這是刻意的：只有一個改動，改善才歸得了因。</text>
 </svg></section><section class="slide" data-name="only-v3.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>關鍵訊息：只有 v3 能接進系統</title>
   <desc>前三版都只是聊天，只有結構化輸出能進系統。</desc>
@@ -1358,7 +1385,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
   <rect width="1280" height="720" fill="#ffffff"/>
   <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v1　加通路約束</text>
-  <text x="76" y="136" font-size="20" fill="#8A8A8A">只加一件事：把「規格」寫進去</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">把通路的格式要求寫進去：受眾、字數上限、必含規格</text>
   <rect x="76.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#1B6FB8" stroke-width="2.5"/>
   <rect x="76.0" y="217.08" width="548.0" height="44" rx="10" fill="#E9F2FB" stroke="none" stroke-width="2"/>
   <text x="96.0" y="247.08" font-size="20" fill="#12507F" font-weight="700">v1 新增（藍色部分）</text>
@@ -1387,7 +1414,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="676.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">合理 —— v1 加的是字數與規格，</text>
   <text x="676.0" y="487.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">不是語氣指引。</text>
   <line x1="76" y1="571.08" x2="1204" y2="571.08" stroke="#D8D8D8" stroke-width="1.5"/>
-  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">每一版只加一件事，表格上每一欄的改善才能歸因到單一改動。</text>
+  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">字數與規格是能自動檢查的條件 —— 這一版的改善，規則層就量得到。</text>
 </svg><figcaption>10. v1：加通路約束</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>v2：加法規與語調</title>
   <desc>v2 加入法規禁詞清單與品牌語調 few-shot。</desc>
@@ -1460,6 +1487,33 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <line x1="76" y1="555.24" x2="1204" y2="555.24" stroke="#D8D8D8" stroke-width="1.5"/>
   <text x="76" y="591.24" font-size="21" fill="#8A8A8A">可機器讀取：0% → 100%。這不需要統計檢定。</text>
 </svg><figcaption>12. v3：結構化輸出</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>四個版本，四件事</title>
+  <desc>v0 → v3 的統整：每一版新增了什麼、各自在解什麼問題。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">四個版本，四件事</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">回頭看一次 v0 → v3：差別不在文筆，在你把什麼要求寫成了條件</text>
+  <text x="76" y="216" font-size="19" fill="#8A8A8A" font-weight="700">版本</text>
+  <text x="211.35999999999999" y="216" font-size="19" fill="#8A8A8A" font-weight="700">prompt 多了什麼</text>
+  <text x="730.24" y="216" font-size="19" fill="#8A8A8A" font-weight="700">這一版在解什麼問題</text>
+  <line x1="76" y1="232" x2="1204" y2="232" stroke="#1A1A1A" stroke-width="2"/>
+  <text x="76" y="272" font-size="26" fill="#1A1A1A" font-weight="700">v0</text>
+  <text x="211.35999999999999" y="272" font-size="21" fill="#4A4A4A">一句話：幫這個商品寫文案</text>
+  <text x="730.24" y="272" font-size="21" fill="#4A4A4A">沒有 —— 這是基準線</text>
+  <line x1="76" y1="318" x2="1204" y2="318" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="350" font-size="26" fill="#1A1A1A" font-weight="700">v1</text>
+  <text x="211.35999999999999" y="350" font-size="21" fill="#4A4A4A">角色、受眾、字數上限、必含規格</text>
+  <text x="730.24" y="350" font-size="21" fill="#4A4A4A">產出對不上通路的格式要求</text>
+  <line x1="76" y1="396" x2="1204" y2="396" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="428" font-size="26" fill="#1A1A1A" font-weight="700">v2</text>
+  <text x="211.35999999999999" y="428" font-size="21" fill="#4A4A4A">法規禁詞清單、品牌語調 few-shot</text>
+  <text x="730.24" y="428" font-size="21" fill="#4A4A4A">會踩罰則、語氣不像自家品牌</text>
+  <line x1="76" y1="474" x2="1204" y2="474" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="506" font-size="26" fill="#1A1A1A" font-weight="700">v3</text>
+  <text x="211.35999999999999" y="506" font-size="21" fill="#4A4A4A">responseSchema</text>
+  <text x="730.24" y="506" font-size="21" fill="#4A4A4A">輸出是散文，接不進系統</text>
+  <text x="76" y="642" font-size="19" fill="#8A8A8A">每一版只加一件事 —— 這是刻意的：只有一個改動，改善才歸得了因。</text>
+</svg><figcaption>13. 四個版本，四件事</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>關鍵訊息：只有 v3 能接進系統</title>
   <desc>前三版都只是聊天，只有結構化輸出能進系統。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -1468,7 +1522,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="76" y="417.71000000000004" font-size="58" fill="#1A1A1A" font-weight="700">前面三版都只是聊天。</text>
   <line x1="76" y1="594" x2="1204" y2="594" stroke="#D8D8D8" stroke-width="1.5"/>
   <text x="76" y="630" font-size="22" fill="#8A8A8A">v3 沒有讓文案變好，是讓文案變得可用 —— 這是兩件事，你兩個都需要</text>
-</svg><figcaption>13. 關鍵訊息：只有 v3 能接進系統</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>14. 關鍵訊息：只有 v3 能接進系統</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>三層評測</title>
   <desc>由便宜到貴的三層評測：規則層、LLM judge、人工抽樣，含各層成本與延遲</desc>
 
@@ -1523,7 +1577,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="640" y="654" font-size="24" fill="#8A3A06" text-anchor="middle">
     <tspan font-weight="700">評審佔總成本 83%</tspan><tspan dx="22">—— 50 筆實測</tspan>
   </text>
-</svg><figcaption>14. 三層評測</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>15. 三層評測</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>法規禁詞的罰則</title>
   <desc>台灣廣告法規的罰則級距，說明為什麼規則層要放第一層。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -1550,7 +1604,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="685.1199999999999" y="428" font-size="21" fill="#4A4A4A">化粧品衛管法 §10</text>
   <text x="1194.0" y="428" font-size="21" fill="#4A4A4A" text-anchor="end">—</text>
   <text x="76" y="642" font-size="19" fill="#8A8A8A">加了 prompt 約束後降到 2% —— 但 2% 不是 0%，所以規則層要擋在最前面。</text>
-</svg><figcaption>15. 法規禁詞的罰則</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>16. 法規禁詞的罰則</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>規則層能給方向</title>
   <desc>規則層不只擋，還能給出合規的替代寫法；內容直接來自禁詞清單。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -1622,7 +1676,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="392" y="572.909090909091" font-size="20" fill="#B8B8B8">→</text>
   <text x="438" y="572.909090909091" font-size="20" fill="#166534" font-weight="700">✓</text>
   <text x="468" y="572.909090909091" font-size="22" fill="#0F4A25" font-weight="700">多數使用者回饋</text>
-</svg><figcaption>16. 規則層能給方向</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>17. 規則層能給方向</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>不要用 1–5 分</title>
   <desc>Likert 分數與二元 rubric 的對照。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -1661,7 +1715,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="712.0" y="516" font-size="20" fill="#4A4A4A">知道要補什麼</text>
   <rect x="76" y="592" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
   <text x="640.0" y="628" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">GEAP 的 Gen AI Evaluation 的 adaptive rubrics 就是這個思路</text>
-</svg><figcaption>17. 不要用 1–5 分</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>18. 不要用 1–5 分</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>真實的 rubric 清單</title>
   <desc>從商品資料生成的驗收清單，v0～v3 共用同一份。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -1692,7 +1746,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="132" y="546.8" font-size="19" fill="#4A4A4A">結構</text>
   <line x1="76" y1="604" x2="1204" y2="604" stroke="#D8D8D8" stroke-width="1.5"/>
   <text x="76" y="638" font-size="21" fill="#8A8A8A">若讓評審看著文案即興出題，等於每個版本考不同的考卷 —— 那張表就沒有意義了。</text>
-</svg><figcaption>18. 真實的 rubric 清單</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>19. 真實的 rubric 清單</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>judge 的偏誤</title>
   <desc>LLM 評審的三種已知偏誤與各自的緩解方式。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -1724,7 +1778,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="868.6666666666666" y="400" font-size="18" fill="#4A4A4A">不做兩兩對比</text>
   <text x="868.6666666666666" y="428" font-size="18" fill="#4A4A4A">各自獨立評分</text>
   <text x="76" y="654" font-size="20" fill="#8A8A8A">所以評審層的數字要配信賴區間看 —— 有偏誤的量尺，更不能只看單點。</text>
-</svg><figcaption>19. judge 的偏誤</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>20. judge 的偏誤</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>50 筆評測結果</title>
   <desc>四個 prompt 版本在 50 筆商品上的評測結果，含配對比較的信賴區間</desc>
 
@@ -1817,7 +1871,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
     <text x="1010" y="666" fill="#EF7622">語意品質</text>
     <text x="1165" y="666" fill="#C2510A">可機器讀取</text>
   </g>
-</svg><figcaption>20. 50 筆評測結果</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>21. 50 筆評測結果</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>版本差距的信賴區間</title>
   <desc>相鄰版本 rubric 通過率差距的配對比較與 95% bootstrap 信賴區間</desc>
 
@@ -1884,7 +1938,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
     <tspan font-weight="700">語意品質上，只有 v1 → v2 站得住。</tspan><tspan dx="20">另外兩個差距在這個樣本量下分不出來。</tspan>
   </text>
   <text x="104" y="656" font-size="18" fill="#4A4A4A">v1 與 v3 贏在別的欄位</text>
-</svg><figcaption>21. 版本差距的信賴區間</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>22. 版本差距的信賴區間</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>自己做還是買現成的</title>
   <desc>用「會不會出現在你的產品定價頁上」當分界線。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -1914,7 +1968,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="688.0" y="434" font-size="20" fill="#4A4A4A">買現成的，把時間留給前面那欄。</text>
   <rect x="76" y="544" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
   <text x="640.0" y="580" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">這個 AI 功能會不會出現在你的產品定價頁上？</text>
-</svg><figcaption>22. 自己做還是買現成的</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>23. 自己做還是買現成的</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>方法論可遷移</title>
   <desc>生成與抽取是同一套流程的兩個方向。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -1943,7 +1997,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="712.0" y="448" font-size="20" fill="#4A4A4A">要算成本</text>
   <rect x="76" y="524" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
   <text x="640.0" y="560" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">方向相反，流程完全相同</text>
-</svg><figcaption>23. 方法論可遷移</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>24. 方法論可遷移</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>成本估算公式與降本四招</title>
   <desc>生成式 AI 的成本估算公式，以及四種降低成本的手段與其代價</desc>
 
@@ -2006,7 +2060,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
     <text x="588" y="686" font-size="17" font-weight="700" fill="#C2510A">最被低估</text>
     <text x="790" y="686" font-size="18" fill="#4A4A4A">幾乎沒有</text>
   </g>
-</svg><figcaption>24. 成本估算公式與降本四招</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>25. 成本估算公式與降本四招</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>評測本身要花錢</title>
   <desc>最常被漏算的一筆成本。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -2014,7 +2068,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="76" y="383.04" font-size="72" fill="#1A1A1A" font-weight="700">評測本身要花錢。</text>
   <line x1="76" y1="594" x2="1204" y2="594" stroke="#D8D8D8" stroke-width="1.5"/>
   <text x="76" y="630" font-size="22" fill="#8A8A8A">大家算成本只算生成 —— 這次實測，評審佔總成本的大部分</text>
-</svg><figcaption>25. 評測本身要花錢</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>26. 評測本身要花錢</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>GCP 架構：今天 demo 用到的 vs 正式上線需要的</title>
   <desc>零售生成式 AI 系統在 Google Cloud 上的架構，區分 POC 實際使用的服務與正式部署還需要的服務</desc>
 
@@ -2122,7 +2176,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
     <tspan font-weight="700">今天實際用到兩個：GEAP 與 BigQuery</tspan><tspan dx="24">其餘為正式部署所需</tspan>
   </text>
 
-</svg><figcaption>26. GCP 架構：demo 用到的 vs 正式上線需要的</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>27. GCP 架構：demo 用到的 vs 正式上線需要的</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>90 天導入路徑</title>
   <desc>三個階段各自的產出與時間。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -2146,7 +2200,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <text x="1204" y="404" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">6 週</text>
   <line x1="76" y1="604" x2="1204" y2="604" stroke="#D8D8D8" stroke-width="1.5"/>
   <text x="76" y="638" font-size="21" fill="#8A8A8A">golden set 不用大。50 筆 × 7 條判準，就足以分辨 3 個百分點以上的差距。</text>
-</svg><figcaption>27. 90 天導入路徑</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+</svg><figcaption>28. 90 天導入路徑</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>收尾：回到開場那兩段文案</title>
   <desc>回到開場的 A/B 文案，這次有評測結果可以說明為什麼選 B。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
@@ -2169,7 +2223,7 @@ html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
   <line x1="76" y1="500" x2="1204" y2="500" stroke="#D8D8D8" stroke-width="1.5"/>
   <text x="76" y="546" font-size="30" fill="#1A1A1A" font-weight="700">你怎麼知道它有沒有變好？</text>
   <text x="76" y="590" font-size="22" fill="#4A4A4A">現在你有一張表可以回答 —— 而且下次改 prompt，重跑一次就知道有沒有退步。</text>
-</svg><figcaption>28. 收尾：回到開場那兩段文案</figcaption></figure></div>
+</svg><figcaption>29. 收尾：回到開場那兩段文案</figcaption></figure></div>
 <div id="bar"></div>
 <div id="hud"></div>
 <div id="help">← → 換頁　F 全螢幕　O 總覽</div>

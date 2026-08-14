@@ -137,7 +137,7 @@ README 與講稿在統計上是刻意保守的，改述時不要放寬：
 
 `talk/assets/` 底下有兩種檔案，**改之前先確認是哪一種**：
 
-- **22 張由 `talk/build_slides.py` 產生**，檔頭有「由 talk/build_slides.py 產生，
+- **23 張由 `talk/build_slides.py` 產生**，檔頭有「由 talk/build_slides.py 產生，
   不要手改」的註解。要改就改那支檔案裡的資料或版型，再重跑 `build_slides.py`。
   手改單張會在下次 build 時被蓋掉。
 - **6 張手繪示意圖**（`tool-map` / `eval-pyramid` / `results` / `significance` /

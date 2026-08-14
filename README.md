@@ -18,7 +18,7 @@ talk/
   abstract.md                主辦方提交用：短主題 + 條列式大綱
   script.md                  大綱 + 逐頁講稿 + demo 腳本 + QA + 上場前檢查清單
   build_slides.py            ★ 產生版面型投影片與播放器（版面規則只寫在這裡）
-  slides.html                ★ 產物：28 張投影片的單一檔案播放器，可全螢幕
+  slides.html                ★ 產物：29 張投影片的單一檔案播放器，可全螢幕
   assets/                    投影片（1280×720，右下角留給 logo）
     tool-map.svg             ☐ 手繪：GCP 三層工具地圖
     eval-pyramid.svg         ☐ 手繪：三層評測金字塔
@@ -26,7 +26,7 @@ talk/
     significance.svg         ☐ 手繪：配對比較的信賴區間
     cost-model.svg           ☐ 手繪：成本公式與降本四招
     gcp-architecture.svg     ☐ 手繪：demo 用到的 GCP vs 正式上線需要的
-    其餘 22 張               由 build_slides.py 產生，檔頭有標記，不要手改
+    其餘 23 張               由 build_slides.py 產生，檔頭有標記，不要手改
 
 poc/
   retail_genai_poc.ipynb          ★ 聽眾版 —— 乾淨教材，會後發給大家
@@ -299,7 +299,7 @@ make build
 
 ### 3-0　投影片：`talk/slides.html`
 
-28 張投影片做成**單一自足的 HTML 播放器**。雙擊 `talk/slides.html` 就能開，
+29 張投影片做成**單一自足的 HTML 播放器**。雙擊 `talk/slides.html` 就能開，
 不需要伺服器、不需要網路 —— 跟 notebook 走離線重播是同一個理由。
 
 | 操作 | 鍵 |
@@ -319,7 +319,7 @@ uv run python talk/build_slides.py          # 產生 SVG 與 slides.html
 uv run python talk/build_slides.py --list   # 只印出播放順序
 ```
 
-**版面型投影片（22 張）由 `build_slides.py` 產生，不要手改** ——
+**版面型投影片（23 張）由 `build_slides.py` 產生，不要手改** ——
 版面規則（邊界、字級、色票、logo 安全區）只寫在那支檔案上方，
 手改單張的下場是每張都差一點點，投影出來看得很清楚。
 `talk/assets/` 裡那六張**手繪示意圖**（工具地圖、金字塔、架構圖⋯⋯）維持手繪，
