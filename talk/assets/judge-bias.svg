@@ -5,7 +5,7 @@
   <rect width="1280" height="720" fill="#ffffff"/>
   <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">評審不是中立的</text>
   <text x="76" y="136" font-size="20" fill="#8A8A8A">三種已知偏誤，各自有緩解方式 —— 但沒有一種能完全消除</text>
-  <rect x="76.0" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <rect x="76.0" y="206" width="357.3333333333333" height="268" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
   <text x="98.0" y="250" font-size="23" fill="#A85110" font-weight="700">self-preference</text>
   <text x="98.0" y="288" font-size="18" fill="#4A4A4A">模型偏好自己</text>
   <text x="98.0" y="316" font-size="18" fill="#4A4A4A">生成的文字</text>
@@ -13,7 +13,7 @@
   <text x="98.0" y="372" font-size="18" fill="#4A4A4A">緩解：</text>
   <text x="98.0" y="400" font-size="18" fill="#4A4A4A">生成用 flash</text>
   <text x="98.0" y="428" font-size="18" fill="#4A4A4A">評審用 2.5-pro</text>
-  <rect x="461.3333333333333" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <rect x="461.3333333333333" y="206" width="357.3333333333333" height="268" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
   <text x="483.3333333333333" y="250" font-size="23" fill="#A85110" font-weight="700">verbosity</text>
   <text x="483.3333333333333" y="288" font-size="18" fill="#4A4A4A">寫得長、寫得華麗</text>
   <text x="483.3333333333333" y="316" font-size="18" fill="#4A4A4A">容易拿高分</text>
@@ -21,7 +21,7 @@
   <text x="483.3333333333333" y="372" font-size="18" fill="#4A4A4A">緩解：</text>
   <text x="483.3333333333333" y="400" font-size="18" fill="#4A4A4A">二元判準</text>
   <text x="483.3333333333333" y="428" font-size="18" fill="#4A4A4A">不給分數</text>
-  <rect x="846.6666666666666" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <rect x="846.6666666666666" y="206" width="357.3333333333333" height="268" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
   <text x="868.6666666666666" y="250" font-size="23" fill="#A85110" font-weight="700">position</text>
   <text x="868.6666666666666" y="288" font-size="18" fill="#4A4A4A">先看到的選項</text>
   <text x="868.6666666666666" y="316" font-size="18" fill="#4A4A4A">比較容易被選</text>

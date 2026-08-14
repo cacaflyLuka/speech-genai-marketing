@@ -23,7 +23,7 @@
     <text x="148" y="250" font-size="28" font-weight="700" fill="#12507F">探索期</text>
     <text x="262" y="249" font-size="18" fill="#1B6FB8">約 2 週</text>
 
-    <text x="104" y="308" font-size="23" font-weight="600" fill="#1A1A1A">Vertex AI Studio</text>
+    <text x="104" y="308" font-size="23" font-weight="600" fill="#1A1A1A">GEAP Studio</text>
     <text x="104" y="342" font-size="18" fill="#4A4A4A">瀏覽器打開就能用</text>
     <text x="104" y="372" font-size="18" fill="#4A4A4A">改 prompt、比模型、調參數</text>
 
@@ -42,7 +42,7 @@
     <text x="532" y="250" font-size="28" font-weight="700" fill="#A85110">整合期</text>
     <text x="646" y="249" font-size="18" fill="#EF7622">約 4 週</text>
 
-    <text x="488" y="308" font-size="23" font-weight="600" fill="#1A1A1A">Gemini API / Vertex AI</text>
+    <text x="488" y="308" font-size="23" font-weight="600" fill="#1A1A1A">Gemini API / GEAP</text>
     <text x="488" y="342" font-size="18" fill="#4A4A4A">prompt 變成程式碼</text>
     <text x="488" y="372" font-size="18" fill="#4A4A4A">structured output 接進系統</text>
 

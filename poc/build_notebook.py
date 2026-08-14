@@ -231,7 +231,7 @@ def build() -> list[dict]:
 
 ### 執行前須知
 
-- 需要一個啟用了 Vertex AI API 與計費的 GCP 專案。
+- 需要一個啟用了 GEAP API 與計費的 GCP 專案。
 - 全部跑完的成本很低（見 §5 實際印出的數字），但**不是零**。
 - 若沒有 GCP 專案，可在 §0 的 CONFIG 把 `USE_VERTEX` 改成 `False`
   並填入 AI Studio API key。
@@ -329,10 +329,10 @@ if not _importable("google.cloud.bigquery"):
 
 底下這段程式碼做兩件事。
 
-**第一，切換 Vertex AI 與 AI Studio 只差 Client 的建構參數**，
+**第一，切換 GEAP 與 AI Studio 只差 Client 的建構參數**，
 其他程式碼一行都不用改。選哪一個是**部署決策**
 （資料落地、計費歸屬、VPC-SC、合規），不是**程式碼決策**。
-先用 AI Studio 做原型，要簽 DPA 時再切到 Vertex。
+先用 AI Studio 做原型，要簽 DPA 時再切到 GEAP。
 
 **第二，離線重播。** 在網路不穩的場合即時打 API 是不能接受的風險，
 所以有兩個模式：
@@ -387,9 +387,9 @@ if OFFLINE_MODE:
     print("✓ 離線重播模式 — 不會連網")
 elif RECORD_FIXTURES:
     print("✓ 錄製模式 — 正常呼叫並記錄輸出")
-    print(f"  {'Vertex AI' if USE_VERTEX else 'Gemini API'}")
+    print(f"  {'GEAP' if USE_VERTEX else 'Gemini API'}")
 else:
-    print(f"✓ {'Vertex AI — project=' + PROJECT_ID if USE_VERTEX else 'Gemini API (AI Studio key)'}")
+    print(f"✓ {'GEAP — project=' + PROJECT_ID if USE_VERTEX else 'Gemini API (AI Studio key)'}")
 
 print(f"  生成模型：{GEN_MODEL}")
 print(f"  評審模型：{JUDGE_MODEL}  ← 刻意與生成模型不同，降低 self-preference bias")
@@ -397,7 +397,7 @@ print(f"  評審模型：{JUDGE_MODEL}  ← 刻意與生成模型不同，降低
     cells.extend(cue("""
 **30:00 — 捲動帶過，不要逐行讀。**
 
-要說的一句：「注意這幾行 —— 切 Vertex 或 AI Studio 只差 client 的參數，
+要說的一句：「注意這幾行 —— 切 GEAP 或 AI Studio 只差 client 的參數，
 底下所有程式碼一行都不用改。這是部署決策，不是技術決策。」
 """))
 
@@ -647,7 +647,7 @@ if worst and worst.banned_hits:
 ✓  「文案是否寫出游離型葉黃素 30mg？」  → 否 → 知道要補什麼
 ```
 
-這也是 Vertex AI Gen AI Evaluation Service 把 adaptive rubrics
+這也是 GEAP 的 Gen AI Evaluation Service 把 adaptive rubrics
 形容成**「像單元測試」**的原因。
 
 #### 公平性：rubric 只從商品資料生成，不看被評的文案
@@ -1056,7 +1056,7 @@ else:
 
 | 階段 | 時間 | 產出 |
 |---|---|---|
-| Vertex AI Studio 驗證可行性 | 2 週 | 這件事到底做不做得成 |
+| GEAP Studio 驗證可行性 | 2 週 | 這件事到底做不做得成 |
 | 建 golden set + API 串接 | 4 週 | 30–50 筆就足以開始 |
 | 小流量上線 + 監控 | 6 週 | 有數字可以對董事會報告 |
 """))

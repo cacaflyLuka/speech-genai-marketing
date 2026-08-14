@@ -1,7 +1,7 @@
 # 演講大綱與逐頁講稿
 
 **主題**：Google Cloud & Generative AI Applications — 生成式 AI 應用整合
-**副標**：從 Vertex AI Studio 到可上線的零售文案 pipeline
+**副標**：從 GEAP Studio 到可上線的零售文案 pipeline
 **日期**：2026-08-21　**時長**：45 分鐘（30 講 + 12 demo + 3 QA）
 **聽眾**：新創創辦人／PM 與工程師各半
 
@@ -14,7 +14,7 @@
 這句話是軸心。它把四個原本平行的題綱串成一條因果鏈：
 
 ```
-Vertex AI Studio  →  API 串接  →  Prompt 設計  →  評測流程
+GEAP Studio  →  API 串接  →  Prompt 設計  →  評測流程
    （探索）          （整合）      （規格化）      （驗收）
 ```
 
@@ -113,11 +113,19 @@ Vertex AI Studio  →  API 串接  →  Prompt 設計  →  評測流程
 
 ---
 
-## S6　探索期 → Vertex AI Studio（6:00, 2 分鐘）
+## S6　探索期 → GEAP Studio（6:00, 2 分鐘）
 
 **投影片**：Studio 介面截圖，圈出模型選單、temperature、比較模式。
 
-> 「第一層：**探索期**。工具是 Vertex AI Studio，瀏覽器打開就能用，不寫程式。
+> ⚠️ **第一次講到 GEAP 時，先用一句話交代改名**，不然台下會以為你在講另一個產品：
+>
+> 「先說一下名字。Vertex AI 在今年四月的 Cloud Next 改名叫
+> **Gemini Enterprise Agent Platform，簡稱 GEAP**，五月底遷移完成。
+> 主控台已經搜不到 Vertex AI 了，會直接轉到 Agent Platform。
+> **但 API 端點跟 SDK 參數完全沒動** —— 你的程式碼一行都不用改，
+> 等一下 demo 裡你會看到 `vertexai=True` 還在。改的是名字，不是介面。」
+
+> 「第一層：**探索期**。工具是 GEAP Studio，瀏覽器打開就能用，不寫程式。
 >
 > 你在這裡做一件事：**判斷這事到底做不做得成**。
 > 貼一個 prompt、換模型比一比、調參數看看。五分鐘有答案。」
@@ -130,11 +138,11 @@ Vertex AI Studio  →  API 串接  →  Prompt 設計  →  評測流程
 
 ---
 
-## S7　整合期 → Gemini API vs Vertex AI（8:00, 3 分鐘）
+## S7　整合期 → Gemini API vs GEAP（8:00, 3 分鐘）
 
 **投影片**：左右對照表。**這頁是全場資訊密度最高的一頁，慢慢講。**
 
-| | Gemini API（AI Studio key） | Vertex AI |
+| | Gemini API（AI Studio key） | GEAP |
 |---|---|---|
 | 拿到 key | 五秒，網頁點一點 | 要 GCP 專案 + IAM 設定 |
 | 認證 | API key | 服務帳號 / ADC |
@@ -153,7 +161,7 @@ Vertex AI Studio  →  API 串接  →  Prompt 設計  →  評測流程
 
 > **→ 對創辦人：這是個部署決策，不是技術決策。**
 > 「做原型用 AI Studio，五秒就能開始。
-> 但**當客戶開始問「我的資料存在哪」、法務開始要你簽 DPA 的時候，你要能切到 Vertex。**
+> 但**當客戶開始問「我的資料存在哪」、法務開始要你簽 DPA 的時候，你要能切到 GEAP。**
 > 好消息是切換成本很低，所以不用一開始就糾結。壞消息是如果你原型做太久、
 > 資料都在個人帳號下，搬家會很痛。」
 
@@ -165,7 +173,7 @@ Vertex AI Studio  →  API 串接  →  Prompt 設計  →  評測流程
 
 > 「第三層：**上線期**。這一層大部分人直接跳過，然後在三個月後付出代價。
 >
-> 這裡有 Vertex AI 的 Gen AI Evaluation Service、有日誌、有回歸測試。
+> 這裡有 GEAP 的 Gen AI Evaluation Service、有日誌、有回歸測試。
 > 但工具其次，重點是你有沒有**一組固定的題目和一套固定的評分方式**。」
 
 > **→ 對創辦人：這一層是你唯一能拿來對董事會證明「有進步」的東西。**
@@ -323,7 +331,7 @@ Vertex AI Studio  →  API 串接  →  Prompt 設計  →  評測流程
 > 『這份文案幾分？』→ 3.8 分，然後呢？
 > 『文案有沒有寫出 30mg 這個含量？』→ 沒有 → **你知道要補什麼了。**
 >
-> 這也是 Vertex AI 的 Gen AI Evaluation Service 在做的事 ——
+> 這也是 GEAP 的 Gen AI Evaluation Service 在做的事 ——
 > 他們把這種判準形容成**『像單元測試』**。我覺得這個比喻很準。」
 
 **投影片**：真實的 rubric 清單（從 demo 截圖）。
@@ -486,7 +494,7 @@ v3 − v2   -1.43 pp   95%CI [-5.15,  +2.57]   跨過 0
 
 > 「有人可能會想：講了半天，這到底跟 Google Cloud 有什麼關係？
 >
-> **誠實地說，今天的 demo 只真的用到兩個服務：Vertex AI 和 BigQuery。**
+> **誠實地說，今天的 demo 只真的用到兩個服務：GEAP 和 BigQuery。**
 > 圖上實線的就這兩個，其他全部是虛線 —— 正式上線才需要，今天沒做。
 >
 > 但這是刻意的。**先把「怎麼知道它變好了」解決掉，再談怎麼部署。**
@@ -567,7 +575,7 @@ v3 − v2   -1.43 pp   95%CI [-5.15,  +2.57]   跨過 0
 
 | 時間 | 節 | 動作 | 要說的話 |
 |---|---|---|---|
-| 30:00 | §0 | 捲動帶過 | 「注意這幾行 —— 切 Vertex 或 AI Studio 只差 client 的參數」＋ 說明重播 |
+| 30:00 | §0 | 捲動帶過 | 「注意這幾行 —— 切 GEAP 或 AI Studio 只差 client 的參數」＋ 說明重播 |
 | 31:00 | §1 | 捲動，停在 `regulated_category` | 「這個欄位是後面所有事情的關鍵」 |
 | 32:00 | §2 | 秀 v0 與 v3 prompt 全文 | 「差別就是這幾段」 |
 | 33:30 | §2 | **▶ 重跑 v0** | 「看起來不錯對吧」 |
@@ -645,11 +653,11 @@ v3 − v2   -1.43 pp   95%CI [-5.15,  +2.57]   跨過 0，不能宣稱
 > demo 裡有實測，同樣字數的中文比英文貴。」
 
 **Q：這個 demo 到底跟 Google Cloud 有什麼關係？**
-> → 已在 S19b 主動講過。補充：「Vertex 跟 AI Studio 的差別在 S7，
+> → 已在 S19b 主動講過。補充：「GEAP 跟 AI Studio 的差別在 S7，
 > 那才是創辦人真正要做的決策。」
 
-**Q：為什麼不用 Vertex 內建的評測服務？**
-> 「概念完全一樣，Vertex 的 adaptive rubrics 就是這個思路。
+**Q：為什麼不用 GEAP 內建的評測服務？**
+> 「概念完全一樣，GEAP 的 adaptive rubrics 就是這個思路。
 > 我手寫是因為**你們要看得到 rubric 長什麼樣子**，那才是能帶走的東西。
 > 另外託管服務的 SDK 介面還在變 —— 我本機裝的版本只有舊的 Likert 型指標。
 > 要換成託管版，換的是呼叫方式，不是方法論。」

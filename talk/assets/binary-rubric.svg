@@ -5,36 +5,36 @@
   <rect width="1280" height="720" fill="#ffffff"/>
   <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">LLM as judge：不要用 1–5 分</text>
   <text x="76" y="136" font-size="20" fill="#8A8A8A">把一個模糊的大問題，拆成一組可檢查的 yes/no 小問題</text>
-  <rect x="76.0" y="206" width="544.0" height="366" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
-  <text x="104.0" y="252" font-size="26" fill="#8A8A8A" font-weight="700">1–5 分</text>
-  <text x="592.0" y="250" font-size="17" fill="#8A8A8A" font-weight="700" text-anchor="end">不要</text>
-  <text x="104.0" y="294" font-size="20" fill="#4A4A4A">「這份文案的品質有幾分？」</text>
-  <text x="104.0" y="342" font-size="20" fill="#4A4A4A">→ 3.8 / 5</text>
-  <text x="104.0" y="390" font-size="20" fill="#B3261E" font-weight="700">✗</text>
-  <text x="128.0" y="390" font-size="20" fill="#4A4A4A">分數擠在 3–4 分</text>
-  <text x="104.0" y="424" font-size="20" fill="#B3261E" font-weight="700">✗</text>
-  <text x="128.0" y="424" font-size="20" fill="#4A4A4A">今天 4 分明天 3 分</text>
-  <text x="104.0" y="458" font-size="20" fill="#B3261E" font-weight="700">✗</text>
-  <text x="128.0" y="458" font-size="20" fill="#4A4A4A">換評審模型整組平移</text>
-  <text x="104.0" y="492" font-size="20" fill="#B3261E" font-weight="700">✗</text>
-  <text x="128.0" y="492" font-size="20" fill="#4A4A4A">寫得長就拿高分</text>
-  <text x="104.0" y="526" font-size="20" fill="#B3261E" font-weight="700">✗</text>
-  <text x="128.0" y="526" font-size="20" fill="#4A4A4A">「3.8 分」無法行動</text>
-  <rect x="660.0" y="206" width="544.0" height="366" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
-  <text x="688.0" y="252" font-size="26" fill="#0F4A25" font-weight="700">二元 rubric</text>
-  <text x="1176.0" y="250" font-size="17" fill="#0F4A25" font-weight="700" text-anchor="end">要</text>
-  <text x="688.0" y="294" font-size="20" fill="#4A4A4A">「文案是否寫出游離型 30mg？」</text>
-  <text x="688.0" y="342" font-size="20" fill="#4A4A4A">→ 否</text>
-  <text x="688.0" y="390" font-size="20" fill="#166534" font-weight="700">✓</text>
-  <text x="712.0" y="390" font-size="20" fill="#4A4A4A">明確、可重現</text>
-  <text x="688.0" y="424" font-size="20" fill="#166534" font-weight="700">✓</text>
-  <text x="712.0" y="424" font-size="20" fill="#4A4A4A">可累積成一張表</text>
-  <text x="688.0" y="458" font-size="20" fill="#166534" font-weight="700">✓</text>
-  <text x="712.0" y="458" font-size="20" fill="#4A4A4A">直接對應修改動作</text>
-  <text x="688.0" y="492" font-size="20" fill="#166534" font-weight="700">✓</text>
-  <text x="712.0" y="492" font-size="20" fill="#4A4A4A">像單元測試</text>
-  <text x="688.0" y="526" font-size="20" fill="#166534" font-weight="700">✓</text>
-  <text x="712.0" y="526" font-size="20" fill="#4A4A4A">知道要補什麼</text>
-  <rect x="76" y="596" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
-  <text x="640.0" y="632" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">Vertex AI Gen AI Evaluation 的 adaptive rubrics 就是這個思路</text>
+  <rect x="76.0" y="196" width="544.0" height="372" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="104.0" y="242" font-size="26" fill="#8A8A8A" font-weight="700">1–5 分</text>
+  <text x="592.0" y="240" font-size="17" fill="#8A8A8A" font-weight="700" text-anchor="end">不要</text>
+  <text x="104.0" y="284" font-size="20" fill="#4A4A4A">「這份文案的品質有幾分？」</text>
+  <text x="104.0" y="332" font-size="20" fill="#4A4A4A">→ 3.8 / 5</text>
+  <text x="104.0" y="380" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="380" font-size="20" fill="#4A4A4A">分數擠在 3–4 分</text>
+  <text x="104.0" y="414" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="414" font-size="20" fill="#4A4A4A">今天 4 分明天 3 分</text>
+  <text x="104.0" y="448" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="448" font-size="20" fill="#4A4A4A">換評審模型整組平移</text>
+  <text x="104.0" y="482" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="482" font-size="20" fill="#4A4A4A">寫得長就拿高分</text>
+  <text x="104.0" y="516" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="516" font-size="20" fill="#4A4A4A">「3.8 分」無法行動</text>
+  <rect x="660.0" y="196" width="544.0" height="372" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
+  <text x="688.0" y="242" font-size="26" fill="#0F4A25" font-weight="700">二元 rubric</text>
+  <text x="1176.0" y="240" font-size="17" fill="#0F4A25" font-weight="700" text-anchor="end">要</text>
+  <text x="688.0" y="284" font-size="20" fill="#4A4A4A">「文案是否寫出游離型 30mg？」</text>
+  <text x="688.0" y="332" font-size="20" fill="#4A4A4A">→ 否</text>
+  <text x="688.0" y="380" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="380" font-size="20" fill="#4A4A4A">明確、可重現</text>
+  <text x="688.0" y="414" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="414" font-size="20" fill="#4A4A4A">可累積成一張表</text>
+  <text x="688.0" y="448" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="448" font-size="20" fill="#4A4A4A">直接對應修改動作</text>
+  <text x="688.0" y="482" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="482" font-size="20" fill="#4A4A4A">像單元測試</text>
+  <text x="688.0" y="516" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="516" font-size="20" fill="#4A4A4A">知道要補什麼</text>
+  <rect x="76" y="592" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="628" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">GEAP 的 Gen AI Evaluation 的 adaptive rubrics 就是這個思路</text>
 </svg>

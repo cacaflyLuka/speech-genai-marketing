@@ -22,8 +22,14 @@ PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "your-gcp-project-id")
 #    開放成環境變數是為了讓別人能換，不是鼓勵你換 —— 換完務必跑 check_env.py。
 LOCATION = os.environ.get("GCP_LOCATION", "global")
 
-# 使用 Vertex AI（走 GCP 專案計費、資料落地可控）
+# 使用 GEAP（走 GCP 專案計費、資料落地可控）
 # 若現場 GCP 權限失效，把 USE_VERTEX 改成 False 並填入 AI Studio key 作為備援
+#
+# ⚠️ 這個旗標**刻意沿用舊名**。Vertex AI 在 2026 年 4 月改名為
+#    Gemini Enterprise Agent Platform（GEAP），但**API 端點與 SDK 參數沒有改**：
+#    google-genai 仍然是 `genai.Client(vertexai=True, ...)`、服務名仍是
+#    aiplatform.googleapis.com。這個旗標直接對應那個 SDK 參數，
+#    改名只會讓它跟 SDK 對不起來。產品名改，介面沒改 —— 兩者分開處理。
 USE_VERTEX = True
 FALLBACK_API_KEY = ""  # 僅備援用，勿 commit 真實金鑰
 

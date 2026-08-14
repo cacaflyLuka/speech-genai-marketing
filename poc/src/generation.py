@@ -1,8 +1,8 @@
 """呼叫 Gemini 產生文案，並記錄 token 用量。
 
-用 google-genai 統一 SDK。同一份程式碼可切換 Vertex AI 與 Gemini API ——
+用 google-genai 統一 SDK。同一份程式碼可切換 GEAP 與 Gemini API ——
 只差 Client 的建構參數。重點是：
-選 Vertex 還是 AI Studio 是**部署決策**，不是**程式碼決策**。
+選 GEAP 還是 AI Studio 是**部署決策**，不是**程式碼決策**。
 """
 
 from __future__ import annotations
@@ -241,6 +241,8 @@ def make_client(fixtures: dict | None = None):
     from google import genai
 
     if config.USE_VERTEX:
+        # `vertexai=True` 是 SDK 參數名，**不要跟著產品改名一起改**。
+        # Vertex AI 在 2026 年 4 月改名 GEAP，但端點與 SDK 介面完全沒動。
         real = genai.Client(
             vertexai=True,
             project=config.PROJECT_ID,

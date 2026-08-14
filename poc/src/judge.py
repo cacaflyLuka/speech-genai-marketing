@@ -23,10 +23,10 @@
     ✓  「文案是否提到 30mg 這個含量？」  → 否 → 知道要補什麼
 
 好處是直接的：**判準明確、可重現、可累積、能直接對應到修改動作**，
-而且 pass/fail 很難用堆字數來灌水。這也是為什麼 Vertex AI 的
+而且 pass/fail 很難用堆字數來灌水。這也是為什麼 GEAP 的
 Gen AI Evaluation Service 把 adaptive rubrics 形容成「像單元測試」。
 
-> 註：Vertex AI 有託管版本的 rubric 評測。本模組選擇手寫，原因有二：
+> 註：GEAP 有託管版本的 rubric 評測。本模組選擇手寫，原因有二：
 > 一是要看得到 rubric 長什麼樣子，那才是可帶走的概念；
 > 二是託管服務的 SDK 介面仍在變動（本機安裝的 `vertexai.evaluation`
 > 只有舊的 Likert 型 PointwiseMetric，新的 adaptive rubric 走另一個介面）。

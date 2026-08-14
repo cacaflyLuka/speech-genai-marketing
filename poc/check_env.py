@@ -5,7 +5,7 @@
 兩個都是**看起來完全合理但實際上會 404** 的設定：
 
   - asia-east1 上沒有任何 Gemini publisher model
-  - Vertex 上沒有 gemini-pro-latest 這個型號
+  - GEAP 上沒有 gemini-pro-latest 這個型號
 
 這種錯誤不會在單元測試裡出現（測試用假 client），只有真的打一次才知道。
 換專案、換 region、換模型之後都要重跑這支。

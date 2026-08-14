@@ -5,19 +5,19 @@
   <rect width="1280" height="720" fill="#ffffff"/>
   <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">上線期：多數團隊跳過的那一層</text>
   <text x="76" y="136" font-size="20" fill="#8A8A8A">前兩層做完只代表「跑得動」，不代表「敢上線」</text>
-  <rect x="76.0" y="206" width="357.3333333333333" height="210" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <rect x="76.0" y="206" width="357.3333333333333" height="212" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
   <text x="98.0" y="250" font-size="23" fill="#8A8A8A" font-weight="700">1　探索</text>
-  <text x="98.0" y="288" font-size="18" fill="#4A4A4A">Vertex AI Studio</text>
+  <text x="98.0" y="288" font-size="18" fill="#4A4A4A">GEAP Studio</text>
   <text x="98.0" y="316" font-size="18" fill="#4A4A4A">做不做得成？</text>
   <text x="98.0" y="344" font-size="18" fill="#4A4A4A"></text>
   <text x="98.0" y="372" font-size="18" fill="#4A4A4A">多數團隊：做了</text>
-  <rect x="461.3333333333333" y="206" width="357.3333333333333" height="210" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <rect x="461.3333333333333" y="206" width="357.3333333333333" height="212" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
   <text x="483.3333333333333" y="250" font-size="23" fill="#8A8A8A" font-weight="700">2　整合</text>
-  <text x="483.3333333333333" y="288" font-size="18" fill="#4A4A4A">Gemini API / Vertex AI</text>
+  <text x="483.3333333333333" y="288" font-size="18" fill="#4A4A4A">Gemini API / GEAP</text>
   <text x="483.3333333333333" y="316" font-size="18" fill="#4A4A4A">能不能貼進系統？</text>
   <text x="483.3333333333333" y="344" font-size="18" fill="#4A4A4A"></text>
   <text x="483.3333333333333" y="372" font-size="18" fill="#4A4A4A">多數團隊：做了</text>
-  <rect x="846.6666666666666" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <rect x="846.6666666666666" y="206" width="357.3333333333333" height="212" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
   <text x="868.6666666666666" y="250" font-size="23" fill="#A85110" font-weight="700">3　上線</text>
   <text x="868.6666666666666" y="288" font-size="18" fill="#4A4A4A">評測 + 監控</text>
   <text x="868.6666666666666" y="316" font-size="18" fill="#4A4A4A">有沒有變好？</text>

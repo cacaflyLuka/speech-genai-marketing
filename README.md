@@ -54,6 +54,25 @@ poc/
 
 ---
 
+## 名詞：GEAP＝原 Vertex AI
+
+Vertex AI 在 **2026 年 4 月的 Cloud Next 改名為 Gemini Enterprise Agent
+Platform（GEAP）**，5 月底完成遷移，主控台搜尋 Vertex AI 會轉到 Agent Platform。
+文件、講稿、投影片一律用新名。
+
+**但程式碼裡的舊名是刻意保留的** —— 改名沒有動到介面：
+
+| 位置 | 值 | 為什麼不改 |
+|---|---|---|
+| `genai.Client(vertexai=True)` | SDK 參數 | google-genai 的參數名沒改 |
+| `USE_VERTEX` | 本專案旗標 | 直接對應上面那個 SDK 參數 |
+| `aiplatform.googleapis.com` | 服務名 | 端點沒改 |
+| `cloud.google.com/vertex-ai/...` | pricing 網址 | 官方網址仍是這個路徑 |
+
+跟著產品名一起改這些，只會讓程式碼跟 SDK 對不起來。
+
+---
+
 ## 操作流程
 
 > Python 環境由 [uv](https://docs.astral.sh/uv/) 管理。所有指令都用 `uv run`，
@@ -306,7 +325,7 @@ uv run python talk/build_slides.py --list   # 只印出播放順序
 `talk/assets/` 裡那六張**手繪示意圖**（工具地圖、金字塔、架構圖⋯⋯）維持手繪，
 只被排進播放清單。
 
-> `studio.svg` 是**留白版**：Vertex AI Studio 的介面截圖沒辦法用程式產生，
+> `studio.svg` 是**留白版**：GEAP Studio 的介面截圖沒辦法用程式產生，
 > 所以那頁產生的是排好標註的空框，把截圖貼進去即可。
 
 ---
@@ -363,7 +382,7 @@ USE_BIGQUERY = True   # poc/src/config.py
 
 | 服務 | 用途 | 狀態 |
 |---|---|---|
-| **Vertex AI** | Gemini 生成（flash）＋ 評審（2.5-pro）、structured output | ✅ 實際使用 |
+| **GEAP** | Gemini 生成（flash）＋ 評審（2.5-pro）、structured output | ✅ 實際使用 |
 | **BigQuery** | 場景 B 的評論洞察落地、分區與叢集 | ✅ 需開 `USE_BIGQUERY` |
 | Cloud Run | 把 pipeline 包成服務供 PIM 後台呼叫 | ⬜ 今天用 notebook 代替 |
 | Batch Prediction | 全站商品初次匯入，約 5 折 | ⬜ 成本段有講，沒有跑 |
@@ -431,7 +450,7 @@ USE_BIGQUERY = True   # poc/src/config.py
 **LLM-as-judge 用二元 rubric，不用 1–5 分**
 Likert 分數擠在 3–4 分、不可重現、換模型就平移、而且「3.8 分」無法行動。
 二元判準（「文案是否寫出 30mg？」）明確、可累積、能直接對應修改動作。
-Vertex AI Gen AI Evaluation Service 的 adaptive rubrics 就是這個思路
+GEAP 的 Gen AI Evaluation Service 的 adaptive rubrics 就是這個思路
 （官方形容為「像單元測試」）。
 
 rubric **只從商品資料生成，每個商品一組，v0～v3 共用** ——

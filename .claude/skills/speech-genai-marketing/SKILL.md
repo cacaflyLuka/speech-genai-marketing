@@ -51,7 +51,13 @@ compute 在 asia-east1 不代表 Gemini 在那裡可用。
 **6　`OFFLINE_MODE` 與 `RECORD_FIXTURES` 不能同時為 True。**
 演講當天必須 `OFFLINE_MODE = True`。這是 README 標記「最容易忘」的一項。
 
-**7　識別資訊不寫死在 repo 裡。**
+**7　產品名用 GEAP，程式碼裡的舊名不要動。**
+Vertex AI 於 2026 年 4 月改名 Gemini Enterprise Agent Platform（GEAP），
+但**端點與 SDK 介面完全沒改**。所以：文件／講稿／投影片一律 GEAP；
+`genai.Client(vertexai=True)`、`USE_VERTEX`、`aiplatform.googleapis.com`、
+pricing 網址的 `vertex-ai` 路徑**一律保留**。跟著改只會讓程式碼跟 SDK 對不起來。
+
+**8　識別資訊不寫死在 repo 裡。**
 GCP 專案、BigQuery 位置、講者姓名、場次名稱都走環境變數
 （`GCP_PROJECT_ID`、`GCP_LOCATION`、`BQ_DATASET`、`BQ_TABLE`、`BQ_LOCATION`、
 `SPEAKER_NAME`、`EVENT_NAME`、`TALK_DATE`），notebook 則由

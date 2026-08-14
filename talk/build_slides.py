@@ -184,7 +184,7 @@ def layout_compare(*, title, subtitle="", left, right, verdict=None):
     """
     body = header(title, subtitle)
     col_w = (W - M * 2 - 40) / 2
-    top = BODY_TOP + 10
+    top = BODY_TOP
 
     # 兩欄等高（並排就該等高），但高度取決於較長那一欄的內容，不是一律撐到底
     def _needed(col):
@@ -194,7 +194,11 @@ def layout_compare(*, title, subtitle="", left, right, verdict=None):
         return h + 18
 
     avail = (BOTTOM if not verdict else BOTTOM - 76) - top
-    box_h = min(avail, max(_needed(left), _needed(right)))
+    box_h = max(_needed(left), _needed(right))
+    if box_h > avail:
+        raise ValueError(
+            f"「{title}」的對照欄放不下：需要 {box_h:.0f}px，只有 {avail:.0f}px。"
+        )
 
     for idx, col in enumerate((left, right)):
         x = M + idx * (col_w + 40)
@@ -287,7 +291,11 @@ def layout_code(*, title, subtitle="", panels, note=None):
     # 撐到底的話，短的那一頁會是一個大半是空白的框 —— 投影出來很像忘了放東西。
     rows = max(len(p["lines"]) for p in panels)
     avail = BOTTOM - top - (70 if note else 0)
-    box_h = min(avail, 44 + 34 + rows * 24 + 26)
+    box_h = 44 + 34 + rows * 24 + 26
+    if box_h > avail:
+        raise ValueError(
+            f"「{title}」的程式碼框放不下：需要 {box_h:.0f}px，只有 {avail:.0f}px。"
+        )
     # 內容短的時候整塊往下挪一點，不要讓下半頁完全空著
     top += max(0, avail - box_h) * 0.34
 
@@ -327,7 +335,18 @@ def layout_cards(*, title, subtitle="", cards, note=None, columns=3):
     gap = 28
     card_w = (W - M * 2 - gap * (columns - 1)) / columns
     top = BODY_TOP + 10
-    card_h = min(210, (BOTTOM - 40 - top - gap * (rows_n - 1)) / rows_n)
+
+    # 卡片高度由**最長的那張**決定。
+    # 這裡原本寫死 210，結果六行的那張最後一行掉到框外面 ——
+    # 而且座標仍在畫布內，所以自動檢查抓不到，是投影出來才看得見的那種錯。
+    avail = (BOTTOM - (40 if note else 0)) - top - gap * (rows_n - 1)
+    needed = max(82 + len(c["lines"]) * 28 + 18 for c in cards)
+    if needed * rows_n > avail:
+        raise ValueError(
+            f"「{title}」的卡片放不下：需要 {needed * rows_n:.0f}px，只有 {avail:.0f}px。"
+            f"刪幾行，或改成兩列排版。"
+        )
+    card_h = needed
 
     for i, card in enumerate(cards):
         cx = M + (i % columns) * (card_w + gap)
@@ -452,7 +471,7 @@ def build_slides() -> list[tuple[str, str, str]]:
             title="今天的四段",
             subtitle="一條因果鏈，不是四個平行主題",
             items=[
-                ("Vertex AI Studio", "探索：這件事到底做不做得成", "5 分鐘"),
+                ("GEAP Studio", "探索：這件事到底做不做得成", "5 分鐘"),
                 ("API 串接", "整合：能不能貼進現有系統", "8 分鐘"),
                 ("Prompt 設計", "規格化：把要求寫成可檢查的條件", "4 分鐘"),
                 ("評測流程", "驗收：怎麼證明它變好了", "12 分鐘"),
@@ -463,12 +482,12 @@ def build_slides() -> list[tuple[str, str, str]]:
     # ---------------------------------------------------------------- 承
     existing("tool-map.svg", "GCP 三層工具地圖")
 
-    gen("studio.svg", "探索期：Vertex AI Studio",
-        "Vertex AI Studio 的介面重點：模型選單、temperature、比較模式。",
+    gen("studio.svg", "探索期：GEAP Studio",
+        "GEAP Studio 的介面重點：模型選單、temperature、比較模式。",
         layout_placeholder(
             title="探索期：瀏覽器打開就能用",
-            subtitle="不寫程式碼，先確認這件事做不做得成",
-            instruction="Vertex AI Studio 介面截圖",
+            subtitle="GEAP Studio（原 Vertex AI Studio）　不寫程式碼，先確認這件事做不做得成",
+            instruction="GEAP Studio 介面截圖",
             callouts=[
                 ("模型選單", "先比 flash 與 pro，不要一開始就選最貴的"),
                 ("temperature", "生成調低一點，評審一律 0"),
@@ -476,11 +495,11 @@ def build_slides() -> list[tuple[str, str, str]]:
             ],
         ))
 
-    gen("api-vs-vertex.svg", "Gemini API vs Vertex AI",
+    gen("api-vs-geap.svg", "Gemini API vs GEAP",
         "兩種接法的差別：這是部署決策，不是程式碼決策。",
         layout_compare(
-            title="Gemini API 還是 Vertex AI？",
-            subtitle="全場資訊密度最高的一頁",
+            title="Gemini API 還是 GEAP？",
+            subtitle="GEAP＝Gemini Enterprise Agent Platform，2026 年 4 月由 Vertex AI 改名",
             left={
                 "label": "Gemini API（AI Studio）", "tone": "blue", "tag": "做原型",
                 "lines": [
@@ -493,7 +512,7 @@ def build_slides() -> list[tuple[str, str, str]]:
                 ],
             },
             right={
-                "label": "Vertex AI", "tone": "orange", "tag": "要上線",
+                "label": "GEAP", "tone": "orange", "tag": "要上線",
                 "lines": [
                     "✓ 走 GCP 專案計費，成本歸屬清楚",
                     "✓ IAM、VPC-SC、資料落地可控",
@@ -513,9 +532,9 @@ def build_slides() -> list[tuple[str, str, str]]:
             subtitle="前兩層做完只代表「跑得動」，不代表「敢上線」",
             cards=[
                 {"label": "1　探索", "tone": "gray",
-                 "lines": ["Vertex AI Studio", "做不做得成？", "", "多數團隊：做了"]},
+                 "lines": ["GEAP Studio", "做不做得成？", "", "多數團隊：做了"]},
                 {"label": "2　整合", "tone": "gray",
-                 "lines": ["Gemini API / Vertex AI", "能不能貼進系統？", "",
+                 "lines": ["Gemini API / GEAP", "能不能貼進系統？", "",
                            "多數團隊：做了"]},
                 {"label": "3　上線", "tone": "orange",
                  "lines": ["評測 + 監控", "有沒有變好？", "",
@@ -705,7 +724,7 @@ def build_slides() -> list[tuple[str, str, str]]:
                           "✓ 直接對應修改動作", "✓ 像單元測試",
                           "✓ 知道要補什麼"],
             },
-            verdict="Vertex AI Gen AI Evaluation 的 adaptive rubrics 就是這個思路",
+            verdict="GEAP 的 Gen AI Evaluation 的 adaptive rubrics 就是這個思路",
         ))
 
     gen("rubric-list.svg", "真實的 rubric 清單",
@@ -808,7 +827,7 @@ def build_slides() -> list[tuple[str, str, str]]:
             title="90 天導入路徑",
             subtitle="順序不能反過來 —— 先解決「怎麼知道它變好了」",
             items=[
-                ("Vertex AI Studio 驗證可行性", "這件事到底做不做得成", "2 週"),
+                ("GEAP Studio 驗證可行性", "這件事到底做不做得成", "2 週"),
                 ("建 golden set + API 串接", "30–50 筆就足以開始", "4 週"),
                 ("小流量上線 + 監控", "有數字可以對董事會報告", "6 週"),
             ],

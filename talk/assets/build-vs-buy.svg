@@ -5,27 +5,27 @@
   <rect width="1280" height="720" fill="#ffffff"/>
   <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">自己做，還是買現成的？</text>
   <text x="76" y="136" font-size="20" fill="#8A8A8A">分界線只有一條</text>
-  <rect x="76.0" y="206" width="544.0" height="324" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
-  <text x="104.0" y="252" font-size="26" fill="#12507F" font-weight="700">會出現在定價頁上 → 自己做</text>
-  <text x="104.0" y="294" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
-  <text x="128.0" y="294" font-size="20" fill="#4A4A4A">商品文案生成（電商平台）</text>
-  <text x="104.0" y="328" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
-  <text x="128.0" y="328" font-size="20" fill="#4A4A4A">病歷摘要（醫療系統）</text>
-  <text x="104.0" y="362" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
-  <text x="128.0" y="362" font-size="20" fill="#4A4A4A">契約風險標註（法律科技）</text>
-  <text x="104.0" y="410" font-size="20" fill="#4A4A4A">這是你的產品本身。</text>
-  <text x="104.0" y="444" font-size="20" fill="#4A4A4A">評測要自己建，因為只有你知道</text>
-  <text x="104.0" y="478" font-size="20" fill="#4A4A4A">什麼叫做好。</text>
-  <rect x="660.0" y="206" width="544.0" height="324" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
-  <text x="688.0" y="252" font-size="26" fill="#8A8A8A" font-weight="700">不會出現在定價頁上 → 買現成</text>
-  <text x="688.0" y="294" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
-  <text x="712.0" y="294" font-size="20" fill="#4A4A4A">客服工單分類</text>
-  <text x="688.0" y="328" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
-  <text x="712.0" y="328" font-size="20" fill="#4A4A4A">會議記錄整理</text>
-  <text x="688.0" y="362" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
-  <text x="712.0" y="362" font-size="20" fill="#4A4A4A">內部文件搜尋</text>
-  <text x="688.0" y="410" font-size="20" fill="#4A4A4A">這是你的內部效率。</text>
-  <text x="688.0" y="444" font-size="20" fill="#4A4A4A">買現成的，把時間留給前面那欄。</text>
-  <rect x="76" y="554" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
-  <text x="640.0" y="590" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">這個 AI 功能會不會出現在你的產品定價頁上？</text>
+  <rect x="76.0" y="196" width="544.0" height="324" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="104.0" y="242" font-size="26" fill="#12507F" font-weight="700">會出現在定價頁上 → 自己做</text>
+  <text x="104.0" y="284" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="284" font-size="20" fill="#4A4A4A">商品文案生成（電商平台）</text>
+  <text x="104.0" y="318" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="318" font-size="20" fill="#4A4A4A">病歷摘要（醫療系統）</text>
+  <text x="104.0" y="352" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="352" font-size="20" fill="#4A4A4A">契約風險標註（法律科技）</text>
+  <text x="104.0" y="400" font-size="20" fill="#4A4A4A">這是你的產品本身。</text>
+  <text x="104.0" y="434" font-size="20" fill="#4A4A4A">評測要自己建，因為只有你知道</text>
+  <text x="104.0" y="468" font-size="20" fill="#4A4A4A">什麼叫做好。</text>
+  <rect x="660.0" y="196" width="544.0" height="324" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="688.0" y="242" font-size="26" fill="#8A8A8A" font-weight="700">不會出現在定價頁上 → 買現成</text>
+  <text x="688.0" y="284" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="284" font-size="20" fill="#4A4A4A">客服工單分類</text>
+  <text x="688.0" y="318" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="318" font-size="20" fill="#4A4A4A">會議記錄整理</text>
+  <text x="688.0" y="352" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="352" font-size="20" fill="#4A4A4A">內部文件搜尋</text>
+  <text x="688.0" y="400" font-size="20" fill="#4A4A4A">這是你的內部效率。</text>
+  <text x="688.0" y="434" font-size="20" fill="#4A4A4A">買現成的，把時間留給前面那欄。</text>
+  <rect x="76" y="544" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="580" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">這個 AI 功能會不會出現在你的產品定價頁上？</text>
 </svg>
