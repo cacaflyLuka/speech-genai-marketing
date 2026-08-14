@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>版本差距的信賴區間</title>
+  <desc>相鄰版本 rubric 通過率差距的配對比較與 95% bootstrap 信賴區間</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">哪些差距是真的？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">rubric 通過率，配對比較 · bootstrap 95% 信賴區間 · 50 筆</text>
+
+  <!--
+    座標軸：-10pp 到 +16pp 對應 x = 300 到 1180
+    每 pp = (1180-300)/26 = 33.85 px；0 點在 x = 300 + 10*33.85 = 638.5
+  -->
+
+  <!-- 零線 -->
+  <line x1="638" y1="212" x2="638" y2="512" stroke="#C2510A" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="638" y="200" font-size="19" font-weight="700" fill="#C2510A" text-anchor="middle">0</text>
+
+  <!-- 刻度 -->
+  <g font-size="15" fill="#B8B8B8" text-anchor="middle">
+    <text x="300" y="200">−10</text>
+    <text x="469" y="200">−5</text>
+    <text x="807" y="200">+5</text>
+    <text x="976" y="200">+10</text>
+    <text x="1145" y="200">+15</text>
+  </g>
+  <line x1="300" y1="212" x2="1180" y2="212" stroke="#EDEDED" stroke-width="1.5"/>
+  <text x="1180" y="196" font-size="15" fill="#B8B8B8" text-anchor="end">百分點</text>
+
+  <!-- ============ v1 − v0 ============ -->
+  <text x="76" y="286" font-size="24" font-weight="700" fill="#1A1A1A">v1 − v0</text>
+  <line x1="610" y1="278" x2="996" y2="278" stroke="#B8B8B8" stroke-width="4"/>
+  <line x1="610" y1="262" x2="610" y2="294" stroke="#8A8A8A" stroke-width="3"/>
+  <line x1="996" y1="262" x2="996" y2="294" stroke="#8A8A8A" stroke-width="3"/>
+  <circle cx="803" cy="278" r="9" fill="#8A8A8A"/>
+  <text x="1210" y="286" font-size="20" fill="#8A8A8A" text-anchor="end">+4.9</text>
+
+  <!-- ============ v2 − v1 ============ -->
+  <text x="76" y="386" font-size="24" font-weight="700" fill="#1A1A1A">v2 − v1</text>
+  <line x1="793" y1="378" x2="1083" y2="378" stroke="#16A34A" stroke-width="4"/>
+  <line x1="793" y1="362" x2="793" y2="394" stroke="#166534" stroke-width="3"/>
+  <line x1="1083" y1="362" x2="1083" y2="394" stroke="#166534" stroke-width="3"/>
+  <circle cx="938" cy="378" r="11" fill="#16A34A"/>
+  <text x="1210" y="386" font-size="20" font-weight="700" fill="#166534" text-anchor="end">+8.9</text>
+
+  <!-- ============ v3 − v2 ============ -->
+  <text x="76" y="486" font-size="24" font-weight="700" fill="#1A1A1A">v3 − v2</text>
+  <line x1="464" y1="478" x2="725" y2="478" stroke="#B8B8B8" stroke-width="4"/>
+  <line x1="464" y1="462" x2="464" y2="494" stroke="#8A8A8A" stroke-width="3"/>
+  <line x1="725" y1="462" x2="725" y2="494" stroke="#8A8A8A" stroke-width="3"/>
+  <circle cx="590" cy="478" r="9" fill="#8A8A8A"/>
+  <text x="1210" y="486" font-size="20" fill="#8A8A8A" text-anchor="end">−1.4</text>
+
+  <!-- ============ 判讀 ============ -->
+  <g font-size="18">
+    <rect x="300" y="530" width="18" height="18" rx="4" fill="#16A34A"/>
+    <text x="330" y="546" fill="#166534" font-weight="700">區間不含 0 → 有差異</text>
+    <rect x="640" y="530" width="18" height="18" rx="4" fill="#B8B8B8"/>
+    <text x="670" y="546" fill="#6A6A6A">區間跨過 0 → 分不出差別</text>
+  </g>
+
+  <!-- ============ 一句結論 ============ -->
+  <rect x="76" y="600" width="1128" height="66" rx="10" fill="#F0F7FF" stroke="#A9CDEE" stroke-width="2"/>
+  <text x="104" y="632" font-size="21" fill="#12507F">
+    <tspan font-weight="700">語意品質上，只有 v1 → v2 站得住。</tspan><tspan dx="20">另外兩個差距在這個樣本量下分不出來。</tspan>
+  </text>
+  <text x="104" y="656" font-size="18" fill="#4A4A4A">v1 與 v3 贏在別的欄位</text>
+</svg>

@@ -10,84 +10,69 @@
 
   <rect width="1280" height="720" fill="#ffffff"/>
 
-  <!-- 標題（對齊模板：左邊距 76、標題基線 97） -->
   <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">GCP 生成式 AI：三層工具地圖</text>
-  <text x="76" y="136" font-size="20" fill="#8A8A8A">用「你在哪個階段」劃分，不是用產品線劃分</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">依你在哪個階段劃分，不是依產品線</text>
 
   <!-- ===================== 1 探索期 ===================== -->
   <g>
-    <rect x="76" y="176" width="360" height="336" rx="14" fill="#E9F2FB" stroke="#A9CDEE" stroke-width="2"/>
-    <rect x="76" y="176" width="360" height="6" rx="3" fill="#1B6FB8"/>
+    <rect x="76" y="192" width="360" height="300" rx="14" fill="#E9F2FB" stroke="#A9CDEE" stroke-width="2"/>
+    <rect x="76" y="192" width="360" height="6" rx="3" fill="#1B6FB8"/>
 
-    <circle cx="114" cy="224" r="19" fill="#1B6FB8"/>
-    <text x="114" y="231" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
-    <text x="146" y="231" font-size="27" font-weight="700" fill="#12507F">探索期</text>
-    <text x="256" y="230" font-size="17" fill="#1B6FB8">約 2 週</text>
+    <circle cx="114" cy="242" r="20" fill="#1B6FB8"/>
+    <text x="114" y="250" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+    <text x="148" y="250" font-size="28" font-weight="700" fill="#12507F">探索期</text>
+    <text x="262" y="249" font-size="18" fill="#1B6FB8">約 2 週</text>
 
-    <text x="104" y="280" font-size="21" font-weight="600" fill="#1A1A1A">Vertex AI Studio</text>
-    <text x="104" y="310" font-size="17" fill="#4A4A4A">瀏覽器打開就能用，不寫程式</text>
-    <text x="104" y="336" font-size="17" fill="#4A4A4A">改 prompt、比模型、調參數</text>
+    <text x="104" y="308" font-size="23" font-weight="600" fill="#1A1A1A">Vertex AI Studio</text>
+    <text x="104" y="342" font-size="18" fill="#4A4A4A">瀏覽器打開就能用</text>
+    <text x="104" y="372" font-size="18" fill="#4A4A4A">改 prompt、比模型、調參數</text>
 
-    <line x1="104" y1="364" x2="408" y2="364" stroke="#A9CDEE" stroke-width="1.5"/>
-
-    <text x="104" y="394" font-size="15" font-weight="700" fill="#1B6FB8">要回答的問題</text>
-    <text x="104" y="422" font-size="18" fill="#1A1A1A">「這事到底做不做得成？」</text>
-
-    <text x="104" y="464" font-size="15" font-weight="700" fill="#D9600A">→ 對創辦人</text>
-    <text x="104" y="488" font-size="16" fill="#8A4A0C">這層自己做，先別排工程資源</text>
+    <line x1="104" y1="404" x2="408" y2="404" stroke="#A9CDEE" stroke-width="1.5"/>
+    <text x="104" y="440" font-size="16" font-weight="700" fill="#1B6FB8">要回答的問題</text>
+    <text x="104" y="470" font-size="20" fill="#1A1A1A">做不做得成？</text>
   </g>
 
   <!-- ===================== 2 整合期 ===================== -->
   <g>
-    <rect x="460" y="176" width="360" height="336" rx="14" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
-    <rect x="460" y="176" width="360" height="6" rx="3" fill="#EF7622"/>
+    <rect x="460" y="192" width="360" height="300" rx="14" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
+    <rect x="460" y="192" width="360" height="6" rx="3" fill="#EF7622"/>
 
-    <circle cx="498" cy="224" r="19" fill="#EF7622"/>
-    <text x="498" y="231" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
-    <text x="530" y="231" font-size="27" font-weight="700" fill="#A85110">整合期</text>
-    <text x="640" y="230" font-size="17" fill="#EF7622">約 4 週</text>
+    <circle cx="498" cy="242" r="20" fill="#EF7622"/>
+    <text x="498" y="250" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+    <text x="532" y="250" font-size="28" font-weight="700" fill="#A85110">整合期</text>
+    <text x="646" y="249" font-size="18" fill="#EF7622">約 4 週</text>
 
-    <text x="488" y="280" font-size="21" font-weight="600" fill="#1A1A1A">Gemini API / Vertex AI SDK</text>
-    <text x="488" y="310" font-size="17" fill="#4A4A4A">同一個 prompt 變成程式碼</text>
-    <text x="488" y="336" font-size="17" fill="#4A4A4A">structured output 接進系統</text>
+    <text x="488" y="308" font-size="23" font-weight="600" fill="#1A1A1A">Gemini API / Vertex AI</text>
+    <text x="488" y="342" font-size="18" fill="#4A4A4A">prompt 變成程式碼</text>
+    <text x="488" y="372" font-size="18" fill="#4A4A4A">structured output 接進系統</text>
 
-    <line x1="488" y1="364" x2="792" y2="364" stroke="#F8C99A" stroke-width="1.5"/>
-
-    <text x="488" y="394" font-size="15" font-weight="700" fill="#C45E12">要回答的問題</text>
-    <text x="488" y="422" font-size="18" fill="#1A1A1A">「產出能不能貼進 PIM？」</text>
-
-    <text x="488" y="464" font-size="15" font-weight="700" fill="#D9600A">→ 對創辦人</text>
-    <text x="488" y="488" font-size="16" fill="#8A4A0C">選 Vertex 是部署決策，不是技術決策</text>
+    <line x1="488" y1="404" x2="792" y2="404" stroke="#F8C99A" stroke-width="1.5"/>
+    <text x="488" y="440" font-size="16" font-weight="700" fill="#C45E12">要回答的問題</text>
+    <text x="488" y="470" font-size="20" fill="#1A1A1A">能不能貼進 PIM？</text>
   </g>
 
   <!-- ===================== 3 上線期 ===================== -->
   <g>
-    <rect x="844" y="176" width="360" height="336" rx="14" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
-    <rect x="844" y="176" width="360" height="6" rx="3" fill="#C2510A"/>
+    <rect x="844" y="192" width="360" height="300" rx="14" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
+    <rect x="844" y="192" width="360" height="6" rx="3" fill="#C2510A"/>
 
-    <circle cx="882" cy="224" r="19" fill="#C2510A"/>
-    <text x="882" y="231" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
-    <text x="914" y="231" font-size="27" font-weight="700" fill="#8A3A06">上線期</text>
-    <text x="1024" y="230" font-size="17" fill="#C2510A">約 6 週</text>
+    <circle cx="882" cy="242" r="20" fill="#C2510A"/>
+    <text x="882" y="250" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+    <text x="916" y="250" font-size="28" font-weight="700" fill="#8A3A06">上線期</text>
+    <text x="1030" y="249" font-size="18" fill="#C2510A">約 6 週</text>
 
-    <text x="872" y="280" font-size="21" font-weight="600" fill="#1A1A1A">評測 + 監控</text>
-    <text x="872" y="310" font-size="17" fill="#4A4A4A">規則層 / Gen AI Evaluation</text>
-    <text x="872" y="336" font-size="17" fill="#4A4A4A">回歸測試、日誌</text>
+    <text x="872" y="308" font-size="23" font-weight="600" fill="#1A1A1A">評測 + 監控</text>
+    <text x="872" y="342" font-size="18" fill="#4A4A4A">規則層 / Gen AI Evaluation</text>
+    <text x="872" y="372" font-size="18" fill="#4A4A4A">回歸測試、日誌</text>
 
-    <line x1="872" y1="364" x2="1176" y2="364" stroke="#EFB183" stroke-width="1.5"/>
-
-    <text x="872" y="394" font-size="15" font-weight="700" fill="#A34408">要回答的問題</text>
-    <text x="872" y="422" font-size="18" fill="#1A1A1A">「它有沒有變好？」</text>
-
-    <text x="872" y="464" font-size="15" font-weight="700" fill="#D9600A">→ 對創辦人</text>
-    <text x="872" y="488" font-size="16" fill="#8A4A0C">唯一能對董事會證明進步的東西</text>
+    <line x1="872" y1="404" x2="1176" y2="404" stroke="#EFB183" stroke-width="1.5"/>
+    <text x="872" y="440" font-size="16" font-weight="700" fill="#A34408">要回答的問題</text>
+    <text x="872" y="470" font-size="20" font-weight="700" fill="#1A1A1A">有沒有變好？</text>
   </g>
 
   <!-- 進程箭頭 -->
-  <text x="76" y="546" font-size="15" fill="#8A8A8A">專案時間軸</text>
-  <line x1="76" y1="558" x2="1204" y2="558" stroke="#8A8A8A" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <line x1="76" y1="546" x2="1204" y2="546" stroke="#8A8A8A" stroke-width="2.5" marker-end="url(#arrow)"/>
 
-  <!-- 底部提醒（保留右下角 logo 區：x&gt;1080, y&gt;650） -->
-  <rect x="76" y="586" width="1128" height="52" rx="10" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
-  <text x="104" y="619" font-size="19" fill="#8A4A0C"><tspan font-weight="700">多數團隊直接跳過第三層</tspan><tspan>，然後在三個月後付出代價 —— 沒有評測，就無法證明任何改動是進步還是退步。</tspan></text>
+  <!-- 一句話，其餘用講的 -->
+  <text x="640" y="626" font-size="26" font-weight="700" fill="#8A3A06" text-anchor="middle">多數團隊跳過第三層</text>
 </svg>

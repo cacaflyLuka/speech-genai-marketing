@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>50 筆評測結果</title>
+  <desc>四個 prompt 版本在 50 筆商品上的評測結果，含配對比較的信賴區間</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">每一版做對一件事</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">50 筆商品實測</text>
+
+  <!-- ================= 表頭 ================= -->
+  <g font-size="22" font-weight="700" fill="#4A4A4A" text-anchor="middle">
+    <text x="700" y="196">v0</text>
+    <text x="855" y="196">v1</text>
+    <text x="1010" y="196">v2</text>
+    <text x="1165" y="196">v3</text>
+  </g>
+  <line x1="76" y1="212" x2="1240" y2="212" stroke="#D8D8D8" stroke-width="2"/>
+
+  <!-- ================= 規則層 ================= -->
+  <text x="76" y="248" font-size="16" font-weight="700" fill="#1B6FB8">規則層</text>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="292">法規禁詞 0 命中</text>
+    <rect x="628" y="270" width="144" height="30" rx="5" fill="#FBE3D0"/>
+    <text x="700" y="292" text-anchor="middle" font-weight="700" fill="#A34408">80%</text>
+    <rect x="783" y="270" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="855" y="292" text-anchor="middle" font-weight="700" fill="#166534">98%</text>
+    <text x="1010" y="292" text-anchor="middle" fill="#6A6A6A">100%</text>
+    <text x="1165" y="292" text-anchor="middle" fill="#6A6A6A">100%</text>
+  </g>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="338">標題長度合規</text>
+    <rect x="628" y="316" width="144" height="30" rx="5" fill="#FBE3D0"/>
+    <text x="700" y="338" text-anchor="middle" font-weight="700" fill="#A34408">74%</text>
+    <rect x="783" y="316" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="855" y="338" text-anchor="middle" font-weight="700" fill="#166534">100%</text>
+    <text x="1010" y="338" text-anchor="middle" fill="#6A6A6A">100%</text>
+    <text x="1165" y="338" text-anchor="middle" fill="#6A6A6A">100%</text>
+  </g>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="384">規格完整覆蓋</text>
+    <rect x="628" y="362" width="144" height="30" rx="5" fill="#FBE3D0"/>
+    <text x="700" y="384" text-anchor="middle" font-weight="700" fill="#A34408">82%</text>
+    <rect x="783" y="362" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="855" y="384" text-anchor="middle" font-weight="700" fill="#166534">98%</text>
+    <text x="1010" y="384" text-anchor="middle" fill="#6A6A6A">100%</text>
+    <text x="1165" y="384" text-anchor="middle" fill="#6A6A6A">100%</text>
+  </g>
+
+  <!-- ================= 評審層 ================= -->
+  <line x1="76" y1="408" x2="1240" y2="408" stroke="#EDEDED" stroke-width="1.5"/>
+  <text x="76" y="440" font-size="16" font-weight="700" fill="#EF7622">評審層</text>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="484">rubric 通過率</text>
+    <text x="700" y="484" text-anchor="middle" fill="#6A6A6A">73.1%</text>
+    <text x="855" y="484" text-anchor="middle" fill="#6A6A6A">78.0%</text>
+    <rect x="938" y="462" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="1010" y="484" text-anchor="middle" font-weight="700" fill="#166534">86.8%</text>
+    <text x="1165" y="484" text-anchor="middle" fill="#6A6A6A">85.4%</text>
+  </g>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="530">可直接上架</text>
+    <text x="700" y="530" text-anchor="middle" fill="#6A6A6A">32%</text>
+    <text x="855" y="530" text-anchor="middle" fill="#6A6A6A">48%</text>
+    <rect x="938" y="508" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="1010" y="530" text-anchor="middle" font-weight="700" fill="#166534">64%</text>
+    <text x="1165" y="530" text-anchor="middle" fill="#6A6A6A">62%</text>
+  </g>
+
+  <!-- ================= 結構 ================= -->
+  <line x1="76" y1="554" x2="1240" y2="554" stroke="#EDEDED" stroke-width="1.5"/>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="598">可機器讀取</text>
+    <text x="700" y="598" text-anchor="middle" fill="#6A6A6A">0%</text>
+    <text x="855" y="598" text-anchor="middle" fill="#6A6A6A">0%</text>
+    <text x="1010" y="598" text-anchor="middle" fill="#6A6A6A">0%</text>
+    <rect x="1093" y="576" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="1165" y="598" text-anchor="middle" font-weight="700" fill="#166534">100%</text>
+  </g>
+
+  <!-- ================= 歸因 ================= -->
+  <line x1="76" y1="624" x2="1240" y2="624" stroke="#D8D8D8" stroke-width="2"/>
+  <g font-size="19" font-weight="700" text-anchor="middle">
+    <text x="700" y="666" fill="#B8B8B8">基準線</text>
+    <text x="855" y="666" fill="#1B6FB8">格式與合規</text>
+    <text x="1010" y="666" fill="#EF7622">語意品質</text>
+    <text x="1165" y="666" fill="#C2510A">可機器讀取</text>
+  </g>
+</svg>

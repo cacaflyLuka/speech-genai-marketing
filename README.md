@@ -17,9 +17,11 @@ Makefile                 常用指令捷徑（make help）
 talk/
   abstract.md                主辦方提交用：短主題 + 條列式大綱
   script.md                  大綱 + 逐頁講稿 + demo 腳本 + QA + 上場前檢查清單
-  assets/
+  assets/                    投影片圖（1280×720，右下角留給 logo）
     tool-map.svg             承：GCP 三層工具地圖
     eval-pyramid.svg         轉 2：三層評測金字塔
+    results.svg              ★ 轉 2：50 筆評測結果總表
+    significance.svg         ★ 轉 2：配對比較的信賴區間
     cost-model.svg           合：成本公式與降本四招
     gcp-architecture.svg     demo 用到的 GCP vs 正式上線需要的
 

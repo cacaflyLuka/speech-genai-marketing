@@ -4,65 +4,61 @@
 
   <rect width="1280" height="720" fill="#ffffff"/>
 
-  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">成本：教公式，不背數字</text>
-  <text x="76" y="136" font-size="20" fill="#8A8A8A">模型與價格每季在動。投影片上寫死的數字，會在你講出口的那一刻過期。</text>
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">成本：用公式，不背數字</text>
 
-  <!-- ============ 公式區 ============ -->
-  <rect x="76" y="168" width="1128" height="152" rx="12" fill="#F5F5F5" stroke="#D8D8D8" stroke-width="2"/>
+  <!-- ============ 公式 ============ -->
+  <rect x="76" y="140" width="1128" height="150" rx="12" fill="#F5F5F5" stroke="#D8D8D8" stroke-width="2"/>
 
-  <text x="108" y="206" font-size="16" font-weight="700" fill="#8A8A8A">單次成本</text>
-  <text x="108" y="242" font-size="23" fill="#1A1A1A" font-family="'SF Mono','Menlo','Consolas',monospace">( input_tokens × 單價_in&#160;&#160;+&#160;&#160;output_tokens × 單價_out ) ÷ 1,000,000</text>
+  <text x="108" y="178" font-size="16" font-weight="700" fill="#8A8A8A">單次成本</text>
+  <text x="108" y="214" font-size="23" fill="#1A1A1A" font-family="'SF Mono','Menlo','Consolas',monospace">( in_tokens × 單價_in&#160;&#160;+&#160;&#160;out_tokens × 單價_out ) ÷ 1,000,000</text>
 
-  <line x1="108" y1="264" x2="1172" y2="264" stroke="#D8D8D8" stroke-width="1.5"/>
+  <line x1="108" y1="236" x2="1172" y2="236" stroke="#D8D8D8" stroke-width="1.5"/>
 
-  <text x="108" y="290" font-size="16" font-weight="700" fill="#8A8A8A">月成本</text>
-  <text x="108" y="312" font-size="22" fill="#1A1A1A" font-family="'SF Mono','Menlo','Consolas',monospace">單次 × SKU數 × 每SKU重生成次數 × ( 1 + <tspan fill="#C2510A" font-weight="700">judge 開銷比</tspan> )</text>
+  <text x="108" y="262" font-size="16" font-weight="700" fill="#8A8A8A">月成本</text>
+  <text x="108" y="284" font-size="22" fill="#1A1A1A" font-family="'SF Mono','Menlo','Consolas',monospace">單次 × SKU數 × 重生成次數 × ( 1 + <tspan fill="#C2510A" font-weight="700">judge 開銷比</tspan> )</text>
 
-  <!-- judge 提醒 -->
-  <rect x="76" y="334" width="1128" height="50" rx="10" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
-  <text x="104" y="366" font-size="19" fill="#8A3A06"><tspan font-weight="700">⚠　judge 開銷比 —— 評測本身要花錢，而且評審模型通常比生成更貴。</tspan><tspan fill="#A34408">　這是最常被漏算的一筆。</tspan></text>
+  <!-- 實測數字，不是勸說 -->
+  <rect x="76" y="306" width="1128" height="54" rx="10" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
+  <text x="640" y="341" font-size="23" fill="#8A3A06" text-anchor="middle">
+    <tspan font-weight="700">實測：評審佔總成本 83%</tspan><tspan dx="22">最常被漏算的一筆</tspan>
+  </text>
 
   <!-- ============ 降本四招 ============ -->
-  <text x="76" y="438" font-size="26" font-weight="700" fill="#1A1A1A">降本四招</text>
-  <text x="248" y="438" font-size="16" fill="#8A8A8A">（橫條長度為相對量級示意，非精確比例）</text>
+  <text x="76" y="416" font-size="28" font-weight="700" fill="#1A1A1A">降本四招</text>
 
-  <text x="96" y="472" font-size="15" font-weight="700" fill="#8A8A8A">手段</text>
-  <text x="372" y="472" font-size="15" font-weight="700" fill="#8A8A8A">省下</text>
-  <text x="790" y="472" font-size="15" font-weight="700" fill="#8A8A8A">代價</text>
+  <text x="96" y="452" font-size="15" font-weight="700" fill="#B8B8B8">手段</text>
+  <text x="372" y="452" font-size="15" font-weight="700" fill="#B8B8B8">省下</text>
+  <text x="790" y="452" font-size="15" font-weight="700" fill="#B8B8B8">代價</text>
 
-  <!-- 1 -->
   <g>
-    <rect x="76" y="484" width="1128" height="54" rx="8" fill="#F5F5F5"/>
-    <text x="96" y="518" font-size="20" font-weight="600" fill="#1A1A1A">1　模型選型降級</text>
-    <rect x="372" y="502" width="200" height="21" rx="5" fill="#EF7622"/>
-    <text x="586" y="518" font-size="16" fill="#A85110">通常最大一筆</text>
-    <text x="790" y="518" font-size="17" font-weight="700" fill="#8A3A06">要有評測表才敢降，否則是在賭</text>
+    <rect x="76" y="466" width="1128" height="56" rx="8" fill="#F5F5F5"/>
+    <text x="96" y="502" font-size="21" font-weight="600" fill="#1A1A1A">1　模型選型降級</text>
+    <rect x="372" y="484" width="200" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="502" font-size="17" fill="#A85110">最大一筆</text>
+    <text x="790" y="502" font-size="18" font-weight="700" fill="#8A3A06">要有評測表才敢降</text>
   </g>
 
-  <!-- 2 -->
   <g>
-    <rect x="76" y="544" width="1128" height="54" rx="8" fill="#ffffff"/>
-    <text x="96" y="578" font-size="20" font-weight="600" fill="#1A1A1A">2　Batch API</text>
-    <rect x="372" y="562" width="130" height="21" rx="5" fill="#EF7622"/>
-    <text x="586" y="578" font-size="16" fill="#A85110">約 5 折</text>
-    <text x="790" y="578" font-size="17" fill="#4A4A4A">延遲變小時級（文案本來就不急）</text>
+    <rect x="76" y="528" width="1128" height="56" rx="8" fill="#ffffff"/>
+    <text x="96" y="564" font-size="21" font-weight="600" fill="#1A1A1A">2　Batch API</text>
+    <rect x="372" y="546" width="130" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="564" font-size="17" fill="#A85110">約 5 折</text>
+    <text x="790" y="564" font-size="18" fill="#4A4A4A">延遲變小時級</text>
   </g>
 
-  <!-- 3 -->
   <g>
-    <rect x="76" y="604" width="1128" height="54" rx="8" fill="#F5F5F5"/>
-    <text x="96" y="638" font-size="20" font-weight="600" fill="#1A1A1A">3　Context caching</text>
-    <rect x="372" y="622" width="102" height="21" rx="5" fill="#EF7622"/>
-    <text x="586" y="638" font-size="16" fill="#A85110">input 大幅折扣</text>
-    <text x="790" y="638" font-size="17" fill="#4A4A4A">有 token 門檻，共用前綴要夠長</text>
+    <rect x="76" y="590" width="1128" height="56" rx="8" fill="#F5F5F5"/>
+    <text x="96" y="626" font-size="21" font-weight="600" fill="#1A1A1A">3　Context caching</text>
+    <rect x="372" y="608" width="102" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="626" font-size="17" fill="#A85110">input 折扣</text>
+    <text x="790" y="626" font-size="18" fill="#4A4A4A">前綴要夠長</text>
   </g>
 
-  <!-- 4（強調，且保持在右下 logo 區左側） -->
   <g>
-    <rect x="76" y="664" width="960" height="46" rx="8" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
-    <text x="96" y="694" font-size="20" font-weight="600" fill="#1A1A1A">4　結果快取</text>
-    <rect x="372" y="678" width="170" height="19" rx="5" fill="#EF7622"/>
-    <text x="586" y="694" font-size="16" font-weight="700" fill="#C2510A">最被低估的一招</text>
-    <text x="790" y="694" font-size="16" fill="#4A4A4A">規格沒變就別重跑</text>
+    <rect x="76" y="652" width="960" height="52" rx="8" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
+    <text x="96" y="686" font-size="21" font-weight="600" fill="#1A1A1A">4　結果快取</text>
+    <rect x="372" y="668" width="170" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="686" font-size="17" font-weight="700" fill="#C2510A">最被低估</text>
+    <text x="790" y="686" font-size="18" fill="#4A4A4A">幾乎沒有</text>
   </g>
 </svg>
