@@ -28,7 +28,7 @@ talk/
 poc/
   retail_genai_poc.ipynb          ★ 聽眾版 —— 乾淨教材，會後發給大家
   retail_genai_poc_speaker.ipynb  ★ 講者版 —— 同樣內容 + 舞台指示
-  build_notebook.py               從 src/ + data/ 產生上面兩份
+  build_notebook.py               從 src/ + data/ 產生上面兩份；識別資訊在這裡注入
   check_env.py                    上場前環境健檢
   data/
     products.json          12 筆手寫商品（會被併入 eval_products.json 前段）
@@ -77,14 +77,17 @@ uv sync
 gcloud auth login && gcloud auth application-default login
 ```
 
+**專案 ID 不寫死在 repo 裡**，走環境變數（見下方「參數化」）：
+
 ```bash
-gcloud config set project cacafly-poc
+export GCP_PROJECT_ID=你的專案
+gcloud config set project "$GCP_PROJECT_ID"
 ```
 
 啟用需要的 API：
 
 ```bash
-gcloud services enable aiplatform.googleapis.com bigquery.googleapis.com --project=cacafly-poc
+gcloud services enable aiplatform.googleapis.com bigquery.googleapis.com --project="$GCP_PROJECT_ID"
 ```
 
 驗證環境（**最重要的一步**）：
@@ -98,6 +101,41 @@ uv run python poc/check_env.py
 
 > ⚠️ `LOCATION` 必須是 `"global"`。`asia-east1` 上沒有任何 Gemini publisher
 > model，所有呼叫都會 404。這正是 `check_env.py` 存在的原因。
+
+---
+
+### 0-1　參數化：換一個人用要改什麼
+
+**識別資訊不寫死在 repo 裡。** 換人、換公司、換 GCP 專案就要換的值全部走
+環境變數，notebook 則在**建構時注入**成字面值 —— 因為 notebook 會被單獨上傳到
+Colab，那裡沒有你的 shell 環境。
+
+| 環境變數 | 預設 | 用途 |
+|---|---|---|
+| `GCP_PROJECT_ID` | `your-gcp-project-id`（佔位） | GCP 專案 ID |
+| `GCP_LOCATION` | `global` | Gemini 的 location，**實測必須是 global** |
+| `BQ_DATASET` | `retail_genai_demo` | 場景 B 的 dataset |
+| `BQ_TABLE` | `review_insights` | 場景 B 的 table |
+| `BQ_LOCATION` | `asia-east1` | BigQuery 的 region（與 Gemini 無關）|
+| `SPEAKER_NAME` | 空 | 講者姓名，寫進 notebook 標題 |
+| `EVENT_NAME` | 空 | 場次／主辦單位 |
+| `TALK_DATE` | 空 | 日期 |
+
+`src/config.py` 與 `build_notebook.py` 讀的是同一組變數，所以
+`run_eval.py`、`check_env.py` 這些不經過 notebook 的路徑也會拿到同樣的值。
+
+建構 notebook 時也可以直接下參數（**參數優先於環境變數**）：
+
+```bash
+uv run python poc/build_notebook.py \
+    --project-id 你的專案 --speaker "你的名字" --event "場次名稱" --date 2026-08-21
+```
+
+`make build ARGS="--project-id 你的專案"` 也可以。完整清單見
+`uv run python poc/build_notebook.py --help`。
+
+沒設 `GCP_PROJECT_ID` 不影響離線重播（重播根本不打 API），
+但 `check_env.py` 會直接擋下來，`build_notebook.py` 也會印出提醒。
 
 ---
 

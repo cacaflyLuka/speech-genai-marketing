@@ -744,6 +744,60 @@ def test_offline_and_record_are_mutually_exclusive():
         cfg.OFFLINE_MODE, cfg.RECORD_FIXTURES = old
 
 
+# --------------------------------------------------------------------------
+# 參數化：識別資訊在建構時注入，不寫死在 repo 裡
+# --------------------------------------------------------------------------
+def _rebuild_with(**profile):
+    """暫時覆寫 PROFILE 後重新產生 cells，用完還原。"""
+    from poc import build_notebook as bn
+
+    old = dict(bn.PROFILE)
+    bn.PROFILE.update(profile)
+    try:
+        return ["".join(c["source"]) for c in bn.build()]
+    finally:
+        bn.PROFILE.clear()
+        bn.PROFILE.update(old)
+
+
+def test_config_values_are_injected_as_literals():
+    """注入的值要變成字面值 —— notebook 上了 Colab 就沒有你的環境變數了。"""
+    cells = _rebuild_with(project_id="injected-project", bq_dataset="injected_ds")
+    cfg = next(c for c in cells if "PRICING" in c and "PROJECT_ID" in c)
+
+    assert 'PROJECT_ID = "injected-project"' in cfg, "PROJECT_ID 沒有被改寫成字面值"
+    assert 'BQ_DATASET = "injected_ds"' in cfg, "BQ_DATASET 沒有被改寫成字面值"
+    assert "os.environ" not in cfg, "notebook 裡不該留下讀環境變數的程式碼"
+
+
+def test_injection_fails_loudly_when_a_constant_is_renamed():
+    """常數被改名時要報錯。靜默不套用會讓人以為參數生效了，直到台上才發現連錯專案。"""
+    from poc import build_notebook as bn
+
+    try:
+        bn._inject_config_values("# 這份原始碼裡沒有任何可改寫的常數\n")
+    except RuntimeError as e:
+        assert "PROJECT_ID" in str(e)
+    else:
+        raise AssertionError("找不到常數時應該拋錯")
+
+
+def test_byline_appears_only_when_given():
+    """沒給講者資訊就不該出現空白的署名行。"""
+    from poc import build_notebook as bn
+
+    before = dict(bn.PROFILE)
+
+    blank = _rebuild_with(speaker="", event="", date="")
+    assert "**講者**" not in blank[0], "沒給講者卻出現了署名"
+
+    named = _rebuild_with(speaker="測試講者", event="測試場次", date="2026-08-21")
+    assert "**講者**：測試講者" in named[0], "給了講者卻沒出現在標題"
+    assert "**場次**：測試場次" in named[0]
+
+    assert bn.PROFILE == before, "PROFILE 沒有還原"
+
+
 if __name__ == "__main__":
     import traceback
 

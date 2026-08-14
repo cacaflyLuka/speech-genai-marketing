@@ -8,18 +8,40 @@
 - **看得見**。聽眾要看到 prompt 與規則的實際內容，不是 `from mylib import magic`。
 
 用法：python3 poc/build_notebook.py
-產出：poc/retail_genai_poc.ipynb
+產出：poc/retail_genai_poc.ipynb（聽眾版）、poc/retail_genai_poc_speaker.ipynb（講者版）
+
+## 參數化
+
+**識別資訊不寫死在 repo 裡，在建構 notebook 的時候才注入。**
+
+GCP 專案、BigQuery 位置、講者姓名、場次名稱這幾個值都是「換一個人用就要換」的，
+留在原始碼裡別人 clone 下來就得四處找著改。所以：
+
+    python3 poc/build_notebook.py --project-id my-gcp-project --speaker "你的名字"
+
+`--project-id` 這類設定值會直接改寫進 notebook 內嵌的 CONFIG 那一格（成為字面值，
+Colab 打開就是對的）；`--speaker` 這類展示資訊則寫進標題那一格。
+每個參數都可以用環境變數代替（見 `--help`），沒給就沿用 `src/config.py` 的預設。
+
+`src/config.py` 本身也讀同一組環境變數，所以 `run_eval.py`、`check_env.py`
+這些不經過 notebook 的路徑會拿到同樣的值。
 """
 
 from __future__ import annotations
 
+import argparse
 import json
+import os
 import pathlib
 import re
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SRC = ROOT / "src"
 DATA = ROOT / "data"
+
+sys.path.insert(0, str(ROOT.parent))
+from poc.src import config  # noqa: E402
 
 # 兩種產出，同一份來源
 #   audience  給聽眾帶回去的教材。乾淨、自足、沒有舞台指示。
@@ -30,6 +52,75 @@ OUTPUTS = {
 }
 
 _MODE = "audience"  # 由 main() 設定
+
+
+# ---------------------------------------------------------------- 參數化
+#
+# CONFIG_PARAMS  會被改寫進 notebook 內嵌的 CONFIG 那一格（config.py 裡的同名常數）
+# BYLINE_PARAMS  只影響標題那一格的署名，不進程式碼
+#
+# 預設值直接取 config.py 的現值 —— 而 config.py 讀的是同一組環境變數，
+# 所以「設環境變數」與「下參數」兩條路殊途同歸，不會有兩份預設值互相矛盾。
+CONFIG_PARAMS = {
+    "project_id": ("PROJECT_ID", "GCP 專案 ID"),
+    "location": ("LOCATION", "Gemini 的 location（實測必須是 global）"),
+    "bq_dataset": ("BQ_DATASET", "BigQuery dataset 名稱"),
+    "bq_table": ("BQ_TABLE", "BigQuery table 名稱"),
+    "bq_location": ("BQ_LOCATION", "BigQuery 的 region"),
+}
+
+# (環境變數, 標題上的標籤, --help 的說明)
+BYLINE_PARAMS = {
+    "speaker": ("SPEAKER_NAME", "講者", "講者姓名"),
+    "event": ("EVENT_NAME", "場次", "場次或主辦單位"),
+    "date": ("TALK_DATE", "日期", "日期"),
+}
+
+PROFILE: dict[str, str] = {
+    **{key: getattr(config, const) for key, (const, _) in CONFIG_PARAMS.items()},
+    **{key: os.environ.get(env, "") for key, (env, *_) in BYLINE_PARAMS.items()},
+}
+
+
+def _inject_config_values(text: str) -> str:
+    """把 PROFILE 的值改寫成 config 原始碼裡的字面值。
+
+    為什麼要改寫而不是讓 notebook 自己讀環境變數：notebook 會被上傳到 Colab
+    單獨執行，那裡沒有你的 shell 環境。建構時就把值定下來，Colab 打開就是對的。
+
+    改寫失敗（找不到該常數）一律報錯 —— 常數被改名而這裡沒跟上時，
+    靜默不套用會讓人以為參數有生效，直到台上才發現連到別的專案。
+    """
+    for key, (const, _) in CONFIG_PARAMS.items():
+        # 用 lambda 回傳固定字串，避免值裡的反斜線被當成 re 的替換語法
+        new_line = f"{const} = {json.dumps(PROFILE[key], ensure_ascii=False)}"
+        text, n = re.subn(
+            rf"^{const} = .*$",
+            lambda _m, line=new_line: line,
+            text,
+            count=1,
+            flags=re.MULTILINE,
+        )
+        if n != 1:
+            raise RuntimeError(
+                f"config.py 裡找不到可改寫的 `{const} = ...`（--{key.replace('_', '-')} 無法生效）"
+            )
+
+    # 值都變成字面值之後 os 就沒人用了，順手拿掉，別讓聽眾看到無用的 import
+    if not re.search(r"\bos\.", text):
+        text = re.sub(r"^import os\n\n?", "", text, count=1, flags=re.MULTILINE)
+
+    return text
+
+
+def byline() -> str:
+    """署名行。三個值都沒給就不產生這一行 —— 空白的『講者：』比沒有更難看。"""
+    parts = [
+        (label, PROFILE[key])
+        for key, (_, label, _help) in BYLINE_PARAMS.items()
+        if PROFILE[key].strip()
+    ]
+    return "　".join(f"**{label}**：{value}" for label, value in parts)
 
 
 def md(text: str) -> dict:
@@ -110,10 +201,12 @@ def build() -> list[dict]:
     cells: list[dict] = []
 
     # ---------------------------------------------------------------- §0
-    cells.append(md("""
+    cells.append(md(f"""
 # 零售場景的生成式 AI：從 Prompt 到可上線的評測流程
 
 **Google Cloud & Generative AI Applications**
+
+{byline()}
 
 ---
 
@@ -223,8 +316,12 @@ if not _importable("google.cloud.bigquery"):
 
 模型與價格變動頻繁，任何寫死的數字都會很快過期。
 要看實際花費，請以 §5 執行後印出來的金額為準。
+
+> `PROJECT_ID`、`LOCATION` 與 BigQuery 那幾個值是**建構這份 notebook 時注入的**。
+> 要換成你自己的環境，改這一格就好；若你是從原始 repo 重新產生，
+> 用 `python3 poc/build_notebook.py --project-id 你的專案` 一次帶進來。
 """))
-    cells.append(code(module_source("config")))
+    cells.append(code(_inject_config_values(module_source("config"))))
 
     cells.append(md("""
 ### 呼叫層與離線重播
@@ -935,10 +1032,55 @@ else:
     return cells
 
 
-def main() -> None:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    p = argparse.ArgumentParser(
+        description="從 src/ 與 data/ 產生兩份自足的 Colab notebook。",
+        epilog=(
+            "識別資訊不寫死在 repo 裡，在這裡注入。"
+            "每個參數都可以改用環境變數；兩者都沒給就用 src/config.py 的預設值。"
+        ),
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    for key, (const, help_text) in CONFIG_PARAMS.items():
+        env = {"project_id": "GCP_PROJECT_ID", "location": "GCP_LOCATION"}.get(key, const)
+        p.add_argument(
+            f"--{key.replace('_', '-')}",
+            default=PROFILE[key],
+            metavar=const,
+            help=f"{help_text}（環境變數 {env}）",
+        )
+    for key, (env, _label, help_text) in BYLINE_PARAMS.items():
+        p.add_argument(
+            f"--{key}",
+            default=PROFILE[key],
+            metavar=env,
+            help=f"{help_text}，寫進標題（環境變數 {env}）",
+        )
+    p.add_argument(
+        "--out-dir",
+        type=pathlib.Path,
+        default=ROOT,
+        help="notebook 的輸出目錄",
+    )
+    return p.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> None:
     global _MODE
 
-    for mode, out in OUTPUTS.items():
+    args = parse_args(argv)
+    PROFILE.update({key: getattr(args, key) for key in (*CONFIG_PARAMS, *BYLINE_PARAMS)})
+
+    outputs = {mode: args.out_dir / path.name for mode, path in OUTPUTS.items()}
+    args.out_dir.mkdir(parents=True, exist_ok=True)
+
+    if PROFILE["project_id"] == "your-gcp-project-id":
+        print(
+            "! 未指定 GCP 專案 —— notebook 裡會留著佔位字串 your-gcp-project-id。\n"
+            "  離線重播不受影響；要真的呼叫 API 請加 --project-id 或設 GCP_PROJECT_ID。"
+        )
+
+    for mode, out in outputs.items():
         _MODE = mode
         nb = {
             "cells": build(),

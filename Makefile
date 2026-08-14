@@ -13,8 +13,8 @@ help:  ## 顯示這份說明
 setup:  ## 建立虛擬環境並安裝相依（含 dev）
 	uv sync
 
-build:  ## 從 src/ 重新產生兩份 notebook
-	uv run python poc/build_notebook.py
+build:  ## 從 src/ 重新產生兩份 notebook（ARGS="--project-id X --speaker Y"）
+	uv run python poc/build_notebook.py $(ARGS)
 
 test:  ## 跑全部測試（離線、不呼叫 API、不花錢）
 	uv run pytest

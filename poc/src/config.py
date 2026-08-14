@@ -2,15 +2,25 @@
 
 所有環境相關設定集中在這裡。換專案、換模型、換價格都只改這個檔案。
 價格必須到官方頁面現查後更新，不要沿用寫死的數字。
+
+**專案識別資訊不寫死在 repo 裡。** GCP 專案、BigQuery 位置這幾個值
+「換一個人用就要換」，所以走環境變數（見下方各項），notebook 則在
+`build_notebook.py` 建構時以參數注入成字面值。
+這樣別人 clone 下來只要設好自己的環境變數就能跑，不必改這個檔案。
 """
 
+import os
+
 # --- GCP ---
-PROJECT_ID = "cacafly-poc"
+# 依序取：環境變數 GCP_PROJECT_ID → 佔位字串。
+# 佔位字串留著沒關係，check_env.py 會擋下來；離線重播用不到專案 ID。
+PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "your-gcp-project-id")
 
 # ⚠️ 必須是 "global"。實測 asia-east1 上沒有任何 Gemini publisher model，
 #    所有呼叫都會 404。這是很容易踩的坑：compute 資源設在 asia-east1，
 #    不代表 Gemini 模型在那裡可用。
-LOCATION = "global"
+#    開放成環境變數是為了讓別人能換，不是鼓勵你換 —— 換完務必跑 check_env.py。
+LOCATION = os.environ.get("GCP_LOCATION", "global")
 
 # 使用 Vertex AI（走 GCP 專案計費、資料落地可控）
 # 若現場 GCP 權限失效，把 USE_VERTEX 改成 False 並填入 AI Studio key 作為備援
@@ -32,7 +42,7 @@ RECORD_FIXTURES = False
 FIXTURES_FILE = "demo_outputs.json"
 
 # --- 模型 ---
-# 以下型號皆已在 cacafly-poc / global 實測可用（2026-08-13）。
+# 以下型號皆已在 location="global" 實測可用（2026-08-13）。
 # 換專案或換 region 前請重跑 poc/check_env.py 確認。
 GEN_MODEL = "gemini-flash-latest"   # 生成用：吞吐量大、要便宜
 JUDGE_MODEL = "gemini-2.5-pro"      # 評審用：刻意與生成模型不同，降低 self-preference bias
@@ -44,7 +54,7 @@ JUDGE_TEMPERATURE = 0.0
 # 並行度。評審模型單次要十幾到二十幾秒，瓶頸完全在等待回應，不在 CPU，
 # 所以拉高執行緒數幾乎是線性加速。
 #
-# 實測吞吐（gemini-2.5-pro，cacafly-poc，2026-08-13，零失敗）：
+# 實測吞吐（gemini-2.5-pro，單一專案預設配額，2026-08-13，零失敗）：
 #     8 → 10.3 次/分     16 → 26.1 次/分
 #    32 → 46.5 次/分     64 → 80.7 次/分
 #
@@ -70,9 +80,10 @@ PRICE_LAST_CHECKED = "尚未查證 — 上場前必須更新"
 # 預設關閉：重播模式不涵蓋 BigQuery 呼叫。
 # 錄製時可開啟一次，把「AI 當 ETL」這件事真的做完。
 USE_BIGQUERY = False
-BQ_DATASET = "retail_genai_demo"
-BQ_TABLE = "review_insights"
-BQ_LOCATION = "asia-east1"  # BigQuery 的 region 與 Gemini 無關，這裡可以用亞洲
+BQ_DATASET = os.environ.get("BQ_DATASET", "retail_genai_demo")
+BQ_TABLE = os.environ.get("BQ_TABLE", "review_insights")
+# BigQuery 的 region 與 Gemini 無關，這裡可以用亞洲
+BQ_LOCATION = os.environ.get("BQ_LOCATION", "asia-east1")
 
 USD_TO_TWD = 32.0
 

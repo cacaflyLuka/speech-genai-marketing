@@ -51,6 +51,16 @@ compute 在 asia-east1 不代表 Gemini 在那裡可用。
 **6　`OFFLINE_MODE` 與 `RECORD_FIXTURES` 不能同時為 True。**
 演講當天必須 `OFFLINE_MODE = True`。這是 README 標記「最容易忘」的一項。
 
+**7　識別資訊不寫死在 repo 裡。**
+GCP 專案、BigQuery 位置、講者姓名、場次名稱都走環境變數
+（`GCP_PROJECT_ID`、`GCP_LOCATION`、`BQ_DATASET`、`BQ_TABLE`、`BQ_LOCATION`、
+`SPEAKER_NAME`、`EVENT_NAME`、`TALK_DATE`），notebook 則由
+`build_notebook.py` 在建構時注入成字面值（因為 Colab 上沒有你的 shell 環境）。
+**不要為了方便把真實專案 ID 或人名寫回原始碼。**
+要新增這類參數就加進 `build_notebook.py` 的 `CONFIG_PARAMS` / `BYLINE_PARAMS`，
+兩者都會自動長出對應的 CLI 參數；`CONFIG_PARAMS` 的常數找不到時會直接拋錯，
+不會靜默不套用。
+
 ---
 
 # 地圖
@@ -131,5 +141,4 @@ README 與講稿在統計上是刻意保守的，改述時不要放寬：
 
 # 已知待處理
 
-- `poc/run_eval.py` 的 module docstring 還寫著「notebook（12 筆）」與「200 筆」的分工，
-  但 demo 與評測早已統一成同一份 50 筆資料（commit 82fbd2d）。改到那支檔案時順手更新。
+（目前沒有。）

@@ -186,12 +186,30 @@ def check_replay_readiness() -> None:
     )
 
 
+# config.py 在沒有 GCP_PROJECT_ID 環境變數時會退回這個佔位字串。
+# 帶著它去打 API 會得到一個沒頭沒尾的 403/404，不如在這裡先講清楚。
+PLACEHOLDER_PROJECT = "your-gcp-project-id"
+
+
+def check_project() -> bool:
+    print("\n[0] 專案設定")
+    if config.PROJECT_ID == PLACEHOLDER_PROJECT:
+        report(
+            FAIL,
+            "沒有指定 GCP 專案",
+            "請設定環境變數 GCP_PROJECT_ID（見 README §0）",
+        )
+        return False
+    report(OK, "GCP 專案", config.PROJECT_ID)
+    return True
+
+
 def main() -> int:
     print("=" * 68)
     print(f"環境健檢  project={config.PROJECT_ID}  location={config.LOCATION}")
     print("=" * 68)
 
-    if check_auth():
+    if check_project() and check_auth():
         check_models()
         check_structured_output()
         check_bigquery()
