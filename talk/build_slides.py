@@ -732,8 +732,6 @@ def build_slides() -> list[tuple[str, str, str]]:
     # 演講裡，投影片自己硬寫是最不該犯的錯。
     banned = json.loads(BANNED_TERMS_FILE.read_text(encoding="utf-8"))
     mapping = banned["safe_alternatives"]["mapping"]
-    n_terms = len({t for v in banned.values()
-                   if isinstance(v, dict) and "terms" in v for t in v["terms"]})
 
     gen("suggest-fix.svg", "規則層能給方向",
         "規則層不只擋，還能給出合規的替代寫法；內容直接來自禁詞清單。",
@@ -741,8 +739,6 @@ def build_slides() -> list[tuple[str, str, str]]:
             title="規則層不只是擋，還能給方向",
             subtitle="這讓它從惹人厭的 linter 變成文案人員願意用的工具",
             pairs=list(mapping.items()),
-            note=f"誠實地說：{n_terms} 個禁詞裡只有 {len(mapping)} 個給得出替代寫法，"
-                 f"其餘只能擋、給不了方向。剩下的要靠人或評審層。",
         ))
 
     gen("binary-rubric.svg", "不要用 1–5 分",
