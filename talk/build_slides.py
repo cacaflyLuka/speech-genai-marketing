@@ -667,7 +667,7 @@ def build_slides() -> list[tuple[str, str, str]]:
                      "規格完整覆蓋　82% →  98%",
                      "法規禁詞 0 命中　80% → 98%",
                      "",
-                     "語意品質（rubric）：",
+                     "語意品質：",
                      "沒有統計上的改善。",
                      "",
                      "合理 —— v1 加的是字數與規格，",
@@ -681,7 +681,7 @@ def build_slides() -> list[tuple[str, str, str]]:
         "v2 加入法規禁詞清單與品牌語調 few-shot。",
         layout_code(
             title="v2　加法規與語調",
-            subtitle="這一版是唯一在語意品質上統計成立的改善",
+            subtitle="把法規紅線與品牌語氣寫進去：禁詞清單、兩則自家範例",
             panels=[
                 {"label": "法規段落", "tone": "orange",
                  "lines": [
@@ -704,11 +704,11 @@ def build_slides() -> list[tuple[str, str, str]]:
                      "  甘胺酸鎂錠 120錠 睡前補充",
                      "  選用好吸收的螯合形式",
                      "",
-                     "→ rubric 通過率 +8.9pp",
+                     "→ 語意品質通過率 +8.9pp",
                  ],
                  "highlight": (8,)},
             ],
-            note="rubric 量的正是語調與賣點覆蓋 —— 加什麼、量什麼，要對得上。",
+            note="語氣好不好，規則層量不到 —— 這一版的改善，要靠第二層評測才看得見。",
         ))
 
     gen("prompt-v3.svg", "v3：結構化輸出",
