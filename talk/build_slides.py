@@ -398,14 +398,24 @@ def layout_cards(*, title, subtitle="", cards, note=None, columns=3):
     return body
 
 
-def layout_fix_pairs(*, title, subtitle="", pairs, note=None):
+def layout_fix_pairs(*, title, subtitle="", pairs, note=None, sidebar=None):
     """禁詞 → 替代寫法的對照列表。
 
     刻意用「一列一組」而不是左右兩欄各自條列：兩欄各列各的話，
     看的人要自己數第幾行對第幾行，而這頁的重點正是「哪個詞換成哪句話」。
+
+    sidebar 是右側的虛線框，放**今天沒做、上線才需要**的那一段。
+    虛線是全套投影片共用的約定（實線＝demo 真的跑過），所以這裡不要
+    改成實線框 —— 一改就等於宣稱 POC 做了自動修復，而它沒有。
     """
     body = header(title, subtitle)
-    left_w = 300
+    right_edge = W - M
+    if sidebar:
+        side_w = 360
+        side_x = W - M - side_w
+        right_edge = side_x - 32
+    # 對照列變窄了，禁詞欄位跟著收 —— 禁詞最長五個字，300px 本來就太寬
+    left_w = 200 if sidebar else 300
     arrow_x = M + left_w + 16
     right_x = arrow_x + 46
 
@@ -418,15 +428,31 @@ def layout_fix_pairs(*, title, subtitle="", pairs, note=None):
     for i, (bad, good) in enumerate(pairs):
         y = top + i * row_h
         if i:
-            body.append(line(M, y - row_h + 14, W - M, y - row_h + 14, color="#EDEDED",
-                             sw=1))
+            body.append(line(M, y - row_h + 14, right_edge, y - row_h + 14,
+                             color="#EDEDED", sw=1))
         body += [
             text(M, y, "✗", size=20, color=RED, weight=700),
             text(M + 30, y, bad, size=22, color=INK_SOFT),
             text(arrow_x, y, "→", size=20, color=FAINT),
             text(right_x, y, "✓", size=20, color=GREEN, weight=700),
-            text(right_x + 30, y, good, size=22, color=GREEN_DARK, weight=700),
+            text(right_x + 30, y, good, size=20, color=GREEN_DARK, weight=700),
         ]
+
+    if sidebar:
+        lines = sidebar["lines"]
+        box_h = 62 + len(lines) * 30 + 18
+        by = top - 20
+        body += [
+            rect(side_x, by, side_w, box_h, fill="#ffffff", stroke=FAINT, sw=2,
+                 dash="7 6"),
+            text(side_x + 22, by + 38, sidebar["label"], size=19, weight=700,
+                 color=MUTED),
+        ]
+        ly = by + 76
+        for ln in lines:
+            body.append(text(side_x + 22, ly, ln, size=17, color=INK_SOFT))
+            ly += 30
+
     if note:
         body += [
             line(M, BOTTOM - 34, W - M, BOTTOM - 34, color=HAIR, sw=1.5),
@@ -836,12 +862,26 @@ def build_slides() -> list[tuple[str, str, str]]:
     banned = json.loads(BANNED_TERMS_FILE.read_text(encoding="utf-8"))
     mapping = banned["safe_alternatives"]["mapping"]
 
+    # 右邊的虛線框是**今天沒做的事**：POC 的 suggest_fix() 只是把建議 print
+    # 出來給人看，沒有任何東西被送回模型。畫成實線就等於宣稱做了自動修復。
     gen("suggest-fix.svg", "規則層能給方向",
         "規則層不只擋，還能給出合規的替代寫法；內容直接來自禁詞清單。",
         layout_fix_pairs(
             title="規則層不只是擋，還能給方向",
             subtitle="這讓它從惹人厭的 linter 變成文案人員願意用的工具",
             pairs=list(mapping.items()),
+            sidebar={
+                "label": "上線後才需要",
+                "lines": [
+                    "把命中的詞與建議一起",
+                    "送回模型重寫，",
+                    "再跑一次規則層。",
+                    "",
+                    "兩次不過後",
+                    "可以考慮轉人工處理。",
+                ],
+            },
+            note="今天 demo 到「印出來給人看」為止 —— 右邊那塊是上線後才需要的。",
         ))
 
     gen("binary-rubric.svg", "不要用 1–5 分",
