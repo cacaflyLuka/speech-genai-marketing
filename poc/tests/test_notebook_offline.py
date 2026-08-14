@@ -801,6 +801,28 @@ def test_dashboard_numbers_match_the_tables():
     assert f"{share:.0f}%" in texts, "「評審佔總成本」看板數字與 ledger 不符"
 
 
+def test_cost_donut_slices_add_up_to_the_ledger_total():
+    """成本環圈圖的三塊必須就是 ledger 的三段，而且加起來等於總額。
+
+    環圈圖最容易出的錯是「切片加起來不等於中間那個總數」—— 通常是某一段
+    被漏掉或重複計算。這裡直接用 ledger 對答案。
+    """
+    ns = run_notebook()
+    texts = _figure_texts(ns["fig"])
+    ledger = ns["ledger"]
+
+    gen = ledger.total_cost_usd("gen")
+    rubric_gen = ledger.total_cost_usd("judge:rubric_gen")
+    checking = ledger.total_cost_usd("judge") - rubric_gen
+    total = gen + ledger.total_cost_usd("judge")
+
+    assert abs(gen + rubric_gen + checking - total) < 1e-9, "三塊加起來不等於總額"
+    for value in (gen, rubric_gen, checking, total):
+        assert any(f"{value:.4f}" in t for t in texts), (
+            f"環圈圖上找不到 US${value:.4f}，切片與 ledger 對不起來"
+        )
+
+
 def test_dashboard_labels_fall_back_to_english_without_a_cjk_font():
     """沒有中文字型時要整頁改用英文，不是印出一堆豆腐方塊。"""
     ns = run_notebook()

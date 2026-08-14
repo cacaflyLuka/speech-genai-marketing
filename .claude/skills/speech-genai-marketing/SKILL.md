@@ -23,12 +23,15 @@ POC 是一條零售商品文案 pipeline：Gemini 生成 → 三層評測（規�
 **1　不要手改 notebook。**
 `poc/*.ipynb` 是 `build_notebook.py` 從 `poc/src/` + `poc/data/` 產生的**產物**。
 手改一定會跟測過的程式碼分岔，而分岔會在台上才被發現。
-改完 src 一律 `make all`（＝重新產生 notebook + 跑 48 項離線測試）。
+改完 src 一律 `make all`（＝重新產生 notebook + 跑 64 項離線測試）。
 
 **2　不要美化數字。**
 所有百分比、成本、信賴區間都必須來自實際跑出來的 `poc/data/eval_results.json`
 或 `poc/data/demo_outputs.json`。
 不准在 README、講稿、SVG 裡手寫一個「看起來合理」的數字。
+`eval_results.json` 本身也可能過期 —— 它是輸出，不是聖經。
+要重算就 `uv run python poc/run_eval.py --replay --limit 50`（零網路、零成本），
+`test_slide_numbers.py` 會檢查 `results.svg` 跟它對不對得起來。
 一張每格都完美遞增的表，通常代表有人在調數字 —— 這句話寫在 README 裡，
 所以自己更不能犯。**對比表沒呈現階梯，是 prompt 設計有問題，回頭改 prompt，不是改數字。**
 
@@ -83,7 +86,8 @@ poc/src/          唯一的程式碼來源，有測試覆蓋
   insights.py     場景 B：評論洞察 + BigQuery（預設關閉）
   costs.py        成本外推與降本槓桿
 poc/data/         eval_products.json 是 200 筆評測集，demo 與評測都取前 50 筆
-poc/run_eval.py   離線跑完整評測，產出 eval_results.json
+poc/run_eval.py   跑完整評測，產出 eval_results.json
+                  `--replay` 重播錄好的 fixtures：零網路、零成本，數字與錄製那輪一致
 poc/check_env.py  上場前環境健檢（會呼叫真實 API）
 talk/script.md    大綱 + 逐頁講稿 + demo 腳本 + QA + 檢查清單
 talk/assets/      六張手刻 SVG 投影片
@@ -126,6 +130,10 @@ README 與講稿在統計上是刻意保守的，改述時不要放寬：
   對不上就是 bug —— `test_dashboard_numbers_match_the_tables` 守著這條。
 - **v0→v3 用同一個藍色由淺到深**，不是四個類別色：版本是有序的。
 - **不用雙 Y 軸**，兩個單位不同的量就分兩張圖。
+- **只有成本那一格用環圈圖**（生成／產生 rubric／逐條檢查）。圓餅類只擅長
+  「一個整體被拆成幾塊」，成本剛好是；其他格都是跨版本比較，換成圓餅會直接
+  失去比較能力。環圈右邊一定附金額與佔比的文字欄，不要求人去比扇形角度。
+  `test_cost_donut_slices_add_up_to_the_ledger_total` 守著切片與 ledger 一致。
 - 顏色不獨自承載意義：顯著與否旁邊一定有文字結論；對比偏低的橘色一律標數值。
 - 色票沿用投影片（藍 `#1B6FB8`、橘 `#EF7622`、綠 `#166534`）。
 - **中文字型**：matplotlib 預設字型沒有中文字。`find_cjk_font()` 找不到就整頁

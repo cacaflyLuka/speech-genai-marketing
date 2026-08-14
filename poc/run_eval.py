@@ -93,11 +93,21 @@ def main() -> int:
         "--record", action="store_true",
         help="把這次的真實輸出錄下來，之後可零網路重播（存到 data/eval_fixtures.json）",
     )
+    ap.add_argument(
+        "--replay", action="store_true",
+        help=f"零網路、零成本：重播 data/{config.FIXTURES_FILE} 裡錄好的真實輸出。"
+             "數字跟當初錄製那一輪完全一致，用來重算 eval_results.json。",
+    )
     args = ap.parse_args()
     if args.workers:
         config.MAX_WORKERS = args.workers
     if args.record:
         config.RECORD_FIXTURES = True
+    if args.replay:
+        if args.record:
+            print("--replay 與 --record 互斥：一個是重播、一個是錄製。")
+            return 1
+        config.OFFLINE_MODE = True
 
     path = DATA / "eval_products.json"
     if not path.exists():
@@ -114,11 +124,15 @@ def main() -> int:
     mins, usd = estimate(len(products), with_judge, config.MAX_WORKERS)
     print("=" * 66)
     print(f"評測集 {len(products)} 筆　評審層 {'開啟' if with_judge else '關閉'}")
-    print(f"預估耗時 {mins:.0f} 分鐘　預估成本 約 US${usd:.2f}（NT${usd * 32:.0f}）")
+    if args.replay:
+        print(f"重播模式：讀 data/{config.FIXTURES_FILE}，零網路、零成本")
+    else:
+        print(f"預估耗時 {mins:.0f} 分鐘　預估成本 約 US${usd:.2f}（NT${usd * 32:.0f}）")
     print(f"並行度 MAX_WORKERS={config.MAX_WORKERS}")
     print("=" * 66)
 
-    if with_judge and not args.yes:
+    # 重播不花錢也不連網，沒有什麼好確認的
+    if with_judge and not args.yes and not args.replay:
         try:
             answer = input("確定要跑嗎？[y/N] ").strip().lower()
         except EOFError:
@@ -130,7 +144,16 @@ def main() -> int:
             print("已取消。可加 --limit 10 先試跑，或 --no-judge 只跑規則層。")
             return 0
 
-    client = generation.make_client()
+    fixtures = None
+    if args.replay:
+        fx = DATA / config.FIXTURES_FILE
+        if not fx.exists():
+            print(f"找不到 {fx}。重播需要錄好的 fixtures，見 README §2。")
+            return 1
+        fixtures = json.loads(fx.read_text(encoding="utf-8"))
+        print(f"已載入 {len(fixtures.get('calls', {})):,} 筆錄好的呼叫")
+
+    client = generation.make_client(fixtures)
     ledger = generation.UsageLedger()
     versions = list(prompts.PROMPT_VERSIONS)
     t_start = time.time()

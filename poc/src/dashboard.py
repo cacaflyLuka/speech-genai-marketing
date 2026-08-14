@@ -14,6 +14,10 @@
 - **v0→v3 用同一個藍色由淺到深**，不是四個不同顏色。版本是有序的，
   用四個類別色會讓人以為它們是四個平行選項。
 - **不用雙 Y 軸。** 兩個單位不同的量就分成兩張圖。
+- **只有成本那一格用環圈圖。** 圓餅類的圖只擅長一件事：一個整體被拆成幾塊。
+  成本正好是（一次執行的錢花到哪去了），所以用它；其他格都是「跨版本比較」，
+  換成圓餅會直接失去比較的能力。而且環圈旁邊一定附上金額與佔比的文字欄，
+  不要求任何人用眼睛去比扇形角度。
 - **信賴區間那張圖是重點**：長條圖只能顯示「差多少」，顯示不了「這個差距可不可信」。
 - 顏色不獨自承載意義：顯著與否除了顏色，旁邊一定有文字結論；
   對比較低的橘色一律標上數值。
@@ -47,6 +51,7 @@ SURFACE = "#FFFFFF"  # 圖表底色。明確指定，才不會跟著 Colab 主�
 
 BLUE = "#1B6FB8"
 ORANGE = "#EF7622"
+ORANGE_DEEP = "#A34408"  # 同色系深一階：評審裡的另一段，跟 ORANGE 同群但分得開
 GOOD = "#166534"  # 「有差異」
 UNSURE = "#8A8A8A"  # 「分不出差別」
 ZERO_LINE = "#C2510A"
@@ -219,41 +224,133 @@ def _significance_panel(ax, comparisons, label) -> None:
     _style(ax, grid_axis="x")
 
 
-def _cost_panel(ax, gen_cost, judge_cost, label) -> None:
-    """成本組成。一個整體被拆成兩塊，用堆疊橫條 —— 不要用圓餅圖。"""
+def _donut(ax, slices, *, center_value, center_caption, empty_text) -> None:
+    """環圈圖。**只用在「一個整體被拆成幾塊」的資料上。**
+
+    圓餅圖之所以惡名昭彰，是因為它常被拿來做它不擅長的事 —— 比較不同群體、
+    塞十幾個切片、或是排名。這裡的用法是它唯一擅長的那件事：
+    一筆錢、一份總量，回答「它花到哪裡去了」。
+
+    另外做了三件事，讓它不必靠「用眼睛比扇形角度」來讀：
+      1. 中間放總量，一眼就知道分母是多少
+      2. 右邊直接列出每一塊的名稱、金額與佔比 —— 要精確比較的人看那一欄就好
+      3. 切片依大小排序，右邊那欄照同一個順序
+
+    版面刻意是「左圈右表」而不是「圈在中間、標籤繞一圈」：
+    這一格很扁，繞圈標籤在扁版面上一定會互相壓到，而且圈擺正中央的話
+    左右兩側會空掉一大半。
+
+    slices：(值, 顏色, 名稱, 顯示用數值字串) 的序列。
+    """
+    ax.set_facecolor(SURFACE)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for side in ("top", "right", "left", "bottom"):
+        ax.spines[side].set_visible(False)
+
+    rows = [s for s in slices if s[0] > 0]
+    total = sum(v for v, *_ in rows)
+    if total <= 0:
+        ax.text(0.5, 0.5, empty_text, transform=ax.transAxes, ha="center",
+                va="center", color=MUTED, fontsize=11)
+        return
+
+    # 圈心固定在左邊、右欄接在後面，整組再置中（見下面 xlim 的說明）
+    CX = -1.5
+
+    rows.sort(key=lambda s: -s[0])
+    ax.pie(
+        [v for v, *_ in rows],
+        colors=[c for _, c, *_ in rows],
+        startangle=90,
+        counterclock=False,
+        radius=1.0,
+        center=(CX, 0),
+        frame=True,  # 不要讓 pie() 自己接管座標範圍，下面要自己排版
+        # 白色描邊讓相鄰兩塊之間有一條縫，邊界才不會糊在一起
+        wedgeprops={"width": 0.32, "edgecolor": SURFACE, "linewidth": 2},
+    )
+
+    # 這一格的長寬比每次都不一樣（有沒有跑場景 B 會讓它從半排變成整排），
+    # 所以座標範圍從實際的 axes 尺寸算出來，不寫死 —— 寫死的話圈會被壓扁。
+    fig = ax.get_figure()
+    box = ax.get_position()
+    aspect = (box.width * fig.get_figwidth()) / (box.height * fig.get_figheight())
+    half_h = 1.2
+    # 版面左右置中：這一格從半排變成整排時，整組（圈＋右欄）要留在中間，
+    # 不要黏在左邊留下一大片空白
+    half_w = max(half_h * aspect, 2.7)
+    ax.set_xlim(-half_w, half_w)
+    ax.set_ylim(-half_h, half_h)
+    ax.set_aspect("equal")
+
+    # 環上刻意不寫百分比：環很細，而「70%」這種字串一定比環厚 ——
+    # 不管放哪裡都會壓到內外緣。數字全部交給右邊那一欄，環只負責比例的形狀。
+
+    # 中央的總量要塞進圓環的洞裡 —— 字級與洞的大小（wedge width）是一組的，
+    # 改一個就要回頭確認另一個，不然長一點的金額會壓到環上
+    ax.text(CX, 0.15, center_value, ha="center", va="center", color=INK,
+            fontsize=12, fontweight="bold")
+    ax.text(CX, -0.16, center_caption, ha="center", va="center", color=MUTED,
+            fontsize=9.5)
+
+    # 右邊那欄：色塊 + 名稱 + 數值。顏色不單獨承載意義，名稱一律寫出來。
+    from matplotlib.patches import Rectangle
+
+    x0 = CX + 1.45
+    gap = min(0.62, 2 * half_h / max(len(rows), 1))
+    top = gap * (len(rows) - 1) / 2
+    for i, (value, color, name, shown) in enumerate(rows):
+        y = top - i * gap
+        ax.add_patch(Rectangle((x0, y - 0.07), 0.15, 0.15, facecolor=color,
+                               edgecolor="none", clip_on=False))
+        ax.text(x0 + 0.28, y + 0.11, name, va="center", ha="left",
+                color=INK_SOFT, fontsize=11.5)
+        ax.text(x0 + 0.28, y - 0.16, f"{shown}　{value / total * 100:.0f}%",
+                va="center", ha="left", color=MUTED, fontsize=10.5)
+
+
+def _cost_panel(ax, ledger, label) -> None:
+    """成本組成。
+
+    這是整份儀表板裡唯一適合用環圈圖的資料：**一次執行的錢，拆成三段**。
+    用環圈而不是堆疊長條，是因為這裡要回答的是「錢花到哪去了」，
+    不是「哪一段比較長」—— 而且它和上下相鄰的長條圖擺在一起也比較好分辨。
+
+    刻意拆成三段而不是「生成 / 評審」兩段：評審其實是兩件事 ——
+    出考卷（每個商品一次）和改考卷（每個版本都要一次）。
+    分開之後才看得出來，貴的是改考卷，而那正是加大評測集時會線性膨脹的那一段。
+    """
+    gen_cost = ledger.total_cost_usd("gen")
+    rubric_gen = ledger.total_cost_usd("judge:rubric_gen")
+    judge_cost = ledger.total_cost_usd("judge")
+    checking = judge_cost - rubric_gen
     total = gen_cost + judge_cost
+
     # matplotlib 會把一對 $ 之間的字當數學式渲染 —— 金額一定要跳脫，
     # 否則 "US$0.07　約 NT$2.2" 中間那段會變成義大利體的亂碼
-    usd = f"US\\${total:.4f}"
+    def money(v):
+        return f"US\\${v:.4f}"
+
     _title(
         ax,
         label("這次執行的成本組成", "Cost breakdown of this run"),
-        label(f"合計 {usd}　約 NT\\${total * config.USD_TO_TWD:.2f}", f"total {usd}"),
+        label("評審（出考卷＋改考卷）是大頭 —— 最常被漏算的一筆",
+              "Judging dominates — the line item most often forgotten"),
     )
-    ax.set_yticks([])
-    ax.set_xticks([])
-    for side in ("top", "right", "left", "bottom"):
-        ax.spines[side].set_visible(False)
-    ax.set_facecolor(SURFACE)
-
-    if total <= 0:
-        ax.text(0.5, 0.5, label("這次執行沒有用量資料", "no usage recorded"),
-                transform=ax.transAxes, ha="center", color=MUTED, fontsize=11)
-        return
-
-    for left, width, color, zh, en in (
-        (0, gen_cost, BLUE, "生成", "Generation"),
-        (gen_cost, judge_cost, ORANGE, "評審", "Judging"),
-    ):
-        # 兩段之間留一條白縫，邊界才不會糊在一起
-        ax.barh([0], [width], left=[left], height=0.42, color=color,
-                edgecolor=SURFACE, linewidth=2, zorder=2, label=label(zh, en))
-        ax.text(left + width / 2, 0, f"{width / total * 100:.0f}%", ha="center",
-                va="center", color=SURFACE, fontsize=14, fontweight="bold")
-
-    ax.set_ylim(-1.0, 0.6)
-    ax.legend(frameon=False, fontsize=11, labelcolor=INK_SOFT, ncols=2,
-              loc="upper left", bbox_to_anchor=(0, 0.28))
+    _donut(
+        ax,
+        [
+            (gen_cost, BLUE, label("生成文案", "Generation"), money(gen_cost)),
+            (rubric_gen, ORANGE_DEEP, label("產生 rubric", "Rubric authoring"),
+             money(rubric_gen)),
+            (checking, ORANGE, label("逐條檢查", "Rubric checking"), money(checking)),
+        ],
+        center_value=money(total),
+        center_caption=label(f"約 NT\\${total * config.USD_TO_TWD:.2f}",
+                             f"~NT\\${total * config.USD_TO_TWD:.2f}"),
+        empty_text=label("這次執行沒有用量資料", "no usage recorded"),
+    )
 
 
 def _insight_panel(ax, insights, label) -> None:
@@ -404,10 +501,10 @@ def render_dashboard(rule_results, rubric_summary, rubric_reports, ledger, insig
     # --- 第四列：成本 +（有跑場景 B 的話）評論洞察 ---
     # 沒跑場景 B（§4 是超時第一個被砍的一節）時，成本圖就佔滿整列
     if insights:
-        _cost_panel(fig.add_subplot(gs[3, :2]), gen_cost, judge_cost, label)
+        _cost_panel(fig.add_subplot(gs[3, :2]), ledger, label)
         _insight_panel(fig.add_subplot(gs[3, 2:]), insights, label)
     else:
-        _cost_panel(fig.add_subplot(gs[3, :]), gen_cost, judge_cost, label)
+        _cost_panel(fig.add_subplot(gs[3, :]), ledger, label)
 
     if not font:
         print(

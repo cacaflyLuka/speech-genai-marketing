@@ -49,7 +49,7 @@ poc/
     insights.py            場景 B：評論洞察 + BigQuery
     costs.py               成本外推與降本槓桿
     dashboard.py           §6 總覽儀表板（matplotlib，不重算任何數字）
-  tests/                   60 項，全部離線、不呼叫 API、不花錢
+  tests/                   64 項，全部離線、不呼叫 API、不花錢
 ```
 
 ---
@@ -176,7 +176,7 @@ make all
 uv run python poc/build_notebook.py && uv run pytest
 ```
 
-60 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
+64 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
 
 送出前順手跑靜態檢查：
 
@@ -343,6 +343,12 @@ notebook 最後一節把前面的結果畫成一頁 BI 報告：四個看板數�
 **這一節不產生任何新數字**，全部來自前面已經算過的物件。若它和上面的表格
 對不上，那是 bug —— `test_dashboard_numbers_match_the_tables` 就是在守這件事。
 
+成本那一格是**環圈圖**，拆成生成／產生 rubric／逐條檢查三段 ——
+分開之後才看得出來貴的是「改考卷」，也就是加大評測集時會線性膨脹的那一段。
+整頁只有這一格用圓餅類的圖：它只擅長「一個整體被拆成幾塊」，
+其他格都是跨版本比較，換成圓餅就失去比較能力。環圈右邊一定附上金額與佔比，
+不要求任何人用眼睛去比扇形角度。
+
 > ⚠️ **Colab 預設環境沒有中文字型**，圖表標籤會自動改用英文（數值不受影響），
 > 不會出現豆腐方塊。要中文標籤，在**有網路時**先執行
 > `!apt-get install -y fonts-noto-cjk` 再重啟 runtime ——
@@ -498,6 +504,20 @@ v0→v1 和 v2→v3 的區間都跨過 0，在這個樣本量下分不出差別�
 要下更細的結論就要加大評測集（`run_eval.py` 支援到 200 筆）。
 
 **一張每格都完美遞增的表，通常代表有人在調數字。**
+
+上面所有數字都在 `poc/data/eval_results.json` 裡。要重新產生：
+
+```bash
+uv run python poc/run_eval.py --replay --limit 50   # 零網路、零成本
+```
+
+`--replay` 讀 `poc/data/demo_outputs.json` 裡錄好的真實輸出，**不打 API**，
+所以算出來的就是錄製那一輪的數字，跟台上 demo 會跑出來的完全一致。
+（要真的重打 API 就拿掉 `--replay` —— 那需要網路，約 3.6 分鐘、US$1.50。）
+
+> ⚠️ `eval_results.json` 是**輸出，不是真相**。它可能比投影片舊。
+> `poc/tests/test_slide_numbers.py` 會比對 `results.svg` 上每一格與這個檔案，
+> 對不上就讓測試紅掉 —— 手繪投影片和跑出來的數字之間，只有這條線綁著。
 
 ---
 

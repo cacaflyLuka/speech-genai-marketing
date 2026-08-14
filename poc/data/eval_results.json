@@ -6,31 +6,31 @@
   "v2",
   "v3"
  ],
- "耗時秒": 190.0,
+ "耗時秒": 0.4,
  "規則層": {
   "v0": {
    "schema_valid": 0.0,
-   "title_length_ok": 68.0,
-   "bullet_length_ok": 0.0,
+   "title_length_ok": 74.0,
+   "bullet_length_ok": 4.0,
    "seo_length_ok": 0.0,
-   "spec_full": 92.0,
-   "banned_clean": 76.0,
+   "spec_full": 82.0,
+   "banned_clean": 80.0,
    "_全數通過": 0.0
   },
   "v1": {
    "schema_valid": 0.0,
    "title_length_ok": 100.0,
-   "bullet_length_ok": 16.0,
+   "bullet_length_ok": 36.0,
    "seo_length_ok": 0.0,
-   "spec_full": 100.0,
-   "banned_clean": 96.0,
+   "spec_full": 98.0,
+   "banned_clean": 98.0,
    "_全數通過": 0.0
   },
   "v2": {
    "schema_valid": 0.0,
    "title_length_ok": 100.0,
-   "bullet_length_ok": 34.0,
-   "seo_length_ok": 8.0,
+   "bullet_length_ok": 50.0,
+   "seo_length_ok": 0.0,
    "spec_full": 100.0,
    "banned_clean": 100.0,
    "_全數通過": 0.0
@@ -38,47 +38,47 @@
   "v3": {
    "schema_valid": 100.0,
    "title_length_ok": 100.0,
-   "bullet_length_ok": 96.0,
-   "seo_length_ok": 96.0,
+   "bullet_length_ok": 98.0,
+   "seo_length_ok": 100.0,
    "spec_full": 100.0,
    "banned_clean": 100.0,
-   "_全數通過": 92.0
+   "_全數通過": 98.0
   }
  },
  "評審層": {
   "v0": {
-   "rubric通過率%": 68.4,
+   "rubric通過率%": 73.1,
    "critical違反數": 27,
-   "可直接上架%": 14.0,
-   "受評筆數": 38,
+   "可直接上架%": 32.0,
+   "受評筆數": 50,
    "分母": 50
   },
   "v1": {
-   "rubric通過率%": 79.1,
-   "critical違反數": 19,
-   "可直接上架%": 42.0,
-   "受評筆數": 48,
+   "rubric通過率%": 78.0,
+   "critical違反數": 18,
+   "可直接上架%": 48.0,
+   "受評筆數": 50,
    "分母": 50
   },
   "v2": {
-   "rubric通過率%": 86.3,
-   "critical違反數": 11,
-   "可直接上架%": 72.0,
+   "rubric通過率%": 86.8,
+   "critical違反數": 9,
+   "可直接上架%": 64.0,
    "受評筆數": 50,
    "分母": 50
   },
   "v3": {
-   "rubric通過率%": 86.6,
-   "critical違反數": 12,
-   "可直接上架%": 68.0,
+   "rubric通過率%": 85.4,
+   "critical違反數": 13,
+   "可直接上架%": 62.0,
    "受評筆數": 50,
    "分母": 50
   }
  },
- "成本USD": 1.424,
+ "成本USD": 1.4987,
  "設定": {
   "GEN_MODEL": "gemini-flash-latest",
   "JUDGE_MODEL": "gemini-2.5-pro",
-  "MAX_WORKERS": 64
+  "MAX_WORKERS": 32
  }
 }
