@@ -4,33 +4,40 @@
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
   <rect width="1280" height="720" fill="#ffffff"/>
   <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v3　結構化輸出</text>
-  <text x="76" y="136" font-size="20" fill="#8A8A8A">唯一的差別是多了 responseSchema</text>
-  <rect x="76.0" y="225.24" width="548.0" height="296" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
-  <rect x="76.0" y="225.24" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="255.24" font-size="20" fill="#8A8A8A" font-weight="700">不要這樣做</text>
-  <text x="96.0" y="303.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">prompt 裡寫：</text>
-  <rect x="88.0" y="311.24" width="524.0" height="24" rx="4" fill="#F5F5F5" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="327.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "請以 JSON 格式輸出"</text>
-  <text x="96.0" y="351.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
-  <text x="96.0" y="375.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">模型會照做九成的時間。</text>
-  <text x="96.0" y="399.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">剩下那一成，</text>
-  <text x="96.0" y="423.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">你的 parser 就掛了。</text>
-  <rect x="656.0" y="225.24" width="548.0" height="296" rx="10" fill="#ffffff" stroke="#166534" stroke-width="2.5"/>
-  <rect x="656.0" y="225.24" width="548.0" height="44" rx="10" fill="#CDEBD4" stroke="none" stroke-width="2"/>
-  <text x="676.0" y="255.24" font-size="20" fill="#0F4A25" font-weight="700">要這樣做</text>
-  <rect x="668.0" y="287.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
-  <text x="676.0" y="303.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">response_schema = {</text>
-  <rect x="668.0" y="311.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
-  <text x="676.0" y="327.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "title":   str,  # ≤60</text>
-  <rect x="668.0" y="335.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
-  <text x="676.0" y="351.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "bullets": [str] * 4,</text>
-  <rect x="668.0" y="359.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
-  <text x="676.0" y="375.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "seo_desc": str, # ≤120</text>
-  <rect x="668.0" y="383.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
-  <text x="676.0" y="399.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">}</text>
-  <text x="676.0" y="423.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
-  <text x="676.0" y="447.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">模型被解碼器約束在 schema 內。</text>
-  <text x="676.0" y="471.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">那一成的失敗會消失。</text>
-  <line x1="76" y1="555.24" x2="1204" y2="555.24" stroke="#D8D8D8" stroke-width="1.5"/>
-  <text x="76" y="591.24" font-size="21" fill="#8A8A8A">可機器讀取：0% → 100%。這不需要統計檢定。</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">prompt 一個字都沒改，只多了 responseSchema 這個 API 參數</text>
+  <rect x="76.0" y="200.76" width="548.0" height="368" rx="10" fill="#ffffff" stroke="#166534" stroke-width="2.5"/>
+  <rect x="76.0" y="200.76" width="548.0" height="44" rx="10" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="230.76" font-size="20" fill="#0F4A25" font-weight="700">v3 新增（綠色部分）</text>
+  <rect x="88.0" y="262.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="278.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">response_schema = {</text>
+  <rect x="88.0" y="286.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="302.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "title":           str,        # ≤60 字</text>
+  <rect x="88.0" y="310.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="326.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "bullets":         [str] * 4,  # 每條 ≤30 字</text>
+  <rect x="88.0" y="334.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="350.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "seo_description": str,        # ≤120 字</text>
+  <rect x="88.0" y="358.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="374.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "hashtags":        [str],</text>
+  <rect x="88.0" y="382.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="398.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">}</text>
+  <text x="96.0" y="422.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="446.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">不是在 prompt 裡寫「請以 JSON 格式輸出」——</text>
+  <text x="96.0" y="470.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">那樣模型會照做九成的時間，</text>
+  <text x="96.0" y="494.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">剩下那一成，你的 parser 就掛了。</text>
+  <rect x="656.0" y="200.76" width="548.0" height="368" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="656.0" y="200.76" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="230.76" font-size="20" fill="#8A8A8A" font-weight="700">產出</text>
+  <text x="676.0" y="278.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">{</text>
+  <text x="676.0" y="302.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "title": "晨光研選 游離型葉黃素膠囊</text>
+  <text x="676.0" y="326.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">            30mg高濃度配方 60粒",</text>
+  <text x="676.0" y="350.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "bullets": [</text>
+  <text x="676.0" y="374.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">    "採用游離型葉黃素，分子小好吸收⋯⋯",</text>
+  <text x="676.0" y="398.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">    "高濃度配方：每粒含足量葉黃素 30mg⋯⋯",</text>
+  <text x="676.0" y="422.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">    ⋯⋯共 4 條</text>
+  <text x="676.0" y="446.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  ],</text>
+  <text x="676.0" y="470.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "seo_description": "晨光研選葉黃素膠囊⋯⋯",</text>
+  <text x="676.0" y="494.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "hashtags": ["葉黃素", "游離型", "30mg"⋯⋯]</text>
+  <text x="676.0" y="518.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">}</text>
+  <line x1="76" y1="602.76" x2="1204" y2="602.76" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="638.76" font-size="21" fill="#8A8A8A">輸出從散文變成欄位，後面的程式才接得住。</text>
 </svg>

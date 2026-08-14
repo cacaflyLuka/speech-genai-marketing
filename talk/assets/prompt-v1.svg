@@ -1,37 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
   <title>v1：加通路約束</title>
-  <desc>v1 加入角色、受眾、字數與必含規格。</desc>
+  <desc>v1 加入角色、受眾、字數上限與必含規格。</desc>
   <!-- 由 talk/build_slides.py 產生，不要手改 -->
   <rect width="1280" height="720" fill="#ffffff"/>
   <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v1　加通路約束</text>
   <text x="76" y="136" font-size="20" fill="#8A8A8A">把通路的格式要求寫進去：受眾、字數上限、必含規格</text>
-  <rect x="76.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#1B6FB8" stroke-width="2.5"/>
-  <rect x="76.0" y="217.08" width="548.0" height="44" rx="10" fill="#E9F2FB" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="247.08" font-size="20" fill="#12507F" font-weight="700">v1 新增（藍色部分）</text>
-  <text x="96.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">你是電商文案編輯。</text>
-  <text x="96.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">受眾：30-50 歲上班族。</text>
-  <text x="96.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
-  <rect x="88.0" y="351.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">標題 ≤ 60 字</text>
-  <rect x="88.0" y="375.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">賣點 4 條，每條 ≤ 30 字</text>
-  <rect x="88.0" y="399.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">SEO 描述 ≤ 120 字</text>
-  <text x="96.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
-  <rect x="88.0" y="447.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">必須寫出：游離型、30mg、30粒</text>
-  <rect x="656.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
-  <rect x="656.0" y="217.08" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
-  <text x="676.0" y="247.08" font-size="20" fill="#8A8A8A" font-weight="700">修好了什麼</text>
-  <text x="676.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">標題長度合規　74% → 100%</text>
-  <text x="676.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">規格完整覆蓋　82% →  98%</text>
-  <text x="676.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">法規禁詞 0 命中　80% → 98%</text>
-  <text x="676.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
-  <text x="676.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">語意品質：</text>
-  <text x="676.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">沒有統計上的改善。</text>
-  <text x="676.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
-  <text x="676.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">合理 —— v1 加的是字數與規格，</text>
-  <text x="676.0" y="487.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">不是語氣指引。</text>
-  <line x1="76" y1="571.08" x2="1204" y2="571.08" stroke="#D8D8D8" stroke-width="1.5"/>
-  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">字數與規格是能自動檢查的條件 —— 這一版的改善，規則層就量得到。</text>
+  <rect x="76.0" y="208.92000000000002" width="548.0" height="344" rx="10" fill="#ffffff" stroke="#1B6FB8" stroke-width="2.5"/>
+  <rect x="76.0" y="208.92000000000002" width="548.0" height="44" rx="10" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="238.92000000000002" font-size="20" fill="#12507F" font-weight="700">v1 新增（藍色部分）</text>
+  <text x="96.0" y="286.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">你是台灣電商平台的資深商品文案編輯。</text>
+  <text x="96.0" y="310.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">目標受眾：25-45 歲長時間使用螢幕的上班族</text>
+  <text x="96.0" y="334.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="358.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">【格式要求】</text>
+  <rect x="88.0" y="366.92" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="382.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">- 商品標題：不超過 60 個字</text>
+  <rect x="88.0" y="390.92" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="406.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">- 賣點：4 條，每條不超過 30 個字</text>
+  <rect x="88.0" y="414.92" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="430.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">- SEO 描述：不超過 120 個字</text>
+  <text x="96.0" y="454.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="478.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">【必須包含的規格】</text>
+  <rect x="88.0" y="486.92" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="502.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">葉黃素、60粒、30mg</text>
+  <rect x="656.0" y="208.92000000000002" width="548.0" height="344" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="656.0" y="208.92000000000002" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="238.92000000000002" font-size="20" fill="#8A8A8A" font-weight="700">產出</text>
+  <text x="676.0" y="286.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">### 商品標題（不超過 60 字）</text>
+  <text x="676.0" y="310.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">晨光研選｜高濃度游離型葉黃素 30mg｜</text>
+  <text x="676.0" y="334.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">晶亮守護 60粒｜長時間螢幕族必備</text>
+  <text x="676.0" y="358.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="382.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">### 賣點（4 條，每條不超過 30 字）</text>
+  <text x="676.0" y="406.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">1. 足量高濃度：每粒含游離型葉黃素 30mg⋯⋯</text>
+  <text x="676.0" y="430.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">2. 黃金比例：國際認證 5:1 比例，搭配⋯⋯</text>
+  <text x="676.0" y="454.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="478.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">### SEO 描述（不超過 120 字）</text>
+  <text x="676.0" y="502.92" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">專為長時間使用螢幕的 25-45 歲上班族⋯⋯</text>
+  <line x1="76" y1="586.9200000000001" x2="1204" y2="586.9200000000001" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="622.9200000000001" font-size="21" fill="#8A8A8A">字數與規格是能自動檢查的條件。</text>
 </svg>
