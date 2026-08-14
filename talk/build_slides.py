@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import pathlib
 import re
 import xml.sax.saxutils as sx
@@ -34,6 +35,10 @@ import xml.sax.saxutils as sx
 ROOT = pathlib.Path(__file__).resolve().parent
 ASSETS = ROOT / "assets"
 OUT_HTML = ROOT / "slides.html"
+
+# 投影片上的禁詞與替代寫法直接讀 POC 的資料檔，不在這裡另外抄一份。
+# 抄一份的下場是：資料改了、投影片沒改，然後台上講的跟 demo 跑出來的不一樣。
+BANNED_TERMS_FILE = ROOT.parent / "poc" / "data" / "banned_terms.json"
 
 # --------------------------------------------------------------------------
 # 版面常數 —— 所有投影片共用，只改這裡
@@ -370,6 +375,43 @@ def layout_cards(*, title, subtitle="", cards, note=None, columns=3):
     return body
 
 
+def layout_fix_pairs(*, title, subtitle="", pairs, note=None):
+    """禁詞 → 替代寫法的對照列表。
+
+    刻意用「一列一組」而不是左右兩欄各自條列：兩欄各列各的話，
+    看的人要自己數第幾行對第幾行，而這頁的重點正是「哪個詞換成哪句話」。
+    """
+    body = header(title, subtitle)
+    left_w = 300
+    arrow_x = M + left_w + 16
+    right_x = arrow_x + 46
+
+    top = BODY_TOP + 26
+    avail = BOTTOM - 40 - top
+    row_h = min(46, avail / max(len(pairs), 1))
+    if row_h < 30:
+        raise ValueError(f"「{title}」要放 {len(pairs)} 列，一列只剩 {row_h:.0f}px，放不下")
+
+    for i, (bad, good) in enumerate(pairs):
+        y = top + i * row_h
+        if i:
+            body.append(line(M, y - row_h + 14, W - M, y - row_h + 14, color="#EDEDED",
+                             sw=1))
+        body += [
+            text(M, y, "✗", size=20, color=RED, weight=700),
+            text(M + 30, y, bad, size=22, color=INK_SOFT),
+            text(arrow_x, y, "→", size=20, color=FAINT),
+            text(right_x, y, "✓", size=20, color=GREEN, weight=700),
+            text(right_x + 30, y, good, size=22, color=GREEN_DARK, weight=700),
+        ]
+    if note:
+        body += [
+            line(M, BOTTOM - 34, W - M, BOTTOM - 34, color=HAIR, sw=1.5),
+            text(M, BOTTOM, note, size=21, color=MUTED),
+        ]
+    return body
+
+
 def layout_placeholder(*, title, subtitle="", instruction, callouts):
     """需要貼實際截圖的頁面。
 
@@ -685,24 +727,22 @@ def build_slides() -> list[tuple[str, str, str]]:
             note="加了 prompt 約束後降到 2% —— 但 2% 不是 0%，所以規則層要擋在最前面。",
         ))
 
+    # 這一頁的內容全部來自 poc/data/banned_terms.json —— 包括覆蓋率那句話。
+    # 原本是照著概念手寫的四組，跟資料檔對不上；在一場講「數字要從資料來」的
+    # 演講裡，投影片自己硬寫是最不該犯的錯。
+    banned = json.loads(BANNED_TERMS_FILE.read_text(encoding="utf-8"))
+    mapping = banned["safe_alternatives"]["mapping"]
+    n_terms = len({t for v in banned.values()
+                   if isinstance(v, dict) and "terms" in v for t in v["terms"]})
+
     gen("suggest-fix.svg", "規則層能給方向",
-        "規則層不只擋，還能給出合規的替代寫法。",
-        layout_compare(
+        "規則層不只擋，還能給出合規的替代寫法；內容直接來自禁詞清單。",
+        layout_fix_pairs(
             title="規則層不只是擋，還能給方向",
             subtitle="這讓它從惹人厭的 linter 變成文案人員願意用的工具",
-            left={
-                "label": "命中禁詞", "tone": "gray",
-                "lines": ["✗ 改善視力", "✗ 預防眼部疾病", "✗ 治療乾眼",
-                          "✗ 護眼（用在保健食品）", "",
-                          "只告訴你「不行」，", "沒有人會想用這種工具。"],
-            },
-            right={
-                "label": "合規替代寫法", "tone": "green",
-                "lines": ["✓ 適合長時間使用螢幕的日常保養",
-                          "✓ 每日補充，維持日常保健",
-                          "✓ 陪伴長時間用眼的日常", "✓ 日常保養配方", "",
-                          "給了方向，才會有人真的用。"],
-            },
+            pairs=list(mapping.items()),
+            note=f"誠實地說：{n_terms} 個禁詞裡只有 {len(mapping)} 個給得出替代寫法，"
+                 f"其餘只能擋、給不了方向。剩下的要靠人或評審層。",
         ))
 
     gen("binary-rubric.svg", "不要用 1–5 分",
