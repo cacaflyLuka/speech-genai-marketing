@@ -754,9 +754,13 @@ def build_slides() -> list[tuple[str, str, str]]:
                 {"label": "v3 新增（綠色部分）", "tone": "green",
                  "lines": [
                      "response_schema = {",
-                     '  "title":           str,        # ≤60 字',
-                     '  "bullets":         [str] * 4,  # 每條 ≤30 字',
-                     '  "seo_description": str,        # ≤120 字',
+                     # 刻意不寫 # ≤60 字 這種註解，也不寫 [str] * 4：
+                     # schema 只保證形狀（欄位在、型別對），長度與條數都只是
+                     # 寫在 description 裡請模型遵守。標在這裡會暗示一個
+                     # 實測數字（賣點長度合規 98%）證明不存在的保證。
+                     '  "title":           str,',
+                     '  "bullets":         [str],',
+                     '  "seo_description": str,',
                      '  "hashtags":        [str],',
                      "}",
                      "",

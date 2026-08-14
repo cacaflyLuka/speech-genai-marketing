@@ -11,11 +11,11 @@
   <rect x="88.0" y="262.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
   <text x="96.0" y="278.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">response_schema = {</text>
   <rect x="88.0" y="286.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="302.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "title":           str,        # ≤60 字</text>
+  <text x="96.0" y="302.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "title":           str,</text>
   <rect x="88.0" y="310.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="326.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "bullets":         [str] * 4,  # 每條 ≤30 字</text>
+  <text x="96.0" y="326.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "bullets":         [str],</text>
   <rect x="88.0" y="334.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
-  <text x="96.0" y="350.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "seo_description": str,        # ≤120 字</text>
+  <text x="96.0" y="350.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "seo_description": str,</text>
   <rect x="88.0" y="358.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
   <text x="96.0" y="374.76" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "hashtags":        [str],</text>
   <rect x="88.0" y="382.76" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
