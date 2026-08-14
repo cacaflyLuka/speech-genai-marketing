@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>規則層能給方向</title>
+  <desc>規則層不只擋，還能給出合規的替代寫法。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">規則層不只是擋，還能給方向</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">這讓它從惹人厭的 linter 變成文案人員願意用的工具</text>
+  <rect x="76.0" y="206" width="544.0" height="324" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#8A8A8A" font-weight="700">命中禁詞</text>
+  <text x="104.0" y="294" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="294" font-size="20" fill="#4A4A4A">改善視力</text>
+  <text x="104.0" y="328" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="328" font-size="20" fill="#4A4A4A">預防眼部疾病</text>
+  <text x="104.0" y="362" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="362" font-size="20" fill="#4A4A4A">治療乾眼</text>
+  <text x="104.0" y="396" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="396" font-size="20" fill="#4A4A4A">護眼（用在保健食品）</text>
+  <text x="104.0" y="444" font-size="20" fill="#4A4A4A">只告訴你「不行」，</text>
+  <text x="104.0" y="478" font-size="20" fill="#4A4A4A">沒有人會想用這種工具。</text>
+  <rect x="660.0" y="206" width="544.0" height="324" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#0F4A25" font-weight="700">合規替代寫法</text>
+  <text x="688.0" y="294" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="294" font-size="20" fill="#4A4A4A">適合長時間使用螢幕的日常保養</text>
+  <text x="688.0" y="328" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="328" font-size="20" fill="#4A4A4A">每日補充，維持日常保健</text>
+  <text x="688.0" y="362" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="362" font-size="20" fill="#4A4A4A">陪伴長時間用眼的日常</text>
+  <text x="688.0" y="396" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="396" font-size="20" fill="#4A4A4A">日常保養配方</text>
+  <text x="688.0" y="444" font-size="20" fill="#4A4A4A">給了方向，才會有人真的用。</text>
+</svg>

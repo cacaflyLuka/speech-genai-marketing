@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>v2：加法規與語調</title>
+  <desc>v2 加入法規禁詞清單與品牌語調 few-shot。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v2　加法規與語調</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">這一版是唯一在語意品質上統計成立的改善</text>
+  <rect x="76.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#EF7622" stroke-width="2.5"/>
+  <rect x="76.0" y="217.08" width="548.0" height="44" rx="10" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="247.08" font-size="20" fill="#A85110" font-weight="700">法規段落</text>
+  <text x="96.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">不得使用下列字詞：</text>
+  <rect x="88.0" y="303.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  治療、預防、改善視力、</text>
+  <rect x="88.0" y="327.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  療效、根治⋯⋯</text>
+  <text x="96.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">依食安法 §28：</text>
+  <rect x="88.0" y="399.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">宣稱醫療效能</text>
+  <rect x="88.0" y="423.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">罰 60 萬 – 500 萬</text>
+  <rect x="656.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#1B6FB8" stroke-width="2.5"/>
+  <rect x="656.0" y="217.08" width="548.0" height="44" rx="10" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="247.08" font-size="20" fill="#12507F" font-weight="700">品牌語調 few-shot</text>
+  <text x="676.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">範例一</text>
+  <text x="676.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  緩釋B群錠 90錠 全素可食</text>
+  <text x="676.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  8種B群一次補齊，緩釋設計</text>
+  <text x="676.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">範例二</text>
+  <text x="676.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  甘胺酸鎂錠 120錠 睡前補充</text>
+  <text x="676.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  選用好吸收的螯合形式</text>
+  <text x="676.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <rect x="668.0" y="471.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="487.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">→ rubric 通過率 +8.9pp</text>
+  <line x1="76" y1="571.08" x2="1204" y2="571.08" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">rubric 量的正是語調與賣點覆蓋 —— 加什麼、量什麼，要對得上。</text>
+</svg>

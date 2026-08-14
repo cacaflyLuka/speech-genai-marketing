@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>法規禁詞的罰則</title>
+  <desc>台灣廣告法規的罰則級距，說明為什麼規則層要放第一層。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">這不是工程潔癖，是不做會收罰單</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">依台灣廣告法規整理，罰則差異很大</text>
+  <text x="76" y="216" font-size="19" fill="#8A8A8A" font-weight="700">罰則上限</text>
+  <text x="346.71999999999997" y="216" font-size="19" fill="#8A8A8A" font-weight="700">類別</text>
+  <text x="685.1199999999999" y="216" font-size="19" fill="#8A8A8A" font-weight="700">法源</text>
+  <text x="1194.0" y="216" font-size="19" fill="#8A8A8A" font-weight="700" text-anchor="end">實測 v0 踩雷率</text>
+  <line x1="76" y1="232" x2="1204" y2="232" stroke="#1A1A1A" stroke-width="2"/>
+  <text x="76" y="272" font-size="26" fill="#1A1A1A" font-weight="700">500 萬</text>
+  <text x="346.71999999999997" y="272" font-size="21" fill="#4A4A4A">宣稱醫療效能</text>
+  <text x="685.1199999999999" y="272" font-size="21" fill="#4A4A4A">食安法 §28 第 2 項</text>
+  <text x="1194.0" y="272" font-size="21" fill="#4A4A4A" text-anchor="end">20%</text>
+  <line x1="76" y1="318" x2="1204" y2="318" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="350" font-size="26" fill="#1A1A1A" font-weight="700">400 萬</text>
+  <text x="346.71999999999997" y="350" font-size="21" fill="#4A4A4A">不實、誇張、易生誤解</text>
+  <text x="685.1199999999999" y="350" font-size="21" fill="#4A4A4A">食安法 §28 第 1 項</text>
+  <text x="1194.0" y="350" font-size="21" fill="#4A4A4A" text-anchor="end">—</text>
+  <line x1="76" y1="396" x2="1204" y2="396" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="428" font-size="26" fill="#1A1A1A" font-weight="700">20 萬</text>
+  <text x="346.71999999999997" y="428" font-size="21" fill="#4A4A4A">化粧品虛偽誇大</text>
+  <text x="685.1199999999999" y="428" font-size="21" fill="#4A4A4A">化粧品衛管法 §10</text>
+  <text x="1194.0" y="428" font-size="21" fill="#4A4A4A" text-anchor="end">—</text>
+  <text x="76" y="642" font-size="19" fill="#8A8A8A">加了 prompt 約束後降到 2% —— 但 2% 不是 0%，所以規則層要擋在最前面。</text>
+</svg>

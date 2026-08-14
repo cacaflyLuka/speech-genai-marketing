@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>收尾：回到開場那兩段文案</title>
+  <desc>回到開場的 A/B 文案，這次有評測結果可以說明為什麼選 B。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="88" font-size="26" fill="#8A8A8A" font-weight="700">A</text>
+  <text x="660.0" y="88" font-size="26" fill="#0F4A25" font-weight="700">B</text>
+  <rect x="76.0" y="110" width="544.0" height="300" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2"/>
+  <text x="102.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">【嚴選】金賺健康 葉黃素軟膠囊 ★熱銷第一★</text>
+  <text x="102.0" y="210" font-size="19" fill="#4A4A4A">守護您的靈魂之窗！現代人３Ｃ不離身，</text>
+  <text x="102.0" y="244" font-size="19" fill="#4A4A4A">眼睛乾澀疲勞好困擾？本產品採用頂級游離型</text>
+  <text x="102.0" y="278" font-size="19" fill="#4A4A4A">葉黃素，有效改善視力模糊、預防眼部疾病，</text>
+  <text x="102.0" y="312" font-size="19" fill="#4A4A4A">讓您重拾清晰視界，告別老花困擾！</text>
+  <rect x="660.0" y="110" width="544.0" height="300" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
+  <text x="686.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">青研 游離型葉黃素軟膠囊 30粒 每粒30mg</text>
+  <text x="686.0" y="210" font-size="19" fill="#4A4A4A">· 游離型葉黃素 30mg，吸收不需再轉換</text>
+  <text x="686.0" y="244" font-size="19" fill="#4A4A4A">· 添加玉米黃素與蝦紅素，每日一粒</text>
+  <text x="686.0" y="278" font-size="19" fill="#4A4A4A">· 全素可食，無添加人工色素</text>
+  <text x="686.0" y="312" font-size="19" fill="#4A4A4A">· 適合長時間使用螢幕的日常保養</text>
+  <text x="686.0" y="448" font-size="20" fill="#0F4A25" font-weight="700">✓ 規則層全過　rubric 通過　可機器讀取</text>
+  <line x1="76" y1="500" x2="1204" y2="500" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="546" font-size="30" fill="#1A1A1A" font-weight="700">你怎麼知道它有沒有變好？</text>
+  <text x="76" y="590" font-size="22" fill="#4A4A4A">現在你有一張表可以回答 —— 而且下次改 prompt，重跑一次就知道有沒有退步。</text>
+</svg>

@@ -4,7 +4,7 @@
 # 不想用 make 的話，直接看每個 target 底下那行 uv 指令即可。
 
 .DEFAULT_GOAL := help
-.PHONY: help setup build test check lint fmt all clean
+.PHONY: help setup build slides test check lint fmt all clean
 
 help:  ## 顯示這份說明
 	@grep -E '^[a-z-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -28,7 +28,10 @@ lint:  ## 靜態檢查
 fmt:  ## 自動修正可修的問題
 	uv run ruff check --fix poc/
 
-all: build test  ## 改完程式碼後的標準流程：重新產生 notebook + 跑測試
+slides:  ## 重新產生投影片 SVG 與 talk/slides.html
+	uv run python talk/build_slides.py
+
+all: build slides test  ## 改完程式碼後的標準流程：重新產生產物 + 跑測試
 
 clean:  ## 移除虛擬環境與快取
 	rm -rf .venv .pytest_cache .ruff_cache

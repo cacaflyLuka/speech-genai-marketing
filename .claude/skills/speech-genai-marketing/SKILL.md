@@ -127,9 +127,24 @@ README 與講稿在統計上是刻意保守的，改述時不要放寬：
 - 金額字串裡的 `$` 必須跳脫成 `\$`，否則 matplotlib 會當成數學式渲染。
 - 改完一定要**實際 render 出來看**，理由同下面的 SVG。
 
-# 投影片 SVG
+# 投影片與播放器
 
-`talk/assets/*.svg` 是手刻的，不是工具產生的。約定：
+`talk/assets/` 底下有兩種檔案，**改之前先確認是哪一種**：
+
+- **22 張由 `talk/build_slides.py` 產生**，檔頭有「由 talk/build_slides.py 產生，
+  不要手改」的註解。要改就改那支檔案裡的資料或版型，再重跑 `build_slides.py`。
+  手改單張會在下次 build 時被蓋掉。
+- **6 張手繪示意圖**（`tool-map` / `eval-pyramid` / `results` / `significance` /
+  `cost-model` / `gcp-architecture`）維持手寫 SVG，只被排進播放清單。
+
+`talk/slides.html` 是產物：單一自足檔案、SVG 全部內嵌、不引用任何外部資源，
+所以離線可用（`F` 全螢幕、`O` 總覽、方向鍵換頁）。
+**不要為了方便改成從外部載入 SVG 或 CDN**，那會讓會場沒網路時開天窗。
+
+`poc/tests/test_slides.py` 守著：XML 合法、畫布尺寸一致、座標沒有超出
+1280×720、播放器包含每一頁且沒有外部引用。
+
+投影片的視覺約定：
 
 - viewBox `0 0 1280 720`，內容左邊界 x=76，右下角留給主辦方 logo
 - 字型堆疊 `'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC'`

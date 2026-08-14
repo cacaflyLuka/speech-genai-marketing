@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>探索期：Vertex AI Studio</title>
+  <desc>Vertex AI Studio 的介面重點：模型選單、temperature、比較模式。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">探索期：瀏覽器打開就能用</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">不寫程式碼，先確認這件事做不做得成</text>
+  <rect x="76" y="202" width="760" height="436" rx="10" fill="#F5F5F5" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="456.0" y="414.0" font-size="22" fill="#8A8A8A" text-anchor="middle">Vertex AI Studio 介面截圖</text>
+  <text x="456.0" y="448.0" font-size="17" fill="#B8B8B8" text-anchor="middle">（把截圖貼進這個框，右邊的標註已經排好）</text>
+  <circle cx="892" cy="254" r="16" fill="#EF7622"/>
+  <text x="892" y="261" font-size="17" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="922" y="261" font-size="21" fill="#1A1A1A" font-weight="700">模型選單</text>
+  <text x="922" y="290" font-size="17" fill="#8A8A8A">先比 flash 與 pro，不要一開始就選最貴的</text>
+  <circle cx="892" cy="350" r="16" fill="#EF7622"/>
+  <text x="892" y="357" font-size="17" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="922" y="357" font-size="21" fill="#1A1A1A" font-weight="700">temperature</text>
+  <text x="922" y="386" font-size="17" fill="#8A8A8A">生成調低一點，評審一律 0</text>
+  <circle cx="892" cy="446" r="16" fill="#EF7622"/>
+  <text x="892" y="453" font-size="17" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="922" y="453" font-size="21" fill="#1A1A1A" font-weight="700">比較模式</text>
+  <text x="922" y="482" font-size="17" fill="#8A8A8A">同一個 prompt 並排看不同模型的輸出</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>Gemini API vs Vertex AI</title>
+  <desc>兩種接法的差別：這是部署決策，不是程式碼決策。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">Gemini API 還是 Vertex AI？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">全場資訊密度最高的一頁</text>
+  <rect x="76.0" y="206" width="544.0" height="290" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#12507F" font-weight="700">Gemini API（AI Studio）</text>
+  <text x="592.0" y="250" font-size="17" fill="#12507F" font-weight="700" text-anchor="end">做原型</text>
+  <text x="104.0" y="294" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="128.0" y="294" font-size="20" fill="#4A4A4A">一把 API key 就能開始</text>
+  <text x="104.0" y="328" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="128.0" y="328" font-size="20" fill="#4A4A4A">免費額度，適合試水溫</text>
+  <text x="104.0" y="362" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="362" font-size="20" fill="#4A4A4A">計費歸個人帳號</text>
+  <text x="104.0" y="396" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="396" font-size="20" fill="#4A4A4A">沒有 VPC-SC、資料落地不可控</text>
+  <text x="104.0" y="444" font-size="20" fill="#4A4A4A">適合：一個人、一週內、還在確認可行性</text>
+  <rect x="660.0" y="206" width="544.0" height="290" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#A85110" font-weight="700">Vertex AI</text>
+  <text x="1176.0" y="250" font-size="17" fill="#A85110" font-weight="700" text-anchor="end">要上線</text>
+  <text x="688.0" y="294" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="294" font-size="20" fill="#4A4A4A">走 GCP 專案計費，成本歸屬清楚</text>
+  <text x="688.0" y="328" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="328" font-size="20" fill="#4A4A4A">IAM、VPC-SC、資料落地可控</text>
+  <text x="688.0" y="362" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="362" font-size="20" fill="#4A4A4A">可簽 DPA、過得了法遵</text>
+  <text x="688.0" y="396" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="712.0" y="396" font-size="20" fill="#4A4A4A">要先設定專案與權限</text>
+  <text x="688.0" y="444" font-size="20" fill="#4A4A4A">適合：要簽約、要稽核、要對董事會報告</text>
+  <rect x="76" y="520" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="556" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">切換只差 Client 的建構參數，其他程式碼一行都不用改</text>
+</svg>

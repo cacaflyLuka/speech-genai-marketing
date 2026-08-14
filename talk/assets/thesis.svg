@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>全場主張</title>
+  <desc>整場演講的唯一主張。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="150" font-size="22" fill="#1B6FB8" font-weight="700">今天只講一件事</text>
+  <text x="76" y="271.34" font-size="52" fill="#1A1A1A" font-weight="700">生成式 AI 的難處</text>
+  <text x="76" y="341.53999999999996" font-size="52" fill="#1A1A1A" font-weight="700">不在叫模型，</text>
+  <text x="76" y="411.74" font-size="52" fill="#1A1A1A" font-weight="700">而在你怎麼知道</text>
+  <text x="76" y="481.94" font-size="52" fill="#1A1A1A" font-weight="700">它有沒有變好。</text>
+</svg>

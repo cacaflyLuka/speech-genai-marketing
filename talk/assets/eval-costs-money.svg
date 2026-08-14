@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>評測本身要花錢</title>
+  <desc>最常被漏算的一筆成本。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="383.04" font-size="72" fill="#1A1A1A" font-weight="700">評測本身要花錢。</text>
+  <line x1="76" y1="594" x2="1204" y2="594" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="630" font-size="22" fill="#8A8A8A">大家算成本只算生成 —— 這次實測，評審佔總成本的大部分</text>
+</svg>

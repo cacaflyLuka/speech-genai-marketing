@@ -1,0 +1,2153 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>零售場景的生成式 AI — 投影片</title>
+<style>
+:root { --bg:#0d0d0d; --ui:#8A8A8A; }
+* { box-sizing:border-box; }
+html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
+  font-family:'PingFang TC','Noto Sans TC','Microsoft JhengHei',sans-serif; }
+#stage { position:fixed; inset:0; display:grid; place-items:center; }
+.slide { display:none; width:100vw; height:100vh; }
+.slide.on { display:grid; place-items:center; }
+.slide svg { width:min(100vw, calc(100vh * 16 / 9));
+  height:min(100vh, calc(100vw * 9 / 16)); display:block; }
+#bar { position:fixed; left:0; bottom:0; height:3px; background:#EF7622;
+  transition:width .18s ease; z-index:5; }
+#hud { position:fixed; right:14px; bottom:12px; color:var(--ui); font-size:13px;
+  letter-spacing:.04em; z-index:5; user-select:none; }
+#hud b { color:#fff; font-weight:600; }
+#help { position:fixed; left:14px; bottom:12px; color:var(--ui); font-size:12px;
+  z-index:5; opacity:.55; }
+#grid { position:fixed; inset:0; background:var(--bg); overflow:auto; padding:28px;
+  display:none; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px;
+  z-index:10; align-content:start; }
+#grid.on { display:grid; }
+#grid figure { margin:0; cursor:pointer; border:2px solid transparent; border-radius:8px;
+  overflow:hidden; background:#fff; }
+#grid figure:hover, #grid figure.cur { border-color:#EF7622; }
+#grid svg { width:100%; height:auto; display:block; pointer-events:none; }
+#grid figcaption { color:#c9c9c9; font-size:12px; padding:6px 8px; background:#161616; }
+@media print {
+  html,body { background:#fff; overflow:visible; }
+  #bar,#hud,#help,#grid { display:none !important; }
+  .slide { display:block !important; width:100%; height:auto;
+    page-break-after:always; break-after:page; }
+  .slide svg { width:100%; height:auto; }
+}
+</style>
+</head>
+<body>
+<div id="stage"><section class="slide" data-name="open-ab.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>開場：兩段商品文案</title>
+  <desc>同一個商品的兩段文案並排，不給任何提示，讓聽眾自己判斷哪一段能上線。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="88" font-size="26" fill="#8A8A8A" font-weight="700">A</text>
+  <text x="660.0" y="88" font-size="26" fill="#8A8A8A" font-weight="700">B</text>
+  <rect x="76.0" y="110" width="544.0" height="500" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2"/>
+  <text x="102.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">【嚴選】金賺健康 葉黃素軟膠囊 ★熱銷第一★</text>
+  <text x="102.0" y="210" font-size="19" fill="#4A4A4A">守護您的靈魂之窗！現代人３Ｃ不離身，</text>
+  <text x="102.0" y="244" font-size="19" fill="#4A4A4A">眼睛乾澀疲勞好困擾？本產品採用頂級游離型</text>
+  <text x="102.0" y="278" font-size="19" fill="#4A4A4A">葉黃素，有效改善視力模糊、預防眼部疾病，</text>
+  <text x="102.0" y="312" font-size="19" fill="#4A4A4A">讓您重拾清晰視界，告別老花困擾！</text>
+  <rect x="660.0" y="110" width="544.0" height="500" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2"/>
+  <text x="686.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">青研 游離型葉黃素軟膠囊 30粒 每粒30mg</text>
+  <text x="686.0" y="210" font-size="19" fill="#4A4A4A">· 游離型葉黃素 30mg，吸收不需再轉換</text>
+  <text x="686.0" y="244" font-size="19" fill="#4A4A4A">· 添加玉米黃素與蝦紅素，每日一粒</text>
+  <text x="686.0" y="278" font-size="19" fill="#4A4A4A">· 全素可食，無添加人工色素</text>
+  <text x="686.0" y="312" font-size="19" fill="#4A4A4A">· 適合長時間使用螢幕的日常保養</text>
+</svg></section><section class="slide" data-name="question.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>把問題丟出來</title>
+  <desc>開場提問：你要怎麼跟工程師說這版比較好。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="339.41" font-size="58" fill="#1A1A1A" font-weight="700">那你要怎麼跟工程師說：</text>
+  <text x="76" y="417.71000000000004" font-size="58" fill="#1A1A1A" font-weight="700">這版比較好，上線吧？</text>
+</svg></section><section class="slide" data-name="thesis.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>全場主張</title>
+  <desc>整場演講的唯一主張。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="150" font-size="22" fill="#1B6FB8" font-weight="700">今天只講一件事</text>
+  <text x="76" y="271.34" font-size="52" fill="#1A1A1A" font-weight="700">生成式 AI 的難處</text>
+  <text x="76" y="341.53999999999996" font-size="52" fill="#1A1A1A" font-weight="700">不在叫模型，</text>
+  <text x="76" y="411.74" font-size="52" fill="#1A1A1A" font-weight="700">而在你怎麼知道</text>
+  <text x="76" y="481.94" font-size="52" fill="#1A1A1A" font-weight="700">它有沒有變好。</text>
+</svg></section><section class="slide" data-name="agenda.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>議程</title>
+  <desc>四段議程與聽眾會帶走的東西。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">今天的四段</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">一條因果鏈，不是四個平行主題</text>
+  <circle cx="94" cy="218" r="18" fill="#1B6FB8"/>
+  <text x="94" y="225" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="132" y="214" font-size="26" fill="#1A1A1A" font-weight="700">Vertex AI Studio</text>
+  <text x="132" y="246" font-size="19" fill="#4A4A4A">探索：這件事到底做不做得成</text>
+  <text x="1204" y="220" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">5 分鐘</text>
+  <circle cx="94" cy="310" r="18" fill="#1B6FB8"/>
+  <text x="94" y="317" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="132" y="306" font-size="26" fill="#1A1A1A" font-weight="700">API 串接</text>
+  <text x="132" y="338" font-size="19" fill="#4A4A4A">整合：能不能貼進現有系統</text>
+  <text x="1204" y="312" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">8 分鐘</text>
+  <circle cx="94" cy="402" r="18" fill="#1B6FB8"/>
+  <text x="94" y="409" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="132" y="398" font-size="26" fill="#1A1A1A" font-weight="700">Prompt 設計</text>
+  <text x="132" y="430" font-size="19" fill="#4A4A4A">規格化：把要求寫成可檢查的條件</text>
+  <text x="1204" y="404" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">4 分鐘</text>
+  <circle cx="94" cy="494" r="18" fill="#1B6FB8"/>
+  <text x="94" y="501" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">4</text>
+  <text x="132" y="490" font-size="26" fill="#1A1A1A" font-weight="700">評測流程</text>
+  <text x="132" y="522" font-size="19" fill="#4A4A4A">驗收：怎麼證明它變好了</text>
+  <text x="1204" y="496" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">12 分鐘</text>
+  <line x1="76" y1="604" x2="1204" y2="604" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="638" font-size="21" fill="#8A8A8A">你會帶走：一張能重跑的評測表，和一份算得出來的成本</text>
+</svg></section><section class="slide" data-name="tool-map.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>GCP 生成式 AI 三層工具地圖</title>
+  <desc>依專案階段（探索／整合／上線）而非產品線劃分的 GCP 生成式 AI 工具地圖</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A8A"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">GCP 生成式 AI：三層工具地圖</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">依你在哪個階段劃分，不是依產品線</text>
+
+  <!-- ===================== 1 探索期 ===================== -->
+  <g>
+    <rect x="76" y="192" width="360" height="300" rx="14" fill="#E9F2FB" stroke="#A9CDEE" stroke-width="2"/>
+    <rect x="76" y="192" width="360" height="6" rx="3" fill="#1B6FB8"/>
+
+    <circle cx="114" cy="242" r="20" fill="#1B6FB8"/>
+    <text x="114" y="250" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+    <text x="148" y="250" font-size="28" font-weight="700" fill="#12507F">探索期</text>
+    <text x="262" y="249" font-size="18" fill="#1B6FB8">約 2 週</text>
+
+    <text x="104" y="308" font-size="23" font-weight="600" fill="#1A1A1A">Vertex AI Studio</text>
+    <text x="104" y="342" font-size="18" fill="#4A4A4A">瀏覽器打開就能用</text>
+    <text x="104" y="372" font-size="18" fill="#4A4A4A">改 prompt、比模型、調參數</text>
+
+    <line x1="104" y1="404" x2="408" y2="404" stroke="#A9CDEE" stroke-width="1.5"/>
+    <text x="104" y="440" font-size="16" font-weight="700" fill="#1B6FB8">要回答的問題</text>
+    <text x="104" y="470" font-size="20" fill="#1A1A1A">做不做得成？</text>
+  </g>
+
+  <!-- ===================== 2 整合期 ===================== -->
+  <g>
+    <rect x="460" y="192" width="360" height="300" rx="14" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
+    <rect x="460" y="192" width="360" height="6" rx="3" fill="#EF7622"/>
+
+    <circle cx="498" cy="242" r="20" fill="#EF7622"/>
+    <text x="498" y="250" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+    <text x="532" y="250" font-size="28" font-weight="700" fill="#A85110">整合期</text>
+    <text x="646" y="249" font-size="18" fill="#EF7622">約 4 週</text>
+
+    <text x="488" y="308" font-size="23" font-weight="600" fill="#1A1A1A">Gemini API / Vertex AI</text>
+    <text x="488" y="342" font-size="18" fill="#4A4A4A">prompt 變成程式碼</text>
+    <text x="488" y="372" font-size="18" fill="#4A4A4A">structured output 接進系統</text>
+
+    <line x1="488" y1="404" x2="792" y2="404" stroke="#F8C99A" stroke-width="1.5"/>
+    <text x="488" y="440" font-size="16" font-weight="700" fill="#C45E12">要回答的問題</text>
+    <text x="488" y="470" font-size="20" fill="#1A1A1A">能不能貼進 PIM？</text>
+  </g>
+
+  <!-- ===================== 3 上線期 ===================== -->
+  <g>
+    <rect x="844" y="192" width="360" height="300" rx="14" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
+    <rect x="844" y="192" width="360" height="6" rx="3" fill="#C2510A"/>
+
+    <circle cx="882" cy="242" r="20" fill="#C2510A"/>
+    <text x="882" y="250" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+    <text x="916" y="250" font-size="28" font-weight="700" fill="#8A3A06">上線期</text>
+    <text x="1030" y="249" font-size="18" fill="#C2510A">約 6 週</text>
+
+    <text x="872" y="308" font-size="23" font-weight="600" fill="#1A1A1A">評測 + 監控</text>
+    <text x="872" y="342" font-size="18" fill="#4A4A4A">規則層 / Gen AI Evaluation</text>
+    <text x="872" y="372" font-size="18" fill="#4A4A4A">回歸測試、日誌</text>
+
+    <line x1="872" y1="404" x2="1176" y2="404" stroke="#EFB183" stroke-width="1.5"/>
+    <text x="872" y="440" font-size="16" font-weight="700" fill="#A34408">要回答的問題</text>
+    <text x="872" y="470" font-size="20" font-weight="700" fill="#1A1A1A">有沒有變好？</text>
+  </g>
+
+  <!-- 進程箭頭 -->
+  <line x1="76" y1="546" x2="1204" y2="546" stroke="#8A8A8A" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 一句話，其餘用講的 -->
+  <text x="640" y="626" font-size="26" font-weight="700" fill="#8A3A06" text-anchor="middle">多數團隊跳過第三層</text>
+</svg></section><section class="slide" data-name="studio.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>探索期：Vertex AI Studio</title>
+  <desc>Vertex AI Studio 的介面重點：模型選單、temperature、比較模式。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">探索期：瀏覽器打開就能用</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">不寫程式碼，先確認這件事做不做得成</text>
+  <rect x="76" y="202" width="760" height="436" rx="10" fill="#F5F5F5" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="456.0" y="414.0" font-size="22" fill="#8A8A8A" text-anchor="middle">Vertex AI Studio 介面截圖</text>
+  <text x="456.0" y="448.0" font-size="17" fill="#B8B8B8" text-anchor="middle">（把截圖貼進這個框，右邊的標註已經排好）</text>
+  <circle cx="892" cy="254" r="16" fill="#EF7622"/>
+  <text x="892" y="261" font-size="17" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="922" y="261" font-size="21" fill="#1A1A1A" font-weight="700">模型選單</text>
+  <text x="922" y="290" font-size="17" fill="#8A8A8A">先比 flash 與 pro，不要一開始就選最貴的</text>
+  <circle cx="892" cy="350" r="16" fill="#EF7622"/>
+  <text x="892" y="357" font-size="17" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="922" y="357" font-size="21" fill="#1A1A1A" font-weight="700">temperature</text>
+  <text x="922" y="386" font-size="17" fill="#8A8A8A">生成調低一點，評審一律 0</text>
+  <circle cx="892" cy="446" r="16" fill="#EF7622"/>
+  <text x="892" y="453" font-size="17" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="922" y="453" font-size="21" fill="#1A1A1A" font-weight="700">比較模式</text>
+  <text x="922" y="482" font-size="17" fill="#8A8A8A">同一個 prompt 並排看不同模型的輸出</text>
+</svg></section><section class="slide" data-name="api-vs-vertex.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>Gemini API vs Vertex AI</title>
+  <desc>兩種接法的差別：這是部署決策，不是程式碼決策。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">Gemini API 還是 Vertex AI？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">全場資訊密度最高的一頁</text>
+  <rect x="76.0" y="206" width="544.0" height="290" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#12507F" font-weight="700">Gemini API（AI Studio）</text>
+  <text x="592.0" y="250" font-size="17" fill="#12507F" font-weight="700" text-anchor="end">做原型</text>
+  <text x="104.0" y="294" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="128.0" y="294" font-size="20" fill="#4A4A4A">一把 API key 就能開始</text>
+  <text x="104.0" y="328" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="128.0" y="328" font-size="20" fill="#4A4A4A">免費額度，適合試水溫</text>
+  <text x="104.0" y="362" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="362" font-size="20" fill="#4A4A4A">計費歸個人帳號</text>
+  <text x="104.0" y="396" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="396" font-size="20" fill="#4A4A4A">沒有 VPC-SC、資料落地不可控</text>
+  <text x="104.0" y="444" font-size="20" fill="#4A4A4A">適合：一個人、一週內、還在確認可行性</text>
+  <rect x="660.0" y="206" width="544.0" height="290" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#A85110" font-weight="700">Vertex AI</text>
+  <text x="1176.0" y="250" font-size="17" fill="#A85110" font-weight="700" text-anchor="end">要上線</text>
+  <text x="688.0" y="294" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="294" font-size="20" fill="#4A4A4A">走 GCP 專案計費，成本歸屬清楚</text>
+  <text x="688.0" y="328" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="328" font-size="20" fill="#4A4A4A">IAM、VPC-SC、資料落地可控</text>
+  <text x="688.0" y="362" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="362" font-size="20" fill="#4A4A4A">可簽 DPA、過得了法遵</text>
+  <text x="688.0" y="396" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="712.0" y="396" font-size="20" fill="#4A4A4A">要先設定專案與權限</text>
+  <text x="688.0" y="444" font-size="20" fill="#4A4A4A">適合：要簽約、要稽核、要對董事會報告</text>
+  <rect x="76" y="520" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="556" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">切換只差 Client 的建構參數，其他程式碼一行都不用改</text>
+</svg></section><section class="slide" data-name="layer3.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>上線期：評測與監控</title>
+  <desc>第三層是多數團隊跳過的一層，也是今天的重點。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">上線期：多數團隊跳過的那一層</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">前兩層做完只代表「跑得動」，不代表「敢上線」</text>
+  <rect x="76.0" y="206" width="357.3333333333333" height="210" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="98.0" y="250" font-size="23" fill="#8A8A8A" font-weight="700">1　探索</text>
+  <text x="98.0" y="288" font-size="18" fill="#4A4A4A">Vertex AI Studio</text>
+  <text x="98.0" y="316" font-size="18" fill="#4A4A4A">做不做得成？</text>
+  <text x="98.0" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="98.0" y="372" font-size="18" fill="#4A4A4A">多數團隊：做了</text>
+  <rect x="461.3333333333333" y="206" width="357.3333333333333" height="210" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="483.3333333333333" y="250" font-size="23" fill="#8A8A8A" font-weight="700">2　整合</text>
+  <text x="483.3333333333333" y="288" font-size="18" fill="#4A4A4A">Gemini API / Vertex AI</text>
+  <text x="483.3333333333333" y="316" font-size="18" fill="#4A4A4A">能不能貼進系統？</text>
+  <text x="483.3333333333333" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="483.3333333333333" y="372" font-size="18" fill="#4A4A4A">多數團隊：做了</text>
+  <rect x="846.6666666666666" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="868.6666666666666" y="250" font-size="23" fill="#A85110" font-weight="700">3　上線</text>
+  <text x="868.6666666666666" y="288" font-size="18" fill="#4A4A4A">評測 + 監控</text>
+  <text x="868.6666666666666" y="316" font-size="18" fill="#4A4A4A">有沒有變好？</text>
+  <text x="868.6666666666666" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="868.6666666666666" y="372" font-size="18" fill="#4A4A4A">多數團隊：跳過 ←</text>
+  <text x="76" y="654" font-size="20" fill="#8A8A8A">跳過第三層的專案，通常上線後才發現沒有人能判斷好壞</text>
+</svg></section><section class="slide" data-name="prompt-v0.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>v0：什麼都不給</title>
+  <desc>最常見的第一版 prompt，以及它產生的文案。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v0　什麼都不給</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">大多數人第一次寫的 prompt</text>
+  <rect x="76.0" y="249.72" width="548.0" height="224" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="76.0" y="249.72" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="279.72" font-size="20" fill="#8A8A8A" font-weight="700">prompt</text>
+  <text x="96.0" y="327.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">請幫這個商品寫一段</text>
+  <text x="96.0" y="351.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">電商文案。</text>
+  <text x="96.0" y="375.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="399.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">商品：游離型葉黃素</text>
+  <text x="96.0" y="423.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">　　　30mg／30粒</text>
+  <rect x="656.0" y="249.72" width="548.0" height="224" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="656.0" y="249.72" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="279.72" font-size="20" fill="#8A8A8A" font-weight="700">產出</text>
+  <text x="676.0" y="327.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">守護您的靈魂之窗！</text>
+  <text x="676.0" y="351.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">現代人３Ｃ不離身⋯⋯</text>
+  <text x="676.0" y="375.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">有效改善視力模糊、</text>
+  <text x="676.0" y="399.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">預防眼部疾病，</text>
+  <text x="676.0" y="423.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">重拾清晰視界！</text>
+  <line x1="76" y1="507.72" x2="1204" y2="507.72" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="543.72" font-size="21" fill="#8A8A8A">文筆很好。但它不能用 —— 長度不知道、規格沒寫、而且踩了法規。</text>
+</svg></section><section class="slide" data-name="prompt-v1.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>v1：加通路約束</title>
+  <desc>v1 加入角色、受眾、字數與必含規格。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v1　加通路約束</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">只加一件事：把「規格」寫進去</text>
+  <rect x="76.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#1B6FB8" stroke-width="2.5"/>
+  <rect x="76.0" y="217.08" width="548.0" height="44" rx="10" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="247.08" font-size="20" fill="#12507F" font-weight="700">v1 新增（藍色部分）</text>
+  <text x="96.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">你是電商文案編輯。</text>
+  <text x="96.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">受眾：30-50 歲上班族。</text>
+  <text x="96.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <rect x="88.0" y="351.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">標題 ≤ 60 字</text>
+  <rect x="88.0" y="375.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">賣點 4 條，每條 ≤ 30 字</text>
+  <rect x="88.0" y="399.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">SEO 描述 ≤ 120 字</text>
+  <text x="96.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <rect x="88.0" y="447.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">必須寫出：游離型、30mg、30粒</text>
+  <rect x="656.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="656.0" y="217.08" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="247.08" font-size="20" fill="#8A8A8A" font-weight="700">修好了什麼</text>
+  <text x="676.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">標題長度合規　74% → 100%</text>
+  <text x="676.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">規格完整覆蓋　82% →  98%</text>
+  <text x="676.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">法規禁詞 0 命中　80% → 98%</text>
+  <text x="676.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">語意品質（rubric）：</text>
+  <text x="676.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">沒有統計上的改善。</text>
+  <text x="676.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">合理 —— v1 加的是字數與規格，</text>
+  <text x="676.0" y="487.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">不是語氣指引。</text>
+  <line x1="76" y1="571.08" x2="1204" y2="571.08" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">每一版只加一件事，表格上每一欄的改善才能歸因到單一改動。</text>
+</svg></section><section class="slide" data-name="prompt-v2.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>v2：加法規與語調</title>
+  <desc>v2 加入法規禁詞清單與品牌語調 few-shot。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v2　加法規與語調</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">這一版是唯一在語意品質上統計成立的改善</text>
+  <rect x="76.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#EF7622" stroke-width="2.5"/>
+  <rect x="76.0" y="217.08" width="548.0" height="44" rx="10" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="247.08" font-size="20" fill="#A85110" font-weight="700">法規段落</text>
+  <text x="96.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">不得使用下列字詞：</text>
+  <rect x="88.0" y="303.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  治療、預防、改善視力、</text>
+  <rect x="88.0" y="327.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  療效、根治⋯⋯</text>
+  <text x="96.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">依食安法 §28：</text>
+  <rect x="88.0" y="399.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">宣稱醫療效能</text>
+  <rect x="88.0" y="423.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">罰 60 萬 – 500 萬</text>
+  <rect x="656.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#1B6FB8" stroke-width="2.5"/>
+  <rect x="656.0" y="217.08" width="548.0" height="44" rx="10" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="247.08" font-size="20" fill="#12507F" font-weight="700">品牌語調 few-shot</text>
+  <text x="676.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">範例一</text>
+  <text x="676.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  緩釋B群錠 90錠 全素可食</text>
+  <text x="676.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  8種B群一次補齊，緩釋設計</text>
+  <text x="676.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">範例二</text>
+  <text x="676.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  甘胺酸鎂錠 120錠 睡前補充</text>
+  <text x="676.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  選用好吸收的螯合形式</text>
+  <text x="676.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <rect x="668.0" y="471.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="487.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">→ rubric 通過率 +8.9pp</text>
+  <line x1="76" y1="571.08" x2="1204" y2="571.08" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">rubric 量的正是語調與賣點覆蓋 —— 加什麼、量什麼，要對得上。</text>
+</svg></section><section class="slide" data-name="prompt-v3.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>v3：結構化輸出</title>
+  <desc>v3 用 responseSchema 約束輸出格式，而不是在 prompt 裡拜託模型。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v3　結構化輸出</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">唯一的差別是多了 responseSchema</text>
+  <rect x="76.0" y="225.24" width="548.0" height="296" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="76.0" y="225.24" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="255.24" font-size="20" fill="#8A8A8A" font-weight="700">不要這樣做</text>
+  <text x="96.0" y="303.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">prompt 裡寫：</text>
+  <rect x="88.0" y="311.24" width="524.0" height="24" rx="4" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="327.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "請以 JSON 格式輸出"</text>
+  <text x="96.0" y="351.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="375.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">模型會照做九成的時間。</text>
+  <text x="96.0" y="399.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">剩下那一成，</text>
+  <text x="96.0" y="423.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">你的 parser 就掛了。</text>
+  <rect x="656.0" y="225.24" width="548.0" height="296" rx="10" fill="#ffffff" stroke="#166534" stroke-width="2.5"/>
+  <rect x="656.0" y="225.24" width="548.0" height="44" rx="10" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="255.24" font-size="20" fill="#0F4A25" font-weight="700">要這樣做</text>
+  <rect x="668.0" y="287.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="303.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">response_schema = {</text>
+  <rect x="668.0" y="311.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="327.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "title":   str,  # ≤60</text>
+  <rect x="668.0" y="335.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="351.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "bullets": [str] * 4,</text>
+  <rect x="668.0" y="359.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="375.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "seo_desc": str, # ≤120</text>
+  <rect x="668.0" y="383.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="399.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">}</text>
+  <text x="676.0" y="423.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="447.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">模型被解碼器約束在 schema 內。</text>
+  <text x="676.0" y="471.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">那一成的失敗會消失。</text>
+  <line x1="76" y1="555.24" x2="1204" y2="555.24" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="591.24" font-size="21" fill="#8A8A8A">可機器讀取：0% → 100%。這不需要統計檢定。</text>
+</svg></section><section class="slide" data-name="only-v3.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>關鍵訊息：只有 v3 能接進系統</title>
+  <desc>前三版都只是聊天，只有結構化輸出能進系統。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="339.41" font-size="58" fill="#1A1A1A" font-weight="700">只有 v3 能接進系統。</text>
+  <text x="76" y="417.71000000000004" font-size="58" fill="#1A1A1A" font-weight="700">前面三版都只是聊天。</text>
+  <line x1="76" y1="594" x2="1204" y2="594" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="630" font-size="22" fill="#8A8A8A">v3 沒有讓文案變好，是讓文案變得可用 —— 這是兩件事，你兩個都需要</text>
+</svg></section><section class="slide" data-name="eval-pyramid.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>三層評測</title>
+  <desc>由便宜到貴的三層評測：規則層、LLM judge、人工抽樣，含各層成本與延遲</desc>
+
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B6FB8"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">三層評測：由便宜到貴</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">順序很重要</text>
+
+  <!-- ============ 金字塔 ============ -->
+  <path d="M 500 186 L 620 186 L 670 292 L 450 292 Z" fill="#F7D4BC" stroke="#C2510A" stroke-width="2.5"/>
+  <text x="560" y="244" font-size="25" font-weight="700" fill="#8A3A06" text-anchor="middle">人工抽樣</text>
+
+  <path d="M 450 296 L 670 296 L 730 420 L 390 420 Z" fill="#FBE0C6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="560" y="352" font-size="25" font-weight="700" fill="#A85110" text-anchor="middle">LLM as judge</text>
+  <text x="560" y="388" font-size="18" fill="#C45E12" text-anchor="middle">語調、賣點覆蓋</text>
+
+  <path d="M 390 424 L 730 424 L 800 580 L 320 580 Z" fill="#DCEAF8" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="560" y="482" font-size="27" font-weight="700" fill="#12507F" text-anchor="middle">規則層</text>
+  <text x="560" y="518" font-size="18" fill="#1B6FB8" text-anchor="middle">長度、格式、必含規格</text>
+  <text x="560" y="548" font-size="19" font-weight="700" fill="#12507F" text-anchor="middle">法規禁詞</text>
+
+  <text x="180" y="490" font-size="23" font-weight="700" fill="#1B6FB8" text-anchor="middle">先建</text>
+  <text x="180" y="522" font-size="23" font-weight="700" fill="#1B6FB8" text-anchor="middle">這一層</text>
+  <line x1="248" y1="512" x2="336" y2="512" stroke="#1B6FB8" stroke-width="3" marker-end="url(#a2)"/>
+
+  <!-- ============ 右側屬性 ============ -->
+  <g>
+    <text x="880" y="196" font-size="17" font-weight="700" fill="#8A8A8A">成本</text>
+    <text x="1050" y="196" font-size="17" font-weight="700" fill="#8A8A8A">延遲</text>
+
+    <line x1="680" y1="240" x2="860" y2="240" stroke="#EDEDED" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="880" y="248" font-size="21" font-weight="700" fill="#C2510A">最貴</text>
+    <text x="1050" y="248" font-size="21" fill="#4A4A4A">天</text>
+
+    <line x1="712" y1="364" x2="860" y2="364" stroke="#EDEDED" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="880" y="372" font-size="21" font-weight="700" fill="#EF7622">中</text>
+    <text x="1050" y="372" font-size="21" fill="#4A4A4A">秒</text>
+
+    <line x1="782" y1="500" x2="860" y2="500" stroke="#EDEDED" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="880" y="508" font-size="21" font-weight="700" fill="#1B6FB8">免費</text>
+    <text x="1050" y="508" font-size="21" fill="#4A4A4A">毫秒</text>
+  </g>
+
+  <!-- ============ 實測數字 ============ -->
+  <rect x="76" y="614" width="1128" height="62" rx="10" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
+  <text x="640" y="654" font-size="24" fill="#8A3A06" text-anchor="middle">
+    <tspan font-weight="700">評審佔總成本 83%</tspan><tspan dx="22">—— 50 筆實測</tspan>
+  </text>
+</svg></section><section class="slide" data-name="penalties.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>法規禁詞的罰則</title>
+  <desc>台灣廣告法規的罰則級距，說明為什麼規則層要放第一層。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">這不是工程潔癖，是不做會收罰單</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">依台灣廣告法規整理，罰則差異很大</text>
+  <text x="76" y="216" font-size="19" fill="#8A8A8A" font-weight="700">罰則上限</text>
+  <text x="346.71999999999997" y="216" font-size="19" fill="#8A8A8A" font-weight="700">類別</text>
+  <text x="685.1199999999999" y="216" font-size="19" fill="#8A8A8A" font-weight="700">法源</text>
+  <text x="1194.0" y="216" font-size="19" fill="#8A8A8A" font-weight="700" text-anchor="end">實測 v0 踩雷率</text>
+  <line x1="76" y1="232" x2="1204" y2="232" stroke="#1A1A1A" stroke-width="2"/>
+  <text x="76" y="272" font-size="26" fill="#1A1A1A" font-weight="700">500 萬</text>
+  <text x="346.71999999999997" y="272" font-size="21" fill="#4A4A4A">宣稱醫療效能</text>
+  <text x="685.1199999999999" y="272" font-size="21" fill="#4A4A4A">食安法 §28 第 2 項</text>
+  <text x="1194.0" y="272" font-size="21" fill="#4A4A4A" text-anchor="end">20%</text>
+  <line x1="76" y1="318" x2="1204" y2="318" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="350" font-size="26" fill="#1A1A1A" font-weight="700">400 萬</text>
+  <text x="346.71999999999997" y="350" font-size="21" fill="#4A4A4A">不實、誇張、易生誤解</text>
+  <text x="685.1199999999999" y="350" font-size="21" fill="#4A4A4A">食安法 §28 第 1 項</text>
+  <text x="1194.0" y="350" font-size="21" fill="#4A4A4A" text-anchor="end">—</text>
+  <line x1="76" y1="396" x2="1204" y2="396" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="428" font-size="26" fill="#1A1A1A" font-weight="700">20 萬</text>
+  <text x="346.71999999999997" y="428" font-size="21" fill="#4A4A4A">化粧品虛偽誇大</text>
+  <text x="685.1199999999999" y="428" font-size="21" fill="#4A4A4A">化粧品衛管法 §10</text>
+  <text x="1194.0" y="428" font-size="21" fill="#4A4A4A" text-anchor="end">—</text>
+  <text x="76" y="642" font-size="19" fill="#8A8A8A">加了 prompt 約束後降到 2% —— 但 2% 不是 0%，所以規則層要擋在最前面。</text>
+</svg></section><section class="slide" data-name="suggest-fix.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>規則層能給方向</title>
+  <desc>規則層不只擋，還能給出合規的替代寫法。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">規則層不只是擋，還能給方向</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">這讓它從惹人厭的 linter 變成文案人員願意用的工具</text>
+  <rect x="76.0" y="206" width="544.0" height="324" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#8A8A8A" font-weight="700">命中禁詞</text>
+  <text x="104.0" y="294" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="294" font-size="20" fill="#4A4A4A">改善視力</text>
+  <text x="104.0" y="328" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="328" font-size="20" fill="#4A4A4A">預防眼部疾病</text>
+  <text x="104.0" y="362" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="362" font-size="20" fill="#4A4A4A">治療乾眼</text>
+  <text x="104.0" y="396" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="396" font-size="20" fill="#4A4A4A">護眼（用在保健食品）</text>
+  <text x="104.0" y="444" font-size="20" fill="#4A4A4A">只告訴你「不行」，</text>
+  <text x="104.0" y="478" font-size="20" fill="#4A4A4A">沒有人會想用這種工具。</text>
+  <rect x="660.0" y="206" width="544.0" height="324" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#0F4A25" font-weight="700">合規替代寫法</text>
+  <text x="688.0" y="294" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="294" font-size="20" fill="#4A4A4A">適合長時間使用螢幕的日常保養</text>
+  <text x="688.0" y="328" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="328" font-size="20" fill="#4A4A4A">每日補充，維持日常保健</text>
+  <text x="688.0" y="362" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="362" font-size="20" fill="#4A4A4A">陪伴長時間用眼的日常</text>
+  <text x="688.0" y="396" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="396" font-size="20" fill="#4A4A4A">日常保養配方</text>
+  <text x="688.0" y="444" font-size="20" fill="#4A4A4A">給了方向，才會有人真的用。</text>
+</svg></section><section class="slide" data-name="binary-rubric.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>不要用 1–5 分</title>
+  <desc>Likert 分數與二元 rubric 的對照。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">LLM as judge：不要用 1–5 分</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">把一個模糊的大問題，拆成一組可檢查的 yes/no 小問題</text>
+  <rect x="76.0" y="206" width="544.0" height="366" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#8A8A8A" font-weight="700">1–5 分</text>
+  <text x="592.0" y="250" font-size="17" fill="#8A8A8A" font-weight="700" text-anchor="end">不要</text>
+  <text x="104.0" y="294" font-size="20" fill="#4A4A4A">「這份文案的品質有幾分？」</text>
+  <text x="104.0" y="342" font-size="20" fill="#4A4A4A">→ 3.8 / 5</text>
+  <text x="104.0" y="390" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="390" font-size="20" fill="#4A4A4A">分數擠在 3–4 分</text>
+  <text x="104.0" y="424" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="424" font-size="20" fill="#4A4A4A">今天 4 分明天 3 分</text>
+  <text x="104.0" y="458" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="458" font-size="20" fill="#4A4A4A">換評審模型整組平移</text>
+  <text x="104.0" y="492" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="492" font-size="20" fill="#4A4A4A">寫得長就拿高分</text>
+  <text x="104.0" y="526" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="526" font-size="20" fill="#4A4A4A">「3.8 分」無法行動</text>
+  <rect x="660.0" y="206" width="544.0" height="366" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#0F4A25" font-weight="700">二元 rubric</text>
+  <text x="1176.0" y="250" font-size="17" fill="#0F4A25" font-weight="700" text-anchor="end">要</text>
+  <text x="688.0" y="294" font-size="20" fill="#4A4A4A">「文案是否寫出游離型 30mg？」</text>
+  <text x="688.0" y="342" font-size="20" fill="#4A4A4A">→ 否</text>
+  <text x="688.0" y="390" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="390" font-size="20" fill="#4A4A4A">明確、可重現</text>
+  <text x="688.0" y="424" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="424" font-size="20" fill="#4A4A4A">可累積成一張表</text>
+  <text x="688.0" y="458" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="458" font-size="20" fill="#4A4A4A">直接對應修改動作</text>
+  <text x="688.0" y="492" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="492" font-size="20" fill="#4A4A4A">像單元測試</text>
+  <text x="688.0" y="526" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="526" font-size="20" fill="#4A4A4A">知道要補什麼</text>
+  <rect x="76" y="596" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="632" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">Vertex AI Gen AI Evaluation 的 adaptive rubrics 就是這個思路</text>
+</svg></section><section class="slide" data-name="rubric-list.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>真實的 rubric 清單</title>
+  <desc>從商品資料生成的驗收清單，v0～v3 共用同一份。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">每個商品一份驗收清單</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">只看商品資料生成，不看被評的文案 —— v0～v3 共用同一份考卷</text>
+  <circle cx="94" cy="218.0" r="18" fill="#1B6FB8"/>
+  <text x="94" y="225.0" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="132" y="214.0" font-size="26" fill="#1A1A1A" font-weight="700">文案是否寫出「游離型」？</text>
+  <text x="132" y="246.0" font-size="19" fill="#4A4A4A">規格</text>
+  <text x="1204" y="220.0" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">★ 未過就不該上架</text>
+  <circle cx="94" cy="293.2" r="18" fill="#1B6FB8"/>
+  <text x="94" y="300.2" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="132" y="289.2" font-size="26" fill="#1A1A1A" font-weight="700">是否寫出含量 30mg？</text>
+  <text x="132" y="321.2" font-size="19" fill="#4A4A4A">規格</text>
+  <text x="1204" y="295.2" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">★ 未過就不該上架</text>
+  <circle cx="94" cy="368.4" r="18" fill="#1B6FB8"/>
+  <text x="94" y="375.4" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="132" y="364.4" font-size="26" fill="#1A1A1A" font-weight="700">是否提及全素可食？</text>
+  <text x="132" y="396.4" font-size="19" fill="#4A4A4A">規格</text>
+  <circle cx="94" cy="443.6" r="18" fill="#1B6FB8"/>
+  <text x="94" y="450.6" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">4</text>
+  <text x="132" y="439.6" font-size="26" fill="#1A1A1A" font-weight="700">語氣是否克制、無誇大？</text>
+  <text x="132" y="471.6" font-size="19" fill="#4A4A4A">語調</text>
+  <circle cx="94" cy="518.8" r="18" fill="#1B6FB8"/>
+  <text x="94" y="525.8" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">5</text>
+  <text x="132" y="514.8" font-size="26" fill="#1A1A1A" font-weight="700">四條賣點是否各自獨立？</text>
+  <text x="132" y="546.8" font-size="19" fill="#4A4A4A">結構</text>
+  <line x1="76" y1="604" x2="1204" y2="604" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="638" font-size="21" fill="#8A8A8A">若讓評審看著文案即興出題，等於每個版本考不同的考卷 —— 那張表就沒有意義了。</text>
+</svg></section><section class="slide" data-name="judge-bias.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>judge 的偏誤</title>
+  <desc>LLM 評審的三種已知偏誤與各自的緩解方式。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">評審不是中立的</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">三種已知偏誤，各自有緩解方式 —— 但沒有一種能完全消除</text>
+  <rect x="76.0" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="98.0" y="250" font-size="23" fill="#A85110" font-weight="700">self-preference</text>
+  <text x="98.0" y="288" font-size="18" fill="#4A4A4A">模型偏好自己</text>
+  <text x="98.0" y="316" font-size="18" fill="#4A4A4A">生成的文字</text>
+  <text x="98.0" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="98.0" y="372" font-size="18" fill="#4A4A4A">緩解：</text>
+  <text x="98.0" y="400" font-size="18" fill="#4A4A4A">生成用 flash</text>
+  <text x="98.0" y="428" font-size="18" fill="#4A4A4A">評審用 2.5-pro</text>
+  <rect x="461.3333333333333" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="483.3333333333333" y="250" font-size="23" fill="#A85110" font-weight="700">verbosity</text>
+  <text x="483.3333333333333" y="288" font-size="18" fill="#4A4A4A">寫得長、寫得華麗</text>
+  <text x="483.3333333333333" y="316" font-size="18" fill="#4A4A4A">容易拿高分</text>
+  <text x="483.3333333333333" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="483.3333333333333" y="372" font-size="18" fill="#4A4A4A">緩解：</text>
+  <text x="483.3333333333333" y="400" font-size="18" fill="#4A4A4A">二元判準</text>
+  <text x="483.3333333333333" y="428" font-size="18" fill="#4A4A4A">不給分數</text>
+  <rect x="846.6666666666666" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="868.6666666666666" y="250" font-size="23" fill="#A85110" font-weight="700">position</text>
+  <text x="868.6666666666666" y="288" font-size="18" fill="#4A4A4A">先看到的選項</text>
+  <text x="868.6666666666666" y="316" font-size="18" fill="#4A4A4A">比較容易被選</text>
+  <text x="868.6666666666666" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="868.6666666666666" y="372" font-size="18" fill="#4A4A4A">緩解：</text>
+  <text x="868.6666666666666" y="400" font-size="18" fill="#4A4A4A">不做兩兩對比</text>
+  <text x="868.6666666666666" y="428" font-size="18" fill="#4A4A4A">各自獨立評分</text>
+  <text x="76" y="654" font-size="20" fill="#8A8A8A">所以評審層的數字要配信賴區間看 —— 有偏誤的量尺，更不能只看單點。</text>
+</svg></section><section class="slide" data-name="results.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>50 筆評測結果</title>
+  <desc>四個 prompt 版本在 50 筆商品上的評測結果，含配對比較的信賴區間</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">每一版做對一件事</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">50 筆商品實測</text>
+
+  <!-- ================= 表頭 ================= -->
+  <g font-size="22" font-weight="700" fill="#4A4A4A" text-anchor="middle">
+    <text x="700" y="196">v0</text>
+    <text x="855" y="196">v1</text>
+    <text x="1010" y="196">v2</text>
+    <text x="1165" y="196">v3</text>
+  </g>
+  <line x1="76" y1="212" x2="1240" y2="212" stroke="#D8D8D8" stroke-width="2"/>
+
+  <!-- ================= 規則層 ================= -->
+  <text x="76" y="248" font-size="16" font-weight="700" fill="#1B6FB8">規則層</text>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="292">法規禁詞 0 命中</text>
+    <rect x="628" y="270" width="144" height="30" rx="5" fill="#FBE3D0"/>
+    <text x="700" y="292" text-anchor="middle" font-weight="700" fill="#A34408">80%</text>
+    <rect x="783" y="270" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="855" y="292" text-anchor="middle" font-weight="700" fill="#166534">98%</text>
+    <text x="1010" y="292" text-anchor="middle" fill="#6A6A6A">100%</text>
+    <text x="1165" y="292" text-anchor="middle" fill="#6A6A6A">100%</text>
+  </g>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="338">標題長度合規</text>
+    <rect x="628" y="316" width="144" height="30" rx="5" fill="#FBE3D0"/>
+    <text x="700" y="338" text-anchor="middle" font-weight="700" fill="#A34408">74%</text>
+    <rect x="783" y="316" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="855" y="338" text-anchor="middle" font-weight="700" fill="#166534">100%</text>
+    <text x="1010" y="338" text-anchor="middle" fill="#6A6A6A">100%</text>
+    <text x="1165" y="338" text-anchor="middle" fill="#6A6A6A">100%</text>
+  </g>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="384">規格完整覆蓋</text>
+    <rect x="628" y="362" width="144" height="30" rx="5" fill="#FBE3D0"/>
+    <text x="700" y="384" text-anchor="middle" font-weight="700" fill="#A34408">82%</text>
+    <rect x="783" y="362" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="855" y="384" text-anchor="middle" font-weight="700" fill="#166534">98%</text>
+    <text x="1010" y="384" text-anchor="middle" fill="#6A6A6A">100%</text>
+    <text x="1165" y="384" text-anchor="middle" fill="#6A6A6A">100%</text>
+  </g>
+
+  <!-- ================= 評審層 ================= -->
+  <line x1="76" y1="408" x2="1240" y2="408" stroke="#EDEDED" stroke-width="1.5"/>
+  <text x="76" y="440" font-size="16" font-weight="700" fill="#EF7622">評審層</text>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="484">rubric 通過率</text>
+    <text x="700" y="484" text-anchor="middle" fill="#6A6A6A">73.1%</text>
+    <text x="855" y="484" text-anchor="middle" fill="#6A6A6A">78.0%</text>
+    <rect x="938" y="462" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="1010" y="484" text-anchor="middle" font-weight="700" fill="#166534">86.8%</text>
+    <text x="1165" y="484" text-anchor="middle" fill="#6A6A6A">85.4%</text>
+  </g>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="530">可直接上架</text>
+    <text x="700" y="530" text-anchor="middle" fill="#6A6A6A">32%</text>
+    <text x="855" y="530" text-anchor="middle" fill="#6A6A6A">48%</text>
+    <rect x="938" y="508" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="1010" y="530" text-anchor="middle" font-weight="700" fill="#166534">64%</text>
+    <text x="1165" y="530" text-anchor="middle" fill="#6A6A6A">62%</text>
+  </g>
+
+  <!-- ================= 結構 ================= -->
+  <line x1="76" y1="554" x2="1240" y2="554" stroke="#EDEDED" stroke-width="1.5"/>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="598">可機器讀取</text>
+    <text x="700" y="598" text-anchor="middle" fill="#6A6A6A">0%</text>
+    <text x="855" y="598" text-anchor="middle" fill="#6A6A6A">0%</text>
+    <text x="1010" y="598" text-anchor="middle" fill="#6A6A6A">0%</text>
+    <rect x="1093" y="576" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="1165" y="598" text-anchor="middle" font-weight="700" fill="#166534">100%</text>
+  </g>
+
+  <!-- ================= 歸因 ================= -->
+  <line x1="76" y1="624" x2="1240" y2="624" stroke="#D8D8D8" stroke-width="2"/>
+  <g font-size="19" font-weight="700" text-anchor="middle">
+    <text x="700" y="666" fill="#B8B8B8">基準線</text>
+    <text x="855" y="666" fill="#1B6FB8">格式與合規</text>
+    <text x="1010" y="666" fill="#EF7622">語意品質</text>
+    <text x="1165" y="666" fill="#C2510A">可機器讀取</text>
+  </g>
+</svg></section><section class="slide" data-name="significance.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>版本差距的信賴區間</title>
+  <desc>相鄰版本 rubric 通過率差距的配對比較與 95% bootstrap 信賴區間</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">哪些差距是真的？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">rubric 通過率，配對比較 · bootstrap 95% 信賴區間 · 50 筆</text>
+
+  <!--
+    座標軸：-10pp 到 +16pp 對應 x = 300 到 1180
+    每 pp = (1180-300)/26 = 33.85 px；0 點在 x = 300 + 10*33.85 = 638.5
+  -->
+
+  <!-- 零線 -->
+  <line x1="638" y1="212" x2="638" y2="512" stroke="#C2510A" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="638" y="200" font-size="19" font-weight="700" fill="#C2510A" text-anchor="middle">0</text>
+
+  <!-- 刻度 -->
+  <g font-size="15" fill="#B8B8B8" text-anchor="middle">
+    <text x="300" y="200">−10</text>
+    <text x="469" y="200">−5</text>
+    <text x="807" y="200">+5</text>
+    <text x="976" y="200">+10</text>
+    <text x="1145" y="200">+15</text>
+  </g>
+  <line x1="300" y1="212" x2="1180" y2="212" stroke="#EDEDED" stroke-width="1.5"/>
+  <text x="1180" y="196" font-size="15" fill="#B8B8B8" text-anchor="end">百分點</text>
+
+  <!-- ============ v1 − v0 ============ -->
+  <text x="76" y="286" font-size="24" font-weight="700" fill="#1A1A1A">v1 − v0</text>
+  <line x1="610" y1="278" x2="996" y2="278" stroke="#B8B8B8" stroke-width="4"/>
+  <line x1="610" y1="262" x2="610" y2="294" stroke="#8A8A8A" stroke-width="3"/>
+  <line x1="996" y1="262" x2="996" y2="294" stroke="#8A8A8A" stroke-width="3"/>
+  <circle cx="803" cy="278" r="9" fill="#8A8A8A"/>
+  <text x="1210" y="286" font-size="20" fill="#8A8A8A" text-anchor="end">+4.9</text>
+
+  <!-- ============ v2 − v1 ============ -->
+  <text x="76" y="386" font-size="24" font-weight="700" fill="#1A1A1A">v2 − v1</text>
+  <line x1="793" y1="378" x2="1083" y2="378" stroke="#16A34A" stroke-width="4"/>
+  <line x1="793" y1="362" x2="793" y2="394" stroke="#166534" stroke-width="3"/>
+  <line x1="1083" y1="362" x2="1083" y2="394" stroke="#166534" stroke-width="3"/>
+  <circle cx="938" cy="378" r="11" fill="#16A34A"/>
+  <text x="1210" y="386" font-size="20" font-weight="700" fill="#166534" text-anchor="end">+8.9</text>
+
+  <!-- ============ v3 − v2 ============ -->
+  <text x="76" y="486" font-size="24" font-weight="700" fill="#1A1A1A">v3 − v2</text>
+  <line x1="464" y1="478" x2="725" y2="478" stroke="#B8B8B8" stroke-width="4"/>
+  <line x1="464" y1="462" x2="464" y2="494" stroke="#8A8A8A" stroke-width="3"/>
+  <line x1="725" y1="462" x2="725" y2="494" stroke="#8A8A8A" stroke-width="3"/>
+  <circle cx="590" cy="478" r="9" fill="#8A8A8A"/>
+  <text x="1210" y="486" font-size="20" fill="#8A8A8A" text-anchor="end">−1.4</text>
+
+  <!-- ============ 判讀 ============ -->
+  <g font-size="18">
+    <rect x="300" y="530" width="18" height="18" rx="4" fill="#16A34A"/>
+    <text x="330" y="546" fill="#166534" font-weight="700">區間不含 0 → 有差異</text>
+    <rect x="640" y="530" width="18" height="18" rx="4" fill="#B8B8B8"/>
+    <text x="670" y="546" fill="#6A6A6A">區間跨過 0 → 分不出差別</text>
+  </g>
+
+  <!-- ============ 一句結論 ============ -->
+  <rect x="76" y="600" width="1128" height="66" rx="10" fill="#F0F7FF" stroke="#A9CDEE" stroke-width="2"/>
+  <text x="104" y="632" font-size="21" fill="#12507F">
+    <tspan font-weight="700">語意品質上，只有 v1 → v2 站得住。</tspan><tspan dx="20">另外兩個差距在這個樣本量下分不出來。</tspan>
+  </text>
+  <text x="104" y="656" font-size="18" fill="#4A4A4A">v1 與 v3 贏在別的欄位</text>
+</svg></section><section class="slide" data-name="build-vs-buy.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>自己做還是買現成的</title>
+  <desc>用「會不會出現在你的產品定價頁上」當分界線。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">自己做，還是買現成的？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">分界線只有一條</text>
+  <rect x="76.0" y="206" width="544.0" height="324" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#12507F" font-weight="700">會出現在定價頁上 → 自己做</text>
+  <text x="104.0" y="294" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="294" font-size="20" fill="#4A4A4A">商品文案生成（電商平台）</text>
+  <text x="104.0" y="328" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="328" font-size="20" fill="#4A4A4A">病歷摘要（醫療系統）</text>
+  <text x="104.0" y="362" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="362" font-size="20" fill="#4A4A4A">契約風險標註（法律科技）</text>
+  <text x="104.0" y="410" font-size="20" fill="#4A4A4A">這是你的產品本身。</text>
+  <text x="104.0" y="444" font-size="20" fill="#4A4A4A">評測要自己建，因為只有你知道</text>
+  <text x="104.0" y="478" font-size="20" fill="#4A4A4A">什麼叫做好。</text>
+  <rect x="660.0" y="206" width="544.0" height="324" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#8A8A8A" font-weight="700">不會出現在定價頁上 → 買現成</text>
+  <text x="688.0" y="294" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="294" font-size="20" fill="#4A4A4A">客服工單分類</text>
+  <text x="688.0" y="328" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="328" font-size="20" fill="#4A4A4A">會議記錄整理</text>
+  <text x="688.0" y="362" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="362" font-size="20" fill="#4A4A4A">內部文件搜尋</text>
+  <text x="688.0" y="410" font-size="20" fill="#4A4A4A">這是你的內部效率。</text>
+  <text x="688.0" y="444" font-size="20" fill="#4A4A4A">買現成的，把時間留給前面那欄。</text>
+  <rect x="76" y="554" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="590" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">這個 AI 功能會不會出現在你的產品定價頁上？</text>
+</svg></section><section class="slide" data-name="two-directions.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>方法論可遷移</title>
+  <desc>生成與抽取是同一套流程的兩個方向。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">同一套方法，兩個方向</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">你剛學的是一套流程，不是一個文案技巧</text>
+  <rect x="76.0" y="206" width="544.0" height="304" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#A85110" font-weight="700">場景 A　生成</text>
+  <text x="104.0" y="294" font-size="20" fill="#4A4A4A">結構化資料 → 非結構化文字</text>
+  <text x="104.0" y="342" font-size="20" fill="#4A4A4A">商品規格 → 商品文案</text>
+  <text x="104.0" y="390" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="390" font-size="20" fill="#4A4A4A">要 schema</text>
+  <text x="104.0" y="424" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="424" font-size="20" fill="#4A4A4A">要評測</text>
+  <text x="104.0" y="458" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="458" font-size="20" fill="#4A4A4A">要算成本</text>
+  <rect x="660.0" y="206" width="544.0" height="304" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#12507F" font-weight="700">場景 B　抽取</text>
+  <text x="688.0" y="294" font-size="20" fill="#4A4A4A">非結構化文字 → 結構化資料</text>
+  <text x="688.0" y="342" font-size="20" fill="#4A4A4A">使用者評論 → 洞察欄位</text>
+  <text x="688.0" y="390" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="390" font-size="20" fill="#4A4A4A">要 schema</text>
+  <text x="688.0" y="424" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="424" font-size="20" fill="#4A4A4A">要評測</text>
+  <text x="688.0" y="458" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="458" font-size="20" fill="#4A4A4A">要算成本</text>
+  <rect x="76" y="534" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="570" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">方向相反，流程完全相同</text>
+</svg></section><section class="slide" data-name="cost-model.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>成本估算公式與降本四招</title>
+  <desc>生成式 AI 的成本估算公式，以及四種降低成本的手段與其代價</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">成本：用公式，不背數字</text>
+
+  <!-- ============ 公式 ============ -->
+  <rect x="76" y="140" width="1128" height="150" rx="12" fill="#F5F5F5" stroke="#D8D8D8" stroke-width="2"/>
+
+  <text x="108" y="178" font-size="16" font-weight="700" fill="#8A8A8A">單次成本</text>
+  <text x="108" y="214" font-size="23" fill="#1A1A1A" font-family="'SF Mono','Menlo','Consolas',monospace">( in_tokens × 單價_in&#160;&#160;+&#160;&#160;out_tokens × 單價_out ) ÷ 1,000,000</text>
+
+  <line x1="108" y1="236" x2="1172" y2="236" stroke="#D8D8D8" stroke-width="1.5"/>
+
+  <text x="108" y="262" font-size="16" font-weight="700" fill="#8A8A8A">月成本</text>
+  <text x="108" y="284" font-size="22" fill="#1A1A1A" font-family="'SF Mono','Menlo','Consolas',monospace">單次 × SKU數 × 重生成次數 × ( 1 + <tspan fill="#C2510A" font-weight="700">judge 開銷比</tspan> )</text>
+
+  <!-- 實測數字，不是勸說 -->
+  <rect x="76" y="306" width="1128" height="54" rx="10" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
+  <text x="640" y="341" font-size="23" fill="#8A3A06" text-anchor="middle">
+    <tspan font-weight="700">實測：評審佔總成本 83%</tspan><tspan dx="22">最常被漏算的一筆</tspan>
+  </text>
+
+  <!-- ============ 降本四招 ============ -->
+  <text x="76" y="416" font-size="28" font-weight="700" fill="#1A1A1A">降本四招</text>
+
+  <text x="96" y="452" font-size="15" font-weight="700" fill="#B8B8B8">手段</text>
+  <text x="372" y="452" font-size="15" font-weight="700" fill="#B8B8B8">省下</text>
+  <text x="790" y="452" font-size="15" font-weight="700" fill="#B8B8B8">代價</text>
+
+  <g>
+    <rect x="76" y="466" width="1128" height="56" rx="8" fill="#F5F5F5"/>
+    <text x="96" y="502" font-size="21" font-weight="600" fill="#1A1A1A">1　模型選型降級</text>
+    <rect x="372" y="484" width="200" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="502" font-size="17" fill="#A85110">最大一筆</text>
+    <text x="790" y="502" font-size="18" font-weight="700" fill="#8A3A06">要有評測表才敢降</text>
+  </g>
+
+  <g>
+    <rect x="76" y="528" width="1128" height="56" rx="8" fill="#ffffff"/>
+    <text x="96" y="564" font-size="21" font-weight="600" fill="#1A1A1A">2　Batch API</text>
+    <rect x="372" y="546" width="130" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="564" font-size="17" fill="#A85110">約 5 折</text>
+    <text x="790" y="564" font-size="18" fill="#4A4A4A">延遲變小時級</text>
+  </g>
+
+  <g>
+    <rect x="76" y="590" width="1128" height="56" rx="8" fill="#F5F5F5"/>
+    <text x="96" y="626" font-size="21" font-weight="600" fill="#1A1A1A">3　Context caching</text>
+    <rect x="372" y="608" width="102" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="626" font-size="17" fill="#A85110">input 折扣</text>
+    <text x="790" y="626" font-size="18" fill="#4A4A4A">前綴要夠長</text>
+  </g>
+
+  <g>
+    <rect x="76" y="652" width="960" height="52" rx="8" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
+    <text x="96" y="686" font-size="21" font-weight="600" fill="#1A1A1A">4　結果快取</text>
+    <rect x="372" y="668" width="170" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="686" font-size="17" font-weight="700" fill="#C2510A">最被低估</text>
+    <text x="790" y="686" font-size="18" fill="#4A4A4A">幾乎沒有</text>
+  </g>
+</svg></section><section class="slide" data-name="eval-costs-money.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>評測本身要花錢</title>
+  <desc>最常被漏算的一筆成本。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="383.04" font-size="72" fill="#1A1A1A" font-weight="700">評測本身要花錢。</text>
+  <line x1="76" y1="594" x2="1204" y2="594" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="630" font-size="22" fill="#8A8A8A">大家算成本只算生成 —— 這次實測，評審佔總成本的大部分</text>
+</svg></section><section class="slide" data-name="gcp-architecture.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>GCP 架構：今天 demo 用到的 vs 正式上線需要的</title>
+  <desc>零售生成式 AI 系統在 Google Cloud 上的架構，區分 POC 實際使用的服務與正式部署還需要的服務</desc>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A8A"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">這套系統用到哪些 GCP 服務？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">實線＝今天 demo 真的跑過　虛線＝正式上線才需要，今天沒做</text>
+
+  <!-- ===== 圖例 ===== -->
+  <g transform="translate(940,160)">
+    <rect x="0" y="0" width="264" height="72" rx="8" fill="#F5F5F5" stroke="#D8D8D8" stroke-width="1.5"/>
+    <rect x="14" y="16" width="20" height="14" rx="3" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+    <text x="44" y="28" font-size="15" fill="#4A4A4A">demo 實際使用</text>
+    <rect x="14" y="44" width="20" height="14" rx="3" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="44" y="56" font-size="15" fill="#4A4A4A">正式部署才需要</text>
+  </g>
+
+  <!-- ===== 第一排：資料來源 ===== -->
+  <text x="76" y="196" font-size="16" font-weight="700" fill="#8A8A8A">1　資料來源</text>
+  <rect x="76" y="210" width="200" height="70" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="176" y="240" font-size="17" font-weight="600" fill="#4A4A4A" text-anchor="middle">PIM / 商品主檔</text>
+  <text x="176" y="264" font-size="14" fill="#8A8A8A" text-anchor="middle">demo 用 JSON 代替</text>
+
+  <rect x="296" y="210" width="200" height="70" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="396" y="240" font-size="17" font-weight="600" fill="#4A4A4A" text-anchor="middle">Cloud Storage</text>
+  <text x="396" y="264" font-size="14" fill="#8A8A8A" text-anchor="middle">商品圖、原始匯出檔</text>
+
+  <!-- ===== 第二排：核心處理 ===== -->
+  <text x="76" y="326" font-size="16" font-weight="700" fill="#8A8A8A">2　生成與評測（今天的主角）</text>
+
+  <rect x="76" y="340" width="240" height="118" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="196" y="372" font-size="19" font-weight="700" fill="#A85110" text-anchor="middle">Vertex AI</text>
+  <text x="196" y="398" font-size="15" fill="#4A4A4A" text-anchor="middle">Gemini 生成（flash）</text>
+  <text x="196" y="420" font-size="15" fill="#4A4A4A" text-anchor="middle">Gemini 評審（2.5-pro）</text>
+  <text x="196" y="444" font-size="14" fill="#C2510A" text-anchor="middle">structured output</text>
+
+  <rect x="336" y="340" width="200" height="118" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="436" y="372" font-size="19" font-weight="700" fill="#12507F" text-anchor="middle">規則層</text>
+  <text x="436" y="398" font-size="15" fill="#4A4A4A" text-anchor="middle">純 Python，不呼叫模型</text>
+  <text x="436" y="420" font-size="15" fill="#4A4A4A" text-anchor="middle">禁詞、長度、schema</text>
+  <text x="436" y="444" font-size="14" fill="#1B6FB8" text-anchor="middle">零成本 · 可進 CI</text>
+
+  <rect x="556" y="340" width="200" height="118" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="656" y="372" font-size="19" font-weight="700" fill="#A85110" text-anchor="middle">BigQuery</text>
+  <text x="656" y="398" font-size="15" fill="#4A4A4A" text-anchor="middle">評論洞察落地</text>
+  <text x="656" y="420" font-size="15" fill="#4A4A4A" text-anchor="middle">分區 + 叢集</text>
+  <text x="656" y="444" font-size="14" fill="#C2510A" text-anchor="middle">場景 B（選用）</text>
+
+  <rect x="776" y="340" width="200" height="118" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="876" y="372" font-size="19" font-weight="700" fill="#6A6A6A" text-anchor="middle">Cloud Run</text>
+  <text x="876" y="398" font-size="15" fill="#8A8A8A" text-anchor="middle">把 pipeline 包成服務</text>
+  <text x="876" y="420" font-size="15" fill="#8A8A8A" text-anchor="middle">供 PIM 後台呼叫</text>
+  <text x="876" y="444" font-size="14" fill="#B8B8B8" text-anchor="middle">今天用 notebook 代替</text>
+
+  <rect x="996" y="340" width="208" height="118" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="1100" y="372" font-size="19" font-weight="700" fill="#6A6A6A" text-anchor="middle">Batch Prediction</text>
+  <text x="1100" y="398" font-size="15" fill="#8A8A8A" text-anchor="middle">全站商品初次匯入</text>
+  <text x="1100" y="420" font-size="15" fill="#8A8A8A" text-anchor="middle">約 5 折</text>
+  <text x="1100" y="444" font-size="14" fill="#B8B8B8" text-anchor="middle">成本段有講，沒有跑</text>
+
+  <!-- 箭頭 -->
+  <line x1="316" y1="399" x2="332" y2="399" stroke="#8A8A8A" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="536" y1="399" x2="552" y2="399" stroke="#8A8A8A" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- PIM → Vertex AI：走左側繞開第二排標題，並對齊本排箭頭高度 y=399 -->
+  <path d="M 76 245 H 56 V 399 H 72" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+
+  <!-- ===== 第三排：維運 ===== -->
+  <text x="76" y="504" font-size="16" font-weight="700" fill="#8A8A8A">3　維運與治理（今天完全沒碰，但上線一定要）</text>
+
+  <g font-size="16" fill="#6A6A6A">
+    <rect x="76" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="164" y="544" font-weight="600" text-anchor="middle">Cloud Scheduler</text>
+    <text x="164" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">定期重跑評測</text>
+
+    <rect x="268" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="356" y="544" font-weight="600" text-anchor="middle">Secret Manager</text>
+    <text x="356" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">API 金鑰不進 repo</text>
+
+    <rect x="460" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="548" y="544" font-weight="600" text-anchor="middle">Cloud Logging</text>
+    <text x="548" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">留存每次生成紀錄</text>
+
+    <rect x="652" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="740" y="544" font-weight="600" text-anchor="middle">IAM / VPC-SC</text>
+    <text x="740" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">資料落地與權限</text>
+
+    <rect x="844" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="932" y="544" font-weight="600" text-anchor="middle">Cloud Monitoring</text>
+    <text x="932" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">品質與成本告警</text>
+
+    <rect x="1036" y="518" width="168" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="1120" y="544" font-weight="600" text-anchor="middle">Artifact Registry</text>
+    <text x="1120" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">容器版本管理</text>
+  </g>
+
+  <!-- 只留事實，論證用講的 -->
+  <rect x="76" y="606" width="1128" height="62" rx="10" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
+  <text x="640" y="646" font-size="24" fill="#8A3A06" text-anchor="middle">
+    <tspan font-weight="700">今天實際用到兩個：Vertex AI 與 BigQuery</tspan><tspan dx="24">其餘為正式部署所需</tspan>
+  </text>
+
+</svg></section><section class="slide" data-name="ninety-days.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>90 天導入路徑</title>
+  <desc>三個階段各自的產出與時間。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">90 天導入路徑</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">順序不能反過來 —— 先解決「怎麼知道它變好了」</text>
+  <circle cx="94" cy="218" r="18" fill="#1B6FB8"/>
+  <text x="94" y="225" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="132" y="214" font-size="26" fill="#1A1A1A" font-weight="700">Vertex AI Studio 驗證可行性</text>
+  <text x="132" y="246" font-size="19" fill="#4A4A4A">這件事到底做不做得成</text>
+  <text x="1204" y="220" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">2 週</text>
+  <circle cx="94" cy="310" r="18" fill="#1B6FB8"/>
+  <text x="94" y="317" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="132" y="306" font-size="26" fill="#1A1A1A" font-weight="700">建 golden set + API 串接</text>
+  <text x="132" y="338" font-size="19" fill="#4A4A4A">30–50 筆就足以開始</text>
+  <text x="1204" y="312" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">4 週</text>
+  <circle cx="94" cy="402" r="18" fill="#1B6FB8"/>
+  <text x="94" y="409" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="132" y="398" font-size="26" fill="#1A1A1A" font-weight="700">小流量上線 + 監控</text>
+  <text x="132" y="430" font-size="19" fill="#4A4A4A">有數字可以對董事會報告</text>
+  <text x="1204" y="404" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">6 週</text>
+  <line x1="76" y1="604" x2="1204" y2="604" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="638" font-size="21" fill="#8A8A8A">golden set 不用大。50 筆 × 7 條判準，就足以分辨 3 個百分點以上的差距。</text>
+</svg></section><section class="slide" data-name="closing.svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>收尾：回到開場那兩段文案</title>
+  <desc>回到開場的 A/B 文案，這次有評測結果可以說明為什麼選 B。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="88" font-size="26" fill="#8A8A8A" font-weight="700">A</text>
+  <text x="660.0" y="88" font-size="26" fill="#0F4A25" font-weight="700">B</text>
+  <rect x="76.0" y="110" width="544.0" height="300" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2"/>
+  <text x="102.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">【嚴選】金賺健康 葉黃素軟膠囊 ★熱銷第一★</text>
+  <text x="102.0" y="210" font-size="19" fill="#4A4A4A">守護您的靈魂之窗！現代人３Ｃ不離身，</text>
+  <text x="102.0" y="244" font-size="19" fill="#4A4A4A">眼睛乾澀疲勞好困擾？本產品採用頂級游離型</text>
+  <text x="102.0" y="278" font-size="19" fill="#4A4A4A">葉黃素，有效改善視力模糊、預防眼部疾病，</text>
+  <text x="102.0" y="312" font-size="19" fill="#4A4A4A">讓您重拾清晰視界，告別老花困擾！</text>
+  <rect x="660.0" y="110" width="544.0" height="300" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
+  <text x="686.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">青研 游離型葉黃素軟膠囊 30粒 每粒30mg</text>
+  <text x="686.0" y="210" font-size="19" fill="#4A4A4A">· 游離型葉黃素 30mg，吸收不需再轉換</text>
+  <text x="686.0" y="244" font-size="19" fill="#4A4A4A">· 添加玉米黃素與蝦紅素，每日一粒</text>
+  <text x="686.0" y="278" font-size="19" fill="#4A4A4A">· 全素可食，無添加人工色素</text>
+  <text x="686.0" y="312" font-size="19" fill="#4A4A4A">· 適合長時間使用螢幕的日常保養</text>
+  <text x="686.0" y="448" font-size="20" fill="#0F4A25" font-weight="700">✓ 規則層全過　rubric 通過　可機器讀取</text>
+  <line x1="76" y1="500" x2="1204" y2="500" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="546" font-size="30" fill="#1A1A1A" font-weight="700">你怎麼知道它有沒有變好？</text>
+  <text x="76" y="590" font-size="22" fill="#4A4A4A">現在你有一張表可以回答 —— 而且下次改 prompt，重跑一次就知道有沒有退步。</text>
+</svg></section></div>
+<div id="grid"><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>開場：兩段商品文案</title>
+  <desc>同一個商品的兩段文案並排，不給任何提示，讓聽眾自己判斷哪一段能上線。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="88" font-size="26" fill="#8A8A8A" font-weight="700">A</text>
+  <text x="660.0" y="88" font-size="26" fill="#8A8A8A" font-weight="700">B</text>
+  <rect x="76.0" y="110" width="544.0" height="500" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2"/>
+  <text x="102.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">【嚴選】金賺健康 葉黃素軟膠囊 ★熱銷第一★</text>
+  <text x="102.0" y="210" font-size="19" fill="#4A4A4A">守護您的靈魂之窗！現代人３Ｃ不離身，</text>
+  <text x="102.0" y="244" font-size="19" fill="#4A4A4A">眼睛乾澀疲勞好困擾？本產品採用頂級游離型</text>
+  <text x="102.0" y="278" font-size="19" fill="#4A4A4A">葉黃素，有效改善視力模糊、預防眼部疾病，</text>
+  <text x="102.0" y="312" font-size="19" fill="#4A4A4A">讓您重拾清晰視界，告別老花困擾！</text>
+  <rect x="660.0" y="110" width="544.0" height="500" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2"/>
+  <text x="686.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">青研 游離型葉黃素軟膠囊 30粒 每粒30mg</text>
+  <text x="686.0" y="210" font-size="19" fill="#4A4A4A">· 游離型葉黃素 30mg，吸收不需再轉換</text>
+  <text x="686.0" y="244" font-size="19" fill="#4A4A4A">· 添加玉米黃素與蝦紅素，每日一粒</text>
+  <text x="686.0" y="278" font-size="19" fill="#4A4A4A">· 全素可食，無添加人工色素</text>
+  <text x="686.0" y="312" font-size="19" fill="#4A4A4A">· 適合長時間使用螢幕的日常保養</text>
+</svg><figcaption>1. 開場：兩段商品文案</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>把問題丟出來</title>
+  <desc>開場提問：你要怎麼跟工程師說這版比較好。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="339.41" font-size="58" fill="#1A1A1A" font-weight="700">那你要怎麼跟工程師說：</text>
+  <text x="76" y="417.71000000000004" font-size="58" fill="#1A1A1A" font-weight="700">這版比較好，上線吧？</text>
+</svg><figcaption>2. 把問題丟出來</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>全場主張</title>
+  <desc>整場演講的唯一主張。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="150" font-size="22" fill="#1B6FB8" font-weight="700">今天只講一件事</text>
+  <text x="76" y="271.34" font-size="52" fill="#1A1A1A" font-weight="700">生成式 AI 的難處</text>
+  <text x="76" y="341.53999999999996" font-size="52" fill="#1A1A1A" font-weight="700">不在叫模型，</text>
+  <text x="76" y="411.74" font-size="52" fill="#1A1A1A" font-weight="700">而在你怎麼知道</text>
+  <text x="76" y="481.94" font-size="52" fill="#1A1A1A" font-weight="700">它有沒有變好。</text>
+</svg><figcaption>3. 全場主張</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>議程</title>
+  <desc>四段議程與聽眾會帶走的東西。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">今天的四段</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">一條因果鏈，不是四個平行主題</text>
+  <circle cx="94" cy="218" r="18" fill="#1B6FB8"/>
+  <text x="94" y="225" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="132" y="214" font-size="26" fill="#1A1A1A" font-weight="700">Vertex AI Studio</text>
+  <text x="132" y="246" font-size="19" fill="#4A4A4A">探索：這件事到底做不做得成</text>
+  <text x="1204" y="220" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">5 分鐘</text>
+  <circle cx="94" cy="310" r="18" fill="#1B6FB8"/>
+  <text x="94" y="317" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="132" y="306" font-size="26" fill="#1A1A1A" font-weight="700">API 串接</text>
+  <text x="132" y="338" font-size="19" fill="#4A4A4A">整合：能不能貼進現有系統</text>
+  <text x="1204" y="312" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">8 分鐘</text>
+  <circle cx="94" cy="402" r="18" fill="#1B6FB8"/>
+  <text x="94" y="409" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="132" y="398" font-size="26" fill="#1A1A1A" font-weight="700">Prompt 設計</text>
+  <text x="132" y="430" font-size="19" fill="#4A4A4A">規格化：把要求寫成可檢查的條件</text>
+  <text x="1204" y="404" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">4 分鐘</text>
+  <circle cx="94" cy="494" r="18" fill="#1B6FB8"/>
+  <text x="94" y="501" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">4</text>
+  <text x="132" y="490" font-size="26" fill="#1A1A1A" font-weight="700">評測流程</text>
+  <text x="132" y="522" font-size="19" fill="#4A4A4A">驗收：怎麼證明它變好了</text>
+  <text x="1204" y="496" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">12 分鐘</text>
+  <line x1="76" y1="604" x2="1204" y2="604" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="638" font-size="21" fill="#8A8A8A">你會帶走：一張能重跑的評測表，和一份算得出來的成本</text>
+</svg><figcaption>4. 議程</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>GCP 生成式 AI 三層工具地圖</title>
+  <desc>依專案階段（探索／整合／上線）而非產品線劃分的 GCP 生成式 AI 工具地圖</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A8A"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">GCP 生成式 AI：三層工具地圖</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">依你在哪個階段劃分，不是依產品線</text>
+
+  <!-- ===================== 1 探索期 ===================== -->
+  <g>
+    <rect x="76" y="192" width="360" height="300" rx="14" fill="#E9F2FB" stroke="#A9CDEE" stroke-width="2"/>
+    <rect x="76" y="192" width="360" height="6" rx="3" fill="#1B6FB8"/>
+
+    <circle cx="114" cy="242" r="20" fill="#1B6FB8"/>
+    <text x="114" y="250" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+    <text x="148" y="250" font-size="28" font-weight="700" fill="#12507F">探索期</text>
+    <text x="262" y="249" font-size="18" fill="#1B6FB8">約 2 週</text>
+
+    <text x="104" y="308" font-size="23" font-weight="600" fill="#1A1A1A">Vertex AI Studio</text>
+    <text x="104" y="342" font-size="18" fill="#4A4A4A">瀏覽器打開就能用</text>
+    <text x="104" y="372" font-size="18" fill="#4A4A4A">改 prompt、比模型、調參數</text>
+
+    <line x1="104" y1="404" x2="408" y2="404" stroke="#A9CDEE" stroke-width="1.5"/>
+    <text x="104" y="440" font-size="16" font-weight="700" fill="#1B6FB8">要回答的問題</text>
+    <text x="104" y="470" font-size="20" fill="#1A1A1A">做不做得成？</text>
+  </g>
+
+  <!-- ===================== 2 整合期 ===================== -->
+  <g>
+    <rect x="460" y="192" width="360" height="300" rx="14" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
+    <rect x="460" y="192" width="360" height="6" rx="3" fill="#EF7622"/>
+
+    <circle cx="498" cy="242" r="20" fill="#EF7622"/>
+    <text x="498" y="250" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+    <text x="532" y="250" font-size="28" font-weight="700" fill="#A85110">整合期</text>
+    <text x="646" y="249" font-size="18" fill="#EF7622">約 4 週</text>
+
+    <text x="488" y="308" font-size="23" font-weight="600" fill="#1A1A1A">Gemini API / Vertex AI</text>
+    <text x="488" y="342" font-size="18" fill="#4A4A4A">prompt 變成程式碼</text>
+    <text x="488" y="372" font-size="18" fill="#4A4A4A">structured output 接進系統</text>
+
+    <line x1="488" y1="404" x2="792" y2="404" stroke="#F8C99A" stroke-width="1.5"/>
+    <text x="488" y="440" font-size="16" font-weight="700" fill="#C45E12">要回答的問題</text>
+    <text x="488" y="470" font-size="20" fill="#1A1A1A">能不能貼進 PIM？</text>
+  </g>
+
+  <!-- ===================== 3 上線期 ===================== -->
+  <g>
+    <rect x="844" y="192" width="360" height="300" rx="14" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
+    <rect x="844" y="192" width="360" height="6" rx="3" fill="#C2510A"/>
+
+    <circle cx="882" cy="242" r="20" fill="#C2510A"/>
+    <text x="882" y="250" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+    <text x="916" y="250" font-size="28" font-weight="700" fill="#8A3A06">上線期</text>
+    <text x="1030" y="249" font-size="18" fill="#C2510A">約 6 週</text>
+
+    <text x="872" y="308" font-size="23" font-weight="600" fill="#1A1A1A">評測 + 監控</text>
+    <text x="872" y="342" font-size="18" fill="#4A4A4A">規則層 / Gen AI Evaluation</text>
+    <text x="872" y="372" font-size="18" fill="#4A4A4A">回歸測試、日誌</text>
+
+    <line x1="872" y1="404" x2="1176" y2="404" stroke="#EFB183" stroke-width="1.5"/>
+    <text x="872" y="440" font-size="16" font-weight="700" fill="#A34408">要回答的問題</text>
+    <text x="872" y="470" font-size="20" font-weight="700" fill="#1A1A1A">有沒有變好？</text>
+  </g>
+
+  <!-- 進程箭頭 -->
+  <line x1="76" y1="546" x2="1204" y2="546" stroke="#8A8A8A" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 一句話，其餘用講的 -->
+  <text x="640" y="626" font-size="26" font-weight="700" fill="#8A3A06" text-anchor="middle">多數團隊跳過第三層</text>
+</svg><figcaption>5. GCP 三層工具地圖</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>探索期：Vertex AI Studio</title>
+  <desc>Vertex AI Studio 的介面重點：模型選單、temperature、比較模式。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">探索期：瀏覽器打開就能用</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">不寫程式碼，先確認這件事做不做得成</text>
+  <rect x="76" y="202" width="760" height="436" rx="10" fill="#F5F5F5" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="456.0" y="414.0" font-size="22" fill="#8A8A8A" text-anchor="middle">Vertex AI Studio 介面截圖</text>
+  <text x="456.0" y="448.0" font-size="17" fill="#B8B8B8" text-anchor="middle">（把截圖貼進這個框，右邊的標註已經排好）</text>
+  <circle cx="892" cy="254" r="16" fill="#EF7622"/>
+  <text x="892" y="261" font-size="17" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="922" y="261" font-size="21" fill="#1A1A1A" font-weight="700">模型選單</text>
+  <text x="922" y="290" font-size="17" fill="#8A8A8A">先比 flash 與 pro，不要一開始就選最貴的</text>
+  <circle cx="892" cy="350" r="16" fill="#EF7622"/>
+  <text x="892" y="357" font-size="17" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="922" y="357" font-size="21" fill="#1A1A1A" font-weight="700">temperature</text>
+  <text x="922" y="386" font-size="17" fill="#8A8A8A">生成調低一點，評審一律 0</text>
+  <circle cx="892" cy="446" r="16" fill="#EF7622"/>
+  <text x="892" y="453" font-size="17" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="922" y="453" font-size="21" fill="#1A1A1A" font-weight="700">比較模式</text>
+  <text x="922" y="482" font-size="17" fill="#8A8A8A">同一個 prompt 並排看不同模型的輸出</text>
+</svg><figcaption>6. 探索期：Vertex AI Studio</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>Gemini API vs Vertex AI</title>
+  <desc>兩種接法的差別：這是部署決策，不是程式碼決策。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">Gemini API 還是 Vertex AI？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">全場資訊密度最高的一頁</text>
+  <rect x="76.0" y="206" width="544.0" height="290" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#12507F" font-weight="700">Gemini API（AI Studio）</text>
+  <text x="592.0" y="250" font-size="17" fill="#12507F" font-weight="700" text-anchor="end">做原型</text>
+  <text x="104.0" y="294" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="128.0" y="294" font-size="20" fill="#4A4A4A">一把 API key 就能開始</text>
+  <text x="104.0" y="328" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="128.0" y="328" font-size="20" fill="#4A4A4A">免費額度，適合試水溫</text>
+  <text x="104.0" y="362" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="362" font-size="20" fill="#4A4A4A">計費歸個人帳號</text>
+  <text x="104.0" y="396" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="396" font-size="20" fill="#4A4A4A">沒有 VPC-SC、資料落地不可控</text>
+  <text x="104.0" y="444" font-size="20" fill="#4A4A4A">適合：一個人、一週內、還在確認可行性</text>
+  <rect x="660.0" y="206" width="544.0" height="290" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#A85110" font-weight="700">Vertex AI</text>
+  <text x="1176.0" y="250" font-size="17" fill="#A85110" font-weight="700" text-anchor="end">要上線</text>
+  <text x="688.0" y="294" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="294" font-size="20" fill="#4A4A4A">走 GCP 專案計費，成本歸屬清楚</text>
+  <text x="688.0" y="328" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="328" font-size="20" fill="#4A4A4A">IAM、VPC-SC、資料落地可控</text>
+  <text x="688.0" y="362" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="362" font-size="20" fill="#4A4A4A">可簽 DPA、過得了法遵</text>
+  <text x="688.0" y="396" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="712.0" y="396" font-size="20" fill="#4A4A4A">要先設定專案與權限</text>
+  <text x="688.0" y="444" font-size="20" fill="#4A4A4A">適合：要簽約、要稽核、要對董事會報告</text>
+  <rect x="76" y="520" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="556" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">切換只差 Client 的建構參數，其他程式碼一行都不用改</text>
+</svg><figcaption>7. Gemini API vs Vertex AI</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>上線期：評測與監控</title>
+  <desc>第三層是多數團隊跳過的一層，也是今天的重點。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">上線期：多數團隊跳過的那一層</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">前兩層做完只代表「跑得動」，不代表「敢上線」</text>
+  <rect x="76.0" y="206" width="357.3333333333333" height="210" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="98.0" y="250" font-size="23" fill="#8A8A8A" font-weight="700">1　探索</text>
+  <text x="98.0" y="288" font-size="18" fill="#4A4A4A">Vertex AI Studio</text>
+  <text x="98.0" y="316" font-size="18" fill="#4A4A4A">做不做得成？</text>
+  <text x="98.0" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="98.0" y="372" font-size="18" fill="#4A4A4A">多數團隊：做了</text>
+  <rect x="461.3333333333333" y="206" width="357.3333333333333" height="210" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="483.3333333333333" y="250" font-size="23" fill="#8A8A8A" font-weight="700">2　整合</text>
+  <text x="483.3333333333333" y="288" font-size="18" fill="#4A4A4A">Gemini API / Vertex AI</text>
+  <text x="483.3333333333333" y="316" font-size="18" fill="#4A4A4A">能不能貼進系統？</text>
+  <text x="483.3333333333333" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="483.3333333333333" y="372" font-size="18" fill="#4A4A4A">多數團隊：做了</text>
+  <rect x="846.6666666666666" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="868.6666666666666" y="250" font-size="23" fill="#A85110" font-weight="700">3　上線</text>
+  <text x="868.6666666666666" y="288" font-size="18" fill="#4A4A4A">評測 + 監控</text>
+  <text x="868.6666666666666" y="316" font-size="18" fill="#4A4A4A">有沒有變好？</text>
+  <text x="868.6666666666666" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="868.6666666666666" y="372" font-size="18" fill="#4A4A4A">多數團隊：跳過 ←</text>
+  <text x="76" y="654" font-size="20" fill="#8A8A8A">跳過第三層的專案，通常上線後才發現沒有人能判斷好壞</text>
+</svg><figcaption>8. 上線期：評測與監控</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>v0：什麼都不給</title>
+  <desc>最常見的第一版 prompt，以及它產生的文案。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v0　什麼都不給</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">大多數人第一次寫的 prompt</text>
+  <rect x="76.0" y="249.72" width="548.0" height="224" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="76.0" y="249.72" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="279.72" font-size="20" fill="#8A8A8A" font-weight="700">prompt</text>
+  <text x="96.0" y="327.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">請幫這個商品寫一段</text>
+  <text x="96.0" y="351.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">電商文案。</text>
+  <text x="96.0" y="375.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="399.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">商品：游離型葉黃素</text>
+  <text x="96.0" y="423.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">　　　30mg／30粒</text>
+  <rect x="656.0" y="249.72" width="548.0" height="224" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="656.0" y="249.72" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="279.72" font-size="20" fill="#8A8A8A" font-weight="700">產出</text>
+  <text x="676.0" y="327.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">守護您的靈魂之窗！</text>
+  <text x="676.0" y="351.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">現代人３Ｃ不離身⋯⋯</text>
+  <text x="676.0" y="375.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">有效改善視力模糊、</text>
+  <text x="676.0" y="399.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">預防眼部疾病，</text>
+  <text x="676.0" y="423.72" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">重拾清晰視界！</text>
+  <line x1="76" y1="507.72" x2="1204" y2="507.72" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="543.72" font-size="21" fill="#8A8A8A">文筆很好。但它不能用 —— 長度不知道、規格沒寫、而且踩了法規。</text>
+</svg><figcaption>9. v0：什麼都不給</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>v1：加通路約束</title>
+  <desc>v1 加入角色、受眾、字數與必含規格。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v1　加通路約束</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">只加一件事：把「規格」寫進去</text>
+  <rect x="76.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#1B6FB8" stroke-width="2.5"/>
+  <rect x="76.0" y="217.08" width="548.0" height="44" rx="10" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="247.08" font-size="20" fill="#12507F" font-weight="700">v1 新增（藍色部分）</text>
+  <text x="96.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">你是電商文案編輯。</text>
+  <text x="96.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">受眾：30-50 歲上班族。</text>
+  <text x="96.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <rect x="88.0" y="351.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">標題 ≤ 60 字</text>
+  <rect x="88.0" y="375.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">賣點 4 條，每條 ≤ 30 字</text>
+  <rect x="88.0" y="399.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">SEO 描述 ≤ 120 字</text>
+  <text x="96.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <rect x="88.0" y="447.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">必須寫出：游離型、30mg、30粒</text>
+  <rect x="656.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="656.0" y="217.08" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="247.08" font-size="20" fill="#8A8A8A" font-weight="700">修好了什麼</text>
+  <text x="676.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">標題長度合規　74% → 100%</text>
+  <text x="676.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">規格完整覆蓋　82% →  98%</text>
+  <text x="676.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">法規禁詞 0 命中　80% → 98%</text>
+  <text x="676.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">語意品質（rubric）：</text>
+  <text x="676.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">沒有統計上的改善。</text>
+  <text x="676.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">合理 —— v1 加的是字數與規格，</text>
+  <text x="676.0" y="487.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">不是語氣指引。</text>
+  <line x1="76" y1="571.08" x2="1204" y2="571.08" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">每一版只加一件事，表格上每一欄的改善才能歸因到單一改動。</text>
+</svg><figcaption>10. v1：加通路約束</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>v2：加法規與語調</title>
+  <desc>v2 加入法規禁詞清單與品牌語調 few-shot。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v2　加法規與語調</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">這一版是唯一在語意品質上統計成立的改善</text>
+  <rect x="76.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#EF7622" stroke-width="2.5"/>
+  <rect x="76.0" y="217.08" width="548.0" height="44" rx="10" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="247.08" font-size="20" fill="#A85110" font-weight="700">法規段落</text>
+  <text x="96.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">不得使用下列字詞：</text>
+  <rect x="88.0" y="303.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  治療、預防、改善視力、</text>
+  <rect x="88.0" y="327.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  療效、根治⋯⋯</text>
+  <text x="96.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">依食安法 §28：</text>
+  <rect x="88.0" y="399.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">宣稱醫療效能</text>
+  <rect x="88.0" y="423.08000000000004" width="524.0" height="24" rx="4" fill="#FDF1E6" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">罰 60 萬 – 500 萬</text>
+  <rect x="656.0" y="217.08" width="548.0" height="320" rx="10" fill="#ffffff" stroke="#1B6FB8" stroke-width="2.5"/>
+  <rect x="656.0" y="217.08" width="548.0" height="44" rx="10" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="247.08" font-size="20" fill="#12507F" font-weight="700">品牌語調 few-shot</text>
+  <text x="676.0" y="295.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">範例一</text>
+  <text x="676.0" y="319.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  緩釋B群錠 90錠 全素可食</text>
+  <text x="676.0" y="343.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  8種B群一次補齊，緩釋設計</text>
+  <text x="676.0" y="367.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="391.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">範例二</text>
+  <text x="676.0" y="415.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  甘胺酸鎂錠 120錠 睡前補充</text>
+  <text x="676.0" y="439.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  選用好吸收的螯合形式</text>
+  <text x="676.0" y="463.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <rect x="668.0" y="471.08000000000004" width="524.0" height="24" rx="4" fill="#E9F2FB" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="487.08000000000004" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">→ rubric 通過率 +8.9pp</text>
+  <line x1="76" y1="571.08" x2="1204" y2="571.08" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="607.08" font-size="21" fill="#8A8A8A">rubric 量的正是語調與賣點覆蓋 —— 加什麼、量什麼，要對得上。</text>
+</svg><figcaption>11. v2：加法規與語調</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>v3：結構化輸出</title>
+  <desc>v3 用 responseSchema 約束輸出格式，而不是在 prompt 裡拜託模型。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">v3　結構化輸出</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">唯一的差別是多了 responseSchema</text>
+  <rect x="76.0" y="225.24" width="548.0" height="296" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2.5"/>
+  <rect x="76.0" y="225.24" width="548.0" height="44" rx="10" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="255.24" font-size="20" fill="#8A8A8A" font-weight="700">不要這樣做</text>
+  <text x="96.0" y="303.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">prompt 裡寫：</text>
+  <rect x="88.0" y="311.24" width="524.0" height="24" rx="4" fill="#F5F5F5" stroke="none" stroke-width="2"/>
+  <text x="96.0" y="327.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "請以 JSON 格式輸出"</text>
+  <text x="96.0" y="351.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="96.0" y="375.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">模型會照做九成的時間。</text>
+  <text x="96.0" y="399.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">剩下那一成，</text>
+  <text x="96.0" y="423.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">你的 parser 就掛了。</text>
+  <rect x="656.0" y="225.24" width="548.0" height="296" rx="10" fill="#ffffff" stroke="#166534" stroke-width="2.5"/>
+  <rect x="656.0" y="225.24" width="548.0" height="44" rx="10" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="255.24" font-size="20" fill="#0F4A25" font-weight="700">要這樣做</text>
+  <rect x="668.0" y="287.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="303.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">response_schema = {</text>
+  <rect x="668.0" y="311.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="327.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "title":   str,  # ≤60</text>
+  <rect x="668.0" y="335.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="351.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "bullets": [str] * 4,</text>
+  <rect x="668.0" y="359.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="375.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">  "seo_desc": str, # ≤120</text>
+  <rect x="668.0" y="383.24" width="524.0" height="24" rx="4" fill="#CDEBD4" stroke="none" stroke-width="2"/>
+  <text x="676.0" y="399.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">}</text>
+  <text x="676.0" y="423.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"></text>
+  <text x="676.0" y="447.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">模型被解碼器約束在 schema 內。</text>
+  <text x="676.0" y="471.24" font-size="15" fill="#4A4A4A" font-family="'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace">那一成的失敗會消失。</text>
+  <line x1="76" y1="555.24" x2="1204" y2="555.24" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="591.24" font-size="21" fill="#8A8A8A">可機器讀取：0% → 100%。這不需要統計檢定。</text>
+</svg><figcaption>12. v3：結構化輸出</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>關鍵訊息：只有 v3 能接進系統</title>
+  <desc>前三版都只是聊天，只有結構化輸出能進系統。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="339.41" font-size="58" fill="#1A1A1A" font-weight="700">只有 v3 能接進系統。</text>
+  <text x="76" y="417.71000000000004" font-size="58" fill="#1A1A1A" font-weight="700">前面三版都只是聊天。</text>
+  <line x1="76" y1="594" x2="1204" y2="594" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="630" font-size="22" fill="#8A8A8A">v3 沒有讓文案變好，是讓文案變得可用 —— 這是兩件事，你兩個都需要</text>
+</svg><figcaption>13. 關鍵訊息：只有 v3 能接進系統</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>三層評測</title>
+  <desc>由便宜到貴的三層評測：規則層、LLM judge、人工抽樣，含各層成本與延遲</desc>
+
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B6FB8"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">三層評測：由便宜到貴</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">順序很重要</text>
+
+  <!-- ============ 金字塔 ============ -->
+  <path d="M 500 186 L 620 186 L 670 292 L 450 292 Z" fill="#F7D4BC" stroke="#C2510A" stroke-width="2.5"/>
+  <text x="560" y="244" font-size="25" font-weight="700" fill="#8A3A06" text-anchor="middle">人工抽樣</text>
+
+  <path d="M 450 296 L 670 296 L 730 420 L 390 420 Z" fill="#FBE0C6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="560" y="352" font-size="25" font-weight="700" fill="#A85110" text-anchor="middle">LLM as judge</text>
+  <text x="560" y="388" font-size="18" fill="#C45E12" text-anchor="middle">語調、賣點覆蓋</text>
+
+  <path d="M 390 424 L 730 424 L 800 580 L 320 580 Z" fill="#DCEAF8" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="560" y="482" font-size="27" font-weight="700" fill="#12507F" text-anchor="middle">規則層</text>
+  <text x="560" y="518" font-size="18" fill="#1B6FB8" text-anchor="middle">長度、格式、必含規格</text>
+  <text x="560" y="548" font-size="19" font-weight="700" fill="#12507F" text-anchor="middle">法規禁詞</text>
+
+  <text x="180" y="490" font-size="23" font-weight="700" fill="#1B6FB8" text-anchor="middle">先建</text>
+  <text x="180" y="522" font-size="23" font-weight="700" fill="#1B6FB8" text-anchor="middle">這一層</text>
+  <line x1="248" y1="512" x2="336" y2="512" stroke="#1B6FB8" stroke-width="3" marker-end="url(#a2)"/>
+
+  <!-- ============ 右側屬性 ============ -->
+  <g>
+    <text x="880" y="196" font-size="17" font-weight="700" fill="#8A8A8A">成本</text>
+    <text x="1050" y="196" font-size="17" font-weight="700" fill="#8A8A8A">延遲</text>
+
+    <line x1="680" y1="240" x2="860" y2="240" stroke="#EDEDED" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="880" y="248" font-size="21" font-weight="700" fill="#C2510A">最貴</text>
+    <text x="1050" y="248" font-size="21" fill="#4A4A4A">天</text>
+
+    <line x1="712" y1="364" x2="860" y2="364" stroke="#EDEDED" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="880" y="372" font-size="21" font-weight="700" fill="#EF7622">中</text>
+    <text x="1050" y="372" font-size="21" fill="#4A4A4A">秒</text>
+
+    <line x1="782" y1="500" x2="860" y2="500" stroke="#EDEDED" stroke-width="2" stroke-dasharray="4 4"/>
+    <text x="880" y="508" font-size="21" font-weight="700" fill="#1B6FB8">免費</text>
+    <text x="1050" y="508" font-size="21" fill="#4A4A4A">毫秒</text>
+  </g>
+
+  <!-- ============ 實測數字 ============ -->
+  <rect x="76" y="614" width="1128" height="62" rx="10" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
+  <text x="640" y="654" font-size="24" fill="#8A3A06" text-anchor="middle">
+    <tspan font-weight="700">評審佔總成本 83%</tspan><tspan dx="22">—— 50 筆實測</tspan>
+  </text>
+</svg><figcaption>14. 三層評測</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>法規禁詞的罰則</title>
+  <desc>台灣廣告法規的罰則級距，說明為什麼規則層要放第一層。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">這不是工程潔癖，是不做會收罰單</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">依台灣廣告法規整理，罰則差異很大</text>
+  <text x="76" y="216" font-size="19" fill="#8A8A8A" font-weight="700">罰則上限</text>
+  <text x="346.71999999999997" y="216" font-size="19" fill="#8A8A8A" font-weight="700">類別</text>
+  <text x="685.1199999999999" y="216" font-size="19" fill="#8A8A8A" font-weight="700">法源</text>
+  <text x="1194.0" y="216" font-size="19" fill="#8A8A8A" font-weight="700" text-anchor="end">實測 v0 踩雷率</text>
+  <line x1="76" y1="232" x2="1204" y2="232" stroke="#1A1A1A" stroke-width="2"/>
+  <text x="76" y="272" font-size="26" fill="#1A1A1A" font-weight="700">500 萬</text>
+  <text x="346.71999999999997" y="272" font-size="21" fill="#4A4A4A">宣稱醫療效能</text>
+  <text x="685.1199999999999" y="272" font-size="21" fill="#4A4A4A">食安法 §28 第 2 項</text>
+  <text x="1194.0" y="272" font-size="21" fill="#4A4A4A" text-anchor="end">20%</text>
+  <line x1="76" y1="318" x2="1204" y2="318" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="350" font-size="26" fill="#1A1A1A" font-weight="700">400 萬</text>
+  <text x="346.71999999999997" y="350" font-size="21" fill="#4A4A4A">不實、誇張、易生誤解</text>
+  <text x="685.1199999999999" y="350" font-size="21" fill="#4A4A4A">食安法 §28 第 1 項</text>
+  <text x="1194.0" y="350" font-size="21" fill="#4A4A4A" text-anchor="end">—</text>
+  <line x1="76" y1="396" x2="1204" y2="396" stroke="#D8D8D8" stroke-width="1"/>
+  <text x="76" y="428" font-size="26" fill="#1A1A1A" font-weight="700">20 萬</text>
+  <text x="346.71999999999997" y="428" font-size="21" fill="#4A4A4A">化粧品虛偽誇大</text>
+  <text x="685.1199999999999" y="428" font-size="21" fill="#4A4A4A">化粧品衛管法 §10</text>
+  <text x="1194.0" y="428" font-size="21" fill="#4A4A4A" text-anchor="end">—</text>
+  <text x="76" y="642" font-size="19" fill="#8A8A8A">加了 prompt 約束後降到 2% —— 但 2% 不是 0%，所以規則層要擋在最前面。</text>
+</svg><figcaption>15. 法規禁詞的罰則</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>規則層能給方向</title>
+  <desc>規則層不只擋，還能給出合規的替代寫法。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">規則層不只是擋，還能給方向</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">這讓它從惹人厭的 linter 變成文案人員願意用的工具</text>
+  <rect x="76.0" y="206" width="544.0" height="324" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#8A8A8A" font-weight="700">命中禁詞</text>
+  <text x="104.0" y="294" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="294" font-size="20" fill="#4A4A4A">改善視力</text>
+  <text x="104.0" y="328" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="328" font-size="20" fill="#4A4A4A">預防眼部疾病</text>
+  <text x="104.0" y="362" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="362" font-size="20" fill="#4A4A4A">治療乾眼</text>
+  <text x="104.0" y="396" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="396" font-size="20" fill="#4A4A4A">護眼（用在保健食品）</text>
+  <text x="104.0" y="444" font-size="20" fill="#4A4A4A">只告訴你「不行」，</text>
+  <text x="104.0" y="478" font-size="20" fill="#4A4A4A">沒有人會想用這種工具。</text>
+  <rect x="660.0" y="206" width="544.0" height="324" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#0F4A25" font-weight="700">合規替代寫法</text>
+  <text x="688.0" y="294" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="294" font-size="20" fill="#4A4A4A">適合長時間使用螢幕的日常保養</text>
+  <text x="688.0" y="328" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="328" font-size="20" fill="#4A4A4A">每日補充，維持日常保健</text>
+  <text x="688.0" y="362" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="362" font-size="20" fill="#4A4A4A">陪伴長時間用眼的日常</text>
+  <text x="688.0" y="396" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="396" font-size="20" fill="#4A4A4A">日常保養配方</text>
+  <text x="688.0" y="444" font-size="20" fill="#4A4A4A">給了方向，才會有人真的用。</text>
+</svg><figcaption>16. 規則層能給方向</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>不要用 1–5 分</title>
+  <desc>Likert 分數與二元 rubric 的對照。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">LLM as judge：不要用 1–5 分</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">把一個模糊的大問題，拆成一組可檢查的 yes/no 小問題</text>
+  <rect x="76.0" y="206" width="544.0" height="366" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#8A8A8A" font-weight="700">1–5 分</text>
+  <text x="592.0" y="250" font-size="17" fill="#8A8A8A" font-weight="700" text-anchor="end">不要</text>
+  <text x="104.0" y="294" font-size="20" fill="#4A4A4A">「這份文案的品質有幾分？」</text>
+  <text x="104.0" y="342" font-size="20" fill="#4A4A4A">→ 3.8 / 5</text>
+  <text x="104.0" y="390" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="390" font-size="20" fill="#4A4A4A">分數擠在 3–4 分</text>
+  <text x="104.0" y="424" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="424" font-size="20" fill="#4A4A4A">今天 4 分明天 3 分</text>
+  <text x="104.0" y="458" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="458" font-size="20" fill="#4A4A4A">換評審模型整組平移</text>
+  <text x="104.0" y="492" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="492" font-size="20" fill="#4A4A4A">寫得長就拿高分</text>
+  <text x="104.0" y="526" font-size="20" fill="#B3261E" font-weight="700">✗</text>
+  <text x="128.0" y="526" font-size="20" fill="#4A4A4A">「3.8 分」無法行動</text>
+  <rect x="660.0" y="206" width="544.0" height="366" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#0F4A25" font-weight="700">二元 rubric</text>
+  <text x="1176.0" y="250" font-size="17" fill="#0F4A25" font-weight="700" text-anchor="end">要</text>
+  <text x="688.0" y="294" font-size="20" fill="#4A4A4A">「文案是否寫出游離型 30mg？」</text>
+  <text x="688.0" y="342" font-size="20" fill="#4A4A4A">→ 否</text>
+  <text x="688.0" y="390" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="390" font-size="20" fill="#4A4A4A">明確、可重現</text>
+  <text x="688.0" y="424" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="424" font-size="20" fill="#4A4A4A">可累積成一張表</text>
+  <text x="688.0" y="458" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="458" font-size="20" fill="#4A4A4A">直接對應修改動作</text>
+  <text x="688.0" y="492" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="492" font-size="20" fill="#4A4A4A">像單元測試</text>
+  <text x="688.0" y="526" font-size="20" fill="#166534" font-weight="700">✓</text>
+  <text x="712.0" y="526" font-size="20" fill="#4A4A4A">知道要補什麼</text>
+  <rect x="76" y="596" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="632" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">Vertex AI Gen AI Evaluation 的 adaptive rubrics 就是這個思路</text>
+</svg><figcaption>17. 不要用 1–5 分</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>真實的 rubric 清單</title>
+  <desc>從商品資料生成的驗收清單，v0～v3 共用同一份。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">每個商品一份驗收清單</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">只看商品資料生成，不看被評的文案 —— v0～v3 共用同一份考卷</text>
+  <circle cx="94" cy="218.0" r="18" fill="#1B6FB8"/>
+  <text x="94" y="225.0" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="132" y="214.0" font-size="26" fill="#1A1A1A" font-weight="700">文案是否寫出「游離型」？</text>
+  <text x="132" y="246.0" font-size="19" fill="#4A4A4A">規格</text>
+  <text x="1204" y="220.0" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">★ 未過就不該上架</text>
+  <circle cx="94" cy="293.2" r="18" fill="#1B6FB8"/>
+  <text x="94" y="300.2" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="132" y="289.2" font-size="26" fill="#1A1A1A" font-weight="700">是否寫出含量 30mg？</text>
+  <text x="132" y="321.2" font-size="19" fill="#4A4A4A">規格</text>
+  <text x="1204" y="295.2" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">★ 未過就不該上架</text>
+  <circle cx="94" cy="368.4" r="18" fill="#1B6FB8"/>
+  <text x="94" y="375.4" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="132" y="364.4" font-size="26" fill="#1A1A1A" font-weight="700">是否提及全素可食？</text>
+  <text x="132" y="396.4" font-size="19" fill="#4A4A4A">規格</text>
+  <circle cx="94" cy="443.6" r="18" fill="#1B6FB8"/>
+  <text x="94" y="450.6" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">4</text>
+  <text x="132" y="439.6" font-size="26" fill="#1A1A1A" font-weight="700">語氣是否克制、無誇大？</text>
+  <text x="132" y="471.6" font-size="19" fill="#4A4A4A">語調</text>
+  <circle cx="94" cy="518.8" r="18" fill="#1B6FB8"/>
+  <text x="94" y="525.8" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">5</text>
+  <text x="132" y="514.8" font-size="26" fill="#1A1A1A" font-weight="700">四條賣點是否各自獨立？</text>
+  <text x="132" y="546.8" font-size="19" fill="#4A4A4A">結構</text>
+  <line x1="76" y1="604" x2="1204" y2="604" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="638" font-size="21" fill="#8A8A8A">若讓評審看著文案即興出題，等於每個版本考不同的考卷 —— 那張表就沒有意義了。</text>
+</svg><figcaption>18. 真實的 rubric 清單</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>judge 的偏誤</title>
+  <desc>LLM 評審的三種已知偏誤與各自的緩解方式。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">評審不是中立的</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">三種已知偏誤，各自有緩解方式 —— 但沒有一種能完全消除</text>
+  <rect x="76.0" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="98.0" y="250" font-size="23" fill="#A85110" font-weight="700">self-preference</text>
+  <text x="98.0" y="288" font-size="18" fill="#4A4A4A">模型偏好自己</text>
+  <text x="98.0" y="316" font-size="18" fill="#4A4A4A">生成的文字</text>
+  <text x="98.0" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="98.0" y="372" font-size="18" fill="#4A4A4A">緩解：</text>
+  <text x="98.0" y="400" font-size="18" fill="#4A4A4A">生成用 flash</text>
+  <text x="98.0" y="428" font-size="18" fill="#4A4A4A">評審用 2.5-pro</text>
+  <rect x="461.3333333333333" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="483.3333333333333" y="250" font-size="23" fill="#A85110" font-weight="700">verbosity</text>
+  <text x="483.3333333333333" y="288" font-size="18" fill="#4A4A4A">寫得長、寫得華麗</text>
+  <text x="483.3333333333333" y="316" font-size="18" fill="#4A4A4A">容易拿高分</text>
+  <text x="483.3333333333333" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="483.3333333333333" y="372" font-size="18" fill="#4A4A4A">緩解：</text>
+  <text x="483.3333333333333" y="400" font-size="18" fill="#4A4A4A">二元判準</text>
+  <text x="483.3333333333333" y="428" font-size="18" fill="#4A4A4A">不給分數</text>
+  <rect x="846.6666666666666" y="206" width="357.3333333333333" height="210" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="868.6666666666666" y="250" font-size="23" fill="#A85110" font-weight="700">position</text>
+  <text x="868.6666666666666" y="288" font-size="18" fill="#4A4A4A">先看到的選項</text>
+  <text x="868.6666666666666" y="316" font-size="18" fill="#4A4A4A">比較容易被選</text>
+  <text x="868.6666666666666" y="344" font-size="18" fill="#4A4A4A"></text>
+  <text x="868.6666666666666" y="372" font-size="18" fill="#4A4A4A">緩解：</text>
+  <text x="868.6666666666666" y="400" font-size="18" fill="#4A4A4A">不做兩兩對比</text>
+  <text x="868.6666666666666" y="428" font-size="18" fill="#4A4A4A">各自獨立評分</text>
+  <text x="76" y="654" font-size="20" fill="#8A8A8A">所以評審層的數字要配信賴區間看 —— 有偏誤的量尺，更不能只看單點。</text>
+</svg><figcaption>19. judge 的偏誤</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>50 筆評測結果</title>
+  <desc>四個 prompt 版本在 50 筆商品上的評測結果，含配對比較的信賴區間</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">每一版做對一件事</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">50 筆商品實測</text>
+
+  <!-- ================= 表頭 ================= -->
+  <g font-size="22" font-weight="700" fill="#4A4A4A" text-anchor="middle">
+    <text x="700" y="196">v0</text>
+    <text x="855" y="196">v1</text>
+    <text x="1010" y="196">v2</text>
+    <text x="1165" y="196">v3</text>
+  </g>
+  <line x1="76" y1="212" x2="1240" y2="212" stroke="#D8D8D8" stroke-width="2"/>
+
+  <!-- ================= 規則層 ================= -->
+  <text x="76" y="248" font-size="16" font-weight="700" fill="#1B6FB8">規則層</text>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="292">法規禁詞 0 命中</text>
+    <rect x="628" y="270" width="144" height="30" rx="5" fill="#FBE3D0"/>
+    <text x="700" y="292" text-anchor="middle" font-weight="700" fill="#A34408">80%</text>
+    <rect x="783" y="270" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="855" y="292" text-anchor="middle" font-weight="700" fill="#166534">98%</text>
+    <text x="1010" y="292" text-anchor="middle" fill="#6A6A6A">100%</text>
+    <text x="1165" y="292" text-anchor="middle" fill="#6A6A6A">100%</text>
+  </g>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="338">標題長度合規</text>
+    <rect x="628" y="316" width="144" height="30" rx="5" fill="#FBE3D0"/>
+    <text x="700" y="338" text-anchor="middle" font-weight="700" fill="#A34408">74%</text>
+    <rect x="783" y="316" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="855" y="338" text-anchor="middle" font-weight="700" fill="#166534">100%</text>
+    <text x="1010" y="338" text-anchor="middle" fill="#6A6A6A">100%</text>
+    <text x="1165" y="338" text-anchor="middle" fill="#6A6A6A">100%</text>
+  </g>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="384">規格完整覆蓋</text>
+    <rect x="628" y="362" width="144" height="30" rx="5" fill="#FBE3D0"/>
+    <text x="700" y="384" text-anchor="middle" font-weight="700" fill="#A34408">82%</text>
+    <rect x="783" y="362" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="855" y="384" text-anchor="middle" font-weight="700" fill="#166534">98%</text>
+    <text x="1010" y="384" text-anchor="middle" fill="#6A6A6A">100%</text>
+    <text x="1165" y="384" text-anchor="middle" fill="#6A6A6A">100%</text>
+  </g>
+
+  <!-- ================= 評審層 ================= -->
+  <line x1="76" y1="408" x2="1240" y2="408" stroke="#EDEDED" stroke-width="1.5"/>
+  <text x="76" y="440" font-size="16" font-weight="700" fill="#EF7622">評審層</text>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="484">rubric 通過率</text>
+    <text x="700" y="484" text-anchor="middle" fill="#6A6A6A">73.1%</text>
+    <text x="855" y="484" text-anchor="middle" fill="#6A6A6A">78.0%</text>
+    <rect x="938" y="462" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="1010" y="484" text-anchor="middle" font-weight="700" fill="#166534">86.8%</text>
+    <text x="1165" y="484" text-anchor="middle" fill="#6A6A6A">85.4%</text>
+  </g>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="530">可直接上架</text>
+    <text x="700" y="530" text-anchor="middle" fill="#6A6A6A">32%</text>
+    <text x="855" y="530" text-anchor="middle" fill="#6A6A6A">48%</text>
+    <rect x="938" y="508" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="1010" y="530" text-anchor="middle" font-weight="700" fill="#166534">64%</text>
+    <text x="1165" y="530" text-anchor="middle" fill="#6A6A6A">62%</text>
+  </g>
+
+  <!-- ================= 結構 ================= -->
+  <line x1="76" y1="554" x2="1240" y2="554" stroke="#EDEDED" stroke-width="1.5"/>
+
+  <g font-size="21" fill="#1A1A1A">
+    <text x="76" y="598">可機器讀取</text>
+    <text x="700" y="598" text-anchor="middle" fill="#6A6A6A">0%</text>
+    <text x="855" y="598" text-anchor="middle" fill="#6A6A6A">0%</text>
+    <text x="1010" y="598" text-anchor="middle" fill="#6A6A6A">0%</text>
+    <rect x="1093" y="576" width="144" height="30" rx="5" fill="#CDEBD4"/>
+    <text x="1165" y="598" text-anchor="middle" font-weight="700" fill="#166534">100%</text>
+  </g>
+
+  <!-- ================= 歸因 ================= -->
+  <line x1="76" y1="624" x2="1240" y2="624" stroke="#D8D8D8" stroke-width="2"/>
+  <g font-size="19" font-weight="700" text-anchor="middle">
+    <text x="700" y="666" fill="#B8B8B8">基準線</text>
+    <text x="855" y="666" fill="#1B6FB8">格式與合規</text>
+    <text x="1010" y="666" fill="#EF7622">語意品質</text>
+    <text x="1165" y="666" fill="#C2510A">可機器讀取</text>
+  </g>
+</svg><figcaption>20. 50 筆評測結果</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>版本差距的信賴區間</title>
+  <desc>相鄰版本 rubric 通過率差距的配對比較與 95% bootstrap 信賴區間</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">哪些差距是真的？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">rubric 通過率，配對比較 · bootstrap 95% 信賴區間 · 50 筆</text>
+
+  <!--
+    座標軸：-10pp 到 +16pp 對應 x = 300 到 1180
+    每 pp = (1180-300)/26 = 33.85 px；0 點在 x = 300 + 10*33.85 = 638.5
+  -->
+
+  <!-- 零線 -->
+  <line x1="638" y1="212" x2="638" y2="512" stroke="#C2510A" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="638" y="200" font-size="19" font-weight="700" fill="#C2510A" text-anchor="middle">0</text>
+
+  <!-- 刻度 -->
+  <g font-size="15" fill="#B8B8B8" text-anchor="middle">
+    <text x="300" y="200">−10</text>
+    <text x="469" y="200">−5</text>
+    <text x="807" y="200">+5</text>
+    <text x="976" y="200">+10</text>
+    <text x="1145" y="200">+15</text>
+  </g>
+  <line x1="300" y1="212" x2="1180" y2="212" stroke="#EDEDED" stroke-width="1.5"/>
+  <text x="1180" y="196" font-size="15" fill="#B8B8B8" text-anchor="end">百分點</text>
+
+  <!-- ============ v1 − v0 ============ -->
+  <text x="76" y="286" font-size="24" font-weight="700" fill="#1A1A1A">v1 − v0</text>
+  <line x1="610" y1="278" x2="996" y2="278" stroke="#B8B8B8" stroke-width="4"/>
+  <line x1="610" y1="262" x2="610" y2="294" stroke="#8A8A8A" stroke-width="3"/>
+  <line x1="996" y1="262" x2="996" y2="294" stroke="#8A8A8A" stroke-width="3"/>
+  <circle cx="803" cy="278" r="9" fill="#8A8A8A"/>
+  <text x="1210" y="286" font-size="20" fill="#8A8A8A" text-anchor="end">+4.9</text>
+
+  <!-- ============ v2 − v1 ============ -->
+  <text x="76" y="386" font-size="24" font-weight="700" fill="#1A1A1A">v2 − v1</text>
+  <line x1="793" y1="378" x2="1083" y2="378" stroke="#16A34A" stroke-width="4"/>
+  <line x1="793" y1="362" x2="793" y2="394" stroke="#166534" stroke-width="3"/>
+  <line x1="1083" y1="362" x2="1083" y2="394" stroke="#166534" stroke-width="3"/>
+  <circle cx="938" cy="378" r="11" fill="#16A34A"/>
+  <text x="1210" y="386" font-size="20" font-weight="700" fill="#166534" text-anchor="end">+8.9</text>
+
+  <!-- ============ v3 − v2 ============ -->
+  <text x="76" y="486" font-size="24" font-weight="700" fill="#1A1A1A">v3 − v2</text>
+  <line x1="464" y1="478" x2="725" y2="478" stroke="#B8B8B8" stroke-width="4"/>
+  <line x1="464" y1="462" x2="464" y2="494" stroke="#8A8A8A" stroke-width="3"/>
+  <line x1="725" y1="462" x2="725" y2="494" stroke="#8A8A8A" stroke-width="3"/>
+  <circle cx="590" cy="478" r="9" fill="#8A8A8A"/>
+  <text x="1210" y="486" font-size="20" fill="#8A8A8A" text-anchor="end">−1.4</text>
+
+  <!-- ============ 判讀 ============ -->
+  <g font-size="18">
+    <rect x="300" y="530" width="18" height="18" rx="4" fill="#16A34A"/>
+    <text x="330" y="546" fill="#166534" font-weight="700">區間不含 0 → 有差異</text>
+    <rect x="640" y="530" width="18" height="18" rx="4" fill="#B8B8B8"/>
+    <text x="670" y="546" fill="#6A6A6A">區間跨過 0 → 分不出差別</text>
+  </g>
+
+  <!-- ============ 一句結論 ============ -->
+  <rect x="76" y="600" width="1128" height="66" rx="10" fill="#F0F7FF" stroke="#A9CDEE" stroke-width="2"/>
+  <text x="104" y="632" font-size="21" fill="#12507F">
+    <tspan font-weight="700">語意品質上，只有 v1 → v2 站得住。</tspan><tspan dx="20">另外兩個差距在這個樣本量下分不出來。</tspan>
+  </text>
+  <text x="104" y="656" font-size="18" fill="#4A4A4A">v1 與 v3 贏在別的欄位</text>
+</svg><figcaption>21. 版本差距的信賴區間</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>自己做還是買現成的</title>
+  <desc>用「會不會出現在你的產品定價頁上」當分界線。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">自己做，還是買現成的？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">分界線只有一條</text>
+  <rect x="76.0" y="206" width="544.0" height="324" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#12507F" font-weight="700">會出現在定價頁上 → 自己做</text>
+  <text x="104.0" y="294" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="294" font-size="20" fill="#4A4A4A">商品文案生成（電商平台）</text>
+  <text x="104.0" y="328" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="328" font-size="20" fill="#4A4A4A">病歷摘要（醫療系統）</text>
+  <text x="104.0" y="362" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="362" font-size="20" fill="#4A4A4A">契約風險標註（法律科技）</text>
+  <text x="104.0" y="410" font-size="20" fill="#4A4A4A">這是你的產品本身。</text>
+  <text x="104.0" y="444" font-size="20" fill="#4A4A4A">評測要自己建，因為只有你知道</text>
+  <text x="104.0" y="478" font-size="20" fill="#4A4A4A">什麼叫做好。</text>
+  <rect x="660.0" y="206" width="544.0" height="324" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#8A8A8A" font-weight="700">不會出現在定價頁上 → 買現成</text>
+  <text x="688.0" y="294" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="294" font-size="20" fill="#4A4A4A">客服工單分類</text>
+  <text x="688.0" y="328" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="328" font-size="20" fill="#4A4A4A">會議記錄整理</text>
+  <text x="688.0" y="362" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="362" font-size="20" fill="#4A4A4A">內部文件搜尋</text>
+  <text x="688.0" y="410" font-size="20" fill="#4A4A4A">這是你的內部效率。</text>
+  <text x="688.0" y="444" font-size="20" fill="#4A4A4A">買現成的，把時間留給前面那欄。</text>
+  <rect x="76" y="554" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="590" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">這個 AI 功能會不會出現在你的產品定價頁上？</text>
+</svg><figcaption>22. 自己做還是買現成的</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>方法論可遷移</title>
+  <desc>生成與抽取是同一套流程的兩個方向。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">同一套方法，兩個方向</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">你剛學的是一套流程，不是一個文案技巧</text>
+  <rect x="76.0" y="206" width="544.0" height="304" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#A85110" font-weight="700">場景 A　生成</text>
+  <text x="104.0" y="294" font-size="20" fill="#4A4A4A">結構化資料 → 非結構化文字</text>
+  <text x="104.0" y="342" font-size="20" fill="#4A4A4A">商品規格 → 商品文案</text>
+  <text x="104.0" y="390" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="390" font-size="20" fill="#4A4A4A">要 schema</text>
+  <text x="104.0" y="424" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="424" font-size="20" fill="#4A4A4A">要評測</text>
+  <text x="104.0" y="458" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="458" font-size="20" fill="#4A4A4A">要算成本</text>
+  <rect x="660.0" y="206" width="544.0" height="304" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#12507F" font-weight="700">場景 B　抽取</text>
+  <text x="688.0" y="294" font-size="20" fill="#4A4A4A">非結構化文字 → 結構化資料</text>
+  <text x="688.0" y="342" font-size="20" fill="#4A4A4A">使用者評論 → 洞察欄位</text>
+  <text x="688.0" y="390" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="390" font-size="20" fill="#4A4A4A">要 schema</text>
+  <text x="688.0" y="424" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="424" font-size="20" fill="#4A4A4A">要評測</text>
+  <text x="688.0" y="458" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="458" font-size="20" fill="#4A4A4A">要算成本</text>
+  <rect x="76" y="534" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="570" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">方向相反，流程完全相同</text>
+</svg><figcaption>23. 方法論可遷移</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>成本估算公式與降本四招</title>
+  <desc>生成式 AI 的成本估算公式，以及四種降低成本的手段與其代價</desc>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">成本：用公式，不背數字</text>
+
+  <!-- ============ 公式 ============ -->
+  <rect x="76" y="140" width="1128" height="150" rx="12" fill="#F5F5F5" stroke="#D8D8D8" stroke-width="2"/>
+
+  <text x="108" y="178" font-size="16" font-weight="700" fill="#8A8A8A">單次成本</text>
+  <text x="108" y="214" font-size="23" fill="#1A1A1A" font-family="'SF Mono','Menlo','Consolas',monospace">( in_tokens × 單價_in&#160;&#160;+&#160;&#160;out_tokens × 單價_out ) ÷ 1,000,000</text>
+
+  <line x1="108" y1="236" x2="1172" y2="236" stroke="#D8D8D8" stroke-width="1.5"/>
+
+  <text x="108" y="262" font-size="16" font-weight="700" fill="#8A8A8A">月成本</text>
+  <text x="108" y="284" font-size="22" fill="#1A1A1A" font-family="'SF Mono','Menlo','Consolas',monospace">單次 × SKU數 × 重生成次數 × ( 1 + <tspan fill="#C2510A" font-weight="700">judge 開銷比</tspan> )</text>
+
+  <!-- 實測數字，不是勸說 -->
+  <rect x="76" y="306" width="1128" height="54" rx="10" fill="#FBEADF" stroke="#EFB183" stroke-width="2"/>
+  <text x="640" y="341" font-size="23" fill="#8A3A06" text-anchor="middle">
+    <tspan font-weight="700">實測：評審佔總成本 83%</tspan><tspan dx="22">最常被漏算的一筆</tspan>
+  </text>
+
+  <!-- ============ 降本四招 ============ -->
+  <text x="76" y="416" font-size="28" font-weight="700" fill="#1A1A1A">降本四招</text>
+
+  <text x="96" y="452" font-size="15" font-weight="700" fill="#B8B8B8">手段</text>
+  <text x="372" y="452" font-size="15" font-weight="700" fill="#B8B8B8">省下</text>
+  <text x="790" y="452" font-size="15" font-weight="700" fill="#B8B8B8">代價</text>
+
+  <g>
+    <rect x="76" y="466" width="1128" height="56" rx="8" fill="#F5F5F5"/>
+    <text x="96" y="502" font-size="21" font-weight="600" fill="#1A1A1A">1　模型選型降級</text>
+    <rect x="372" y="484" width="200" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="502" font-size="17" fill="#A85110">最大一筆</text>
+    <text x="790" y="502" font-size="18" font-weight="700" fill="#8A3A06">要有評測表才敢降</text>
+  </g>
+
+  <g>
+    <rect x="76" y="528" width="1128" height="56" rx="8" fill="#ffffff"/>
+    <text x="96" y="564" font-size="21" font-weight="600" fill="#1A1A1A">2　Batch API</text>
+    <rect x="372" y="546" width="130" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="564" font-size="17" fill="#A85110">約 5 折</text>
+    <text x="790" y="564" font-size="18" fill="#4A4A4A">延遲變小時級</text>
+  </g>
+
+  <g>
+    <rect x="76" y="590" width="1128" height="56" rx="8" fill="#F5F5F5"/>
+    <text x="96" y="626" font-size="21" font-weight="600" fill="#1A1A1A">3　Context caching</text>
+    <rect x="372" y="608" width="102" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="626" font-size="17" fill="#A85110">input 折扣</text>
+    <text x="790" y="626" font-size="18" fill="#4A4A4A">前綴要夠長</text>
+  </g>
+
+  <g>
+    <rect x="76" y="652" width="960" height="52" rx="8" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
+    <text x="96" y="686" font-size="21" font-weight="600" fill="#1A1A1A">4　結果快取</text>
+    <rect x="372" y="668" width="170" height="21" rx="5" fill="#EF7622"/>
+    <text x="588" y="686" font-size="17" font-weight="700" fill="#C2510A">最被低估</text>
+    <text x="790" y="686" font-size="18" fill="#4A4A4A">幾乎沒有</text>
+  </g>
+</svg><figcaption>24. 成本估算公式與降本四招</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>評測本身要花錢</title>
+  <desc>最常被漏算的一筆成本。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="383.04" font-size="72" fill="#1A1A1A" font-weight="700">評測本身要花錢。</text>
+  <line x1="76" y1="594" x2="1204" y2="594" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="630" font-size="22" fill="#8A8A8A">大家算成本只算生成 —— 這次實測，評審佔總成本的大部分</text>
+</svg><figcaption>25. 評測本身要花錢</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>GCP 架構：今天 demo 用到的 vs 正式上線需要的</title>
+  <desc>零售生成式 AI 系統在 Google Cloud 上的架構，區分 POC 實際使用的服務與正式部署還需要的服務</desc>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A8A"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <text x="76" y="97" font-size="38" font-weight="700" fill="#1A1A1A">這套系統用到哪些 GCP 服務？</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">實線＝今天 demo 真的跑過　虛線＝正式上線才需要，今天沒做</text>
+
+  <!-- ===== 圖例 ===== -->
+  <g transform="translate(940,160)">
+    <rect x="0" y="0" width="264" height="72" rx="8" fill="#F5F5F5" stroke="#D8D8D8" stroke-width="1.5"/>
+    <rect x="14" y="16" width="20" height="14" rx="3" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+    <text x="44" y="28" font-size="15" fill="#4A4A4A">demo 實際使用</text>
+    <rect x="14" y="44" width="20" height="14" rx="3" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="44" y="56" font-size="15" fill="#4A4A4A">正式部署才需要</text>
+  </g>
+
+  <!-- ===== 第一排：資料來源 ===== -->
+  <text x="76" y="196" font-size="16" font-weight="700" fill="#8A8A8A">1　資料來源</text>
+  <rect x="76" y="210" width="200" height="70" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="176" y="240" font-size="17" font-weight="600" fill="#4A4A4A" text-anchor="middle">PIM / 商品主檔</text>
+  <text x="176" y="264" font-size="14" fill="#8A8A8A" text-anchor="middle">demo 用 JSON 代替</text>
+
+  <rect x="296" y="210" width="200" height="70" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="396" y="240" font-size="17" font-weight="600" fill="#4A4A4A" text-anchor="middle">Cloud Storage</text>
+  <text x="396" y="264" font-size="14" fill="#8A8A8A" text-anchor="middle">商品圖、原始匯出檔</text>
+
+  <!-- ===== 第二排：核心處理 ===== -->
+  <text x="76" y="326" font-size="16" font-weight="700" fill="#8A8A8A">2　生成與評測（今天的主角）</text>
+
+  <rect x="76" y="340" width="240" height="118" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="196" y="372" font-size="19" font-weight="700" fill="#A85110" text-anchor="middle">Vertex AI</text>
+  <text x="196" y="398" font-size="15" fill="#4A4A4A" text-anchor="middle">Gemini 生成（flash）</text>
+  <text x="196" y="420" font-size="15" fill="#4A4A4A" text-anchor="middle">Gemini 評審（2.5-pro）</text>
+  <text x="196" y="444" font-size="14" fill="#C2510A" text-anchor="middle">structured output</text>
+
+  <rect x="336" y="340" width="200" height="118" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="436" y="372" font-size="19" font-weight="700" fill="#12507F" text-anchor="middle">規則層</text>
+  <text x="436" y="398" font-size="15" fill="#4A4A4A" text-anchor="middle">純 Python，不呼叫模型</text>
+  <text x="436" y="420" font-size="15" fill="#4A4A4A" text-anchor="middle">禁詞、長度、schema</text>
+  <text x="436" y="444" font-size="14" fill="#1B6FB8" text-anchor="middle">零成本 · 可進 CI</text>
+
+  <rect x="556" y="340" width="200" height="118" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="656" y="372" font-size="19" font-weight="700" fill="#A85110" text-anchor="middle">BigQuery</text>
+  <text x="656" y="398" font-size="15" fill="#4A4A4A" text-anchor="middle">評論洞察落地</text>
+  <text x="656" y="420" font-size="15" fill="#4A4A4A" text-anchor="middle">分區 + 叢集</text>
+  <text x="656" y="444" font-size="14" fill="#C2510A" text-anchor="middle">場景 B（選用）</text>
+
+  <rect x="776" y="340" width="200" height="118" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="876" y="372" font-size="19" font-weight="700" fill="#6A6A6A" text-anchor="middle">Cloud Run</text>
+  <text x="876" y="398" font-size="15" fill="#8A8A8A" text-anchor="middle">把 pipeline 包成服務</text>
+  <text x="876" y="420" font-size="15" fill="#8A8A8A" text-anchor="middle">供 PIM 後台呼叫</text>
+  <text x="876" y="444" font-size="14" fill="#B8B8B8" text-anchor="middle">今天用 notebook 代替</text>
+
+  <rect x="996" y="340" width="208" height="118" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="1100" y="372" font-size="19" font-weight="700" fill="#6A6A6A" text-anchor="middle">Batch Prediction</text>
+  <text x="1100" y="398" font-size="15" fill="#8A8A8A" text-anchor="middle">全站商品初次匯入</text>
+  <text x="1100" y="420" font-size="15" fill="#8A8A8A" text-anchor="middle">約 5 折</text>
+  <text x="1100" y="444" font-size="14" fill="#B8B8B8" text-anchor="middle">成本段有講，沒有跑</text>
+
+  <!-- 箭頭 -->
+  <line x1="316" y1="399" x2="332" y2="399" stroke="#8A8A8A" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="536" y1="399" x2="552" y2="399" stroke="#8A8A8A" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- PIM → Vertex AI：走左側繞開第二排標題，並對齊本排箭頭高度 y=399 -->
+  <path d="M 76 245 H 56 V 399 H 72" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+
+  <!-- ===== 第三排：維運 ===== -->
+  <text x="76" y="504" font-size="16" font-weight="700" fill="#8A8A8A">3　維運與治理（今天完全沒碰，但上線一定要）</text>
+
+  <g font-size="16" fill="#6A6A6A">
+    <rect x="76" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="164" y="544" font-weight="600" text-anchor="middle">Cloud Scheduler</text>
+    <text x="164" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">定期重跑評測</text>
+
+    <rect x="268" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="356" y="544" font-weight="600" text-anchor="middle">Secret Manager</text>
+    <text x="356" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">API 金鑰不進 repo</text>
+
+    <rect x="460" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="548" y="544" font-weight="600" text-anchor="middle">Cloud Logging</text>
+    <text x="548" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">留存每次生成紀錄</text>
+
+    <rect x="652" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="740" y="544" font-weight="600" text-anchor="middle">IAM / VPC-SC</text>
+    <text x="740" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">資料落地與權限</text>
+
+    <rect x="844" y="518" width="176" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="932" y="544" font-weight="600" text-anchor="middle">Cloud Monitoring</text>
+    <text x="932" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">品質與成本告警</text>
+
+    <rect x="1036" y="518" width="168" height="58" rx="10" fill="#ffffff" stroke="#B8B8B8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="1120" y="544" font-weight="600" text-anchor="middle">Artifact Registry</text>
+    <text x="1120" y="565" font-size="14" fill="#8A8A8A" text-anchor="middle">容器版本管理</text>
+  </g>
+
+  <!-- 只留事實，論證用講的 -->
+  <rect x="76" y="606" width="1128" height="62" rx="10" fill="#FDF1E6" stroke="#F8C99A" stroke-width="2"/>
+  <text x="640" y="646" font-size="24" fill="#8A3A06" text-anchor="middle">
+    <tspan font-weight="700">今天實際用到兩個：Vertex AI 與 BigQuery</tspan><tspan dx="24">其餘為正式部署所需</tspan>
+  </text>
+
+</svg><figcaption>26. GCP 架構：demo 用到的 vs 正式上線需要的</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>90 天導入路徑</title>
+  <desc>三個階段各自的產出與時間。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">90 天導入路徑</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">順序不能反過來 —— 先解決「怎麼知道它變好了」</text>
+  <circle cx="94" cy="218" r="18" fill="#1B6FB8"/>
+  <text x="94" y="225" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="132" y="214" font-size="26" fill="#1A1A1A" font-weight="700">Vertex AI Studio 驗證可行性</text>
+  <text x="132" y="246" font-size="19" fill="#4A4A4A">這件事到底做不做得成</text>
+  <text x="1204" y="220" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">2 週</text>
+  <circle cx="94" cy="310" r="18" fill="#1B6FB8"/>
+  <text x="94" y="317" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="132" y="306" font-size="26" fill="#1A1A1A" font-weight="700">建 golden set + API 串接</text>
+  <text x="132" y="338" font-size="19" fill="#4A4A4A">30–50 筆就足以開始</text>
+  <text x="1204" y="312" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">4 週</text>
+  <circle cx="94" cy="402" r="18" fill="#1B6FB8"/>
+  <text x="94" y="409" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="132" y="398" font-size="26" fill="#1A1A1A" font-weight="700">小流量上線 + 監控</text>
+  <text x="132" y="430" font-size="19" fill="#4A4A4A">有數字可以對董事會報告</text>
+  <text x="1204" y="404" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">6 週</text>
+  <line x1="76" y1="604" x2="1204" y2="604" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="638" font-size="21" fill="#8A8A8A">golden set 不用大。50 筆 × 7 條判準，就足以分辨 3 個百分點以上的差距。</text>
+</svg><figcaption>27. 90 天導入路徑</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>收尾：回到開場那兩段文案</title>
+  <desc>回到開場的 A/B 文案，這次有評測結果可以說明為什麼選 B。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="88" font-size="26" fill="#8A8A8A" font-weight="700">A</text>
+  <text x="660.0" y="88" font-size="26" fill="#0F4A25" font-weight="700">B</text>
+  <rect x="76.0" y="110" width="544.0" height="300" rx="10" fill="#ffffff" stroke="#D8D8D8" stroke-width="2"/>
+  <text x="102.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">【嚴選】金賺健康 葉黃素軟膠囊 ★熱銷第一★</text>
+  <text x="102.0" y="210" font-size="19" fill="#4A4A4A">守護您的靈魂之窗！現代人３Ｃ不離身，</text>
+  <text x="102.0" y="244" font-size="19" fill="#4A4A4A">眼睛乾澀疲勞好困擾？本產品採用頂級游離型</text>
+  <text x="102.0" y="278" font-size="19" fill="#4A4A4A">葉黃素，有效改善視力模糊、預防眼部疾病，</text>
+  <text x="102.0" y="312" font-size="19" fill="#4A4A4A">讓您重拾清晰視界，告別老花困擾！</text>
+  <rect x="660.0" y="110" width="544.0" height="300" rx="10" fill="#CDEBD4" stroke="#166534" stroke-width="2.5"/>
+  <text x="686.0" y="160" font-size="22" fill="#1A1A1A" font-weight="700">青研 游離型葉黃素軟膠囊 30粒 每粒30mg</text>
+  <text x="686.0" y="210" font-size="19" fill="#4A4A4A">· 游離型葉黃素 30mg，吸收不需再轉換</text>
+  <text x="686.0" y="244" font-size="19" fill="#4A4A4A">· 添加玉米黃素與蝦紅素，每日一粒</text>
+  <text x="686.0" y="278" font-size="19" fill="#4A4A4A">· 全素可食，無添加人工色素</text>
+  <text x="686.0" y="312" font-size="19" fill="#4A4A4A">· 適合長時間使用螢幕的日常保養</text>
+  <text x="686.0" y="448" font-size="20" fill="#0F4A25" font-weight="700">✓ 規則層全過　rubric 通過　可機器讀取</text>
+  <line x1="76" y1="500" x2="1204" y2="500" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="546" font-size="30" fill="#1A1A1A" font-weight="700">你怎麼知道它有沒有變好？</text>
+  <text x="76" y="590" font-size="22" fill="#4A4A4A">現在你有一張表可以回答 —— 而且下次改 prompt，重跑一次就知道有沒有退步。</text>
+</svg><figcaption>28. 收尾：回到開場那兩段文案</figcaption></figure></div>
+<div id="bar"></div>
+<div id="hud"></div>
+<div id="help">← → 換頁　F 全螢幕　O 總覽</div>
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+const grid = document.getElementById('grid');
+const bar = document.getElementById('bar');
+const hud = document.getElementById('hud');
+let i = 0;
+
+function show(n) {
+  i = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((s, k) => s.classList.toggle('on', k === i));
+  bar.style.width = ((i + 1) / slides.length * 100) + '%';
+  hud.innerHTML = '<b>' + (i + 1) + '</b> / ' + slides.length;
+  [...grid.children].forEach((f, k) => f.classList.toggle('cur', k === i));
+  if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+}
+function toggleGrid(force) {
+  const on = force ?? !grid.classList.contains('on');
+  grid.classList.toggle('on', on);
+  if (on) [...grid.children][i]?.scrollIntoView({block: 'center'});
+}
+function fullscreen() {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen?.();
+}
+
+addEventListener('keydown', e => {
+  const k = e.key;
+  if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter') {
+    show(i + 1); toggleGrid(false); e.preventDefault();
+  } else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace') {
+    show(i - 1); toggleGrid(false); e.preventDefault();
+  } else if (k === 'Home') { show(0); }
+  else if (k === 'End') { show(slides.length - 1); }
+  else if (k === 'f' || k === 'F') { fullscreen(); }
+  else if (k === 'o' || k === 'O' || k === 'Escape') { toggleGrid(); }
+});
+
+// 點右半邊下一頁、左半邊上一頁 —— 沒有簡報筆的時候用得到
+addEventListener('click', e => {
+  if (grid.classList.contains('on')) return;
+  show(e.clientX > innerWidth / 2 ? i + 1 : i - 1);
+});
+[...grid.children].forEach((f, k) => f.addEventListener('click', ev => {
+  ev.stopPropagation(); show(k); toggleGrid(false);
+}));
+
+// 觸控滑動
+let x0 = null;
+addEventListener('touchstart', e => { x0 = e.changedTouches[0].clientX; }, {passive: true});
+addEventListener('touchend', e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0;
+  if (Math.abs(dx) > 48) show(dx < 0 ? i + 1 : i - 1);
+  x0 = null;
+}, {passive: true});
+
+show(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+</script>
+</body>
+</html>

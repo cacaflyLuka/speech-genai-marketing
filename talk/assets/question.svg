@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>把問題丟出來</title>
+  <desc>開場提問：你要怎麼跟工程師說這版比較好。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="339.41" font-size="58" fill="#1A1A1A" font-weight="700">那你要怎麼跟工程師說：</text>
+  <text x="76" y="417.71000000000004" font-size="58" fill="#1A1A1A" font-weight="700">這版比較好，上線吧？</text>
+</svg>

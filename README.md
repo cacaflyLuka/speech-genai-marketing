@@ -17,13 +17,16 @@ Makefile                 常用指令捷徑（make help）
 talk/
   abstract.md                主辦方提交用：短主題 + 條列式大綱
   script.md                  大綱 + 逐頁講稿 + demo 腳本 + QA + 上場前檢查清單
-  assets/                    投影片圖（1280×720，右下角留給 logo）
-    tool-map.svg             承：GCP 三層工具地圖
-    eval-pyramid.svg         轉 2：三層評測金字塔
-    results.svg              ★ 轉 2：50 筆評測結果總表
-    significance.svg         ★ 轉 2：配對比較的信賴區間
-    cost-model.svg           合：成本公式與降本四招
-    gcp-architecture.svg     demo 用到的 GCP vs 正式上線需要的
+  build_slides.py            ★ 產生版面型投影片與播放器（版面規則只寫在這裡）
+  slides.html                ★ 產物：28 張投影片的單一檔案播放器，可全螢幕
+  assets/                    投影片（1280×720，右下角留給 logo）
+    tool-map.svg             ☐ 手繪：GCP 三層工具地圖
+    eval-pyramid.svg         ☐ 手繪：三層評測金字塔
+    results.svg              ☐ 手繪：50 筆評測結果總表
+    significance.svg         ☐ 手繪：配對比較的信賴區間
+    cost-model.svg           ☐ 手繪：成本公式與降本四招
+    gcp-architecture.svg     ☐ 手繪：demo 用到的 GCP vs 正式上線需要的
+    其餘 22 張               由 build_slides.py 產生，檔頭有標記，不要手改
 
 poc/
   retail_genai_poc.ipynb          ★ 聽眾版 —— 乾淨教材，會後發給大家
@@ -46,7 +49,7 @@ poc/
     insights.py            場景 B：評論洞察 + BigQuery
     costs.py               成本外推與降本槓桿
     dashboard.py           §6 總覽儀表板（matplotlib，不重算任何數字）
-  tests/                   54 項，全部離線、不呼叫 API、不花錢
+  tests/                   60 項，全部離線、不呼叫 API、不花錢
 ```
 
 ---
@@ -154,7 +157,7 @@ make all
 uv run python poc/build_notebook.py && uv run pytest
 ```
 
-54 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
+60 項測試全部離線、不呼叫 API、不花錢。全綠才算改完。
 
 送出前順手跑靜態檢查：
 
@@ -263,6 +266,7 @@ make build
 
 - [ ] 開的是 **`retail_genai_poc_speaker.ipynb`（講者版）**，不是聽眾版
 - [ ] `config.py` 是 `OFFLINE_MODE = True`（**最容易忘的一項**）
+- [ ] 投影片開的是 `talk/slides.html`，按 F 全螢幕確認過
 - [ ] 開場前先 Run all 一次，讓所有輸出都在畫面上
 - [ ] Colab 字級調大（`Cmd/Ctrl` + `+`），確認投影後對比表看得清楚
 - [ ] 關閉通知與其他分頁
@@ -271,6 +275,39 @@ make build
 因為是離線重播，demo 時要重跑哪一格就重跑，秒回，不用等網路。
 
 會後把 **`retail_genai_poc.ipynb`（聽眾版）** 發給聽眾。
+
+---
+
+### 3-0　投影片：`talk/slides.html`
+
+28 張投影片做成**單一自足的 HTML 播放器**。雙擊 `talk/slides.html` 就能開，
+不需要伺服器、不需要網路 —— 跟 notebook 走離線重播是同一個理由。
+
+| 操作 | 鍵 |
+|---|---|
+| 換頁 | `←` `→`、空白鍵、`PageUp/PageDown`、點畫面左右半邊、手機滑動 |
+| 全螢幕 | `F` |
+| 總覽（縮圖牆，點縮圖跳頁） | `O` 或 `Esc` |
+| 第一頁／最後一頁 | `Home` / `End` |
+
+網址列的 `#12` 會直接跳到第 12 頁，換頁時也會同步 —— 中斷後可以接回原處。
+用瀏覽器「列印 → 存成 PDF」會一頁一張輸出，可以當備援檔。
+
+重新產生：
+
+```bash
+uv run python talk/build_slides.py          # 產生 SVG 與 slides.html
+uv run python talk/build_slides.py --list   # 只印出播放順序
+```
+
+**版面型投影片（22 張）由 `build_slides.py` 產生，不要手改** ——
+版面規則（邊界、字級、色票、logo 安全區）只寫在那支檔案上方，
+手改單張的下場是每張都差一點點，投影出來看得很清楚。
+`talk/assets/` 裡那六張**手繪示意圖**（工具地圖、金字塔、架構圖⋯⋯）維持手繪，
+只被排進播放清單。
+
+> `studio.svg` 是**留白版**：Vertex AI Studio 的介面截圖沒辦法用程式產生，
+> 所以那頁產生的是排好標註的空框，把截圖貼進去即可。
 
 ---
 

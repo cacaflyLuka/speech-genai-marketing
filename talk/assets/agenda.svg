@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>議程</title>
+  <desc>四段議程與聽眾會帶走的東西。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">今天的四段</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">一條因果鏈，不是四個平行主題</text>
+  <circle cx="94" cy="218" r="18" fill="#1B6FB8"/>
+  <text x="94" y="225" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="132" y="214" font-size="26" fill="#1A1A1A" font-weight="700">Vertex AI Studio</text>
+  <text x="132" y="246" font-size="19" fill="#4A4A4A">探索：這件事到底做不做得成</text>
+  <text x="1204" y="220" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">5 分鐘</text>
+  <circle cx="94" cy="310" r="18" fill="#1B6FB8"/>
+  <text x="94" y="317" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="132" y="306" font-size="26" fill="#1A1A1A" font-weight="700">API 串接</text>
+  <text x="132" y="338" font-size="19" fill="#4A4A4A">整合：能不能貼進現有系統</text>
+  <text x="1204" y="312" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">8 分鐘</text>
+  <circle cx="94" cy="402" r="18" fill="#1B6FB8"/>
+  <text x="94" y="409" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="132" y="398" font-size="26" fill="#1A1A1A" font-weight="700">Prompt 設計</text>
+  <text x="132" y="430" font-size="19" fill="#4A4A4A">規格化：把要求寫成可檢查的條件</text>
+  <text x="1204" y="404" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">4 分鐘</text>
+  <circle cx="94" cy="494" r="18" fill="#1B6FB8"/>
+  <text x="94" y="501" font-size="18" fill="#ffffff" font-weight="700" text-anchor="middle">4</text>
+  <text x="132" y="490" font-size="26" fill="#1A1A1A" font-weight="700">評測流程</text>
+  <text x="132" y="522" font-size="19" fill="#4A4A4A">驗收：怎麼證明它變好了</text>
+  <text x="1204" y="496" font-size="20" fill="#1B6FB8" font-weight="700" text-anchor="end">12 分鐘</text>
+  <line x1="76" y1="604" x2="1204" y2="604" stroke="#D8D8D8" stroke-width="1.5"/>
+  <text x="76" y="638" font-size="21" fill="#8A8A8A">你會帶走：一張能重跑的評測表，和一份算得出來的成本</text>
+</svg>

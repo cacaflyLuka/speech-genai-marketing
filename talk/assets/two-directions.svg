@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+  <title>方法論可遷移</title>
+  <desc>生成與抽取是同一套流程的兩個方向。</desc>
+  <!-- 由 talk/build_slides.py 產生，不要手改 -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="76" y="97" font-size="38" fill="#1A1A1A" font-weight="700">同一套方法，兩個方向</text>
+  <text x="76" y="136" font-size="20" fill="#8A8A8A">你剛學的是一套流程，不是一個文案技巧</text>
+  <rect x="76.0" y="206" width="544.0" height="304" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2.5"/>
+  <text x="104.0" y="252" font-size="26" fill="#A85110" font-weight="700">場景 A　生成</text>
+  <text x="104.0" y="294" font-size="20" fill="#4A4A4A">結構化資料 → 非結構化文字</text>
+  <text x="104.0" y="342" font-size="20" fill="#4A4A4A">商品規格 → 商品文案</text>
+  <text x="104.0" y="390" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="390" font-size="20" fill="#4A4A4A">要 schema</text>
+  <text x="104.0" y="424" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="424" font-size="20" fill="#4A4A4A">要評測</text>
+  <text x="104.0" y="458" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="128.0" y="458" font-size="20" fill="#4A4A4A">要算成本</text>
+  <rect x="660.0" y="206" width="544.0" height="304" rx="10" fill="#E9F2FB" stroke="#1B6FB8" stroke-width="2.5"/>
+  <text x="688.0" y="252" font-size="26" fill="#12507F" font-weight="700">場景 B　抽取</text>
+  <text x="688.0" y="294" font-size="20" fill="#4A4A4A">非結構化文字 → 結構化資料</text>
+  <text x="688.0" y="342" font-size="20" fill="#4A4A4A">使用者評論 → 洞察欄位</text>
+  <text x="688.0" y="390" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="390" font-size="20" fill="#4A4A4A">要 schema</text>
+  <text x="688.0" y="424" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="424" font-size="20" fill="#4A4A4A">要評測</text>
+  <text x="688.0" y="458" font-size="20" fill="#8A8A8A" font-weight="700">·</text>
+  <text x="712.0" y="458" font-size="20" fill="#4A4A4A">要算成本</text>
+  <rect x="76" y="534" width="1128" height="56" rx="10" fill="#FDF1E6" stroke="#EF7622" stroke-width="2"/>
+  <text x="640.0" y="570" font-size="23" fill="#A85110" font-weight="700" text-anchor="middle">方向相反，流程完全相同</text>
+</svg>

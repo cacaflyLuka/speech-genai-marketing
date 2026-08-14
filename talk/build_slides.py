@@ -1,0 +1,1022 @@
+"""從一份宣告式的投影片清單，產生 SVG 投影片與可全螢幕播放的單一 HTML。
+
+## 為什麼是產生的，不是一張一張手畫
+
+跟 notebook 同一個道理：**版面規則只寫一次**。
+邊界、字級、色票、右下角留給 logo 的安全區，全部集中在這個檔案上方的常數。
+手畫二十幾張的下場是每張都差一點點 —— 而那種差異投影出來看得非常清楚。
+
+`talk/assets/` 裡原本那六張是**手繪的示意圖**（工具地圖、金字塔、架構圖⋯⋯），
+那種圖本來就該一張一張畫，所以保留原檔、不由這裡產生，只是被排進同一份播放清單。
+
+## 產出
+
+    talk/assets/*.svg     版面型投影片（本檔產生，檔頭會標記）
+    talk/slides.html      單一檔案的播放器，SVG 全部內嵌
+
+`slides.html` 是**自足的**：雙擊就能開，不需要伺服器、不需要網路。
+這跟 notebook 的離線重播是同一個理由 —— 會場網路不能賭。
+
+用法：
+
+    python3 talk/build_slides.py          # 產生全部
+    python3 talk/build_slides.py --list   # 只印出播放順序
+"""
+
+from __future__ import annotations
+
+import argparse
+import html
+import pathlib
+import re
+import xml.sax.saxutils as sx
+
+ROOT = pathlib.Path(__file__).resolve().parent
+ASSETS = ROOT / "assets"
+OUT_HTML = ROOT / "slides.html"
+
+# --------------------------------------------------------------------------
+# 版面常數 —— 所有投影片共用，只改這裡
+# --------------------------------------------------------------------------
+W, H = 1280, 720
+FONT = (
+    "'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif"
+)
+MONO = "'SF Mono','Menlo','Consolas','Noto Sans Mono CJK TC',monospace"
+
+M = 76  # 左右邊界
+TITLE_Y = 97  # 標題基線
+SUB_Y = 136  # 副標基線
+BODY_TOP = 196  # 內容起始
+BOTTOM = 648  # 內容下界；再往下是主辦方 logo 的安全區
+
+INK = "#1A1A1A"
+INK_SOFT = "#4A4A4A"
+MUTED = "#8A8A8A"
+FAINT = "#B8B8B8"
+HAIR = "#D8D8D8"
+PAPER = "#F5F5F5"
+
+BLUE, BLUE_DARK, BLUE_BG = "#1B6FB8", "#12507F", "#E9F2FB"
+ORANGE, ORANGE_DARK, ORANGE_BG = "#EF7622", "#A85110", "#FDF1E6"
+GREEN, GREEN_DARK, GREEN_BG = "#166534", "#0F4A25", "#CDEBD4"
+RED = "#B3261E"
+
+GENERATED_MARK = "由 talk/build_slides.py 產生，不要手改"
+
+
+# --------------------------------------------------------------------------
+# SVG 基本元件
+# --------------------------------------------------------------------------
+def esc(s: str) -> str:
+    return sx.escape(str(s))
+
+
+def text(x, y, s, *, size=20, color=INK, weight=None, anchor=None, font=None,
+         opacity=None) -> str:
+    attrs = [f'x="{x}"', f'y="{y}"', f'font-size="{size}"', f'fill="{color}"']
+    if weight:
+        attrs.append(f'font-weight="{weight}"')
+    if anchor:
+        attrs.append(f'text-anchor="{anchor}"')
+    if font:
+        attrs.append(f'font-family="{font}"')
+    if opacity:
+        attrs.append(f'opacity="{opacity}"')
+    return f"<text {' '.join(attrs)}>{esc(s)}</text>"
+
+
+def rect(x, y, w, h, *, fill="none", stroke=None, sw=2, r=10, dash=None) -> str:
+    attrs = [f'x="{x}"', f'y="{y}"', f'width="{w}"', f'height="{h}"',
+             f'rx="{r}"', f'fill="{fill}"']
+    if stroke:
+        attrs.append(f'stroke="{stroke}"')
+        attrs.append(f'stroke-width="{sw}"')
+        if dash:
+            attrs.append(f'stroke-dasharray="{dash}"')
+    return f"<rect {' '.join(attrs)}/>"
+
+
+def line(x1, y1, x2, y2, *, color=HAIR, sw=2, dash=None) -> str:
+    d = f' stroke-dasharray="{dash}"' if dash else ""
+    return (f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" '
+            f'stroke="{color}" stroke-width="{sw}"{d}/>')
+
+
+def header(title: str, subtitle: str = "") -> list[str]:
+    out = [text(M, TITLE_Y, title, size=38, weight=700, color=INK)]
+    if subtitle:
+        out.append(text(M, SUB_Y, subtitle, size=20, color=MUTED))
+    return out
+
+
+def svg_document(title: str, desc: str, body: list[str]) -> str:
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+        f'width="{W}" height="{H}" font-family="{FONT}">\n'
+        f"  <title>{esc(title)}</title>\n"
+        f"  <desc>{esc(desc)}</desc>\n"
+        f"  <!-- {GENERATED_MARK} -->\n"
+        f'  <rect width="{W}" height="{H}" fill="#ffffff"/>\n  '
+        + "\n  ".join(body)
+        + "\n</svg>\n"
+    )
+
+
+# --------------------------------------------------------------------------
+# 版型
+# --------------------------------------------------------------------------
+def layout_statement(*, big, kicker=None, foot=None, accent=BLUE, size=None):
+    """一句話佔滿整頁。
+
+    這種頁面的功能是**讓觀眾停下來看**，所以除了那句話什麼都不要放。
+    字級依行數自動調整，行數多就縮小，不讓它撞到邊界。
+    """
+    lines = big if isinstance(big, list) else [big]
+    size = size or (72 if len(lines) == 1 else 58 if len(lines) == 2 else 46)
+    gap = size * 1.35
+    block_h = gap * (len(lines) - 1)
+    top = (H - block_h) / 2 + size * 0.32
+
+    body = []
+    if kicker:
+        body.append(text(M, 150, kicker, size=22, color=accent, weight=700))
+    for i, ln in enumerate(lines):
+        body.append(text(M, top + i * gap, ln, size=size, weight=700, color=INK))
+    if foot:
+        body.append(line(M, BOTTOM - 54, W - M, BOTTOM - 54, color=HAIR, sw=1.5))
+        body.append(text(M, BOTTOM - 18, foot, size=22, color=MUTED))
+    return body
+
+
+def layout_bullets(*, title, subtitle="", items, note=None, accent=BLUE):
+    """編號條列。items 是 (標題, 說明) 或 (標題, 說明, 右欄) 的序列。"""
+    body = header(title, subtitle)
+    top = BODY_TOP + 16
+    row_h = min(92, (BOTTOM - 60 - top) / max(len(items), 1))
+
+    for i, item in enumerate(items):
+        name, detail = item[0], item[1]
+        aside = item[2] if len(item) > 2 else None
+        y = top + i * row_h
+        body += [
+            f'<circle cx="{M + 18}" cy="{y + 6}" r="18" fill="{accent}"/>',
+            text(M + 18, y + 13, str(i + 1), size=18, color="#ffffff",
+                 weight=700, anchor="middle"),
+            text(M + 56, y + 2, name, size=26, weight=700, color=INK),
+            text(M + 56, y + 34, detail, size=19, color=INK_SOFT),
+        ]
+        if aside:
+            body.append(text(W - M, y + 8, aside, size=20, color=accent,
+                             weight=700, anchor="end"))
+    if note:
+        body += [
+            line(M, BOTTOM - 44, W - M, BOTTOM - 44, color=HAIR, sw=1.5),
+            text(M, BOTTOM - 10, note, size=21, color=MUTED),
+        ]
+    return body
+
+
+def layout_compare(*, title, subtitle="", left, right, verdict=None):
+    """左右對照。left / right 是 dict：label、tone、lines、tag。
+
+    tone 決定色系；兩邊刻意用不同色，投影出來遠遠就能分辨在講哪一邊。
+    """
+    body = header(title, subtitle)
+    col_w = (W - M * 2 - 40) / 2
+    top = BODY_TOP + 10
+
+    # 兩欄等高（並排就該等高），但高度取決於較長那一欄的內容，不是一律撐到底
+    def _needed(col):
+        h = 88
+        for ln in col["lines"]:
+            h += 14 if ln == "" else 34
+        return h + 18
+
+    avail = (BOTTOM if not verdict else BOTTOM - 76) - top
+    box_h = min(avail, max(_needed(left), _needed(right)))
+
+    for idx, col in enumerate((left, right)):
+        x = M + idx * (col_w + 40)
+        fill, stroke, ink = {
+            "blue": (BLUE_BG, BLUE, BLUE_DARK),
+            "orange": (ORANGE_BG, ORANGE, ORANGE_DARK),
+            "green": (GREEN_BG, GREEN, GREEN_DARK),
+            "gray": ("#ffffff", FAINT, MUTED),
+        }[col.get("tone", "gray")]
+
+        body += [
+            rect(x, top, col_w, box_h, fill=fill, stroke=stroke, sw=2.5),
+            text(x + 28, top + 46, col["label"], size=26, weight=700, color=ink),
+        ]
+        if col.get("tag"):
+            body.append(text(x + col_w - 28, top + 44, col["tag"], size=17,
+                             color=ink, weight=700, anchor="end"))
+        y = top + 88
+        for ln in col["lines"]:
+            if ln == "":
+                y += 14
+                continue
+            mark, s = ("", ln)
+            if ln[0] in "✓✗·":
+                mark, s = ln[0], ln[1:].strip()
+            if mark:
+                body.append(text(x + 28, y, mark, size=20,
+                                 color=GREEN if mark == "✓" else
+                                 RED if mark == "✗" else MUTED, weight=700))
+            body.append(text(x + (52 if mark else 28), y, s, size=20, color=INK_SOFT))
+            y += 34
+
+    if verdict:
+        vy = top + box_h + 24
+        body += [
+            rect(M, vy, W - M * 2, 56, fill=ORANGE_BG, stroke=ORANGE, sw=2),
+            text(W / 2, vy + 36, verdict, size=23, weight=700,
+                 color=ORANGE_DARK, anchor="middle"),
+        ]
+    return body
+
+
+def layout_table(*, title, subtitle="", columns, rows, note=None, emphasise=0):
+    """表格。columns 是 (欄名, 寬度比例, 對齊)；emphasise 指定要放大的欄。"""
+    body = header(title, subtitle)
+    total = sum(c[1] for c in columns)
+    avail = W - M * 2
+    xs, acc = [], M
+    for _, ratio, _ in columns:
+        xs.append(acc)
+        acc += avail * ratio / total
+
+    top = BODY_TOP + 20
+    for i, (name, _, align) in enumerate(columns):
+        x = xs[i] + (avail * columns[i][1] / total - 10 if align == "end" else 0)
+        body.append(text(x, top, name, size=19, color=MUTED, weight=700,
+                         anchor="end" if align == "end" else None))
+    body.append(line(M, top + 16, W - M, top + 16, color=INK, sw=2))
+
+    row_h = min(78, (BOTTOM - 70 - top) / max(len(rows), 1))
+    for r, row in enumerate(rows):
+        y = top + 56 + r * row_h
+        if r:
+            body.insert(len(body), line(M, y - 32, W - M, y - 32, color=HAIR, sw=1))
+        for i, cell in enumerate(row):
+            align = columns[i][2]
+            x = xs[i] + (avail * columns[i][1] / total - 10 if align == "end" else 0)
+            big = i == emphasise
+            body.append(text(x, y, cell, size=26 if big else 21,
+                             weight=700 if big else None,
+                             color=INK if big else INK_SOFT,
+                             anchor="end" if align == "end" else None))
+    if note:
+        body.append(text(M, BOTTOM - 6, note, size=19, color=MUTED))
+    return body
+
+
+def layout_code(*, title, subtitle="", panels, note=None):
+    """程式碼／prompt 對照。panels 是 dict：label、tone、lines、highlight。
+
+    highlight 是要標色的行索引 —— 「這一版多加了什麼」全靠它。
+    """
+    body = header(title, subtitle)
+    n = len(panels)
+    gap = 32
+    col_w = (W - M * 2 - gap * (n - 1)) / n
+    top = BODY_TOP
+
+    # 框高跟著內容走，不要一律撐到底。
+    # 撐到底的話，短的那一頁會是一個大半是空白的框 —— 投影出來很像忘了放東西。
+    rows = max(len(p["lines"]) for p in panels)
+    avail = BOTTOM - top - (70 if note else 0)
+    box_h = min(avail, 44 + 34 + rows * 24 + 26)
+    # 內容短的時候整塊往下挪一點，不要讓下半頁完全空著
+    top += max(0, avail - box_h) * 0.34
+
+    for idx, panel in enumerate(panels):
+        x = M + idx * (col_w + gap)
+        stroke, ink, hl = {
+            "blue": (BLUE, BLUE_DARK, BLUE_BG),
+            "orange": (ORANGE, ORANGE_DARK, ORANGE_BG),
+            "green": (GREEN, GREEN_DARK, GREEN_BG),
+            "gray": (HAIR, MUTED, PAPER),
+        }[panel.get("tone", "gray")]
+
+        body += [
+            rect(x, top, col_w, box_h, fill="#ffffff", stroke=stroke, sw=2.5),
+            rect(x, top, col_w, 44, fill=hl, stroke="none", r=10),
+            text(x + 20, top + 30, panel["label"], size=20, weight=700, color=ink),
+        ]
+        y = top + 78
+        for i, ln in enumerate(panel["lines"]):
+            if i in panel.get("highlight", ()):
+                body.append(rect(x + 12, y - 16, col_w - 24, 24, fill=hl,
+                                 stroke="none", r=4))
+            body.append(text(x + 20, y, ln, size=15, color=INK_SOFT, font=MONO))
+            y += 24
+    if note:
+        body += [
+            line(M, top + box_h + 34, W - M, top + box_h + 34, color=HAIR, sw=1.5),
+            text(M, top + box_h + 70, note, size=21, color=MUTED),
+        ]
+    return body
+
+
+def layout_cards(*, title, subtitle="", cards, note=None, columns=3):
+    """卡片牆。cards 是 dict：label、lines、tone。"""
+    body = header(title, subtitle)
+    rows_n = (len(cards) + columns - 1) // columns
+    gap = 28
+    card_w = (W - M * 2 - gap * (columns - 1)) / columns
+    top = BODY_TOP + 10
+    card_h = min(210, (BOTTOM - 40 - top - gap * (rows_n - 1)) / rows_n)
+
+    for i, card in enumerate(cards):
+        cx = M + (i % columns) * (card_w + gap)
+        cy = top + (i // columns) * (card_h + gap)
+        fill, stroke, ink = {
+            "blue": (BLUE_BG, BLUE, BLUE_DARK),
+            "orange": (ORANGE_BG, ORANGE, ORANGE_DARK),
+            "green": (GREEN_BG, GREEN, GREEN_DARK),
+            "gray": ("#ffffff", FAINT, MUTED),
+        }[card.get("tone", "gray")]
+        body += [
+            rect(cx, cy, card_w, card_h, fill=fill, stroke=stroke, sw=2.5),
+            text(cx + 22, cy + 44, card["label"], size=23, weight=700, color=ink),
+        ]
+        y = cy + 82
+        for ln in card["lines"]:
+            body.append(text(cx + 22, y, ln, size=18, color=INK_SOFT))
+            y += 28
+    if note:
+        body.append(text(M, BOTTOM + 6, note, size=20, color=MUTED))
+    return body
+
+
+def layout_placeholder(*, title, subtitle="", instruction, callouts):
+    """需要貼實際截圖的頁面。
+
+    畫面截圖沒辦法用程式產生，所以這裡產生的是**帶好標註的空框**：
+    把截圖貼進框裡，圈選位置與說明文字都已經排好。
+    """
+    body = header(title, subtitle)
+    box_x, box_y = M, BODY_TOP + 6
+    box_w, box_h = 760, BOTTOM - box_y - 10
+    body += [
+        rect(box_x, box_y, box_w, box_h, fill=PAPER, stroke=FAINT, sw=2, dash="8 6"),
+        text(box_x + box_w / 2, box_y + box_h / 2 - 6, instruction, size=22,
+             color=MUTED, anchor="middle"),
+        text(box_x + box_w / 2, box_y + box_h / 2 + 28,
+             "（把截圖貼進這個框，右邊的標註已經排好）", size=17,
+             color=FAINT, anchor="middle"),
+    ]
+    x = box_x + box_w + 40
+    y = box_y + 60
+    for i, (label, detail) in enumerate(callouts):
+        body += [
+            f'<circle cx="{x + 16}" cy="{y - 8}" r="16" fill="{ORANGE}"/>',
+            text(x + 16, y - 1, str(i + 1), size=17, color="#ffffff",
+                 weight=700, anchor="middle"),
+            text(x + 46, y - 1, label, size=21, weight=700, color=INK),
+            text(x + 46, y + 28, detail, size=17, color=MUTED),
+        ]
+        y += 96
+    return body
+
+
+# --------------------------------------------------------------------------
+# 投影片內容
+# --------------------------------------------------------------------------
+# 每一項：(檔名, 標題, desc, body)。順序就是播放順序。
+# 手繪的那六張以字串形式列出，只排順序、不重新產生。
+AB_A = [
+    "【嚴選】金賺健康 葉黃素軟膠囊 ★熱銷第一★",
+    "",
+    "守護您的靈魂之窗！現代人３Ｃ不離身，",
+    "眼睛乾澀疲勞好困擾？本產品採用頂級游離型",
+    "葉黃素，有效改善視力模糊、預防眼部疾病，",
+    "讓您重拾清晰視界，告別老花困擾！",
+]
+AB_B = [
+    "青研 游離型葉黃素軟膠囊 30粒 每粒30mg",
+    "",
+    "· 游離型葉黃素 30mg，吸收不需再轉換",
+    "· 添加玉米黃素與蝦紅素，每日一粒",
+    "· 全素可食，無添加人工色素",
+    "· 適合長時間使用螢幕的日常保養",
+]
+
+
+def build_slides() -> list[tuple[str, str, str]]:
+    """回傳 [(檔名, 頁面標題, svg 內容或 None)]。None 代表是既有的手繪檔。"""
+    S: list[tuple[str, str, str | None]] = []
+
+    def gen(name, title, desc, body):
+        S.append((name, title, svg_document(title, desc, body)))
+
+    def existing(name, title):
+        S.append((name, title, None))
+
+    # ---------------------------------------------------------------- 起
+    body = header("", "")
+    col_w = (W - M * 2 - 40) / 2
+    body = [
+        text(M, 88, "A", size=26, weight=700, color=MUTED),
+        text(M + col_w + 40, 88, "B", size=26, weight=700, color=MUTED),
+    ]
+    for idx, lines in enumerate((AB_A, AB_B)):
+        x = M + idx * (col_w + 40)
+        body.append(rect(x, 110, col_w, 500, fill="#ffffff", stroke=HAIR, sw=2))
+        y = 160
+        for i, ln in enumerate(lines):
+            if not ln:
+                y += 16
+                continue
+            body.append(text(x + 26, y, ln, size=22 if i == 0 else 19,
+                             weight=700 if i == 0 else None,
+                             color=INK if i == 0 else INK_SOFT))
+            y += 34
+    gen("open-ab.svg", "開場：兩段商品文案",
+        "同一個商品的兩段文案並排，不給任何提示，讓聽眾自己判斷哪一段能上線。", body)
+
+    gen("question.svg", "把問題丟出來", "開場提問：你要怎麼跟工程師說這版比較好。",
+        layout_statement(big=["那你要怎麼跟工程師說：", "這版比較好，上線吧？"]))
+
+    gen("thesis.svg", "全場主張", "整場演講的唯一主張。",
+        layout_statement(
+            kicker="今天只講一件事",
+            big=["生成式 AI 的難處", "不在叫模型，", "而在你怎麼知道", "它有沒有變好。"],
+            size=52,
+        ))
+
+    gen("agenda.svg", "議程", "四段議程與聽眾會帶走的東西。",
+        layout_bullets(
+            title="今天的四段",
+            subtitle="一條因果鏈，不是四個平行主題",
+            items=[
+                ("Vertex AI Studio", "探索：這件事到底做不做得成", "5 分鐘"),
+                ("API 串接", "整合：能不能貼進現有系統", "8 分鐘"),
+                ("Prompt 設計", "規格化：把要求寫成可檢查的條件", "4 分鐘"),
+                ("評測流程", "驗收：怎麼證明它變好了", "12 分鐘"),
+            ],
+            note="你會帶走：一張能重跑的評測表，和一份算得出來的成本",
+        ))
+
+    # ---------------------------------------------------------------- 承
+    existing("tool-map.svg", "GCP 三層工具地圖")
+
+    gen("studio.svg", "探索期：Vertex AI Studio",
+        "Vertex AI Studio 的介面重點：模型選單、temperature、比較模式。",
+        layout_placeholder(
+            title="探索期：瀏覽器打開就能用",
+            subtitle="不寫程式碼，先確認這件事做不做得成",
+            instruction="Vertex AI Studio 介面截圖",
+            callouts=[
+                ("模型選單", "先比 flash 與 pro，不要一開始就選最貴的"),
+                ("temperature", "生成調低一點，評審一律 0"),
+                ("比較模式", "同一個 prompt 並排看不同模型的輸出"),
+            ],
+        ))
+
+    gen("api-vs-vertex.svg", "Gemini API vs Vertex AI",
+        "兩種接法的差別：這是部署決策，不是程式碼決策。",
+        layout_compare(
+            title="Gemini API 還是 Vertex AI？",
+            subtitle="全場資訊密度最高的一頁",
+            left={
+                "label": "Gemini API（AI Studio）", "tone": "blue", "tag": "做原型",
+                "lines": [
+                    "✓ 一把 API key 就能開始",
+                    "✓ 免費額度，適合試水溫",
+                    "✗ 計費歸個人帳號",
+                    "✗ 沒有 VPC-SC、資料落地不可控",
+                    "",
+                    "適合：一個人、一週內、還在確認可行性",
+                ],
+            },
+            right={
+                "label": "Vertex AI", "tone": "orange", "tag": "要上線",
+                "lines": [
+                    "✓ 走 GCP 專案計費，成本歸屬清楚",
+                    "✓ IAM、VPC-SC、資料落地可控",
+                    "✓ 可簽 DPA、過得了法遵",
+                    "✗ 要先設定專案與權限",
+                    "",
+                    "適合：要簽約、要稽核、要對董事會報告",
+                ],
+            },
+            verdict="切換只差 Client 的建構參數，其他程式碼一行都不用改",
+        ))
+
+    gen("layer3.svg", "上線期：評測與監控",
+        "第三層是多數團隊跳過的一層，也是今天的重點。",
+        layout_cards(
+            title="上線期：多數團隊跳過的那一層",
+            subtitle="前兩層做完只代表「跑得動」，不代表「敢上線」",
+            cards=[
+                {"label": "1　探索", "tone": "gray",
+                 "lines": ["Vertex AI Studio", "做不做得成？", "", "多數團隊：做了"]},
+                {"label": "2　整合", "tone": "gray",
+                 "lines": ["Gemini API / Vertex AI", "能不能貼進系統？", "",
+                           "多數團隊：做了"]},
+                {"label": "3　上線", "tone": "orange",
+                 "lines": ["評測 + 監控", "有沒有變好？", "",
+                           "多數團隊：跳過 ←"]},
+            ],
+            note="跳過第三層的專案，通常上線後才發現沒有人能判斷好壞",
+        ))
+
+    # ------------------------------------------------------------- 轉 1
+    gen("prompt-v0.svg", "v0：什麼都不給",
+        "最常見的第一版 prompt，以及它產生的文案。",
+        layout_code(
+            title="v0　什麼都不給",
+            subtitle="大多數人第一次寫的 prompt",
+            panels=[
+                {"label": "prompt", "tone": "gray",
+                 "lines": ["請幫這個商品寫一段", "電商文案。", "",
+                           "商品：游離型葉黃素", "　　　30mg／30粒"]},
+                {"label": "產出", "tone": "gray",
+                 "lines": ["守護您的靈魂之窗！", "現代人３Ｃ不離身⋯⋯",
+                           "有效改善視力模糊、", "預防眼部疾病，", "重拾清晰視界！"]},
+            ],
+            note="文筆很好。但它不能用 —— 長度不知道、規格沒寫、而且踩了法規。",
+        ))
+
+    gen("prompt-v1.svg", "v1：加通路約束",
+        "v1 加入角色、受眾、字數與必含規格。",
+        layout_code(
+            title="v1　加通路約束",
+            subtitle="只加一件事：把「規格」寫進去",
+            panels=[
+                {"label": "v1 新增（藍色部分）", "tone": "blue",
+                 "lines": [
+                     "你是電商文案編輯。",
+                     "受眾：30-50 歲上班族。",
+                     "",
+                     "標題 ≤ 60 字",
+                     "賣點 4 條，每條 ≤ 30 字",
+                     "SEO 描述 ≤ 120 字",
+                     "",
+                     "必須寫出：游離型、30mg、30粒",
+                 ],
+                 "highlight": (3, 4, 5, 7)},
+                {"label": "修好了什麼", "tone": "gray",
+                 "lines": [
+                     "標題長度合規　74% → 100%",
+                     "規格完整覆蓋　82% →  98%",
+                     "法規禁詞 0 命中　80% → 98%",
+                     "",
+                     "語意品質（rubric）：",
+                     "沒有統計上的改善。",
+                     "",
+                     "合理 —— v1 加的是字數與規格，",
+                     "不是語氣指引。",
+                 ]},
+            ],
+            note="每一版只加一件事，表格上每一欄的改善才能歸因到單一改動。",
+        ))
+
+    gen("prompt-v2.svg", "v2：加法規與語調",
+        "v2 加入法規禁詞清單與品牌語調 few-shot。",
+        layout_code(
+            title="v2　加法規與語調",
+            subtitle="這一版是唯一在語意品質上統計成立的改善",
+            panels=[
+                {"label": "法規段落", "tone": "orange",
+                 "lines": [
+                     "不得使用下列字詞：",
+                     "  治療、預防、改善視力、",
+                     "  療效、根治⋯⋯",
+                     "",
+                     "依食安法 §28：",
+                     "宣稱醫療效能",
+                     "罰 60 萬 – 500 萬",
+                 ],
+                 "highlight": (1, 2, 5, 6)},
+                {"label": "品牌語調 few-shot", "tone": "blue",
+                 "lines": [
+                     "範例一",
+                     "  緩釋B群錠 90錠 全素可食",
+                     "  8種B群一次補齊，緩釋設計",
+                     "",
+                     "範例二",
+                     "  甘胺酸鎂錠 120錠 睡前補充",
+                     "  選用好吸收的螯合形式",
+                     "",
+                     "→ rubric 通過率 +8.9pp",
+                 ],
+                 "highlight": (8,)},
+            ],
+            note="rubric 量的正是語調與賣點覆蓋 —— 加什麼、量什麼，要對得上。",
+        ))
+
+    gen("prompt-v3.svg", "v3：結構化輸出",
+        "v3 用 responseSchema 約束輸出格式，而不是在 prompt 裡拜託模型。",
+        layout_code(
+            title="v3　結構化輸出",
+            subtitle="唯一的差別是多了 responseSchema",
+            panels=[
+                {"label": "不要這樣做", "tone": "gray",
+                 "lines": [
+                     "prompt 裡寫：",
+                     '  "請以 JSON 格式輸出"',
+                     "",
+                     "模型會照做九成的時間。",
+                     "剩下那一成，",
+                     "你的 parser 就掛了。",
+                 ],
+                 "highlight": (1,)},
+                {"label": "要這樣做", "tone": "green",
+                 "lines": [
+                     "response_schema = {",
+                     '  "title":   str,  # ≤60',
+                     '  "bullets": [str] * 4,',
+                     '  "seo_desc": str, # ≤120',
+                     "}",
+                     "",
+                     "模型被解碼器約束在 schema 內。",
+                     "那一成的失敗會消失。",
+                 ],
+                 "highlight": (0, 1, 2, 3, 4)},
+            ],
+            note="可機器讀取：0% → 100%。這不需要統計檢定。",
+        ))
+
+    gen("only-v3.svg", "關鍵訊息：只有 v3 能接進系統",
+        "前三版都只是聊天，只有結構化輸出能進系統。",
+        layout_statement(
+            big=["只有 v3 能接進系統。", "前面三版都只是聊天。"],
+            foot="v3 沒有讓文案變好，是讓文案變得可用 —— 這是兩件事，你兩個都需要",
+        ))
+
+    # ------------------------------------------------------------- 轉 2
+    existing("eval-pyramid.svg", "三層評測")
+
+    gen("penalties.svg", "法規禁詞的罰則",
+        "台灣廣告法規的罰則級距，說明為什麼規則層要放第一層。",
+        layout_table(
+            title="這不是工程潔癖，是不做會收罰單",
+            subtitle="依台灣廣告法規整理，罰則差異很大",
+            columns=[("罰則上限", 0.24, "start"), ("類別", 0.3, "start"),
+                     ("法源", 0.28, "start"), ("實測 v0 踩雷率", 0.18, "end")],
+            rows=[
+                ["500 萬", "宣稱醫療效能", "食安法 §28 第 2 項", "20%"],
+                ["400 萬", "不實、誇張、易生誤解", "食安法 §28 第 1 項", "—"],
+                ["20 萬", "化粧品虛偽誇大", "化粧品衛管法 §10", "—"],
+            ],
+            note="加了 prompt 約束後降到 2% —— 但 2% 不是 0%，所以規則層要擋在最前面。",
+        ))
+
+    gen("suggest-fix.svg", "規則層能給方向",
+        "規則層不只擋，還能給出合規的替代寫法。",
+        layout_compare(
+            title="規則層不只是擋，還能給方向",
+            subtitle="這讓它從惹人厭的 linter 變成文案人員願意用的工具",
+            left={
+                "label": "命中禁詞", "tone": "gray",
+                "lines": ["✗ 改善視力", "✗ 預防眼部疾病", "✗ 治療乾眼",
+                          "✗ 護眼（用在保健食品）", "",
+                          "只告訴你「不行」，", "沒有人會想用這種工具。"],
+            },
+            right={
+                "label": "合規替代寫法", "tone": "green",
+                "lines": ["✓ 適合長時間使用螢幕的日常保養",
+                          "✓ 每日補充，維持日常保健",
+                          "✓ 陪伴長時間用眼的日常", "✓ 日常保養配方", "",
+                          "給了方向，才會有人真的用。"],
+            },
+        ))
+
+    gen("binary-rubric.svg", "不要用 1–5 分",
+        "Likert 分數與二元 rubric 的對照。",
+        layout_compare(
+            title="LLM as judge：不要用 1–5 分",
+            subtitle="把一個模糊的大問題，拆成一組可檢查的 yes/no 小問題",
+            left={
+                "label": "1–5 分", "tone": "gray", "tag": "不要",
+                "lines": ["「這份文案的品質有幾分？」", "", "→ 3.8 / 5", "",
+                          "✗ 分數擠在 3–4 分", "✗ 今天 4 分明天 3 分",
+                          "✗ 換評審模型整組平移", "✗ 寫得長就拿高分",
+                          "✗ 「3.8 分」無法行動"],
+            },
+            right={
+                "label": "二元 rubric", "tone": "green", "tag": "要",
+                "lines": ["「文案是否寫出游離型 30mg？」", "", "→ 否", "",
+                          "✓ 明確、可重現", "✓ 可累積成一張表",
+                          "✓ 直接對應修改動作", "✓ 像單元測試",
+                          "✓ 知道要補什麼"],
+            },
+            verdict="Vertex AI Gen AI Evaluation 的 adaptive rubrics 就是這個思路",
+        ))
+
+    gen("rubric-list.svg", "真實的 rubric 清單",
+        "從商品資料生成的驗收清單，v0～v3 共用同一份。",
+        layout_bullets(
+            title="每個商品一份驗收清單",
+            subtitle="只看商品資料生成，不看被評的文案 —— v0～v3 共用同一份考卷",
+            items=[
+                ("文案是否寫出「游離型」？", "規格", "★ 未過就不該上架"),
+                ("是否寫出含量 30mg？", "規格", "★ 未過就不該上架"),
+                ("是否提及全素可食？", "規格", ""),
+                ("語氣是否克制、無誇大？", "語調", ""),
+                ("四條賣點是否各自獨立？", "結構", ""),
+            ],
+            note="若讓評審看著文案即興出題，等於每個版本考不同的考卷 —— 那張表就沒有意義了。",
+        ))
+
+    gen("judge-bias.svg", "judge 的偏誤",
+        "LLM 評審的三種已知偏誤與各自的緩解方式。",
+        layout_cards(
+            title="評審不是中立的",
+            subtitle="三種已知偏誤，各自有緩解方式 —— 但沒有一種能完全消除",
+            cards=[
+                {"label": "self-preference", "tone": "orange",
+                 "lines": ["模型偏好自己", "生成的文字", "", "緩解：",
+                           "生成用 flash", "評審用 2.5-pro"]},
+                {"label": "verbosity", "tone": "orange",
+                 "lines": ["寫得長、寫得華麗", "容易拿高分", "", "緩解：",
+                           "二元判準", "不給分數"]},
+                {"label": "position", "tone": "orange",
+                 "lines": ["先看到的選項", "比較容易被選", "", "緩解：",
+                           "不做兩兩對比", "各自獨立評分"]},
+            ],
+            note="所以評審層的數字要配信賴區間看 —— 有偏誤的量尺，更不能只看單點。",
+        ))
+
+    existing("results.svg", "50 筆評測結果")
+    existing("significance.svg", "版本差距的信賴區間")
+
+    gen("build-vs-buy.svg", "自己做還是買現成的",
+        "用「會不會出現在你的產品定價頁上」當分界線。",
+        layout_compare(
+            title="自己做，還是買現成的？",
+            subtitle="分界線只有一條",
+            left={
+                "label": "會出現在定價頁上 → 自己做", "tone": "blue",
+                "lines": ["· 商品文案生成（電商平台）",
+                          "· 病歷摘要（醫療系統）",
+                          "· 契約風險標註（法律科技）", "",
+                          "這是你的產品本身。",
+                          "評測要自己建，因為只有你知道", "什麼叫做好。"],
+            },
+            right={
+                "label": "不會出現在定價頁上 → 買現成", "tone": "gray",
+                "lines": ["· 客服工單分類",
+                          "· 會議記錄整理",
+                          "· 內部文件搜尋", "",
+                          "這是你的內部效率。",
+                          "買現成的，把時間留給前面那欄。"],
+            },
+            verdict="這個 AI 功能會不會出現在你的產品定價頁上？",
+        ))
+
+    gen("two-directions.svg", "方法論可遷移",
+        "生成與抽取是同一套流程的兩個方向。",
+        layout_compare(
+            title="同一套方法，兩個方向",
+            subtitle="你剛學的是一套流程，不是一個文案技巧",
+            left={
+                "label": "場景 A　生成", "tone": "orange",
+                "lines": ["結構化資料 → 非結構化文字", "",
+                          "商品規格 → 商品文案", "",
+                          "· 要 schema", "· 要評測", "· 要算成本"],
+            },
+            right={
+                "label": "場景 B　抽取", "tone": "blue",
+                "lines": ["非結構化文字 → 結構化資料", "",
+                          "使用者評論 → 洞察欄位", "",
+                          "· 要 schema", "· 要評測", "· 要算成本"],
+            },
+            verdict="方向相反，流程完全相同",
+        ))
+
+    # ---------------------------------------------------------------- 合
+    existing("cost-model.svg", "成本估算公式與降本四招")
+
+    gen("eval-costs-money.svg", "評測本身要花錢",
+        "最常被漏算的一筆成本。",
+        layout_statement(
+            big=["評測本身要花錢。"],
+            foot="大家算成本只算生成 —— 這次實測，評審佔總成本的大部分",
+            accent=ORANGE,
+        ))
+
+    existing("gcp-architecture.svg", "GCP 架構：demo 用到的 vs 正式上線需要的")
+
+    gen("ninety-days.svg", "90 天導入路徑",
+        "三個階段各自的產出與時間。",
+        layout_bullets(
+            title="90 天導入路徑",
+            subtitle="順序不能反過來 —— 先解決「怎麼知道它變好了」",
+            items=[
+                ("Vertex AI Studio 驗證可行性", "這件事到底做不做得成", "2 週"),
+                ("建 golden set + API 串接", "30–50 筆就足以開始", "4 週"),
+                ("小流量上線 + 監控", "有數字可以對董事會報告", "6 週"),
+            ],
+            note="golden set 不用大。50 筆 × 7 條判準，就足以分辨 3 個百分點以上的差距。",
+        ))
+
+    body = [
+        text(M, 88, "A", size=26, weight=700, color=MUTED),
+        text(M + col_w + 40, 88, "B", size=26, weight=700, color=GREEN_DARK),
+    ]
+    for idx, lines in enumerate((AB_A, AB_B)):
+        x = M + idx * (col_w + 40)
+        picked = idx == 1
+        body.append(rect(x, 110, col_w, 300,
+                         fill=GREEN_BG if picked else "#ffffff",
+                         stroke=GREEN if picked else HAIR, sw=2.5 if picked else 2))
+        y = 160
+        for i, ln in enumerate(lines):
+            if not ln:
+                y += 16
+                continue
+            body.append(text(x + 26, y, ln, size=22 if i == 0 else 19,
+                             weight=700 if i == 0 else None,
+                             color=INK if i == 0 else INK_SOFT))
+            y += 34
+    body += [
+        text(M + col_w + 40 + 26, 448, "✓ 規則層全過　rubric 通過　可機器讀取",
+             size=20, color=GREEN_DARK, weight=700),
+        line(M, 500, W - M, 500, color=HAIR, sw=1.5),
+        text(M, 546, "你怎麼知道它有沒有變好？", size=30, weight=700, color=INK),
+        text(M, 590, "現在你有一張表可以回答 —— 而且下次改 prompt，重跑一次就知道有沒有退步。",
+             size=22, color=INK_SOFT),
+    ]
+    gen("closing.svg", "收尾：回到開場那兩段文案",
+        "回到開場的 A/B 文案，這次有評測結果可以說明為什麼選 B。", body)
+
+    return S
+
+
+# --------------------------------------------------------------------------
+# 播放器
+# --------------------------------------------------------------------------
+def _inline_svg(svg_text: str) -> str:
+    """把 SVG 調整成可以直接內嵌進 HTML 的形式。
+
+    拿掉固定的 width/height，只留 viewBox，讓它跟著容器縮放；
+    投影機解析度五花八門，寫死尺寸只會在別人的機器上出事。
+    """
+    svg_text = re.sub(r"<\?xml[^>]*\?>\s*", "", svg_text)
+    svg_text = re.sub(r'\s(width|height)="\d+"', "", svg_text, count=2)
+    return svg_text.strip()
+
+
+PLAYER_CSS = """
+:root { --bg:#0d0d0d; --ui:#8A8A8A; }
+* { box-sizing:border-box; }
+html,body { margin:0; height:100%; background:var(--bg); overflow:hidden;
+  font-family:'PingFang TC','Noto Sans TC','Microsoft JhengHei',sans-serif; }
+#stage { position:fixed; inset:0; display:grid; place-items:center; }
+.slide { display:none; width:100vw; height:100vh; }
+.slide.on { display:grid; place-items:center; }
+.slide svg { width:min(100vw, calc(100vh * 16 / 9));
+  height:min(100vh, calc(100vw * 9 / 16)); display:block; }
+#bar { position:fixed; left:0; bottom:0; height:3px; background:#EF7622;
+  transition:width .18s ease; z-index:5; }
+#hud { position:fixed; right:14px; bottom:12px; color:var(--ui); font-size:13px;
+  letter-spacing:.04em; z-index:5; user-select:none; }
+#hud b { color:#fff; font-weight:600; }
+#help { position:fixed; left:14px; bottom:12px; color:var(--ui); font-size:12px;
+  z-index:5; opacity:.55; }
+#grid { position:fixed; inset:0; background:var(--bg); overflow:auto; padding:28px;
+  display:none; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px;
+  z-index:10; align-content:start; }
+#grid.on { display:grid; }
+#grid figure { margin:0; cursor:pointer; border:2px solid transparent; border-radius:8px;
+  overflow:hidden; background:#fff; }
+#grid figure:hover, #grid figure.cur { border-color:#EF7622; }
+#grid svg { width:100%; height:auto; display:block; pointer-events:none; }
+#grid figcaption { color:#c9c9c9; font-size:12px; padding:6px 8px; background:#161616; }
+@media print {
+  html,body { background:#fff; overflow:visible; }
+  #bar,#hud,#help,#grid { display:none !important; }
+  .slide { display:block !important; width:100%; height:auto;
+    page-break-after:always; break-after:page; }
+  .slide svg { width:100%; height:auto; }
+}
+"""
+
+PLAYER_JS = """
+const slides = [...document.querySelectorAll('.slide')];
+const grid = document.getElementById('grid');
+const bar = document.getElementById('bar');
+const hud = document.getElementById('hud');
+let i = 0;
+
+function show(n) {
+  i = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((s, k) => s.classList.toggle('on', k === i));
+  bar.style.width = ((i + 1) / slides.length * 100) + '%';
+  hud.innerHTML = '<b>' + (i + 1) + '</b> / ' + slides.length;
+  [...grid.children].forEach((f, k) => f.classList.toggle('cur', k === i));
+  if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+}
+function toggleGrid(force) {
+  const on = force ?? !grid.classList.contains('on');
+  grid.classList.toggle('on', on);
+  if (on) [...grid.children][i]?.scrollIntoView({block: 'center'});
+}
+function fullscreen() {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen?.();
+}
+
+addEventListener('keydown', e => {
+  const k = e.key;
+  if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter') {
+    show(i + 1); toggleGrid(false); e.preventDefault();
+  } else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace') {
+    show(i - 1); toggleGrid(false); e.preventDefault();
+  } else if (k === 'Home') { show(0); }
+  else if (k === 'End') { show(slides.length - 1); }
+  else if (k === 'f' || k === 'F') { fullscreen(); }
+  else if (k === 'o' || k === 'O' || k === 'Escape') { toggleGrid(); }
+});
+
+// 點右半邊下一頁、左半邊上一頁 —— 沒有簡報筆的時候用得到
+addEventListener('click', e => {
+  if (grid.classList.contains('on')) return;
+  show(e.clientX > innerWidth / 2 ? i + 1 : i - 1);
+});
+[...grid.children].forEach((f, k) => f.addEventListener('click', ev => {
+  ev.stopPropagation(); show(k); toggleGrid(false);
+}));
+
+// 觸控滑動
+let x0 = null;
+addEventListener('touchstart', e => { x0 = e.changedTouches[0].clientX; }, {passive: true});
+addEventListener('touchend', e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0;
+  if (Math.abs(dx) > 48) show(dx < 0 ? i + 1 : i - 1);
+  x0 = null;
+}, {passive: true});
+
+show(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+"""
+
+
+def build_html(slides: list[tuple[str, str, str]]) -> str:
+    stage, thumbs = [], []
+    for idx, (name, title, svg_text) in enumerate(slides):
+        inline = _inline_svg(svg_text)
+        stage.append(
+            f'<section class="slide" data-name="{html.escape(name)}">{inline}</section>'
+        )
+        thumbs.append(
+            f"<figure>{inline}"
+            f"<figcaption>{idx + 1}. {html.escape(title)}</figcaption></figure>"
+        )
+
+    return (
+        "<!doctype html>\n<html lang=\"zh-Hant\">\n<head>\n"
+        '<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">\n'
+        "<title>零售場景的生成式 AI — 投影片</title>\n"
+        f"<style>{PLAYER_CSS}</style>\n</head>\n<body>\n"
+        f'<div id="stage">{"".join(stage)}</div>\n'
+        f'<div id="grid">{"".join(thumbs)}</div>\n'
+        '<div id="bar"></div>\n<div id="hud"></div>\n'
+        '<div id="help">← → 換頁　F 全螢幕　O 總覽</div>\n'
+        f"<script>{PLAYER_JS}</script>\n</body>\n</html>\n"
+    )
+
+
+# --------------------------------------------------------------------------
+def main(argv=None) -> None:
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--list", action="store_true", help="只印出播放順序，不寫檔")
+    args = ap.parse_args(argv)
+
+    spec = build_slides()
+    written = 0
+    deck: list[tuple[str, str, str]] = []
+
+    for name, title, svg_text in spec:
+        path = ASSETS / name
+        if svg_text is None:  # 手繪的既有檔案，只排順序
+            if not path.exists():
+                raise SystemExit(f"找不到手繪投影片 {path}")
+            svg_text = path.read_text(encoding="utf-8")
+        elif not args.list:
+            path.write_text(svg_text, encoding="utf-8")
+            written += 1
+        deck.append((name, title, svg_text))
+
+    if args.list:
+        for i, (name, title, _) in enumerate(deck, 1):
+            print(f"  {i:>2}. {title:<28} {name}")
+        return
+
+    OUT_HTML.write_text(build_html(deck), encoding="utf-8")
+    hand = sum(1 for _, _, s in spec if s is None)
+    print(
+        f"✓ {len(deck)} 張投影片（產生 {written} 張，手繪 {hand} 張）\n"
+        f"✓ {OUT_HTML.relative_to(ROOT.parent)}"
+        f"　{OUT_HTML.stat().st_size / 1024:.0f} KB —— 雙擊開啟，按 F 全螢幕"
+    )
+
+
+if __name__ == "__main__":
+    main()
