@@ -68,7 +68,8 @@
   <!-- 箭頭 -->
   <line x1="316" y1="399" x2="332" y2="399" stroke="#8A8A8A" stroke-width="2" marker-end="url(#ar)"/>
   <line x1="536" y1="399" x2="552" y2="399" stroke="#8A8A8A" stroke-width="2" marker-end="url(#ar)"/>
-  <line x1="176" y1="280" x2="176" y2="336" stroke="#8A8A8A" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+  <!-- PIM → Vertex AI：走左側繞開第二排標題，並對齊本排箭頭高度 y=399 -->
+  <path d="M 76 245 H 56 V 399 H 72" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ar)"/>
 
   <!-- ===== 第三排：維運 ===== -->
   <text x="76" y="504" font-size="16" font-weight="700" fill="#8A8A8A">3　維運與治理（今天完全沒碰，但上線一定要）</text>
