@@ -1,0 +1,32 @@
+<!--
+id: diagram-05-1
+type: diagram
+title: build-vs-buy
+description: 會不會出現在你的產品定價頁上,決定自己做還是買
+diagram-type: 對比圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-05
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 360" width="1050" height="360" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>build-vs-buy</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker><marker id="arl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker></defs>
+<line x1="525" y1="30" x2="525" y2="330" stroke="#d8d8d8" stroke-width="3"/>
+<text x="262" y="62" font-size="30" fill="#6a6a6a" font-weight="700" text-anchor="middle">買現成的</text>
+<text x="262" y="92" font-size="20" fill="#6a6a6a" text-anchor="middle">每家公司都長一樣</text>
+<text x="788" y="62" font-size="30" fill="#1b6fb8" font-weight="700" text-anchor="middle">自己做</text>
+<text x="788" y="92" font-size="20" fill="#6a6a6a" text-anchor="middle">你的差異化，要串進你的系統</text>
+<rect x="70" y="140" width="385" height="56" rx="10" fill="#f5f5f5" stroke="#d8d8d8" stroke-width="2"/>
+<text x="262" y="177" font-size="23" fill="#6a6a6a" text-anchor="middle">HR 規章問答</text>
+<rect x="595" y="140" width="385" height="56" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="788" y="177" font-size="23" fill="#1a1a1a" text-anchor="middle">商品文案 pipeline</text>
+<rect x="70" y="208" width="385" height="56" rx="10" fill="#f5f5f5" stroke="#d8d8d8" stroke-width="2"/>
+<text x="262" y="245" font-size="23" fill="#6a6a6a" text-anchor="middle">IT 支援問答</text>
+<rect x="595" y="208" width="385" height="56" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="788" y="245" font-size="23" fill="#1a1a1a" text-anchor="middle">定價與促銷文案</text>
+<rect x="70" y="276" width="385" height="56" rx="10" fill="#f5f5f5" stroke="#d8d8d8" stroke-width="2"/>
+<text x="262" y="313" font-size="23" fill="#6a6a6a" text-anchor="middle">合約條款查詢</text>
+<rect x="595" y="276" width="385" height="56" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="788" y="313" font-size="23" fill="#1a1a1a" text-anchor="middle">品牌語調規範</text>
+</svg>

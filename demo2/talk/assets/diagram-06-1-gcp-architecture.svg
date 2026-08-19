@@ -1,0 +1,35 @@
+<!--
+id: diagram-06-1
+type: diagram
+title: gcp-architecture
+description: 今天真的用到的只有 GEAP 與 BigQuery,其餘上線才需要
+diagram-type: 架構圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-06
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 420" width="1050" height="420" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>gcp-architecture</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker><marker id="arl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker></defs>
+<rect x="20" y="40" width="1010" height="150" rx="14" fill="#ffffff" stroke="#6a6a6a" stroke-width="2.5" stroke-dasharray="9 7"/>
+<text x="44" y="72" font-size="21" fill="#6a6a6a">正式上線才需要 —— 標準雲端工程，你的工程師本來就會</text>
+<rect x="44" y="92" width="222" height="76" rx="10" fill="#f5f5f5" stroke="#6a6a6a" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="155" y="138" font-size="23" fill="#6a6a6a" text-anchor="middle">Cloud Run</text>
+<rect x="292" y="92" width="222" height="76" rx="10" fill="#f5f5f5" stroke="#6a6a6a" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="403" y="138" font-size="23" fill="#6a6a6a" text-anchor="middle">Cloud Scheduler</text>
+<rect x="540" y="92" width="222" height="76" rx="10" fill="#f5f5f5" stroke="#6a6a6a" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="651" y="138" font-size="23" fill="#6a6a6a" text-anchor="middle">Secret Manager</text>
+<rect x="788" y="92" width="222" height="76" rx="10" fill="#f5f5f5" stroke="#6a6a6a" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="899" y="138" font-size="23" fill="#6a6a6a" text-anchor="middle">VPC-SC</text>
+<rect x="20" y="225" width="1010" height="175" rx="14" fill="#ffffff" stroke="#1b6fb8" stroke-width="3"/>
+<text x="44" y="257" font-size="21" fill="#1b6fb8" font-weight="700">今天 demo 真的跑過</text>
+<rect x="60" y="278" width="400" height="100" rx="10" fill="#e9f2fb" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="260" y="318" font-size="26" fill="#1a1a1a" font-weight="700" text-anchor="middle">GEAP</text>
+<text x="260" y="350" font-size="20" fill="#6a6a6a" text-anchor="middle">Gemini 生成 + LLM judge</text>
+<rect x="600" y="278" width="400" height="100" rx="10" fill="#e9f2fb" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="800" y="318" font-size="26" fill="#1a1a1a" font-weight="700" text-anchor="middle">BigQuery</text>
+<text x="800" y="350" font-size="20" fill="#6a6a6a" text-anchor="middle">評論洞察（場景 B）</text>
+<path d="M472 328 L588 328" stroke="#1b6fb8" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<text x="530" y="310" font-size="19" fill="#6a6a6a" text-anchor="middle">結構化輸出</text>
+</svg>

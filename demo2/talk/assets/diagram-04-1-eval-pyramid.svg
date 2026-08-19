@@ -1,0 +1,27 @@
+<!--
+id: diagram-04-1
+type: diagram
+title: eval-pyramid
+description: 三層評測由便宜到貴,順序決定成敗
+diagram-type: 金字塔圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-04
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 445" width="560" height="445" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>eval-pyramid</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker></defs>
+<path d="M215.9 70 L364.1 70 L385 165 L195 165 z" fill="#f5f5f5" stroke="#6a6a6a" stroke-width="2.5"/>
+<text x="290" y="115.5" font-size="25" fill="#1a1a1a" font-weight="700" text-anchor="middle">人工抽樣</text>
+<text x="290" y="145.5" font-size="20" fill="#6a6a6a" text-anchor="middle">最貴 / 天</text>
+<path d="M157.4 180 L422.6 180 L460 275 L120 275 z" fill="#e9f2fb" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="290" y="225.5" font-size="25" fill="#1a1a1a" font-weight="700" text-anchor="middle">LLM judge</text>
+<text x="290" y="255.5" font-size="20" fill="#6a6a6a" text-anchor="middle">有成本 / 秒</text>
+<path d="M98.9 290 L481.1 290 L535 385 L45 385 z" fill="#cdebd4" stroke="#166534" stroke-width="2.5"/>
+<text x="290" y="335.5" font-size="25" fill="#1a1a1a" font-weight="700" text-anchor="middle">規則層</text>
+<text x="290" y="365.5" font-size="20" fill="#6a6a6a" text-anchor="middle">免費 / 毫秒</text>
+<path d="M34 380 L34 80" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<text x="17" y="230" font-size="19" fill="#6a6a6a" text-anchor="middle" transform="rotate(-90 17 230)">越上面越貴、越慢</text>
+<text x="290" y="425" font-size="20" fill="#6a6a6a" text-anchor="middle">先建規則層 —— 免費、確定性、可以進 CI</text>
+</svg>

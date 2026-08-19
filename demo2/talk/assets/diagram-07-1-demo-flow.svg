@@ -1,0 +1,45 @@
+<!--
+id: diagram-07-1
+type: diagram
+title: demo-flow
+description: demo 六節的順序與重點停留處
+diagram-type: 流程圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-07
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 425" width="1050" height="425" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>demo-flow</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker></defs>
+<rect x="30" y="40" width="300" height="110" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="180" y="78" font-size="21" fill="#6a6a6a" font-weight="700" text-anchor="middle">§0</text>
+<text x="180" y="110" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">環境與 client</text>
+<text x="180" y="138" font-size="19" fill="#6a6a6a" text-anchor="middle">切 GEAP 只差建構參數</text>
+<rect x="370" y="40" width="300" height="110" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="520" y="78" font-size="21" fill="#6a6a6a" font-weight="700" text-anchor="middle">§1</text>
+<text x="520" y="110" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">商品資料</text>
+<text x="520" y="138" font-size="19" fill="#6a6a6a" text-anchor="middle">regulated_category</text>
+<rect x="710" y="40" width="300" height="110" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="860" y="78" font-size="21" fill="#6a6a6a" font-weight="700" text-anchor="middle">§2</text>
+<text x="860" y="110" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">生成 v0 與 v3</text>
+<text x="860" y="138" font-size="19" fill="#6a6a6a" text-anchor="middle">同一個商品</text>
+<rect x="30" y="260" width="300" height="110" rx="10" fill="#e9f2fb" stroke="#ef7622" stroke-width="3"/>
+<text x="180" y="298" font-size="21" fill="#6a6a6a" font-weight="700" text-anchor="middle">§3</text>
+<text x="180" y="330" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">三層評測與對比表</text>
+<text x="180" y="358" font-size="19" fill="#6a6a6a" text-anchor="middle">★ 全場高潮，停 5 秒</text>
+<rect x="370" y="260" width="300" height="110" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="520" y="298" font-size="21" fill="#6a6a6a" font-weight="700" text-anchor="middle">§5</text>
+<text x="520" y="330" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">實際花費</text>
+<text x="520" y="358" font-size="19" fill="#6a6a6a" text-anchor="middle">judge 佔了多少</text>
+<rect x="710" y="260" width="300" height="110" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="860" y="298" font-size="21" fill="#6a6a6a" font-weight="700" text-anchor="middle">§6</text>
+<text x="860" y="330" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">總覽儀表板</text>
+<text x="860" y="358" font-size="19" fill="#6a6a6a" text-anchor="middle">信賴區間</text>
+<path d="M332 95 L366 95" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<path d="M672 95 L706 95" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<path d="M332 315 L366 315" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<path d="M672 315 L706 315" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<path d="M940 155 L940 200 L180 200 L180 250" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<text x="30" y="410" font-size="20" fill="#6a6a6a">§4 場景 B（評論洞察）快速捲動帶過，超時可砍</text>
+</svg>

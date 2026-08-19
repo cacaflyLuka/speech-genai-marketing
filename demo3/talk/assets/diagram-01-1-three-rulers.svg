@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+id: diagram-01-1
+type: diagram
+title: three-rulers
+description: 同一篇文案給三個人看,三把刻度不同的尺量出三個不同結論
+diagram-type: 比喻圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-01
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 430" width="560" height="430" font-family="Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif">
+  <rect width="560" height="430" fill="#ffffff"/>
+
+  <!-- 左:同一篇文案 -->
+  <rect x="16" y="160" width="150" height="110" rx="10" fill="#eef4fa" stroke="#1b6fb8" stroke-width="2"/>
+  <text x="91" y="200" text-anchor="middle" font-size="21" fill="#1f2933" font-weight="700">同一篇</text>
+  <text x="91" y="228" text-anchor="middle" font-size="21" fill="#1f2933" font-weight="700">文案</text>
+  <text x="91" y="256" text-anchor="middle" font-size="18" fill="#6b7280">一模一樣的字</text>
+
+  <!-- 正交連接線:右緣中點 → x=210 → 各自高度 → 目標 -->
+  <g stroke="#1b6fb8" stroke-width="2" fill="none">
+    <path d="M166 215 H210 V72 H300"/>
+    <path d="M210 215 H300"/>
+    <path d="M210 215 V358 H300"/>
+  </g>
+  <g fill="#1b6fb8">
+    <polygon points="300,72 290,66 290,78"/>
+    <polygon points="300,215 290,209 290,221"/>
+    <polygon points="300,358 290,352 290,364"/>
+  </g>
+
+  <!-- 右:三個人、三把刻度不同的尺 -->
+  <!-- 1 行銷 -->
+  <rect x="304" y="26" width="240" height="92" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="322" y="56" font-size="20" fill="#1f2933" font-weight="700">行銷的尺</text>
+  <g stroke="#ef7622" stroke-width="2">
+    <line x1="322" y1="74" x2="452" y2="74"/>
+    <line x1="322" y1="68" x2="322" y2="80"/>
+    <line x1="365" y1="68" x2="365" y2="80"/>
+    <line x1="409" y1="68" x2="409" y2="80"/>
+    <line x1="452" y1="68" x2="452" y2="80"/>
+  </g>
+  <text x="322" y="104" font-size="19" fill="#6b7280">「很吸睛,可以上」</text>
+
+  <!-- 2 法務 -->
+  <rect x="304" y="169" width="240" height="92" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="322" y="199" font-size="20" fill="#1f2933" font-weight="700">法務的尺</text>
+  <g stroke="#ef7622" stroke-width="2">
+    <line x1="322" y1="217" x2="452" y2="217"/>
+    <line x1="322" y1="211" x2="322" y2="223"/>
+    <line x1="387" y1="211" x2="387" y2="223"/>
+    <line x1="452" y1="211" x2="452" y2="223"/>
+  </g>
+  <text x="322" y="247" font-size="19" fill="#6b7280">「不行,涉及療效」</text>
+
+  <!-- 3 工程 -->
+  <rect x="304" y="312" width="240" height="92" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="322" y="342" font-size="20" fill="#1f2933" font-weight="700">工程的尺</text>
+  <g stroke="#ef7622" stroke-width="2">
+    <line x1="322" y1="360" x2="452" y2="360"/>
+    <line x1="322" y1="354" x2="322" y2="366"/>
+    <line x1="344" y1="354" x2="344" y2="366"/>
+    <line x1="365" y1="354" x2="365" y2="366"/>
+    <line x1="387" y1="354" x2="387" y2="366"/>
+    <line x1="409" y1="354" x2="409" y2="366"/>
+    <line x1="431" y1="354" x2="431" y2="366"/>
+    <line x1="452" y1="354" x2="452" y2="366"/>
+  </g>
+  <text x="322" y="390" font-size="19" fill="#6b7280">「我沒辦法判斷」</text>
+</svg>

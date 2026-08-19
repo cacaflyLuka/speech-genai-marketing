@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+id: diagram-06-1
+type: diagram
+title: eval-loop
+description: 評測迴圈的四個環節與唯一正確的入口:規則層
+diagram-type: 循環圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-06
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 440" width="520" height="440" font-family="Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif">
+  <rect width="520" height="440" fill="#ffffff"/>
+
+  <!-- 四個環節,順時針:左上 規則層 → 右上 評審層 → 右下 看區間 → 左下 改 prompt -->
+  <rect x="30" y="70" width="190" height="96" rx="10" fill="#eef4fa" stroke="#1b6fb8" stroke-width="3"/>
+  <text x="125" y="108" text-anchor="middle" font-size="22" fill="#1b6fb8" font-weight="700">1 規則層</text>
+  <text x="125" y="138" text-anchor="middle" font-size="18" fill="#6b7280">免費、每筆都跑</text>
+
+  <rect x="300" y="70" width="190" height="96" rx="10" fill="#eef4fa" stroke="#1b6fb8" stroke-width="2"/>
+  <text x="395" y="108" text-anchor="middle" font-size="22" fill="#1b6fb8" font-weight="700">2 二元 rubric</text>
+  <text x="395" y="138" text-anchor="middle" font-size="18" fill="#6b7280">共用同一份考卷</text>
+
+  <rect x="300" y="264" width="190" height="96" rx="10" fill="#eef4fa" stroke="#1b6fb8" stroke-width="2"/>
+  <text x="395" y="302" text-anchor="middle" font-size="22" fill="#1b6fb8" font-weight="700">3 看區間</text>
+  <text x="395" y="332" text-anchor="middle" font-size="18" fill="#6b7280">跨過 0 就不能宣稱</text>
+
+  <rect x="30" y="264" width="190" height="96" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2"/>
+  <text x="125" y="302" text-anchor="middle" font-size="22" fill="#1b6fb8" font-weight="700">改 prompt</text>
+  <text x="125" y="332" text-anchor="middle" font-size="18" fill="#6b7280">一次只加一件事</text>
+
+  <!-- 順時針連接線,正交,無交叉 -->
+  <g stroke="#1b6fb8" stroke-width="2" fill="none">
+    <path d="M220 118 H286"/>
+    <path d="M395 166 V250"/>
+    <path d="M300 312 H234"/>
+    <path d="M125 264 V180"/>
+  </g>
+  <g fill="#1b6fb8">
+    <polygon points="300,118 286,111 286,125"/>
+    <polygon points="395,264 388,250 402,250"/>
+    <polygon points="220,312 234,305 234,319"/>
+    <polygon points="125,166 118,180 132,180"/>
+  </g>
+
+  <!-- 入口標記 -->
+  <text x="125" y="52" text-anchor="middle" font-size="19" fill="#ef7622" font-weight="700">從這裡開始</text>
+  <polygon points="125,58 118,46 132,46" fill="#ef7622" transform="rotate(180 125 52)"/>
+
+  <text x="260" y="410" text-anchor="middle" font-size="18" fill="#6b7280">多數人從「改 prompt」開始,所以永遠在爭論誰比較好</text>
+</svg>

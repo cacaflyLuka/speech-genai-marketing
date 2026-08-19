@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+id: diagram-05-1
+type: diagram
+title: pipeline-flow
+description: demo 會依序跑過的五個環節,從商品資料到版本對比表
+diagram-type: 流程圖
+status: done
+created: 2026-08-18
+updated: 2026-08-19
+section: section-05
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 200" width="1080" height="200" font-family="Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif">
+  <rect width="1080" height="200" fill="#ffffff"/>
+
+  <g stroke="#1b6fb8" stroke-width="2">
+    <rect x="8" y="52" width="176" height="92" rx="10" fill="#ffffff"/>
+    <rect x="224" y="52" width="176" height="92" rx="10" fill="#eef4fa"/>
+    <rect x="440" y="52" width="176" height="92" rx="10" fill="#eef4fa"/>
+    <rect x="656" y="52" width="176" height="92" rx="10" fill="#eef4fa"/>
+    <rect x="872" y="52" width="200" height="92" rx="10" fill="#ffffff" stroke-width="3"/>
+  </g>
+
+  <g text-anchor="middle" font-size="22" fill="#1f2933" font-weight="700">
+    <text x="96" y="92">商品資料</text>
+    <text x="312" y="92">生成</text>
+    <text x="528" y="92">規則層</text>
+    <text x="744" y="92">評審層</text>
+    <text x="972" y="92">版本對比表</text>
+  </g>
+  <g text-anchor="middle" font-size="18" fill="#6b7280">
+    <text x="96" y="122">50 筆</text>
+    <text x="312" y="122">v0 / v3</text>
+    <text x="528" y="122">毫秒、免費</text>
+    <text x="744" y="122">二元 rubric</text>
+    <text x="972" y="122">四版 × 兩個指標</text>
+  </g>
+
+  <g stroke="#1b6fb8" stroke-width="2" fill="none">
+    <path d="M184 98 H210"/>
+    <path d="M400 98 H426"/>
+    <path d="M616 98 H642"/>
+    <path d="M832 98 H858"/>
+  </g>
+  <g fill="#1b6fb8">
+    <polygon points="224,98 210,91 210,105"/>
+    <polygon points="440,98 426,91 426,105"/>
+    <polygon points="656,98 642,91 642,105"/>
+    <polygon points="872,98 858,91 858,105"/>
+  </g>
+
+  <text x="8" y="180" font-size="18" fill="#ef7622" font-weight="700">全程離線重播事先對真實 API 錄好的回應 —— 零網路、零成本</text>
+</svg>

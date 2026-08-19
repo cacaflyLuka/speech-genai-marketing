@@ -1,0 +1,33 @@
+<!--
+id: diagram-04-3
+type: diagram
+title: suggest-fix
+description: 規則層不只是擋,還能給替代寫法;自動回灌是上線後的事
+diagram-type: 流程圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-04
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 355" width="1050" height="355" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>suggest-fix</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker></defs>
+<rect x="30" y="55" width="280" height="100" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="170" y="96" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">規則層命中禁詞</text>
+<text x="170" y="128" font-size="19" fill="#6a6a6a" text-anchor="middle">「改善視力」「預防疾病」</text>
+<rect x="385" y="55" width="280" height="100" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="525" y="96" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">印出替代寫法</text>
+<text x="525" y="128" font-size="19" fill="#6a6a6a" text-anchor="middle">陪伴長時間用眼的日常</text>
+<rect x="740" y="55" width="280" height="100" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="880" y="96" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">文案同事自己改</text>
+<text x="880" y="128" font-size="19" fill="#6a6a6a" text-anchor="middle">今天 demo 到這裡</text>
+<path d="M310 105 L378 105" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<path d="M665 105 L733 105" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<path d="M880 160 L880 268 L170 268 L170 172" stroke="#6a6a6a" stroke-width="2.5" fill="none" stroke-dasharray="8 6" marker-end="url(#ar)"/>
+<rect x="205" y="248" width="640" height="34" fill="#ffffff"/>
+<text x="525" y="274" font-size="21" fill="#6a6a6a" text-anchor="middle">上線後才做：帶著方向重寫 → 重跑規則層 → 兩次不過轉人工</text>
+<line x1="30" y1="322" x2="120" y2="322" stroke="#1b6fb8" stroke-width="3"/>
+<text x="132" y="328" font-size="20" fill="#6a6a6a">今天 demo 真的跑過</text>
+<line x1="440" y1="322" x2="530" y2="322" stroke="#6a6a6a" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="542" y="328" font-size="20" fill="#6a6a6a">正式上線才需要</text>
+</svg>

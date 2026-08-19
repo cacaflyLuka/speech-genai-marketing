@@ -1,0 +1,44 @@
+<!--
+id: diagram-04-4
+type: diagram
+title: significance
+description: 四版之間只有 v1→v2 的改善統計上成立
+diagram-type: 資料圖表
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-04
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 420" width="1050" height="420" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>significance</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker></defs>
+<line x1="580.0" y1="60" x2="580.0" y2="330" stroke="#d8d8d8" stroke-width="2.5" stroke-dasharray="6 6"/>
+<text x="580.0" y="48" font-size="21" fill="#6a6a6a" text-anchor="middle">0</text>
+<text x="30" y="112" font-size="25" fill="#1a1a1a" font-weight="700">v1 − v0</text>
+<text x="30" y="142" font-size="21" fill="#6a6a6a">+4.86 pp</text>
+<text x="175" y="142" font-size="20" fill="#6a6a6a">跨過 0，不能宣稱</text>
+<line x1="554.5" y1="110" x2="897.4" y2="110" stroke="#6a6a6a" stroke-width="4"/>
+<line x1="554.5" y1="98" x2="554.5" y2="122" stroke="#6a6a6a" stroke-width="4"/>
+<line x1="897.4" y1="98" x2="897.4" y2="122" stroke="#6a6a6a" stroke-width="4"/>
+<circle cx="725.8" cy="110" r="9" fill="#6a6a6a"/>
+<text x="30" y="207" font-size="25" fill="#1a1a1a" font-weight="700">v2 − v1</text>
+<text x="30" y="237" font-size="21" fill="#166534">+8.86 pp</text>
+<text x="175" y="237" font-size="20" fill="#166534">有差異</text>
+<line x1="717.1" y1="205" x2="974.5" y2="205" stroke="#166534" stroke-width="4"/>
+<line x1="717.1" y1="193" x2="717.1" y2="217" stroke="#166534" stroke-width="4"/>
+<line x1="974.5" y1="193" x2="974.5" y2="217" stroke="#166534" stroke-width="4"/>
+<circle cx="845.8" cy="205" r="9" fill="#166534"/>
+<text x="30" y="302" font-size="25" fill="#1a1a1a" font-weight="700">v3 − v2</text>
+<text x="30" y="332" font-size="21" fill="#6a6a6a">-1.43 pp</text>
+<text x="175" y="332" font-size="20" fill="#6a6a6a">跨過 0，不能宣稱</text>
+<line x1="425.5" y1="300" x2="657.1" y2="300" stroke="#6a6a6a" stroke-width="4"/>
+<line x1="425.5" y1="288" x2="425.5" y2="312" stroke="#6a6a6a" stroke-width="4"/>
+<line x1="657.1" y1="288" x2="657.1" y2="312" stroke="#6a6a6a" stroke-width="4"/>
+<circle cx="537.1" cy="300" r="9" fill="#6a6a6a"/>
+<text x="430.0" y="368" font-size="20" fill="#6a6a6a" text-anchor="middle">-5</text>
+<text x="580.0" y="368" font-size="20" fill="#6a6a6a" text-anchor="middle">0</text>
+<text x="730.0" y="368" font-size="20" fill="#6a6a6a" text-anchor="middle">+5</text>
+<text x="880.0" y="368" font-size="20" fill="#6a6a6a" text-anchor="middle">+10</text>
+<text x="1030.0" y="368" font-size="20" fill="#6a6a6a" text-anchor="middle">+15</text>
+<text x="30" y="405" font-size="20" fill="#6a6a6a">rubric 通過率的配對比較：點 = 差值，橫線 = 95% 信賴區間（pp）</text>
+</svg>

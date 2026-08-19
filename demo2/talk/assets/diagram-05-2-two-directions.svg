@@ -1,0 +1,34 @@
+<!--
+id: diagram-05-2
+type: diagram
+title: two-directions
+description: 同一套流程反過來用,方法論可遷移
+diagram-type: 對比圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-05
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 390" width="1050" height="390" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>two-directions</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker><marker id="arl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker></defs>
+<text x="30" y="118" font-size="25" fill="#6a6a6a" font-weight="700">場景 A</text>
+<rect x="150" y="60" width="330" height="96" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="315" y="102" font-size="20" fill="#6a6a6a" text-anchor="middle">結構化資料</text>
+<text x="315" y="134" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">商品規格（PIM）</text>
+<rect x="680" y="60" width="330" height="96" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="845" y="102" font-size="20" fill="#6a6a6a" text-anchor="middle">非結構化文字</text>
+<text x="845" y="134" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">商品文案</text>
+<path d="M492 108 L668 108" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<text x="580" y="90" font-size="21" fill="#ef7622" font-weight="700" text-anchor="middle">生成</text>
+<text x="30" y="268" font-size="25" fill="#6a6a6a" font-weight="700">場景 B</text>
+<rect x="150" y="210" width="330" height="96" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="315" y="252" font-size="20" fill="#6a6a6a" text-anchor="middle">結構化資料</text>
+<text x="315" y="284" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">評論洞察（BigQuery）</text>
+<rect x="680" y="210" width="330" height="96" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="845" y="252" font-size="20" fill="#6a6a6a" text-anchor="middle">非結構化文字</text>
+<text x="845" y="284" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">顧客評論</text>
+<path d="M668 258 L492 258" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<text x="580" y="240" font-size="21" fill="#ef7622" font-weight="700" text-anchor="middle">萃取</text>
+<text x="150" y="370" font-size="21" fill="#6a6a6a">一樣要 schema、一樣要評測、一樣要算成本</text>
+</svg>

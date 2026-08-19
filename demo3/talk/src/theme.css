@@ -1,0 +1,214 @@
+/* @theme talk */
+/*
+ * talk-flow 自訂 Marp 主題鷹架。
+ * /topic-design 依訪談出的 slide-style 只改 tokens 區(色票與字體);
+ * 版型類別(cols-* / grid-* / rows-*)是所有頁面的共同語言,見 _shared/layouts.md,勿隨意增刪。
+ */
+@import "default";
+
+/* ===== tokens(依 slide-style 調整這一區即可)===== */
+/* style-base: intro-friendly — 明亮溫和、淺色底、飽和度中等。
+   色票沿用 POC 既有的藍/橘/綠,讓投影片與 notebook 儀表板看起來是同一套。 */
+:root {
+  --c-bg: #ffffff;        /* 背景:純白,加速器場地投影最保險 */
+  --c-text: #1f2933;      /* 正文:深灰藍,比純黑溫和 */
+  --c-muted: #6b7280;     /* 備註/來源/次要文字 */
+  --c-primary: #1b6fb8;   /* 主色:標題、重點框線(POC 藍) */
+  --c-accent: #ef7622;    /* 強調色:一頁最多一處(POC 橘) */
+  --c-surface: #eef4fa;   /* 卡片/表頭底色:與主色同溫的淺藍灰 */
+  --f-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --f-mono: "JetBrains Mono", "Menlo", monospace;
+
+  /* ===== 分層(機制見 _shared/layers.md,勿改機制,只改這些 tokens)=====
+     背景來源走「資產檔」:主辦方 cacaFly 提供的品牌底圖。
+     檔案缺席時 url() 靜默失敗、只剩 --c-bg 白底,build 不會壞 —— 但主辦方 logo 就消失了,
+     上台前務必確認 talk/assets/bg-cacafly.png 在位。 */
+  --bg-image: url("../assets/bg-cacafly.png");
+  --bg-image-2: none;     /* 全場只有一套背景,不開第二、三套 */
+  --bg-image-3: none;
+
+  /* ⚠️ 刻意違反 layers.md 的 0.35–0.6 建議,設為 1。
+     原因:**主辦方 logo 是烤進這張底圖裡的**,不是前景 footer。降透明度會一起把 logo 調淡,
+     那是主辦方識別,不能淡。底圖本身的色塊已經夠淺(集中在右上與左下對角、中央大片留白),
+     全不透明也不會搶走第一眼。
+     連帶後果:`bg-soft` / `bg-strong` 在這份 deck **不可使用**(前者讓贊助 logo 變淡,
+     後者在 opacity 已是 1 時沒有作用);`bg-none` **只用在 4 張 divider**,其他頁不可用。
+     真正的解法是請主辦方提供「不含 logo 的底圖 + 獨立 logo.svg」,見 topic.md「投影片分層」。 */
+  --bg-opacity: 1;
+  --bg-size: cover;       /* 底圖 1175×663(比例 1.7722)vs 16:9(1.7778),裁切量可忽略 */
+  --bg-position: center;
+  --fg-plate: rgba(255, 255, 255, 0.82);  /* 照片背景時的文字襯底(.plate);本場未用到 */
+  --fg-mark-left: auto;   /* 角標位置:本場 logo 在背景圖裡,這兩個 token 留著備用 */
+  --fg-mark-right: 84px;
+
+  /* 底圖右下角的 logo 佔位高度:所有頁面的內容區下緣都必須停在 logo 上方。
+     這是「logo 被烤進背景」帶來的額外約束 —— 走前景 footer 就不需要它。 */
+  --logo-safe: 104px;
+}
+
+/* ===== 頁面基礎 ===== */
+section {
+  width: 1280px;
+  height: 720px;
+  padding: 64px 84px var(--logo-safe);   /* intro-friendly:留白多;下緣加高避開底圖的 logo */
+  background: var(--c-bg);     /* 純色底;背景圖走 section::before 的背景層 */
+  color: var(--c-text);
+  font-family: var(--f-body);
+  font-size: 29px;      /* intro-friendly:正文上調(基底建議 28-30px) */
+  line-height: 1.65;    /* 低密度,行距放鬆 */
+  /* 鷹架的 justify-content 與版型類別的 flex:1 都預設 section 是 flex 容器;
+     實測 marp-core 會把 section 算成 display:block,導致標題垂直位置逐頁飄移
+     (第一眼落點不穩定)。這裡把 flex 容器補回來,標題才固定在左上。 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;   /* 背景層 section::before 的定位基準 */
+  overflow: hidden;
+}
+section h1 { font-size: 54px; color: var(--c-primary); }
+section h2 { font-size: 40px; color: var(--c-primary); margin-bottom: 28px; }
+section h3 { font-size: 30px; }
+section a { color: var(--c-primary); }
+section code { font-family: var(--f-mono); font-size: 0.85em; background: var(--c-surface); padding: 1px 6px; border-radius: 4px; }
+section pre { background: var(--c-surface); border-radius: 8px; padding: 18px 22px; font-size: 23px; line-height: 1.5; }
+section img { max-width: 100%; }
+section table { font-size: 25px; margin: 0 auto; }
+section th { background: var(--c-surface); color: var(--c-text); }
+section td, section th { padding: 10px 18px; border: 1px solid #cfdcea; }
+section blockquote { border-left: 4px solid var(--c-primary); color: var(--c-muted); padding-left: 20px; }
+section li + li { margin-top: 14px; } /* 條列行距:讓每點可明確區分,勿在頁內覆寫 */
+section footer, section header { color: var(--c-muted); font-size: 18px; }
+/* 頁碼:Marp 預設放右下,那裡是底圖的 logo —— 移到左下,右下永遠留給主辦方。
+   z-index: 1 讓它待在前景層(layers.md 的機制)。 */
+section::after {
+  color: var(--c-muted);
+  font-size: 18px;
+  left: 84px;
+  right: auto;
+  bottom: 30px;
+  padding: 0;
+  text-align: left;
+  z-index: 1;
+}
+
+/* ===== 分層(前景 / 背景)— 機制照 _shared/layers.md,勿改,只調上面的 tokens ===== */
+/* 背景層畫在 section::before(裝飾,不承載資訊);前景層是所有內容 + 頁碼。 */
+section::before {
+  content: "";
+  position: absolute;
+  top: 0;               /* 用 top/left/width/height,不要用 inset:marp 渲染下 inset 不生效 */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  box-sizing: border-box;   /* 護欄:就算有人往 ::before 加 padding/border,框也不會被撐大 */
+  background-image: var(--bg-image);
+  background-size: var(--bg-size);
+  background-position: var(--bg-position);
+  background-repeat: no-repeat;
+  opacity: var(--bg-opacity);
+  pointer-events: none;
+}
+section > *:not(header):not(footer) { position: relative; z-index: 1; }
+section > header, section > footer { z-index: 1; }
+
+/* 逐頁背景類別:機制留著(共同語言),但本場 bg-none / bg-soft / bg-strong 不可用,
+   理由見 tokens 區的 --bg-opacity 註解(logo 烤在底圖裡,淡掉 logo 等於淡掉主辦方識別)。 */
+section.bg-none::before { display: none; }
+section.bg-soft::before { opacity: calc(var(--bg-opacity) * 0.45); }
+section.bg-strong::before { opacity: calc(var(--bg-opacity) * 1.8); }
+section.bg-2::before { background-image: var(--bg-image-2); }
+section.bg-3::before { background-image: var(--bg-image-3); }
+
+/* 前景固定角標(本場 logo 在背景圖裡,footer 沒用到;機制留著) */
+section footer { left: var(--fg-mark-left); right: var(--fg-mark-right); }
+section footer img { height: 26px; vertical-align: middle; }
+
+/* 照片類背景時,文字區包一層 .plate 才讀得清(本場未用到) */
+.plate { background: var(--fg-plate); border-radius: 12px; padding: 20px 24px; }
+.small, .caption { font-size: 21px; color: var(--c-muted); }
+
+/* ===== 整頁類別 ===== */
+section.title { justify-content: center; text-align: center; }
+section.title h1 { font-size: 64px; }
+section.title p { color: var(--c-muted); font-size: 28px; }
+section.divider {
+  justify-content: center;
+  background: var(--c-primary);
+  color: var(--c-bg);
+}
+/* 段落轉場關掉背景層:做法是頁面寫 `<!-- _class: divider bg-none -->`(layers.md 的逐頁機制),
+   不在這裡開 divider 特例 —— 走類別才會被 /review 的 scan-coherence 掃到。
+   理由:淺色底圖疊在實色藍上會糊掉,而烤在底圖裡的彩色 logo 疊在藍底上會直接消失
+   (layers.md「深色頁要檢查角標對比」)。4 張轉場之外的 24 頁都帶 logo,主辦方曝光足夠。
+   這是本 deck 唯一用到 bg-none 的地方。 */
+section.divider::after { color: var(--c-bg); opacity: 0.7; } /* 藍底上的頁碼 */
+section.divider h1, section.divider h2 { color: var(--c-bg); font-size: 48px; }
+section.divider p { color: var(--c-bg); opacity: 0.85; }
+section.center { justify-content: center; text-align: center; }
+section.center img { margin: 0 auto; }
+
+/* ===== 內容區版型(容器 div;每個直接子 div 是一格)===== */
+.cols-2, .cols-2-1, .cols-1-2, .cols-3,
+.rows-2, .rows-3, .grid-2x2, .grid-3x2, .grid-2x3, .rows-3-2 {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+.cols-2   { grid-template-columns: 1fr 1fr; }
+.cols-2-1 { grid-template-columns: 2fr 1fr; }
+.cols-1-2 { grid-template-columns: 1fr 2fr; }
+.cols-3   { grid-template-columns: repeat(3, 1fr); }
+.rows-2   { grid-template-rows: 1fr 1fr; }
+.rows-3   { grid-template-rows: repeat(3, 1fr); }                                    /* 上中下三段 */
+.grid-2x2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.grid-3x2 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }   /* 上三下三 */
+.grid-2x3 { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); grid-auto-flow: column; } /* 左三右三 */
+.rows-3-2 { grid-template-columns: repeat(6, 1fr); }                                 /* 上三下二 */
+.rows-3-2 > div:nth-child(-n + 3) { grid-column: span 2; }
+.rows-3-2 > div:nth-child(4) { grid-column: 2 / span 2; }
+.rows-3-2 > div:nth-child(5) { grid-column: 4 / span 2; }
+
+/* 格內圖片置中 */
+.cols-2 > div, .cols-2-1 > div, .cols-1-2 > div, .cols-3 > div,
+.rows-2 > div, .rows-3 > div, .grid-2x2 > div, .grid-3x2 > div, .grid-2x3 > div, .rows-3-2 > div {
+  min-width: 0;
+  min-height: 0;
+}
+.cols-2 > div > p > img, .cols-2-1 > div > p > img, .cols-1-2 > div > p > img,
+.rows-2 > div > p > img, .center-img { display: block; margin: 0 auto; }
+/* 整頁單一圖片(不切格的版型)也要置中 — 否則圖靠左、右側空一塊,動線第一眼會歪掉 */
+section > p > img { display: block; margin: 0 auto; }
+
+/* 卡片(視覺分組才用;每頁三張等寬卡片是 AI 感頭號來源) */
+.card {
+  background: var(--c-surface);
+  border: 1px solid #cfdcea;
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+
+/* 技術頁(topic.md 偏離記錄 2):全場 3 頁,密度拉高給工程師,頁上以角標明示。
+   ⚠️ 角標**不能用 section::before** —— 那個 pseudo-element 已經給背景層了(見上面分層區)。
+   曾經踩過:`section.tech::before` 的 padding 與 border 會把背景層的框撐大,
+   `cover` 於是照著變大的框重算,底圖右下角的 logo 被推出畫面外。
+   角標改走 Marp 的 header 指令(前景層,z-index: 1),頁面寫 `<!-- _header: 技術頁 -->`。 */
+section.tech { font-size: 25px; line-height: 1.5; }
+section.tech li + li { margin-top: 9px; }
+section.tech > header {
+  position: absolute;
+  top: 28px; right: 84px;
+  left: auto;
+  font-size: 18px; letter-spacing: 2px;
+  color: var(--c-primary);
+  border: 1px solid var(--c-primary);
+  border-radius: 4px;
+  padding: 2px 10px;
+}
+
+/* 強調(各用在哪由 topic.md「文字規範」定義;accent 一頁最多一處) */
+.accent { color: var(--c-accent); font-weight: 700; }
+section u { text-decoration-thickness: 2px; text-underline-offset: 5px; text-decoration-color: var(--c-accent); }

@@ -1,0 +1,29 @@
+<!--
+id: diagram-02-2
+type: diagram
+title: tool-map-layer3
+description: 第三層上線期亮起,大部分團隊直接跳過的一層
+diagram-type: 分層圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-02
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 470" width="700" height="470" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>tool-map-layer3</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker><marker id="arp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1b6fb8"/></marker></defs>
+<path d="M38 430 L38 40" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<text x="26" y="250" font-size="20" fill="#6a6a6a" text-anchor="middle" transform="rotate(-90 26 250)">專案推進</text>
+<rect x="66" y="30" width="620" height="128" rx="10" fill="#e9f2fb" stroke="#1b6fb8" stroke-width="3"/>
+<text x="90" y="76" font-size="27" fill="#1b6fb8" font-weight="700">上線期</text>
+<text x="90" y="112" font-size="21" fill="#1a1a1a">評測與監控 / Gen AI Evaluation</text>
+<text x="90" y="142" font-size="20" fill="#6a6a6a">有沒有一組固定的題目和評分方式</text>
+<rect x="66" y="178" width="620" height="128" rx="10" fill="#ffffff" stroke="#d8d8d8" stroke-width="2.5"/>
+<text x="90" y="224" font-size="27" fill="#6a6a6a" font-weight="700">整合期</text>
+<text x="90" y="260" font-size="21" fill="#6a6a6a">Gemini API 或 GEAP</text>
+<text x="90" y="290" font-size="20" fill="#6a6a6a">資料落地、計費歸屬、合規</text>
+<rect x="66" y="326" width="620" height="128" rx="10" fill="#ffffff" stroke="#d8d8d8" stroke-width="2.5"/>
+<text x="90" y="372" font-size="27" fill="#6a6a6a" font-weight="700">探索期</text>
+<text x="90" y="408" font-size="21" fill="#6a6a6a">GEAP Studio（不寫程式）</text>
+<text x="90" y="438" font-size="20" fill="#6a6a6a">五分鐘判斷這事做不做得成</text>
+</svg>

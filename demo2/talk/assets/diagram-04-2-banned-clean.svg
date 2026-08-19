@@ -1,0 +1,35 @@
+<!--
+id: diagram-04-2
+type: diagram
+title: banned-clean
+description: 禁詞 0 命中率 80→98→100,prompt 只降機率不給保證
+diagram-type: 資料圖表
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-04
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 460" width="1000" height="460" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>banned-clean</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker></defs>
+<line x1="60" y1="380" x2="980" y2="380" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="60" y1="80" x2="980" y2="80" stroke="#d8d8d8" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="978" y="68" font-size="19" fill="#6a6a6a" text-anchor="end">0 命中 = 100%</text>
+<rect x="140" y="140.0" width="150" height="240.0" fill="#9ec5e6"/>
+<text x="215" y="126.0" font-size="30" fill="#1a1a1a" font-weight="700" text-anchor="middle">80%</text>
+<text x="215" y="414" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">v0</text>
+<text x="215" y="442" font-size="20" fill="#6a6a6a" text-anchor="middle">naive</text>
+<rect x="420" y="86.0" width="150" height="294.0" fill="#4a93cd"/>
+<text x="495" y="72.0" font-size="30" fill="#1a1a1a" font-weight="700" text-anchor="middle">98%</text>
+<text x="495" y="414" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">v1</text>
+<text x="495" y="442" font-size="20" fill="#6a6a6a" text-anchor="middle">加通路約束</text>
+<rect x="700" y="80.0" width="150" height="300.0" fill="#166534"/>
+<text x="775" y="66.0" font-size="30" fill="#1a1a1a" font-weight="700" text-anchor="middle">100%</text>
+<text x="775" y="414" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle">v2</text>
+<text x="775" y="442" font-size="20" fill="#6a6a6a" text-anchor="middle">加法規清單</text>
+<text x="345" y="205" font-size="24" fill="#ef7622" font-weight="700" text-anchor="middle">+18pp</text>
+<text x="345" y="233" font-size="19" fill="#6a6a6a" text-anchor="middle">prompt 約束</text>
+<text x="625" y="135" font-size="24" fill="#ef7622" font-weight="700" text-anchor="middle">+2pp</text>
+<text x="625" y="163" font-size="19" fill="#6a6a6a" text-anchor="middle">法規清單</text>
+<text x="60" y="45" font-size="21" fill="#6a6a6a">禁詞 0 命中率（50 筆評測集）</text>
+</svg>

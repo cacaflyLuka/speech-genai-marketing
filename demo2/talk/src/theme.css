@@ -1,0 +1,108 @@
+/* @theme talk */
+/*
+ * talk-flow 自訂 Marp 主題鷹架。
+ * /topic-design 依訪談出的 slide-style 只改 tokens 區(色票與字體);
+ * 版型類別(cols-* / grid-* / rows-*)是所有頁面的共同語言,見 _shared/layouts.md,勿隨意增刪。
+ */
+@import "default";
+
+/* ===== tokens(依 slide-style 調整這一區即可)===== */
+/* slide-style:淺色資訊密集、單色強調 — 色票沿用 talk/build_slides.py 與 poc/src/dashboard.py，
+   兩套投影片與儀表板同一組顏色，改色只改這裡。 */
+:root {
+  --c-bg: #ffffff;        /* 背景 */
+  --c-text: #1a1a1a;      /* 正文 */
+  --c-muted: #6a6a6a;     /* 備註/來源/次要文字 */
+  --c-primary: #1b6fb8;   /* 主色:標題、重點框線 */
+  --c-accent: #ef7622;    /* 強調色:一頁最多一處 */
+  --c-surface: #f5f5f5;   /* 卡片/表頭底色 */
+  --c-ok: #166534;        /* 通過/成立(圖形與表格共用,語意固定) */
+  --c-warn: #b3261e;      /* 違規/失敗(法規禁詞、罰則) */
+  --c-hair: #d8d8d8;      /* 分隔線、卡片框線 */
+  --f-body: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Hiragino Sans TC", sans-serif;
+  --f-mono: "SF Mono", "Menlo", "Consolas", "Noto Sans Mono CJK TC", monospace;
+}
+
+/* ===== 頁面基礎 ===== */
+section {
+  width: 1280px;
+  height: 720px;
+  padding: 60px 72px;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--f-body);
+  font-size: 26px;
+  line-height: 1.55;
+  justify-content: flex-start;
+}
+section h1 { font-size: 54px; color: var(--c-primary); }
+section h2 { font-size: 38px; color: var(--c-primary); margin-bottom: 28px; }
+section h3 { font-size: 30px; }
+section a { color: var(--c-primary); }
+section code { font-family: var(--f-mono); font-size: 0.85em; background: var(--c-surface); padding: 1px 6px; border-radius: 4px; }
+section pre { background: var(--c-surface); border-radius: 8px; padding: 18px 22px; font-size: 22px; line-height: 1.5; }
+section img { max-width: 100%; }
+section table { font-size: 24px; margin: 0 auto; }
+section th { background: var(--c-surface); color: var(--c-text); }
+section td, section th { padding: 8px 18px; border: 1px solid var(--c-hair); }
+section blockquote { border-left: 4px solid var(--c-primary); color: var(--c-muted); padding-left: 20px; }
+section footer, section header { color: var(--c-muted); font-size: 18px; }
+section::after { color: var(--c-muted); font-size: 18px; } /* 頁碼 */
+.small, .caption { font-size: 20px; color: var(--c-muted); }
+
+/* ===== 整頁類別 ===== */
+section.title { justify-content: center; text-align: center; }
+section.title h1 { font-size: 64px; }
+section.title p { color: var(--c-muted); font-size: 28px; }
+section.divider {
+  justify-content: center;
+  background: var(--c-primary);
+  color: var(--c-bg);
+}
+section.divider h1, section.divider h2 { color: var(--c-bg); font-size: 48px; }
+section.divider p { color: var(--c-bg); opacity: 0.85; }
+section.center { justify-content: center; text-align: center; }
+section.center img { margin: 0 auto; }
+
+/* ===== 內容區版型(容器 div;每個直接子 div 是一格)===== */
+.cols-2, .cols-2-1, .cols-1-2, .cols-3,
+.rows-2, .grid-2x2, .grid-3x2, .grid-2x3, .rows-3-2 {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+.cols-2   { grid-template-columns: 1fr 1fr; }
+.cols-2-1 { grid-template-columns: 2fr 1fr; }
+.cols-1-2 { grid-template-columns: 1fr 2fr; }
+.cols-3   { grid-template-columns: repeat(3, 1fr); }
+.rows-2   { grid-template-rows: 1fr 1fr; }
+.grid-2x2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.grid-3x2 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }   /* 上三下三 */
+.grid-2x3 { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); grid-auto-flow: column; } /* 左三右三 */
+.rows-3-2 { grid-template-columns: repeat(6, 1fr); }                                 /* 上三下二 */
+.rows-3-2 > div:nth-child(-n + 3) { grid-column: span 2; }
+.rows-3-2 > div:nth-child(4) { grid-column: 2 / span 2; }
+.rows-3-2 > div:nth-child(5) { grid-column: 4 / span 2; }
+
+/* 格內圖片置中 */
+.cols-2 > div, .cols-2-1 > div, .cols-1-2 > div, .cols-3 > div,
+.rows-2 > div, .grid-2x2 > div, .grid-3x2 > div, .grid-2x3 > div, .rows-3-2 > div {
+  min-width: 0;
+  min-height: 0;
+}
+.cols-2 > div > p > img, .cols-2-1 > div > p > img, .cols-1-2 > div > p > img,
+.rows-2 > div > p > img, .center-img { display: block; margin: 0 auto; }
+
+/* 卡片(視覺分組才用;每頁三張等寬卡片是 AI 感頭號來源) */
+.card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-hair);
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+
+/* 強調(一頁最多一處) */
+.accent { color: var(--c-accent); font-weight: 700; }

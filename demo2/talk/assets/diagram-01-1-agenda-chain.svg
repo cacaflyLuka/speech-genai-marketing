@@ -1,0 +1,36 @@
+<!--
+id: diagram-01-1
+type: diagram
+title: agenda-chain
+description: 四塊內容串成一條因果鏈,不是四個平行題目
+diagram-type: 流程圖
+status: done
+created: 2026-08-18
+updated: 2026-08-18
+section: section-01
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1088 275" width="1088" height="275" font-family="'PingFang TC','Noto Sans TC','Microsoft JhengHei','Hiragino Sans TC',sans-serif">
+<title>agenda-chain</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6a6a6a"/></marker><marker id="arp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1b6fb8"/></marker></defs>
+<rect x="25" y="55" width="232" height="130" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="141" y="100" font-size="30" fill="#1b6fb8" font-weight="700" text-anchor="middle">探索</text>
+<text x="141" y="136" font-size="21" fill="#1a1a1a" text-anchor="middle">GEAP Studio</text>
+<text x="141" y="166" font-size="20" fill="#6a6a6a" text-anchor="middle">做不做得成</text>
+<path d="M265 120 L293 120" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<rect x="297" y="55" width="232" height="130" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="413" y="100" font-size="30" fill="#1b6fb8" font-weight="700" text-anchor="middle">整合</text>
+<text x="413" y="136" font-size="21" fill="#1a1a1a" text-anchor="middle">Gemini API vs GEAP</text>
+<text x="413" y="166" font-size="20" fill="#6a6a6a" text-anchor="middle">資料放哪、誰付錢</text>
+<path d="M537 120 L565 120" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<rect x="569" y="55" width="232" height="130" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="685" y="100" font-size="30" fill="#1b6fb8" font-weight="700" text-anchor="middle">規格化</text>
+<text x="685" y="136" font-size="21" fill="#1a1a1a" text-anchor="middle">Prompt v0 → v3</text>
+<text x="685" y="166" font-size="20" fill="#6a6a6a" text-anchor="middle">把要求寫成條件</text>
+<path d="M809 120 L837 120" stroke="#6a6a6a" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+<rect x="841" y="55" width="232" height="130" rx="10" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5"/>
+<text x="957" y="100" font-size="30" fill="#1b6fb8" font-weight="700" text-anchor="middle">驗收</text>
+<text x="957" y="136" font-size="21" fill="#1a1a1a" text-anchor="middle">三層評測</text>
+<text x="957" y="166" font-size="20" fill="#6a6a6a" text-anchor="middle">怎麼知道變好了</text>
+<text x="550" y="250" font-size="23" fill="#6a6a6a" text-anchor="middle">接著 —— 成本與 90 天路徑 → 實機演示</text>
+<line x1="25" y1="215" x2="1063" y2="215" stroke="#d8d8d8" stroke-width="2"/>
+</svg>

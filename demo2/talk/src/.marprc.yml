@@ -1,0 +1,6 @@
+# marp-cli 設定(talk/src/.marprc.yml)
+# html: 允許 Markdown 內的 HTML(版型 div 依賴此設定)
+# allowLocalFiles: pdf/pptx 輸出時允許讀取本機圖形(talk/assets/*.svg)
+html: true
+allowLocalFiles: true
+themeSet: .
