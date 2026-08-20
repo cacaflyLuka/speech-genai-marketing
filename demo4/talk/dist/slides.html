@@ -58,17 +58,8 @@
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="talk" lang="en-AU" data-marpit-pagination="4" style="--paginate:true;--theme:talk;" data-marpit-pagination-total="39">
 <h2 id="%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E8%AE%93%E5%AE%83%E8%87%AA%E5%8B%95%E7%94%9F%E6%88%90">為什麼要讓它自動生成</h2>
-<p><img src="../assets/diagram-01-2-fan-out.svg" alt="" style="height:320px;" /></p>
-<div class="cols-2">
-<div>
-<h3 id="netflix-%E4%B9%9F%E6%98%AF%E9%80%99%E6%A8%A3%E5%81%9A">Netflix 也是這樣做</h3>
-<p><span class="small">同一部影片準備多張主視覺,依觀看紀錄挑一張<br />Netflix Tech Blog《Artwork Personalization》,2017</span></p>
-</div>
-<div>
-<h3 id="%E8%A6%8F%E6%A0%BC%E8%88%87%E8%AC%9B%E6%B3%95%E8%A6%81%E5%88%86%E9%96%8B">規格與講法要分開</h3>
-<p><span class="small">規格從資料庫來,錯了是資料問題<br />講法交給 LLM,錯了才是模型問題</span></p>
-</div>
-</div>
+<p><img src="../assets/diagram-01-2-fan-out.svg" alt="" style="height:360px;" /></p>
+<p>規格與講法分開:規格從資料庫來,錯了是資料問題;講法由 LLM 生成,錯了是模型問題。</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-class="center" data-theme="talk" lang="en-AU" class="center" data-marpit-pagination="5" style="--paginate:true;--class:center;--theme:talk;" data-marpit-pagination-total="39">
 <h1 id="%E6%B2%92%E6%9C%89%E5%90%8C%E4%B8%80%E6%8A%8A%E5%B0%BA">沒有同一把尺</h1>
@@ -367,6 +358,20 @@
 <td>100%</td>
 </tr>
 <tr>
+<td>賣點長度</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>98%</td>
+</tr>
+<tr>
+<td>SEO 描述長度</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>100%</td>
+</tr>
+<tr>
 <td>規格完整覆蓋</td>
 <td>82%</td>
 <td>98%</td>
@@ -389,7 +394,7 @@
 </tr>
 </tbody>
 </table>
-<p><span class="small">50 篇評測集。賣點長度與 SEO 描述兩條在 v0–v2 量不到(沒有 schema,parser 只能用猜的),不列入本表</span></p>
+<p><span class="small">50 篇評測集。可機器讀取是門檻:v0–v2 那一格 0%,其餘幾條再高也過不了。「—」= 量不到,沒有 schema,parser 猜不出賣點與描述在哪。v3 的 98% 是 50 篇裡 49 篇,唯一沒過的那篇卡在賣點長度。</span></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-theme="talk" lang="en-AU" data-marpit-pagination="27" style="--paginate:true;--theme:talk;" data-marpit-pagination-total="39">
 <h2 id="%E8%A9%95%E5%AF%A9%E5%B1%A4v0-%E2%86%92-v2-%E4%B8%8A%E5%8D%87v3-%E4%B8%8B%E9%99%8D">評審層:v0 → v2 上升,v3 下降</h2>
@@ -550,10 +555,10 @@
 講出口的版本是「這三個地方,自動化流程接不下去」,不是「這篇不能用」。
 也**不要說「多數人選的那篇」**,那是在指責台下。說「其中一篇,有些問題不用投票就看得到」。
 接住上一頁的「直接」:三條每一條都得有人回頭補,所以它上不了「直接」兩個字。
-手指著螢幕依 1→2→3 走一遍,每點 10 秒;收在規模那句。法規風險留到 section-03。</p></div><div class="bespoke-marp-note" data-index="3" tabindex="0"><p>先講 Netflix,再落回電商,這是台下最容易接上的類比。
-出處要講出來:那是 Netflix 公開的作法,講的是**主視覺**;文字簡介的個人化沒有公開來源,不要順口帶過去。
-LLM 在這裡負責的是「講法」,不是「規格」:規格錯了是資料問題,講法錯了才是模型問題。
-一篇一篇寫,200 篇寫不完。要自動生成,就得先能判斷生出來的東西好不好。</p></div><div class="bespoke-marp-note" data-index="4" tabindex="0"><p>低密度頁,把剛才的情緒收下來,講慢一點。
+手指著螢幕依 1→2→3 走一遍,每點 10 秒;收在規模那句。法規風險留到 section-03。</p></div><div class="bespoke-marp-note" data-index="3" tabindex="0"><p>左邊那份規格只有一份,右邊的文案有幾份取決於分幾種客群。
+LLM 負責講法,規格仍從資料庫來 —— 規格錯了查資料,講法錯了才查模型。
+一篇一篇寫,200 篇寫不完。要自動生成,就得先能判斷生出來的東西好不好。
+四種客群是舉例,實際切幾種由行銷決定;數量一乘上去,人工就跟不上。</p></div><div class="bespoke-marp-note" data-index="4" tabindex="0"><p>低密度頁,把剛才的情緒收下來,講慢一點。
 關鍵句:「好」如果只能靠感覺,那「變好了」就永遠證明不了。</p></div><div class="bespoke-marp-note" data-index="5" tabindex="0"><p>全場第一次出現核心訊息,停三秒再說話。這裡帶一句自己的身分即可。
 交棒:收在「要證明變好了,得先讓改動可以歸因」,直接接 section-02 的四版 prompt。</p></div><div class="bespoke-marp-note" data-index="6" tabindex="0"><p>銜接:接住上一段的「A 篇不能上架」。這段先不解決判準問題,先解決歸因問題。
 一句話開場:就算你有了判準,一次改三件事,量出來的差異也歸因不到任何一件事上。</p></div><div class="bespoke-marp-note" data-index="7" tabindex="0"><p>這是 v0 的**全文**,157 個字元 —— 全文放得進一頁,本身就是論點。
@@ -594,7 +599,8 @@ QA 防守:**schema 保證的是形狀,不是長度** —— 欄位與型別受�
 這三層都不是在給文案打分數,是在回答一個可以行動的問題。
 交棒:收在「工具有了,現在來看四個版本量出來的結果」,接 section-04。</p></div><div class="bespoke-marp-note" data-index="24" tabindex="0"><p>銜接:接上一段的「工具有了」。下一頁直接上數字,不重述三層是什麼。
 先講一句:接下來這五分鐘,我會把剛剛那套方法論用在我自己的數字上。</p></div><div class="bespoke-marp-note" data-index="25" tabindex="0"><p>前三版全部卡在同一格:可機器讀取 0%。v3 一次把它補上。
-台下工程師會問「為什麼少兩條」—— 就照圖說那行答:量不到不等於不合格。
+台下最可能問的是「v2 三個 100% 為什麼全數通過是 0%」:指第一列,可機器讀取 0% 就一票否決。
+實際擋住 v2 的有三條:可機器讀取 0%、賣點長度 50%、SEO 0%,後兩條標「—」因為量到的是 parser。
 時間警戒:本頁壓 40 秒,把時間留給第 4 頁。</p></div><div class="bespoke-marp-note" data-index="26" tabindex="0"><p>**主動指出 v3 那格是往下的**,不要等台下發現。一張每格都完美遞增的表,通常代表有人在調數字。
 v3 掉的是 rubric(−1.4pp,在雜訊內),換到的是可機器讀取:50 篇裡 0 篇 → 50 篇。
 三段差距只有 v1 → v2 站得住(+8.86pp,95% CI [+4.57, +13.15]),另外兩段的區間都跨過 0。
