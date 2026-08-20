@@ -1,0 +1,36 @@
+<!--
+id: diagram-01-1
+type: diagram
+title: copy-a-flaws
+description: A 篇文案自動化不了的三個地方,規則層實跑抓到的位置以編號標出
+diagram-type: 截圖加註圖
+status: done
+created: 2026-08-20
+updated: 2026-08-20
+section: section-01
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 448" width="1120" height="448" font-family="PingFang TC, Noto Sans TC, sans-serif">
+  
+  <rect x="26" y="26" width="1068" height="318" rx="12" fill="#ffffff" stroke="#d5d5d0" stroke-width="2" id="node-mo-xing-shu-chu-v0-gong-2-320-zi" data-role="node" data-layer="row-1" />
+  <line x1="26" y1="72" x2="1094" y2="72" stroke="#d5d5d0" stroke-width="2" id="unknown-line" data-role="unknown" />
+  <text x="50" y="58" font-size="22" fill="#6b7280" id="node-mo-xing-shu-chu-v0-gong-2-320-zi-label" data-role="label">模型輸出 · v0 · 共 2,320 字</text>
+
+  <text x="100" y="114" font-size="23" fill="#1f2a37" id="node-mo-xing-shu-chu-v0-gong-2-320-zi-label-2" data-role="label">好的,這是一個非常優質且規格明確的保健食品。</text>
+  <text x="100" y="154" font-size="23" fill="#6b7280" id="node-mo-xing-shu-chu-v0-gong-2-320-zi-label-3" data-role="label">## 晨光研選｜金盞花萃取葉黃素膠囊 (60粒) 電商文案</text>
+  <text x="100" y="194" font-size="23" fill="#6b7280" id="node-mo-xing-shu-chu-v0-gong-2-320-zi-label-4" data-role="label">### 一、標題與短文案　### 二、長文案　### 三、社群文案</text>
+  <text x="100" y="234" font-size="23" fill="#6b7280" id="node-mo-xing-shu-chu-v0-gong-2-320-zi-label-5" data-role="label">【高濃度足量】30mg 游離型葉黃素,一次到位</text>
+  <text x="100" y="274" font-size="23" fill="#1f2a37" id="node-mo-xing-shu-chu-v0-gong-2-320-zi-label-6" data-role="label">國際認可黃金劑量:每日一粒,足量提供 30mg 游離型葉黃素,達到</text>
+  <text x="100" y="314" font-size="23" fill="#1f2a37" id="node-mo-xing-shu-chu-v0-gong-2-320-zi-label-7" data-role="label">國際公認的有效保養劑量。<tspan fill="#6b7280">　(後面還有 2,000 多字)</tspan></text>
+
+  
+  <rect x="26" y="364" width="1068" height="62" rx="12" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="10 8" id="unknown-rect" data-role="unknown" />
+  <text x="100" y="403" font-size="23" fill="#6b7280" id="label-seo-miao-shu-zheng-pian-2-320-zi-li-mei-you-zhe-yi-duan" data-role="label">SEO 描述 —— 整篇 2,320 字裡沒有這一段</text>
+
+  
+  <circle cx="60" cy="106" r="22" fill="#ef7622" id="node-1" data-role="node" data-layer="row-1" />
+  <text x="60" y="115" font-size="24" font-weight="700" fill="#1f2a37" text-anchor="middle" id="node-mo-xing-shu-chu-v0-gong-2-320-zi-label-8" data-role="label">1</text>
+  <circle cx="60" cy="266" r="22" fill="#ef7622" id="node-2" data-role="node" data-layer="row-2" />
+  <text x="60" y="275" font-size="24" font-weight="700" fill="#1f2a37" text-anchor="middle" id="node-mo-xing-shu-chu-v0-gong-2-320-zi-label-9" data-role="label">2</text>
+  <circle cx="60" cy="395" r="22" fill="#ef7622" id="node-3" data-role="node" data-layer="row-3" />
+  <text x="60" y="404" font-size="24" font-weight="700" fill="#1f2a37" text-anchor="middle" id="node-3-label" data-role="label">3</text>
+</svg>

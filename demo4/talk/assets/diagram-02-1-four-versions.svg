@@ -1,0 +1,51 @@
+<!--
+id: diagram-02-1
+type: diagram
+title: four-versions
+description: v0 到 v3 的時間軸,每一版加了什麼、修好了什麼
+diagram-type: 時間軸圖
+status: done
+created: 2026-08-20
+updated: 2026-08-20
+section: section-02
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 344" width="1200" height="344" font-family="PingFang TC, Noto Sans TC, sans-serif">
+  <defs>
+    <marker id="arrow-right" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  
+  <text x="28" y="76" font-size="21" fill="#6b7280" id="label-jia-le-shen-me" data-role="label">加了什麼</text>
+  <text x="28" y="244" font-size="21" fill="#6b7280" id="label-xiu-hao-shen-me" data-role="label">修好什麼</text>
+
+  
+  <line x1="140" y1="160" x2="1160" y2="160" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow-right)" id="axis-timeline" data-role="unknown" />
+
+  
+  <text x="260" y="84" font-size="26" fill="#1f2a37" text-anchor="middle" font-weight="700" id="label-shen-me-dou-bu-gei" data-role="label">什麼都不給</text>
+  <circle cx="260" cy="160" r="42" fill="#cfe0f0" stroke="#ffffff" stroke-width="6" id="node-v0" data-role="node" data-layer="row-1" />
+  <text x="260" y="171" font-size="30" fill="#1f2a37" text-anchor="middle" font-weight="700" id="node-v0-label" data-role="label">v0</text>
+  <text x="260" y="244" font-size="24" fill="#6b7280" text-anchor="middle" id="label-ji-zhun-xian" data-role="label">基準線</text>
+
+  
+  <text x="520" y="84" font-size="26" fill="#1f2a37" text-anchor="middle" font-weight="700" id="label-tong-lu-yue-shu" data-role="label">通路約束</text>
+  <circle cx="520" cy="160" r="42" fill="#9cc2e2" stroke="#ffffff" stroke-width="6" id="node-v1" data-role="node" data-layer="row-1" />
+  <text x="520" y="171" font-size="30" fill="#1f2a37" text-anchor="middle" font-weight="700" id="node-v1-label" data-role="label">v1</text>
+  <text x="520" y="244" font-size="24" fill="#6b7280" text-anchor="middle" id="label-ke-shang-jia" data-role="label">可上架</text>
+
+  
+  <text x="780" y="84" font-size="26" fill="#1f2a37" text-anchor="middle" font-weight="700" id="label-fa-gui-yu-yu-diao" data-role="label">法規與語調</text>
+  <circle cx="780" cy="160" r="42" fill="#6da3d3" stroke="#ffffff" stroke-width="6" id="node-v2" data-role="node" data-layer="row-1" />
+  <text x="780" y="171" font-size="30" fill="#1f2a37" text-anchor="middle" font-weight="700" id="node-v2-label" data-role="label">v2</text>
+  <text x="780" y="244" font-size="24" fill="#6b7280" text-anchor="middle" id="label-he-fa" data-role="label">合法</text>
+
+  
+  <text x="1040" y="84" font-size="26" fill="#1f2a37" text-anchor="middle" font-weight="700" id="label-jie-gou-hua-shu-chu" data-role="label">結構化輸出</text>
+  <circle cx="1040" cy="160" r="42" fill="#1b6fb8" stroke="#ffffff" stroke-width="6" id="node-v3" data-role="node" data-layer="row-1" />
+  <text x="1040" y="171" font-size="30" fill="#ffffff" text-anchor="middle" font-weight="700" id="node-v3-label" data-role="label">v3</text>
+  <text x="1040" y="244" font-size="24" fill="#6b7280" text-anchor="middle" id="label-ke-ji-qi-read" data-role="label">可機器讀取</text>
+
+  <text x="600" y="312" font-size="23" fill="#6b7280" text-anchor="middle" id="label-si-ban-si-jian-shi-mei-yi-ban-zhi-dong-yi-ge-bian-yin" data-role="label">每一版只動一個變因</text>
+</svg>

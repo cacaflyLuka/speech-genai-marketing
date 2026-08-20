@@ -1,0 +1,55 @@
+<!--
+id: diagram-06-1
+type: diagram
+title: eval-loop
+description: 第一個評測迴圈的四步循環,從寫規則層開始,改完 prompt 再跑一次
+diagram-type: 循環圖
+status: done
+created: 2026-08-20
+updated: 2026-08-20
+section: section-06
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="1000" height="600" font-family="PingFang TC, Noto Sans TC, sans-serif">
+  <defs>
+    <marker id="loop-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  
+  <path d="M 630 118 C 706 118 748 174 748 268" fill="none" stroke="#6b7280" stroke-width="2.5" marker-end="url(#loop-arrow)" id="edge-1-to-2" data-role="edge" data-from="node-1" data-to="node-2" />
+  <path d="M 748 360 C 748 440 706 492 630 492" fill="none" stroke="#6b7280" stroke-width="2.5" marker-end="url(#loop-arrow)" id="edge-2-to-3" data-role="edge" data-from="node-2" data-to="node-3" />
+  <path d="M 370 492 C 294 492 252 440 252 360" fill="none" stroke="#6b7280" stroke-width="2.5" marker-end="url(#loop-arrow)" id="edge-3-to-4" data-role="edge" data-from="node-3" data-to="node-4" />
+  <path d="M 252 268 C 252 174 294 118 370 118" fill="none" stroke="#6b7280" stroke-width="2.5" marker-end="url(#loop-arrow)" id="edge-4-to-1" data-role="edge" data-from="node-4" data-to="node-1" />
+
+  
+  <text x="500" y="48" font-size="23" fill="#ef7622" text-anchor="middle" font-weight="700" id="label-replica-zhe-li-kai-shi" data-role="label">從這裡開始</text>
+
+  
+  <rect x="370" y="72" width="260" height="92" rx="16" fill="#1b6fb8" id="node-1" data-role="node" data-layer="row-1" />
+  <circle cx="404" cy="118" r="18" fill="#ffffff" id="node-1-2" data-role="node" data-layer="row-1" />
+  <text x="404" y="127" font-size="22" fill="#1b6fb8" text-anchor="middle" font-weight="700" id="node-1-label" data-role="label">1</text>
+  <text x="516" y="127" font-size="28" fill="#ffffff" text-anchor="middle" id="node-1-label-2" data-role="label">寫規則層</text>
+
+  
+  <rect x="618" y="268" width="260" height="92" rx="16" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5" id="node-2" data-role="node" data-layer="row-2" />
+  <circle cx="652" cy="314" r="18" fill="#1b6fb8" id="node-2-2" data-role="node" data-layer="row-2" />
+  <text x="652" y="323" font-size="22" fill="#ffffff" text-anchor="middle" font-weight="700" id="node-2-label" data-role="label">2</text>
+  <text x="764" y="323" font-size="28" fill="#1f2a37" text-anchor="middle" id="node-2-label-2" data-role="label">出一張考卷</text>
+
+  
+  <rect x="370" y="446" width="260" height="92" rx="16" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5" id="node-3" data-role="node" data-layer="row-3" />
+  <circle cx="404" cy="492" r="18" fill="#1b6fb8" id="node-3-2" data-role="node" data-layer="row-3" />
+  <text x="404" y="501" font-size="22" fill="#ffffff" text-anchor="middle" font-weight="700" id="node-3-label" data-role="label">3</text>
+  <text x="516" y="501" font-size="28" fill="#1f2a37" text-anchor="middle" id="node-3-label-2" data-role="label">人工校準</text>
+
+  
+  <rect x="122" y="268" width="260" height="92" rx="16" fill="#ffffff" stroke="#1b6fb8" stroke-width="2.5" id="node-4" data-role="node" data-layer="row-2" />
+  <circle cx="156" cy="314" r="18" fill="#1b6fb8" id="node-4-2" data-role="node" data-layer="row-2" />
+  <text x="156" y="323" font-size="22" fill="#ffffff" text-anchor="middle" font-weight="700" id="node-4-label" data-role="label">4</text>
+  <text x="268" y="323" font-size="28" fill="#1f2a37" text-anchor="middle" id="node-4-label-2" data-role="label">改 prompt</text>
+
+  
+  <text x="500" y="302" font-size="26" fill="#6b7280" text-anchor="middle" id="label-mei-ci-gai-dong" data-role="label">每次改動</text>
+  <text x="500" y="340" font-size="26" fill="#6b7280" text-anchor="middle" id="label-dou-pao-yi-ci" data-role="label">都跑一次</text>
+</svg>

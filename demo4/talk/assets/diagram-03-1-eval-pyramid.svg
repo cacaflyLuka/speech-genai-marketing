@@ -1,0 +1,44 @@
+<!--
+id: diagram-03-1
+type: diagram
+title: eval-pyramid
+description: 三層評測由便宜到貴,底層規則、中層評審、頂層人工各判什麼
+diagram-type: 金字塔圖
+status: done
+created: 2026-08-20
+updated: 2026-08-20
+section: section-03
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 532" width="1120" height="532" font-family="PingFang TC, Noto Sans TC, sans-serif">
+  <defs>
+    <marker id="arrow-up" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 9 L 5 0 L 10 9 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  
+  <line x1="62" y1="472" x2="62" y2="134" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow-up)" id="edge-unknown" data-role="unknown" />
+  <text x="62" y="499" font-size="23" fill="#6b7280" text-anchor="middle" id="edge-unknown-label" data-role="label">免費</text>
+  <text x="62" y="114" font-size="23" fill="#6b7280" text-anchor="middle" id="edge-unknown-label-2" data-role="label">最貴</text>
+
+  
+  <polygon points="443.75,100 496.25,100 583.75,200 356.25,200" fill="#1b6fb8" id="node-ren-gong-ceng" data-role="node" data-layer="row-1" />
+  <text x="470" y="159" font-size="28" fill="#ffffff" text-anchor="middle" id="node-ren-gong-ceng-label" data-role="label">人工層</text>
+  <line x1="556" y1="150" x2="836" y2="150" stroke="#d5d5d0" stroke-width="2" stroke-dasharray="4 6" id="unknown-line" data-role="unknown" />
+  <text x="850" y="141" font-size="25" fill="#1f2a37" font-weight="700" id="label-zui-gui-、-zhi-chou-yan" data-role="label">最貴、只抽驗</text>
+  <text x="850" y="177" font-size="25" fill="#6b7280" id="label-pan-ji-qi-pan-bu-le-de" data-role="label">判機器判不了的</text>
+
+  
+  <polygon points="351.9,205 588.1,205 706.25,335 233.75,335" fill="#6da3d3" id="node-llm-ping-shen-ceng" data-role="node" data-layer="row-2" />
+  <text x="470" y="279" font-size="28" fill="#1f2a37" text-anchor="middle" id="node-llm-ping-shen-ceng-label" data-role="label">LLM 評審層</text>
+  <line x1="661" y1="270" x2="836" y2="270" stroke="#d5d5d0" stroke-width="2" stroke-dasharray="4 6" id="unknown-line-2" data-role="unknown" />
+  <text x="850" y="261" font-size="25" fill="#1f2a37" font-weight="700" id="label-yao-hua-qian" data-role="label">要花錢</text>
+  <text x="850" y="297" font-size="25" fill="#6b7280" id="label-pan-nei-rong-dui-bu-dui" data-role="label">判內容對不對</text>
+
+  
+  <polygon points="233.75,340 706.25,340 820,470 120,470" fill="#cfe0f0" id="node-gui-ze-ceng" data-role="node" data-layer="row-3" />
+  <text x="470" y="414" font-size="28" fill="#1f2a37" text-anchor="middle" id="node-gui-ze-ceng-label" data-role="label">規則層</text>
+  <line x1="779" y1="405" x2="836" y2="405" stroke="#d5d5d0" stroke-width="2" stroke-dasharray="4 6" id="unknown-line-3" data-role="unknown" />
+  <text x="850" y="396" font-size="25" fill="#1f2a37" font-weight="700" id="label-mian-fei-、-hao-miao-ji" data-role="label">免費、毫秒級</text>
+  <text x="850" y="432" font-size="25" fill="#6b7280" id="label-pan-xing-zhuang-dui-bu-dui" data-role="label">判形狀對不對</text>
+</svg>

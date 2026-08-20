@@ -1,0 +1,51 @@
+<!--
+id: diagram-02-2
+type: diagram
+title: channel-pipelines
+description: 通路各自一條 pipeline,v1 約束不同,v2 的語調與法規全站共用
+diagram-type: 流程圖
+status: done
+created: 2026-08-20
+updated: 2026-08-20
+section: section-02
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 360" width="1240" height="360" font-family="PingFang TC, Noto Sans TC, sans-serif">
+  <defs>
+    <marker id="ch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  <text x="30" y="32" font-size="22" fill="#6b7280" id="label-yi-fen-gui-ge" data-role="label">一份規格</text>
+  <text x="340" y="32" font-size="22" fill="#6b7280" id="label-v1-tong-lu-yue-shu-ge-tong-lu-bu-tong" data-role="label">v1 通路約束 · 各通路不同</text>
+  <text x="750" y="32" font-size="22" fill="#6b7280" id="label-v2-jia-de-dong-xi-quan-zhan-gong-tong" data-role="label">v2 加的東西 · 全站共通</text>
+
+  <rect x="30" y="140" width="230" height="88" rx="14" fill="#f1f5f9" stroke="#d5d5d0" stroke-width="2" id="node-product-gui-ge" data-role="node" data-layer="row-2" />
+  <text x="145" y="178" font-size="26" fill="#1f2a37" text-anchor="middle" id="node-product-gui-ge-label" data-role="label">商品規格</text>
+  <text x="145" y="208" font-size="21" fill="#1f2a37" text-anchor="middle" id="node-product-gui-ge-label-2" data-role="label">葉黃素 30mg／60粒</text>
+
+  <path d="M 260 184 C 300 184 300 104 340 104" fill="none" stroke="#6b7280" stroke-width="2.5" marker-end="url(#ch-arrow)" id="edge-product-gui-ge-to-xia-pi" data-role="edge" data-from="node-product-gui-ge" data-to="node-xia-pi" />
+  <path d="M 260 200 C 300 200 300 268 340 268" fill="none" stroke="#6b7280" stroke-width="2.5" marker-end="url(#ch-arrow)" id="edge-product-gui-ge-to-momo" data-role="edge" data-from="node-product-gui-ge" data-to="node-momo" />
+
+  <rect x="340" y="60" width="300" height="88" rx="14" fill="#cfe0f0" id="node-xia-pi" data-role="node" data-layer="row-1" />
+  <text x="490" y="96" font-size="25" fill="#1f2a37" text-anchor="middle" id="node-xia-pi-label" data-role="label">蝦皮</text>
+  <text x="490" y="128" font-size="23" fill="#1f2a37" text-anchor="middle" id="node-xia-pi-label-2" data-role="label">標題最多 60 字</text>
+
+  <rect x="340" y="224" width="300" height="88" rx="14" fill="#cfe0f0" id="node-momo" data-role="node" data-layer="row-3" />
+  <text x="490" y="260" font-size="25" fill="#1f2a37" text-anchor="middle" id="node-momo-label" data-role="label">momo</text>
+  <text x="490" y="292" font-size="23" fill="#1f2a37" text-anchor="middle" id="node-momo-label-2" data-role="label">標題最多 50 字</text>
+
+  <path d="M 640 104 C 700 104 700 152 750 152" fill="none" stroke="#6b7280" stroke-width="2.5" marker-end="url(#ch-arrow)" id="edge-xia-pi-to-pin-pai-yu-diao-few-shot" data-role="edge" data-from="node-xia-pi" data-to="node-pin-pai-yu-diao-few-shot" />
+  <path d="M 640 268 C 700 268 700 220 750 220" fill="none" stroke="#6b7280" stroke-width="2.5" marker-end="url(#ch-arrow)" id="edge-momo-to-pin-pai-yu-diao-few-shot" data-role="edge" data-from="node-momo" data-to="node-pin-pai-yu-diao-few-shot" />
+
+  <rect x="750" y="110" width="300" height="148" rx="14" fill="#1b6fb8" id="node-pin-pai-yu-diao-few-shot" data-role="node" data-layer="row-2" />
+  <text x="900" y="166" font-size="24" fill="#ffffff" text-anchor="middle" id="node-pin-pai-yu-diao-few-shot-label" data-role="label">品牌語調 few-shot</text>
+  <text x="900" y="204" font-size="23" fill="#ffffff" text-anchor="middle" id="node-pin-pai-yu-diao-few-shot-label-2" data-role="label">法規禁詞(依商品屬性)</text>
+
+  <line x1="1050" y1="152" x2="1062" y2="152" stroke="#6b7280" stroke-width="2.5" marker-end="url(#ch-arrow)" id="edge-shared-to-xia-pi-copy" data-role="edge" data-from="node-pin-pai-yu-diao-few-shot" data-to="node-xia-pi-copy" />
+  <line x1="1050" y1="220" x2="1062" y2="220" stroke="#6b7280" stroke-width="2.5" marker-end="url(#ch-arrow)" id="edge-shared-to-momo-copy" data-role="edge" data-from="node-pin-pai-yu-diao-few-shot" data-to="node-momo-copy" />
+  <rect x="1062" y="126" width="168" height="52" rx="12" fill="#ffffff" stroke="#d5d5d0" stroke-width="2" id="node-xia-pi-copy" data-role="node" data-layer="row-1" />
+  <text x="1146" y="160" font-size="23" fill="#1f2a37" text-anchor="middle" id="node-xia-pi-copy-label" data-role="label">蝦皮版文案</text>
+  <rect x="1062" y="194" width="168" height="52" rx="12" fill="#ffffff" stroke="#d5d5d0" stroke-width="2" id="node-momo-copy" data-role="node" data-layer="row-3" />
+  <text x="1146" y="228" font-size="23" fill="#1f2a37" text-anchor="middle" id="node-momo-copy-label" data-role="label">momo 版文案</text>
+</svg>

@@ -1,0 +1,190 @@
+/* @theme talk */
+/*
+ * talk-flow 自訂 Marp 主題鷹架。
+ * /topic-design 依訪談出的 slide-style 只改 tokens 區(色票、字體與分層);
+ * 版型類別(cols-* / grid-* / rows-*)是所有頁面的共同語言,見 _shared/layouts.md,勿隨意增刪;
+ * 分層區(section::before 背景層 + 前景 z-index)見 _shared/layers.md,勿改機制,只改 tokens。
+ */
+@import "default";
+
+/* ===== tokens(依 slide-style 調整這一區即可)===== */
+:root {
+  --c-bg: #ffffff;        /* 背景:純白 —— 主辦方底圖是淺色系,深色底會把底圖與 logo 吃掉 */
+  --c-text: #1f2a37;      /* 正文:深灰藍,比純黑溫和 */
+  --c-muted: #6b7280;     /* 備註/來源/次要文字 */
+  --c-primary: #1b6fb8;   /* 主色:標題、divider 底色、圖形主線條(沿用 POC 藍)*/
+  --c-accent: #ef7622;    /* 強調色:一頁最多一處(沿用 POC 橘)*/
+  --c-surface: #f1f5f9;   /* 卡片/表頭/程式碼區塊底色 */
+  --f-body: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Hiragino Sans TC", sans-serif;
+  --f-mono: "JetBrains Mono", "Menlo", monospace;
+
+  /* 分層(背景層;來源與強度準則見 _shared/layers.md)
+     本場走資產檔路線:主辦方 cacaFly 提供的場次底圖,全場只有這一套。
+     ⚠️ --bg-opacity 刻意設為 1(偏離 layers.md 建議的 0.35–0.5):
+        主辦方 logo 是「烤進這張底圖」的,調淡背景會連 logo 一起調淡,而那是主辦方識別。
+        底圖本身色塊夠淺、集中在對角,實測不搶第一眼;正式驗收在第一段 /section-impl 之後做。 */
+  --bg-image: url("../assets/bg-cacafly.png");  /* 全場預設背景 */
+  --bg-image-2: none;     /* 第二套背景(本場不開)*/
+  --bg-image-3: none;     /* 第三套背景(本場不開)*/
+  --bg-opacity: 1;        /* 理由見上方 */
+  --bg-size: cover;
+  --bg-position: center;
+  --fg-plate: rgba(255, 255, 255, 0.82);  /* 照片背景時文字區的襯底(.plate) */
+  --fg-mark-left: 72px;   /* 本場無前景角標(logo 烤在背景底圖右下),此值保留備用 */
+  --fg-mark-right: auto;
+}
+
+/* ===== 頁面基礎 ===== */
+section {
+  width: 1280px;
+  height: 720px;
+  padding: 60px 72px 92px;   /* 下緣 92px：底圖右下角烤著主辦方 logo，內容不得壓上去 */
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--f-body);
+  font-size: 28px;   /* keynote-impact:正文偏大 */
+  line-height: 1.55;
+  display: flex;              /* 內容由上往下排(marp 預設會置中,必須明寫)*/
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;         /* 背景層 section::before 的定位基準 */
+  overflow: hidden;
+}
+section h1 { font-size: 58px; color: var(--c-primary); }
+section h2 { font-size: 40px; color: var(--c-primary); margin-bottom: 28px; }
+section h3 { font-size: 30px; margin: 0 0 12px; }
+section a { color: var(--c-primary); }
+section code { font-family: var(--f-mono); font-size: 0.85em; background: var(--c-surface); padding: 1px 6px; border-radius: 4px; }
+section pre { background: var(--c-surface); border-radius: 8px; padding: 18px 22px; font-size: 22px; line-height: 1.5; }
+section img { max-width: 100%; }
+section table { font-size: 24px; margin: 0 auto 24px; }
+section th { background: var(--c-surface); color: var(--c-text); }
+section td, section th { padding: 8px 18px; border: 1px solid #d5d5d0; }
+section blockquote { border-left: 4px solid var(--c-primary); color: var(--c-muted); padding-left: 20px; }
+section li + li { margin-top: 10px; } /* 條列行距:讓每點可明確區分,勿在頁內覆寫 */
+section footer, section header { color: var(--c-muted); font-size: 18px; }
+section::after { color: var(--c-muted); font-size: 18px; } /* 頁碼 */
+.small, .caption { font-size: 20px; color: var(--c-muted); }
+
+/* ===== 分層(前景 / 背景)— 機制勿改,只調 tokens 與逐頁類別 ===== */
+/* 背景層畫在 section::before(裝飾,不承載資訊);前景層是所有內容 + 頁碼 + 角標。 */
+section::before {
+  content: "";
+  position: absolute;
+  top: 0;                       /* 用 top/left/width/height,不要用 inset:marp 渲染下 inset 不生效 */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-image: var(--bg-image);
+  background-size: var(--bg-size);
+  background-position: var(--bg-position);
+  background-repeat: no-repeat;
+  opacity: var(--bg-opacity);
+  pointer-events: none;
+}
+section > *:not(header):not(footer) { position: relative; z-index: 1; }
+section > header, section > footer { z-index: 1; }
+section::after { z-index: 1; left: 72px; right: auto; text-align: left; }
+/* ↑ 頁碼在前景層,並移到左下:右下角永久留給烤在背景底圖裡的主辦方 logo */
+
+/* 逐頁背景(寫在該頁 `<!-- _class: ... -->`,可與 title/divider/center 並用,強度與換圖可並寫) */
+section.bg-none::before { display: none; }                                  /* 圖表/截圖/密集表格頁 */
+section.bg-soft::before { opacity: calc(var(--bg-opacity) * 0.45); }        /* 文字密的頁 */
+section.bg-strong::before { opacity: calc(var(--bg-opacity) * 1.8); }       /* 封面、divider、結論頁 */
+section.bg-2::before { background-image: var(--bg-image-2); }               /* 換成第二套背景 */
+section.bg-3::before { background-image: var(--bg-image-3); }               /* 換成第三套背景 */
+
+/* 前景固定角標:deck-header.md 用 `footer: '![h:26](../assets/logo.svg)'` */
+section footer { left: var(--fg-mark-left); right: var(--fg-mark-right); }
+section footer img { height: 26px; vertical-align: middle; }
+
+/* 照片類背景時,文字區包一層 .plate 才讀得清 */
+.plate { background: var(--fg-plate); border-radius: 12px; padding: 20px 24px; }
+
+/* ===== 整頁類別 ===== */
+section.title { justify-content: center; text-align: center; }
+section.title h1 { font-size: 72px; }
+section.title p { color: var(--c-muted); font-size: 28px; }
+section.divider {
+  justify-content: center;
+  background: var(--c-primary);
+  color: var(--c-bg);
+}
+section.divider h1, section.divider h2 { color: var(--c-bg); font-size: 48px; }
+section.divider p { color: var(--c-bg); opacity: 0.85; }
+section.divider::after { color: rgba(255, 255, 255, 0.7); }  /* 頁碼疊在實色藍上，灰色會消失 */
+section.divider u { text-decoration-color: var(--c-bg); }
+section.center { justify-content: center; text-align: center; }
+section.center img { margin: 0 auto; }
+section.center h1 { line-height: 1.3; }
+
+/* 技術頁：正文降一級 + 右上角標（topic.md「投影片風格」偏離 3 的語意實作）。
+   明示標記讓非工程背景的聽眾知道這頁可以放輕鬆，全場只用 3–4 頁。 */
+section.tech { font-size: 24px; }
+section.tech table { font-size: 21px; }
+section.tech h2 { margin-bottom: 20px; }
+section.tech h2::after {
+  content: "技術頁";
+  position: absolute;   /* 基準是 h2 —— 分層機制給了 section > * 一個 position: relative */
+  top: 4px;
+  right: 0;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--c-muted);
+  border: 1px solid #d5d5d0;
+  border-radius: 999px;
+  padding: 2px 14px;
+}
+
+/* ===== 內容區版型(容器 div;每個直接子 div 是一格)===== */
+.cols-2, .cols-2-1, .cols-1-2, .cols-3,
+.rows-2, .rows-3, .grid-2x2, .grid-3x2, .grid-2x3, .rows-3-2 {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+.cols-2   { grid-template-columns: 1fr 1fr; }
+.cols-2-1 { grid-template-columns: 2fr 1fr; }
+.cols-1-2 { grid-template-columns: 1fr 2fr; }
+.cols-3   { grid-template-columns: repeat(3, 1fr); }
+.rows-2   { grid-template-rows: 1fr 1fr; }
+.rows-3   { grid-template-rows: repeat(3, 1fr); }                                    /* 上中下三段 */
+.grid-2x2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.grid-3x2 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }   /* 上三下三 */
+.grid-2x3 { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); grid-auto-flow: column; } /* 左三右三 */
+.rows-3-2 { grid-template-columns: repeat(6, 1fr); }                                 /* 上三下二 */
+.rows-3-2 > div:nth-child(-n + 3) { grid-column: span 2; }
+.rows-3-2 > div:nth-child(4) { grid-column: 2 / span 2; }
+.rows-3-2 > div:nth-child(5) { grid-column: 4 / span 2; }
+
+/* 格內圖片置中 */
+.cols-2 > div, .cols-2-1 > div, .cols-1-2 > div, .cols-3 > div,
+.rows-2 > div, .rows-3 > div, .grid-2x2 > div, .grid-3x2 > div, .grid-2x3 > div, .rows-3-2 > div {
+  min-width: 0;
+  min-height: 0;
+}
+.cols-2 > div > p > img, .cols-2-1 > div > p > img, .cols-1-2 > div > p > img,
+.rows-2 > div > p > img, .center-img { display: block; margin: 0 auto; }
+section > p > img { display: block; margin: 0 auto; }   /* 整頁單一區塊的圖:置中 */
+
+/* 文案樣張：card 的變體，裝模型的真實產出（section-01 / section-02 的產出頁）。
+   內容是「機器吐出來的東西」，用襯底與正文區隔開；字級仍是正文，不另立級別。 */
+.card.sample { line-height: 1.42; padding: 16px 22px; }
+.card.sample p { margin: 0.42em 0; }
+
+/* 卡片(視覺分組才用;每頁三張等寬卡片是 AI 感頭號來源) */
+.card {
+  background: var(--c-surface);
+  border: 1px solid #dcdcd6;
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+
+/* 強調(各用在哪由 topic.md「文字規範」定義;accent 一頁最多一處) */
+.accent { color: var(--c-accent); font-weight: 700; }
+section u { text-decoration-thickness: 2px; text-underline-offset: 5px; text-decoration-color: var(--c-accent); }
