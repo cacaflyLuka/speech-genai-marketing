@@ -25,7 +25,7 @@ section: section-02
   <text x="145" y="208" font-size="21" fill="#1f2a37" text-anchor="middle" id="node-product-gui-ge-label-2" data-role="label">葉黃素 30mg／60粒</text>
 
   <path d="M 260 176 L 300 176 L 300 104 L 340 104" fill="none" stroke="#6b7280" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ch-arrow)" id="edge-product-gui-ge-to-xia-pi" data-role="edge" data-from="node-product-gui-ge" data-to="node-xia-pi" />
-  <path d="M 260 192 L 312 192 L 312 268 L 340 268" fill="none" stroke="#6b7280" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ch-arrow)" id="edge-product-gui-ge-to-momo" data-role="edge" data-from="node-product-gui-ge" data-to="node-momo" />
+  <path d="M 260 192 L 300 192 L 300 268 L 340 268" fill="none" stroke="#6b7280" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ch-arrow)" id="edge-product-gui-ge-to-momo" data-role="edge" data-from="node-product-gui-ge" data-to="node-momo" />
 
   <rect x="340" y="60" width="300" height="88" rx="14" fill="#cfe0f0" id="node-xia-pi" data-role="node" data-layer="row-1" />
   <text x="490" y="96" font-size="25" fill="#1f2a37" text-anchor="middle" id="node-xia-pi-label" data-role="label">蝦皮</text>
